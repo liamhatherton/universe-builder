@@ -70,6 +70,29 @@ var en = {
   "reload": "Reload",
   "reload.done": "Universe Builder reloaded.",
   "new": "+ New",
+  "metadata.edit": "Edit Metadata",
+  "metadata.title": "Edit Metadata: {section}",
+  "metadata.nothing": "This section has no editable fields yet.",
+  "metadata.builtIn": "Built-in (can't be removed)",
+  "metadata.custom": "Custom",
+  "metadata.addPlaceholder": "New value",
+  "metadata.add": "Add",
+  "metadata.none": "No custom values yet.",
+  "metadata.uses.one": "{count} entry",
+  "metadata.uses.other": "{count} entries",
+  "metadata.remove": 'Remove "{value}"',
+  "metadata.exists": '"{value}" is already an option.',
+  "metadata.removeTitle": "Remove custom value?",
+  "metadata.removeInUse": `Entries using "{value}": {count}. They keep this value, but it won't be offered for new entries any more.`,
+  "metadata.removeAction": "Remove",
+  "metadata.removeGroupType": "On the {tab} tab they'll be listed under {unassigned}.",
+  "metadata.groupCharactersBy": "Group Characters By",
+  "metadata.groupCharactersByDesc": "How the Characters tab is split up. Each choice keeps its own drag-and-drop order and collapsed sections.",
+  "grouping.ageAsc": "Age (ascending)",
+  "grouping.ageDesc": "Age (descending)",
+  "character.noShip": "No Ship",
+  "character.noHome": "No Home",
+  "metadata.modifyOptions": "Modify {field} Options",
   "card.unnamed": "Unnamed",
   "card.untitled": "Untitled",
   "card.age": "Age",
@@ -135,6 +158,9 @@ var en = {
   "portrait.inVault": "{name} (already in the vault)",
   // ── New entry forms ─────────────────────────────────────────────────────────
   "form.create": "Create",
+  "form.addNew": "Add new {field}\u2026",
+  "form.addNewTitle": "New {field}",
+  "form.noneOption": "None",
   "form.nameRequired": "Name is required.",
   "form.titleRequired": "Title is required.",
   "form.createdNoPortrait": `"{name}" was created, but its portrait couldn't be imported.`,
@@ -335,6 +361,29 @@ var es = {
   "reload": "Recargar",
   "reload.done": "Universe Builder recargado.",
   "new": "+ Nuevo",
+  "metadata.edit": "Editar metadatos",
+  "metadata.title": "Editar metadatos: {section}",
+  "metadata.nothing": "Esta secci\xF3n a\xFAn no tiene campos editables.",
+  "metadata.builtIn": "Predefinidos (no se pueden quitar)",
+  "metadata.custom": "Personalizados",
+  "metadata.addPlaceholder": "Nuevo valor",
+  "metadata.add": "A\xF1adir",
+  "metadata.none": "A\xFAn no hay valores personalizados.",
+  "metadata.uses.one": "{count} entrada",
+  "metadata.uses.other": "{count} entradas",
+  "metadata.remove": "Quitar \xAB{value}\xBB",
+  "metadata.exists": "\xAB{value}\xBB ya es una opci\xF3n.",
+  "metadata.removeTitle": "\xBFQuitar el valor personalizado?",
+  "metadata.removeInUse": "Entradas que usan \xAB{value}\xBB: {count}. Conservan este valor, pero ya no se ofrecer\xE1 para entradas nuevas.",
+  "metadata.removeAction": "Quitar",
+  "metadata.removeGroupType": "En la pesta\xF1a {tab} aparecer\xE1n en {unassigned}.",
+  "metadata.groupCharactersBy": "Agrupar personajes por",
+  "metadata.groupCharactersByDesc": "C\xF3mo se divide la pesta\xF1a Personajes. Cada opci\xF3n conserva su propio orden de arrastrar y soltar y sus secciones contra\xEDdas.",
+  "grouping.ageAsc": "Edad (ascendente)",
+  "grouping.ageDesc": "Edad (descendente)",
+  "character.noShip": "Sin nave",
+  "character.noHome": "Sin hogar",
+  "metadata.modifyOptions": "Modificar opciones de {field}",
   "card.unnamed": "Sin nombre",
   "card.untitled": "Sin t\xEDtulo",
   "card.age": "Edad",
@@ -400,6 +449,9 @@ var es = {
   "portrait.inVault": "{name} (ya est\xE1 en la b\xF3veda)",
   // ── Formularios de nueva entrada ────────────────────────────────────────────
   "form.create": "Crear",
+  "form.addNew": "A\xF1adir nuevo: {field}\u2026",
+  "form.addNewTitle": "Nuevo: {field}",
+  "form.noneOption": "Ninguno",
   "form.nameRequired": "El nombre es obligatorio.",
   "form.titleRequired": "El t\xEDtulo es obligatorio.",
   "form.createdNoPortrait": "Se cre\xF3 \xAB{name}\xBB, pero no se pudo importar su retrato.",
@@ -600,6 +652,29 @@ var pt = {
   "reload": "Recarregar",
   "reload.done": "Universe Builder recarregado.",
   "new": "+ Novo",
+  "metadata.edit": "Editar metadados",
+  "metadata.title": "Editar metadados: {section}",
+  "metadata.nothing": "Esta sec\xE7\xE3o ainda n\xE3o tem campos edit\xE1veis.",
+  "metadata.builtIn": "Predefinidos (n\xE3o podem ser removidos)",
+  "metadata.custom": "Personalizados",
+  "metadata.addPlaceholder": "Novo valor",
+  "metadata.add": "Adicionar",
+  "metadata.none": "Ainda n\xE3o h\xE1 valores personalizados.",
+  "metadata.uses.one": "{count} entrada",
+  "metadata.uses.other": "{count} entradas",
+  "metadata.remove": "Remover \xAB{value}\xBB",
+  "metadata.exists": "\xAB{value}\xBB j\xE1 \xE9 uma op\xE7\xE3o.",
+  "metadata.removeTitle": "Remover valor personalizado?",
+  "metadata.removeInUse": "Entradas que usam \xAB{value}\xBB: {count}. Mant\xEAm este valor, mas deixa de ser proposto para novas entradas.",
+  "metadata.removeAction": "Remover",
+  "metadata.removeGroupType": "No separador {tab} passam a aparecer em {unassigned}.",
+  "metadata.groupCharactersBy": "Agrupar personagens por",
+  "metadata.groupCharactersByDesc": "Como o separador Personagens \xE9 dividido. Cada op\xE7\xE3o mant\xE9m a sua pr\xF3pria ordem de arrastar e largar e as suas sec\xE7\xF5es recolhidas.",
+  "grouping.ageAsc": "Idade (crescente)",
+  "grouping.ageDesc": "Idade (decrescente)",
+  "character.noShip": "Sem nave",
+  "character.noHome": "Sem lar",
+  "metadata.modifyOptions": "Modificar op\xE7\xF5es de {field}",
   "card.unnamed": "Sem nome",
   "card.untitled": "Sem t\xEDtulo",
   "card.age": "Idade",
@@ -665,6 +740,9 @@ var pt = {
   "portrait.inVault": "{name} (j\xE1 est\xE1 no cofre)",
   // ── Formulários de nova entrada ─────────────────────────────────────────────
   "form.create": "Criar",
+  "form.addNew": "Adicionar novo: {field}\u2026",
+  "form.addNewTitle": "Novo: {field}",
+  "form.noneOption": "Nenhum",
   "form.nameRequired": "O nome \xE9 obrigat\xF3rio.",
   "form.titleRequired": "O t\xEDtulo \xE9 obrigat\xF3rio.",
   "form.createdNoPortrait": "\xAB{name}\xBB foi criado, mas n\xE3o foi poss\xEDvel importar o retrato.",
@@ -865,6 +943,29 @@ var ptBR = {
   "reload": "Recarregar",
   "reload.done": "Universe Builder recarregado.",
   "new": "+ Novo",
+  "metadata.edit": "Editar metadados",
+  "metadata.title": "Editar metadados: {section}",
+  "metadata.nothing": "Esta se\xE7\xE3o ainda n\xE3o tem campos edit\xE1veis.",
+  "metadata.builtIn": "Padr\xE3o (n\xE3o podem ser removidos)",
+  "metadata.custom": "Personalizados",
+  "metadata.addPlaceholder": "Novo valor",
+  "metadata.add": "Adicionar",
+  "metadata.none": "Ainda n\xE3o h\xE1 valores personalizados.",
+  "metadata.uses.one": "{count} entrada",
+  "metadata.uses.other": "{count} entradas",
+  "metadata.remove": "Remover \u201C{value}\u201D",
+  "metadata.exists": "\u201C{value}\u201D j\xE1 \xE9 uma op\xE7\xE3o.",
+  "metadata.removeTitle": "Remover valor personalizado?",
+  "metadata.removeInUse": "Entradas que usam \u201C{value}\u201D: {count}. Elas mant\xEAm esse valor, mas ele n\xE3o ser\xE1 mais oferecido para novas entradas.",
+  "metadata.removeAction": "Remover",
+  "metadata.removeGroupType": "Na aba {tab} elas passar\xE3o a aparecer em {unassigned}.",
+  "metadata.groupCharactersBy": "Agrupar personagens por",
+  "metadata.groupCharactersByDesc": "Como a aba Personagens \xE9 dividida. Cada op\xE7\xE3o mant\xE9m sua pr\xF3pria ordem de arrastar e soltar e suas se\xE7\xF5es recolhidas.",
+  "grouping.ageAsc": "Idade (crescente)",
+  "grouping.ageDesc": "Idade (decrescente)",
+  "character.noShip": "Sem nave",
+  "character.noHome": "Sem lar",
+  "metadata.modifyOptions": "Modificar op\xE7\xF5es de {field}",
   "card.unnamed": "Sem nome",
   "card.untitled": "Sem t\xEDtulo",
   "card.age": "Idade",
@@ -930,6 +1031,9 @@ var ptBR = {
   "portrait.inVault": "{name} (j\xE1 est\xE1 no cofre)",
   // ── Formulários de nova entrada ─────────────────────────────────────────────
   "form.create": "Criar",
+  "form.addNew": "Adicionar novo: {field}\u2026",
+  "form.addNewTitle": "Novo: {field}",
+  "form.noneOption": "Nenhum",
   "form.nameRequired": "O nome \xE9 obrigat\xF3rio.",
   "form.titleRequired": "O t\xEDtulo \xE9 obrigat\xF3rio.",
   "form.createdNoPortrait": "\u201C{name}\u201D foi criado, mas n\xE3o foi poss\xEDvel importar o retrato.",
@@ -1130,6 +1234,29 @@ var fr = {
   "reload": "Recharger",
   "reload.done": "Universe Builder recharg\xE9.",
   "new": "+ Nouveau",
+  "metadata.edit": "Modifier les m\xE9tadonn\xE9es",
+  "metadata.title": "Modifier les m\xE9tadonn\xE9es : {section}",
+  "metadata.nothing": "Cette section n'a pas encore de champ modifiable.",
+  "metadata.builtIn": "Int\xE9gr\xE9es (impossible de les retirer)",
+  "metadata.custom": "Personnalis\xE9es",
+  "metadata.addPlaceholder": "Nouvelle valeur",
+  "metadata.add": "Ajouter",
+  "metadata.none": "Aucune valeur personnalis\xE9e pour l'instant.",
+  "metadata.uses.one": "{count} entr\xE9e",
+  "metadata.uses.other": "{count} entr\xE9es",
+  "metadata.remove": "Retirer \xAB {value} \xBB",
+  "metadata.exists": "\xAB {value} \xBB est d\xE9j\xE0 une option.",
+  "metadata.removeTitle": "Retirer la valeur personnalis\xE9e ?",
+  "metadata.removeInUse": "Entr\xE9es utilisant \xAB {value} \xBB : {count}. Elles gardent cette valeur, mais elle ne sera plus propos\xE9e pour les nouvelles entr\xE9es.",
+  "metadata.removeAction": "Retirer",
+  "metadata.removeGroupType": "Dans l'onglet {tab}, ils appara\xEEtront sous {unassigned}.",
+  "metadata.groupCharactersBy": "Regrouper les personnages par",
+  "metadata.groupCharactersByDesc": "Comment l'onglet Personnages est d\xE9coup\xE9. Chaque choix garde son propre ordre (glisser-d\xE9poser) et ses sections repli\xE9es.",
+  "grouping.ageAsc": "\xC2ge (croissant)",
+  "grouping.ageDesc": "\xC2ge (d\xE9croissant)",
+  "character.noShip": "Sans vaisseau",
+  "character.noHome": "Sans foyer",
+  "metadata.modifyOptions": "Modifier les options de {field}",
   "card.unnamed": "Sans nom",
   "card.untitled": "Sans titre",
   "card.age": "\xC2ge",
@@ -1195,6 +1322,9 @@ var fr = {
   "portrait.inVault": "{name} (d\xE9j\xE0 dans le coffre)",
   // ── Formulaires de nouvelle entrée ──────────────────────────────────────────
   "form.create": "Cr\xE9er",
+  "form.addNew": "Ajouter : {field}\u2026",
+  "form.addNewTitle": "Nouveau : {field}",
+  "form.noneOption": "Aucun",
   "form.nameRequired": "Le nom est obligatoire.",
   "form.titleRequired": "Le titre est obligatoire.",
   "form.createdNoPortrait": "\xAB\xA0{name}\xA0\xBB a \xE9t\xE9 cr\xE9\xE9, mais son portrait n'a pas pu \xEAtre import\xE9.",
@@ -1395,6 +1525,29 @@ var de = {
   "reload": "Neu laden",
   "reload.done": "Universe Builder neu geladen.",
   "new": "+ Neu",
+  "metadata.edit": "Metadaten bearbeiten",
+  "metadata.title": "Metadaten bearbeiten: {section}",
+  "metadata.nothing": "Dieser Bereich hat noch keine bearbeitbaren Felder.",
+  "metadata.builtIn": "Integriert (nicht entfernbar)",
+  "metadata.custom": "Eigene",
+  "metadata.addPlaceholder": "Neuer Wert",
+  "metadata.add": "Hinzuf\xFCgen",
+  "metadata.none": "Noch keine eigenen Werte.",
+  "metadata.uses.one": "{count} Eintrag",
+  "metadata.uses.other": "{count} Eintr\xE4ge",
+  "metadata.remove": "\u201E{value}\u201C entfernen",
+  "metadata.exists": "\u201E{value}\u201C ist bereits eine Option.",
+  "metadata.removeTitle": "Eigenen Wert entfernen?",
+  "metadata.removeInUse": "Eintr\xE4ge mit \u201E{value}\u201C: {count}. Sie behalten diesen Wert, er wird f\xFCr neue Eintr\xE4ge aber nicht mehr angeboten.",
+  "metadata.removeAction": "Entfernen",
+  "metadata.removeGroupType": "Im Tab {tab} erscheinen sie dann unter {unassigned}.",
+  "metadata.groupCharactersBy": "Figuren gruppieren nach",
+  "metadata.groupCharactersByDesc": "Wie der Tab Figuren aufgeteilt wird. Jede Auswahl beh\xE4lt ihre eigene Drag-and-drop-Reihenfolge und eingeklappten Abschnitte.",
+  "grouping.ageAsc": "Alter (aufsteigend)",
+  "grouping.ageDesc": "Alter (absteigend)",
+  "character.noShip": "Kein Schiff",
+  "character.noHome": "Keine Heimat",
+  "metadata.modifyOptions": "Optionen f\xFCr {field} bearbeiten",
   "card.unnamed": "Unbenannt",
   "card.untitled": "Ohne Titel",
   "card.age": "Alter",
@@ -1460,6 +1613,9 @@ var de = {
   "portrait.inVault": "{name} (bereits im Tresor)",
   // ── Formulare für neue Einträge ─────────────────────────────────────────────
   "form.create": "Erstellen",
+  "form.addNew": "Neu hinzuf\xFCgen: {field}\u2026",
+  "form.addNewTitle": "Neu: {field}",
+  "form.noneOption": "Keine Angabe",
   "form.nameRequired": "Ein Name ist erforderlich.",
   "form.titleRequired": "Ein Titel ist erforderlich.",
   "form.createdNoPortrait": "\u201E{name}\u201C wurde erstellt, aber das Portr\xE4t konnte nicht importiert werden.",
@@ -1660,6 +1816,29 @@ var ru = {
   "reload": "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C",
   "reload.done": "Universe Builder \u043E\u0431\u043D\u043E\u0432\u043B\u0451\u043D.",
   "new": "+ \u0421\u043E\u0437\u0434\u0430\u0442\u044C",
+  "metadata.edit": "\u041C\u0435\u0442\u0430\u0434\u0430\u043D\u043D\u044B\u0435",
+  "metadata.title": "\u041C\u0435\u0442\u0430\u0434\u0430\u043D\u043D\u044B\u0435: {section}",
+  "metadata.nothing": "\u0412 \u044D\u0442\u043E\u043C \u0440\u0430\u0437\u0434\u0435\u043B\u0435 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u0443\u0435\u043C\u044B\u0445 \u043F\u043E\u043B\u0435\u0439.",
+  "metadata.builtIn": "\u0412\u0441\u0442\u0440\u043E\u0435\u043D\u043D\u044B\u0435 (\u043D\u0435\u043B\u044C\u0437\u044F \u0443\u0434\u0430\u043B\u0438\u0442\u044C)",
+  "metadata.custom": "\u0421\u0432\u043E\u0438",
+  "metadata.addPlaceholder": "\u041D\u043E\u0432\u043E\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435",
+  "metadata.add": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C",
+  "metadata.none": "\u0421\u0432\u043E\u0438\u0445 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0439 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442.",
+  "metadata.uses.one": "\u0417\u0430\u043F\u0438\u0441\u0435\u0439: {count}",
+  "metadata.uses.other": "\u0417\u0430\u043F\u0438\u0441\u0435\u0439: {count}",
+  "metadata.remove": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \xAB{value}\xBB",
+  "metadata.exists": "\xAB{value}\xBB \u0443\u0436\u0435 \u0435\u0441\u0442\u044C \u0432 \u0441\u043F\u0438\u0441\u043A\u0435.",
+  "metadata.removeTitle": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0441\u0432\u043E\u0451 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435?",
+  "metadata.removeInUse": "\u0417\u0430\u043F\u0438\u0441\u0435\u0439 \u0441\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435\u043C \xAB{value}\xBB: {count}. \u041E\u043D\u0438 \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0442 \u044D\u0442\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435, \u043D\u043E \u0434\u043B\u044F \u043D\u043E\u0432\u044B\u0445 \u0437\u0430\u043F\u0438\u0441\u0435\u0439 \u043E\u043D\u043E \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0435 \u0431\u0443\u0434\u0435\u0442 \u043F\u0440\u0435\u0434\u043B\u0430\u0433\u0430\u0442\u044C\u0441\u044F.",
+  "metadata.removeAction": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C",
+  "metadata.removeGroupType": "\u041D\u0430 \u0432\u043A\u043B\u0430\u0434\u043A\u0435 \xAB{tab}\xBB \u043E\u043D\u0438 \u043E\u043A\u0430\u0436\u0443\u0442\u0441\u044F \u0432 \u0440\u0430\u0437\u0434\u0435\u043B\u0435 \xAB{unassigned}\xBB.",
+  "metadata.groupCharactersBy": "\u0413\u0440\u0443\u043F\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0435\u0439 \u043F\u043E",
+  "metadata.groupCharactersByDesc": "\u041A\u0430\u043A \u0434\u0435\u043B\u0438\u0442\u0441\u044F \u0432\u043A\u043B\u0430\u0434\u043A\u0430 \xAB\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438\xBB. \u0423 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u0430 \u0441\u0432\u043E\u0439 \u043F\u043E\u0440\u044F\u0434\u043E\u043A \u043F\u0435\u0440\u0435\u0442\u0430\u0441\u043A\u0438\u0432\u0430\u043D\u0438\u044F \u0438 \u0441\u0432\u043E\u0438 \u0441\u0432\u0451\u0440\u043D\u0443\u0442\u044B\u0435 \u0440\u0430\u0437\u0434\u0435\u043B\u044B.",
+  "grouping.ageAsc": "\u0412\u043E\u0437\u0440\u0430\u0441\u0442 (\u043F\u043E \u0432\u043E\u0437\u0440\u0430\u0441\u0442\u0430\u043D\u0438\u044E)",
+  "grouping.ageDesc": "\u0412\u043E\u0437\u0440\u0430\u0441\u0442 (\u043F\u043E \u0443\u0431\u044B\u0432\u0430\u043D\u0438\u044E)",
+  "character.noShip": "\u0411\u0435\u0437 \u043A\u043E\u0440\u0430\u0431\u043B\u044F",
+  "character.noHome": "\u0411\u0435\u0437 \u0434\u043E\u043C\u0430",
+  "metadata.modifyOptions": "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u044B: {field}",
   "card.unnamed": "\u0411\u0435\u0437 \u0438\u043C\u0435\u043D\u0438",
   "card.untitled": "\u0411\u0435\u0437 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F",
   "card.age": "\u0412\u043E\u0437\u0440\u0430\u0441\u0442",
@@ -1725,6 +1904,9 @@ var ru = {
   "portrait.inVault": "{name} (\u0443\u0436\u0435 \u0432 \u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435)",
   // ── Формы новых записей ─────────────────────────────────────────────────────
   "form.create": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C",
+  "form.addNew": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C: {field}\u2026",
+  "form.addNewTitle": "\u041D\u043E\u0432\u043E\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435: {field}",
+  "form.noneOption": "\u041D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E",
   "form.nameRequired": "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0438\u043C\u044F.",
   "form.titleRequired": "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435.",
   "form.createdNoPortrait": "\xAB{name}\xBB \u0441\u043E\u0437\u0434\u0430\u043D\u043E, \u043D\u043E \u043F\u043E\u0440\u0442\u0440\u0435\u0442 \u0438\u043C\u043F\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C.",
@@ -1925,6 +2107,29 @@ var uk = {
   "reload": "\u041E\u043D\u043E\u0432\u0438\u0442\u0438",
   "reload.done": "Universe Builder \u043E\u043D\u043E\u0432\u043B\u0435\u043D\u043E.",
   "new": "+ \u0421\u0442\u0432\u043E\u0440\u0438\u0442\u0438",
+  "metadata.edit": "\u041C\u0435\u0442\u0430\u0434\u0430\u043D\u0456",
+  "metadata.title": "\u041C\u0435\u0442\u0430\u0434\u0430\u043D\u0456: {section}",
+  "metadata.nothing": "\u0423 \u0446\u044C\u043E\u043C\u0443 \u0440\u043E\u0437\u0434\u0456\u043B\u0456 \u043F\u043E\u043A\u0438 \u043D\u0435\u043C\u0430\u0454 \u043F\u043E\u043B\u0456\u0432 \u0434\u043B\u044F \u0440\u0435\u0434\u0430\u0433\u0443\u0432\u0430\u043D\u043D\u044F.",
+  "metadata.builtIn": "\u0412\u0431\u0443\u0434\u043E\u0432\u0430\u043D\u0456 (\u043D\u0435 \u043C\u043E\u0436\u043D\u0430 \u0432\u0438\u0434\u0430\u043B\u0438\u0442\u0438)",
+  "metadata.custom": "\u0412\u043B\u0430\u0441\u043D\u0456",
+  "metadata.addPlaceholder": "\u041D\u043E\u0432\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F",
+  "metadata.add": "\u0414\u043E\u0434\u0430\u0442\u0438",
+  "metadata.none": "\u0412\u043B\u0430\u0441\u043D\u0438\u0445 \u0437\u043D\u0430\u0447\u0435\u043D\u044C \u043F\u043E\u043A\u0438 \u043D\u0435\u043C\u0430\u0454.",
+  "metadata.uses.one": "\u0417\u0430\u043F\u0438\u0441\u0456\u0432: {count}",
+  "metadata.uses.other": "\u0417\u0430\u043F\u0438\u0441\u0456\u0432: {count}",
+  "metadata.remove": "\u0412\u0438\u0434\u0430\u043B\u0438\u0442\u0438 \xAB{value}\xBB",
+  "metadata.exists": "\xAB{value}\xBB \u0432\u0436\u0435 \u0454 \u0443 \u0441\u043F\u0438\u0441\u043A\u0443.",
+  "metadata.removeTitle": "\u0412\u0438\u0434\u0430\u043B\u0438\u0442\u0438 \u0432\u043B\u0430\u0441\u043D\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F?",
+  "metadata.removeInUse": "\u0417\u0430\u043F\u0438\u0441\u0456\u0432 \u0437\u0456 \u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F\u043C \xAB{value}\xBB: {count}. \u0412\u043E\u043D\u0438 \u0437\u0431\u0435\u0440\u0435\u0436\u0443\u0442\u044C \u0446\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F, \u0430\u043B\u0435 \u0434\u043B\u044F \u043D\u043E\u0432\u0438\u0445 \u0437\u0430\u043F\u0438\u0441\u0456\u0432 \u0439\u043E\u0433\u043E \u0431\u0456\u043B\u044C\u0448\u0435 \u043D\u0435 \u043F\u0440\u043E\u043F\u043E\u043D\u0443\u0432\u0430\u0442\u0438\u043C\u0435.",
+  "metadata.removeAction": "\u0412\u0438\u0434\u0430\u043B\u0438\u0442\u0438",
+  "metadata.removeGroupType": "\u041D\u0430 \u0432\u043A\u043B\u0430\u0434\u0446\u0456 \xAB{tab}\xBB \u0432\u043E\u043D\u0438 \u043E\u043F\u0438\u043D\u044F\u0442\u044C\u0441\u044F \u0432 \u0440\u043E\u0437\u0434\u0456\u043B\u0456 \xAB{unassigned}\xBB.",
+  "metadata.groupCharactersBy": "\u0413\u0440\u0443\u043F\u0443\u0432\u0430\u0442\u0438 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456\u0432 \u0437\u0430",
+  "metadata.groupCharactersByDesc": "\u042F\u043A \u043F\u043E\u0434\u0456\u043B\u044F\u0454\u0442\u044C\u0441\u044F \u0432\u043A\u043B\u0430\u0434\u043A\u0430 \xAB\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456\xBB. \u041A\u043E\u0436\u0435\u043D \u0432\u0430\u0440\u0456\u0430\u043D\u0442 \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u0454 \u0432\u043B\u0430\u0441\u043D\u0438\u0439 \u043F\u043E\u0440\u044F\u0434\u043E\u043A \u043F\u0435\u0440\u0435\u0442\u044F\u0433\u0443\u0432\u0430\u043D\u043D\u044F \u0456 \u0437\u0433\u043E\u0440\u043D\u0443\u0442\u0456 \u0440\u043E\u0437\u0434\u0456\u043B\u0438.",
+  "grouping.ageAsc": "\u0412\u0456\u043A (\u0437\u0430 \u0437\u0440\u043E\u0441\u0442\u0430\u043D\u043D\u044F\u043C)",
+  "grouping.ageDesc": "\u0412\u0456\u043A (\u0437\u0430 \u0441\u043F\u0430\u0434\u0430\u043D\u043D\u044F\u043C)",
+  "character.noShip": "\u0411\u0435\u0437 \u043A\u043E\u0440\u0430\u0431\u043B\u044F",
+  "character.noHome": "\u0411\u0435\u0437 \u0434\u043E\u043C\u0443",
+  "metadata.modifyOptions": "\u0417\u043C\u0456\u043D\u0438\u0442\u0438 \u0432\u0430\u0440\u0456\u0430\u043D\u0442\u0438: {field}",
   "card.unnamed": "\u0411\u0435\u0437 \u0456\u043C\u0435\u043D\u0456",
   "card.untitled": "\u0411\u0435\u0437 \u043D\u0430\u0437\u0432\u0438",
   "card.age": "\u0412\u0456\u043A",
@@ -1990,6 +2195,9 @@ var uk = {
   "portrait.inVault": "{name} (\u0443\u0436\u0435 \u0443 \u0441\u0445\u043E\u0432\u0438\u0449\u0456)",
   // ── Форми нових записів ─────────────────────────────────────────────────────
   "form.create": "\u0421\u0442\u0432\u043E\u0440\u0438\u0442\u0438",
+  "form.addNew": "\u0414\u043E\u0434\u0430\u0442\u0438: {field}\u2026",
+  "form.addNewTitle": "\u041D\u043E\u0432\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F: {field}",
+  "form.noneOption": "\u041D\u0435 \u0432\u043A\u0430\u0437\u0430\u043D\u043E",
   "form.nameRequired": "\u0412\u043A\u0430\u0436\u0456\u0442\u044C \u0456\u043C'\u044F.",
   "form.titleRequired": "\u0412\u043A\u0430\u0436\u0456\u0442\u044C \u043D\u0430\u0437\u0432\u0443.",
   "form.createdNoPortrait": "\xAB{name}\xBB \u0441\u0442\u0432\u043E\u0440\u0435\u043D\u043E, \u0430\u043B\u0435 \u043F\u043E\u0440\u0442\u0440\u0435\u0442 \u0456\u043C\u043F\u043E\u0440\u0442\u0443\u0432\u0430\u0442\u0438 \u043D\u0435 \u0432\u0434\u0430\u043B\u043E\u0441\u044F.",
@@ -2190,6 +2398,29 @@ var zh = {
   "reload": "\u91CD\u65B0\u52A0\u8F7D",
   "reload.done": "Universe Builder \u5DF2\u91CD\u65B0\u52A0\u8F7D\u3002",
   "new": "+ \u65B0\u5EFA",
+  "metadata.edit": "\u7F16\u8F91\u5143\u6570\u636E",
+  "metadata.title": "\u7F16\u8F91\u5143\u6570\u636E\uFF1A{section}",
+  "metadata.nothing": "\u6B64\u5206\u533A\u6682\u65E0\u53EF\u7F16\u8F91\u7684\u5B57\u6BB5\u3002",
+  "metadata.builtIn": "\u5185\u7F6E\uFF08\u65E0\u6CD5\u5220\u9664\uFF09",
+  "metadata.custom": "\u81EA\u5B9A\u4E49",
+  "metadata.addPlaceholder": "\u65B0\u503C",
+  "metadata.add": "\u6DFB\u52A0",
+  "metadata.none": "\u6682\u65E0\u81EA\u5B9A\u4E49\u503C\u3002",
+  "metadata.uses.one": "{count} \u4E2A\u6761\u76EE",
+  "metadata.uses.other": "{count} \u4E2A\u6761\u76EE",
+  "metadata.remove": "\u5220\u9664\u201C{value}\u201D",
+  "metadata.exists": "\u201C{value}\u201D\u5DF2\u662F\u9009\u9879\u3002",
+  "metadata.removeTitle": "\u5220\u9664\u81EA\u5B9A\u4E49\u503C\uFF1F",
+  "metadata.removeInUse": "\u4F7F\u7528\u201C{value}\u201D\u7684\u6761\u76EE\uFF1A{count}\u3002\u8FD9\u4E9B\u6761\u76EE\u4F1A\u4FDD\u7559\u8BE5\u503C\uFF0C\u4F46\u65B0\u5EFA\u6761\u76EE\u65F6\u5C06\u4E0D\u518D\u63D0\u4F9B\u6B64\u9009\u9879\u3002",
+  "metadata.removeAction": "\u5220\u9664",
+  "metadata.removeGroupType": "\u5728\u201C{tab}\u201D\u6807\u7B7E\u9875\u4E2D\uFF0C\u5B83\u4EEC\u5C06\u663E\u793A\u5728\u201C{unassigned}\u201D\u4E0B\u3002",
+  "metadata.groupCharactersBy": "\u89D2\u8272\u5206\u7EC4\u4F9D\u636E",
+  "metadata.groupCharactersByDesc": "\u89D2\u8272\u6807\u7B7E\u9875\u7684\u5212\u5206\u65B9\u5F0F\u3002\u6BCF\u79CD\u65B9\u5F0F\u90FD\u4FDD\u7559\u5404\u81EA\u7684\u62D6\u653E\u987A\u5E8F\u548C\u6298\u53E0\u72B6\u6001\u3002",
+  "grouping.ageAsc": "\u5E74\u9F84\uFF08\u5347\u5E8F\uFF09",
+  "grouping.ageDesc": "\u5E74\u9F84\uFF08\u964D\u5E8F\uFF09",
+  "character.noShip": "\u65E0\u98DE\u8239",
+  "character.noHome": "\u65E0\u5BB6\u4E61",
+  "metadata.modifyOptions": "\u4FEE\u6539{field}\u9009\u9879",
   "card.unnamed": "\u672A\u547D\u540D",
   "card.untitled": "\u65E0\u6807\u9898",
   "card.age": "\u5E74\u9F84",
@@ -2255,6 +2486,9 @@ var zh = {
   "portrait.inVault": "{name}\uFF08\u5DF2\u5728\u4ED3\u5E93\u4E2D\uFF09",
   // ── 新建条目表单 ────────────────────────────────────────────────────────────
   "form.create": "\u521B\u5EFA",
+  "form.addNew": "\u65B0\u589E{field}\u2026",
+  "form.addNewTitle": "\u65B0{field}",
+  "form.noneOption": "\u65E0",
   "form.nameRequired": "\u540D\u79F0\u4E3A\u5FC5\u586B\u9879\u3002",
   "form.titleRequired": "\u6807\u9898\u4E3A\u5FC5\u586B\u9879\u3002",
   "form.createdNoPortrait": "\u5DF2\u521B\u5EFA\u201C{name}\u201D\uFF0C\u4F46\u65E0\u6CD5\u5BFC\u5165\u5176\u8096\u50CF\u3002",
@@ -2455,6 +2689,29 @@ var ja = {
   "reload": "\u518D\u8AAD\u307F\u8FBC\u307F",
   "reload.done": "Universe Builder \u3092\u518D\u8AAD\u307F\u8FBC\u307F\u3057\u307E\u3057\u305F\u3002",
   "new": "+ \u65B0\u898F",
+  "metadata.edit": "\u30E1\u30BF\u30C7\u30FC\u30BF\u3092\u7DE8\u96C6",
+  "metadata.title": "\u30E1\u30BF\u30C7\u30FC\u30BF\u3092\u7DE8\u96C6\uFF1A{section}",
+  "metadata.nothing": "\u3053\u306E\u30BB\u30AF\u30B7\u30E7\u30F3\u306B\u306F\u7DE8\u96C6\u3067\u304D\u308B\u9805\u76EE\u306F\u307E\u3060\u3042\u308A\u307E\u305B\u3093\u3002",
+  "metadata.builtIn": "\u7D44\u307F\u8FBC\u307F\uFF08\u524A\u9664\u4E0D\u53EF\uFF09",
+  "metadata.custom": "\u30AB\u30B9\u30BF\u30E0",
+  "metadata.addPlaceholder": "\u65B0\u3057\u3044\u5024",
+  "metadata.add": "\u8FFD\u52A0",
+  "metadata.none": "\u30AB\u30B9\u30BF\u30E0\u5024\u306F\u307E\u3060\u3042\u308A\u307E\u305B\u3093\u3002",
+  "metadata.uses.one": "{count} \u4EF6",
+  "metadata.uses.other": "{count} \u4EF6",
+  "metadata.remove": "\u300C{value}\u300D\u3092\u524A\u9664",
+  "metadata.exists": "\u300C{value}\u300D\u306F\u3059\u3067\u306B\u9078\u629E\u80A2\u306B\u3042\u308A\u307E\u3059\u3002",
+  "metadata.removeTitle": "\u30AB\u30B9\u30BF\u30E0\u5024\u3092\u524A\u9664\u3057\u307E\u3059\u304B\uFF1F",
+  "metadata.removeInUse": "\u300C{value}\u300D\u3092\u4F7F\u3063\u3066\u3044\u308B\u30A8\u30F3\u30C8\u30EA\uFF1A{count} \u4EF6\u3002\u5024\u306F\u305D\u306E\u307E\u307E\u6B8B\u308A\u307E\u3059\u304C\u3001\u65B0\u898F\u30A8\u30F3\u30C8\u30EA\u306E\u9078\u629E\u80A2\u306B\u306F\u8868\u793A\u3055\u308C\u306A\u304F\u306A\u308A\u307E\u3059\u3002",
+  "metadata.removeAction": "\u524A\u9664",
+  "metadata.removeGroupType": "\u300C{tab}\u300D\u30BF\u30D6\u3067\u306F\u300C{unassigned}\u300D\u306B\u8868\u793A\u3055\u308C\u307E\u3059\u3002",
+  "metadata.groupCharactersBy": "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u306E\u30B0\u30EB\u30FC\u30D7\u5206\u3051",
+  "metadata.groupCharactersByDesc": "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u30BF\u30D6\u306E\u5206\u3051\u65B9\u3067\u3059\u3002\u9078\u629E\u80A2\u3054\u3068\u306B\u30C9\u30E9\u30C3\u30B0\uFF06\u30C9\u30ED\u30C3\u30D7\u306E\u4E26\u3073\u9806\u3068\u6298\u308A\u305F\u305F\u307F\u72B6\u614B\u304C\u500B\u5225\u306B\u4FDD\u5B58\u3055\u308C\u307E\u3059\u3002",
+  "grouping.ageAsc": "\u5E74\u9F62\uFF08\u6607\u9806\uFF09",
+  "grouping.ageDesc": "\u5E74\u9F62\uFF08\u964D\u9806\uFF09",
+  "character.noShip": "\u5B87\u5B99\u8239\u306A\u3057",
+  "character.noHome": "\u51FA\u8EAB\u5730\u306A\u3057",
+  "metadata.modifyOptions": "{field}\u306E\u9078\u629E\u80A2\u3092\u7DE8\u96C6",
   "card.unnamed": "\u540D\u524D\u306A\u3057",
   "card.untitled": "\u7121\u984C",
   "card.age": "\u5E74\u9F62",
@@ -2520,6 +2777,9 @@ var ja = {
   "portrait.inVault": "{name}\uFF08\u3059\u3067\u306B\u4FDD\u7BA1\u5EAB\u306B\u3042\u308A\u307E\u3059\uFF09",
   // ── 新規エントリのフォーム ──────────────────────────────────────────────────
   "form.create": "\u4F5C\u6210",
+  "form.addNew": "{field}\u3092\u8FFD\u52A0\u2026",
+  "form.addNewTitle": "\u65B0\u3057\u3044{field}",
+  "form.noneOption": "\u306A\u3057",
   "form.nameRequired": "\u540D\u524D\u306F\u5FC5\u9808\u3067\u3059\u3002",
   "form.titleRequired": "\u30BF\u30A4\u30C8\u30EB\u306F\u5FC5\u9808\u3067\u3059\u3002",
   "form.createdNoPortrait": "\u300C{name}\u300D\u3092\u4F5C\u6210\u3057\u307E\u3057\u305F\u304C\u3001\u8096\u50CF\u753B\u3092\u30A4\u30F3\u30DD\u30FC\u30C8\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F\u3002",
@@ -2744,6 +3004,9 @@ var DEFAULT_SETTINGS = {
   worldFolder: DEFAULT_FOLDER,
   characterOrder: {},
   collapsedGroups: [],
+  characterGrouping: "group",
+  characterOrderBy: {},
+  collapsedCharacterSections: {},
   collapsedGroupTypes: [],
   collapsedParents: [],
   collapsedSubsidiaries: [],
@@ -2752,13 +3015,59 @@ var DEFAULT_SETTINGS = {
   collapsedBookmarkGroups: [],
   inlineEditor: "live",
   folderMigration: {},
-  language: "auto"
+  language: "auto",
+  customOptions: {}
 };
 var GROUP_TYPES = ["corporation", "government", "military", "criminal"];
 var CHARACTER_ROLES = ["protagonist", "antagonist", "supporting", "minor"];
-var LOCATION_TYPES = ["planet", "dwarf planet", "moon", "station", "asteroid", "belt", "ship", "city", "region", "building", "landmark", "other"];
+var CHARACTER_GROUPINGS = ["group", "name", "role", "age-asc", "age-desc", "ship", "home"];
+function groupingLabel(g) {
+  switch (g) {
+    case "group":
+      return t("character.group");
+    case "name":
+      return t("form.name");
+    case "role":
+      return t("character.role");
+    case "age-asc":
+      return t("grouping.ageAsc");
+    case "age-desc":
+      return t("grouping.ageDesc");
+    case "ship":
+      return t("character.ship");
+    case "home":
+      return t("character.home");
+  }
+}
+function ageNumber(age) {
+  const m = (age != null ? age : "").replace(/,/g, "").match(/-?\d+(?:\.\d+)?/);
+  return m ? parseFloat(m[0]) : null;
+}
+var LOCATION_TYPES = ["planet", "dwarf planet", "moon", "station", "asteroid", "belt", "ship", "city", "region", "building", "landmark"];
 var GROUP_ALIGNMENTS = ["lawful", "neutral", "chaotic"];
 var LORE_CATEGORIES = ["history", "tech", "religion", "culture", "other"];
+var SECTION_METADATA = {
+  characters: [{ id: "role", key: "role", label: "character.role", builtIn: CHARACTER_ROLES, shapesSidebar: true }],
+  locations: [{ id: "locationType", key: "type", label: "form.type", builtIn: LOCATION_TYPES }],
+  groups: [
+    { id: "groupType", key: "type", label: "form.type", builtIn: GROUP_TYPES, shapesSidebar: true, removeNote: "metadata.removeGroupType" },
+    { id: "alignment", key: "alignment", label: "group.alignment", builtIn: GROUP_ALIGNMENTS }
+  ],
+  lore: [{ id: "loreCategory", key: "category", label: "lore.category", builtIn: LORE_CATEGORIES }],
+  timeline: []
+};
+var METADATA_FIELDS = Object.values(SECTION_METADATA).flat();
+function metadataField(tab, id) {
+  const field = SECTION_METADATA[tab].find((f) => f.id === id);
+  if (!field) throw new Error(`Universe Builder: no editable field ${id} in ${tab}`);
+  return field;
+}
+function optionKey(value) {
+  return value.trim().toLowerCase();
+}
+function yamlScalar(value) {
+  return /^[\p{L}\p{N}][\p{L}\p{N} _\-]*$/u.test(value) && !/^(true|false|yes|no|on|off|null|~)$/i.test(value) && !/^[\d\s._-]+$/.test(value) ? value : JSON.stringify(value);
+}
 function slugify(s) {
   return s.replace(/[/\\:*?"<>|#^[\]]/g, "-").trim();
 }
@@ -3547,10 +3856,10 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
     return null;
   }
   async renderSection(tab, pane, folderPath, onCreate, getCard, opts = {}) {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a, _b, _c, _d;
     const container = pane.body;
     this.sectionConfigs[tab] = { getCard, thumbs: !!opts.thumbs, stackBadge: !!opts.stackBadge };
-    this.renderSectionHeader(pane, onCreate, (_a = opts.reload) != null ? _a : true);
+    this.renderSectionHeader(pane, onCreate, (_a = opts.reload) != null ? _a : true, tab);
     const files = getMarkdownFilesIn(this.app, folderPath);
     if (files.length === 0) {
       container.createDiv("wb-list").createDiv({ cls: "wb-empty", text: t(`empty.${tab}`) });
@@ -3622,38 +3931,96 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
       this.createNoResultsLine(container);
       return;
     }
-    const groups = /* @__PURE__ */ new Map();
-    for (const entry of entries) {
-      const group = ((_e = entry.fm.group) != null ? _e : "").trim();
-      const key = group.toLowerCase();
-      let bucket = groups.get(key);
-      if (!bucket) {
-        bucket = { label: group || t("group.none"), items: [] };
-        groups.set(key, bucket);
-      }
+    await this.renderCharacterSections(tab, container, entries, getCard, opts);
+    this.createNoResultsLine(container);
+  }
+  /**
+   * The Characters tab, laid out by the "Group Characters By" setting (Edit Metadata):
+   *   - Group (default): one collapsible sub-section per `group`, alphabetically, "No Group" last,
+   *     each header showing the group's logo (first image in its Groups note);
+   *   - Ship / Home: the same by `ship` / `home` ("[[Name]]" and "Name" are the same section),
+   *     with the matching Locations note's image as the logo;
+   *   - Role: one sub-section per role, in the Role dropdown's order, then Unassigned;
+   *   - Name / Age: a single list sorted by name, or by age (the first number in it; entries
+   *     without one last), with no drag-to-reorder since the order is automatic.
+   * Every sectioned grouping keeps its own drag-and-drop order and collapsed sections, so
+   * switching grouping and back leaves each one exactly as it was.
+   */
+  async renderCharacterSections(tab, container, entries, getCard, opts) {
+    var _a, _b, _c, _d, _e, _f, _g;
+    const settings = this.plugin.settings;
+    const grouping = settings.characterGrouping;
+    const byName = (a, b) => (a.fm.name || a.file.basename).localeCompare(b.fm.name || b.file.basename, void 0, { sensitivity: "base", numeric: true });
+    if (grouping === "name" || grouping === "age-asc" || grouping === "age-desc") {
+      const dir = grouping === "age-desc" ? -1 : 1;
+      const sorted = [...entries].sort((a, b) => {
+        if (grouping === "name") return byName(a, b);
+        const x = ageNumber(a.fm.age), y = ageNumber(b.fm.age);
+        if (x === null || y === null) return (x === null ? 1 : 0) - (y === null ? 1 : 0) || byName(a, b);
+        return (x - y) * dir || byName(a, b);
+      });
+      const list = container.createDiv("wb-list");
+      for (const entry of sorted) this.renderCard(tab, list, entry, getCard, !!opts.thumbs, !!opts.stackBadge, !!opts.expandable);
+      return;
+    }
+    const buckets = /* @__PURE__ */ new Map();
+    const add = (key, label, entry) => {
+      let bucket = buckets.get(key);
+      if (!bucket) buckets.set(key, bucket = { label, items: [] });
       bucket.items.push(entry);
+    };
+    let sectionOrder;
+    if (grouping === "role") {
+      const roles = this.plugin.optionValues(metadataField("characters", "role"));
+      const known = new Map(roles.map((r) => [optionKey(r), r]));
+      for (const entry of entries) {
+        const value = known.get(optionKey((_a = entry.fm.role) != null ? _a : ""));
+        if (value) add(optionKey(value), optionLabel("role", value), entry);
+        else add("", t("group.unassigned"), entry);
+      }
+      sectionOrder = [...roles.map(optionKey), ""];
+    } else {
+      for (const entry of entries) {
+        if (grouping === "group") {
+          const group = ((_b = entry.fm.group) != null ? _b : "").trim();
+          add(group.toLowerCase(), group || t("group.none"), entry);
+        } else {
+          const name = parseRefName((_c = entry.fm[grouping]) != null ? _c : "");
+          add(name.toLowerCase(), name || t(grouping === "ship" ? "character.noShip" : "character.noHome"), entry);
+        }
+      }
+      sectionOrder = [...buckets.keys()].sort((a, b) => (a === "" ? 1 : 0) - (b === "" ? 1 : 0) || a.localeCompare(b));
     }
-    const groupLogos = /* @__PURE__ */ new Map();
-    const groupFolder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.groups}`;
-    for (const file of getMarkdownFilesIn(this.app, groupFolder)) {
-      const content = await this.app.vault.cachedRead(file);
-      const src = this.findFirstImageSrc(content, file);
-      if (!src) continue;
-      const names = [(_f = readFrontmatter(content).name) != null ? _f : "", file.basename];
-      for (const n of names) {
-        const k = parseRefName(n).toLowerCase();
-        if (k && !groupLogos.has(k)) groupLogos.set(k, src);
+    const logos = /* @__PURE__ */ new Map();
+    if (grouping !== "role") {
+      const logoFolder = `${settings.worldFolder}/${SECTION_FOLDERS[grouping === "group" ? "groups" : "locations"]}`;
+      for (const file of getMarkdownFilesIn(this.app, logoFolder)) {
+        const content = await this.app.vault.cachedRead(file);
+        const src = this.findFirstImageSrc(content, file);
+        if (!src) continue;
+        for (const n of [(_d = readFrontmatter(content).name) != null ? _d : "", file.basename]) {
+          const k = parseRefName(n).toLowerCase();
+          if (k && !logos.has(k)) logos.set(k, src);
+        }
       }
     }
-    const orderedGroups = [...groups.entries()].sort(
-      ([a], [b]) => (a === "" ? 1 : 0) - (b === "" ? 1 : 0) || a.localeCompare(b)
-    );
-    for (const [key, group] of orderedGroups) {
+    const orders = grouping === "group" ? settings.characterOrder : (_f = (_e = settings.characterOrderBy)[grouping]) != null ? _f : _e[grouping] = {};
+    const getCollapsed = () => {
+      var _a2;
+      return grouping === "group" ? settings.collapsedGroups : (_a2 = settings.collapsedCharacterSections[grouping]) != null ? _a2 : [];
+    };
+    const setCollapsed = (keys) => {
+      if (grouping === "group") settings.collapsedGroups = keys;
+      else settings.collapsedCharacterSections[grouping] = keys;
+    };
+    for (const key of sectionOrder) {
+      const bucket = buckets.get(key);
+      if (!bucket) continue;
       const header = container.createDiv("wb-group-header");
       header.setAttribute("role", "button");
       header.setAttribute("tabindex", "0");
       (0, import_obsidian2.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
-      const logoSrc = key ? groupLogos.get(parseRefName(key).toLowerCase()) : void 0;
+      const logoSrc = key ? logos.get(parseRefName(key).toLowerCase()) : void 0;
       if (logoSrc) {
         const logo = header.createEl("img", {
           cls: "wb-group-logo",
@@ -3661,24 +4028,22 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
         });
         logo.onerror = () => logo.remove();
       }
-      header.createSpan({ cls: "wb-group-title", text: group.label });
+      header.createSpan({ cls: "wb-group-title", text: bucket.label });
       const list = container.createDiv("wb-list");
       const applyCollapsed = (collapsed) => {
         header.classList.toggle("is-collapsed", collapsed);
         list.classList.toggle("is-collapsed", collapsed);
         header.setAttribute("aria-expanded", String(!collapsed));
       };
-      applyCollapsed(this.plugin.settings.collapsedGroups.includes(key));
+      applyCollapsed(getCollapsed().includes(key));
       this.groupCollapsers.set(header, () => {
-        const settings = this.plugin.settings;
-        if (!settings.collapsedGroups.includes(key)) settings.collapsedGroups = [...settings.collapsedGroups, key];
+        if (!getCollapsed().includes(key)) setCollapsed([...getCollapsed(), key]);
         applyCollapsed(true);
       });
       const toggleCollapsed = async () => {
         if (normalizeForSearch(this.searchQueries[tab]).trim()) return;
-        const settings = this.plugin.settings;
-        const collapse = !settings.collapsedGroups.includes(key);
-        settings.collapsedGroups = collapse ? [...settings.collapsedGroups, key] : settings.collapsedGroups.filter((k) => k !== key);
+        const collapse = !getCollapsed().includes(key);
+        setCollapsed(collapse ? [...getCollapsed(), key] : getCollapsed().filter((k) => k !== key));
         applyCollapsed(collapse);
         await this.plugin.saveSettings();
       };
@@ -3689,14 +4054,13 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
           void toggleCollapsed();
         }
       };
-      const items = this.orderEntries(group.items, (_g = this.plugin.settings.characterOrder[key]) != null ? _g : []);
+      const items = this.orderEntries(bucket.items, (_g = orders[key]) != null ? _g : []);
       for (const entry of items) this.renderCard(tab, list, entry, getCard, !!opts.thumbs, !!opts.stackBadge, !!opts.expandable);
       this.enableReorder(list, async (order) => {
-        this.plugin.settings.characterOrder[key] = order;
+        orders[key] = order;
         await this.plugin.saveSettings();
       });
     }
-    this.createNoResultsLine(container);
   }
   /**
    * A tab's section header (fixed region): Back/Forward on the left (only when SHOW_NAV_BUTTONS is
@@ -3704,7 +4068,7 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
    * Bookmarks button (.wb-header-btn). The section's name isn't shown here: the highlighted tab
    * above already shows it.
    */
-  renderSectionHeader(pane, onCreate, reload) {
+  renderSectionHeader(pane, onCreate, reload, tab = null) {
     const hdr = pane.head.createDiv("wb-section-header");
     const titleGroup = hdr.createDiv("wb-section-title");
     if (SHOW_NAV_BUTTONS) {
@@ -3723,6 +4087,12 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
       fwdBtn.onclick = () => this.navigateForward();
       this.navButtons.push({ back: backBtn, fwd: fwdBtn });
     }
+    if (tab) {
+      const metaBtn = titleGroup.createEl("button", { cls: "wb-btn-secondary wb-header-btn", attr: { type: "button" } });
+      (0, import_obsidian2.setIcon)(metaBtn.createSpan({ cls: "wb-btn-icon" }), "list-plus");
+      metaBtn.createSpan({ text: t("metadata.edit") });
+      metaBtn.onclick = () => new MetadataModal(this.app, this.plugin, tab).open();
+    }
     const actions = hdr.createDiv("wb-section-actions");
     if (reload) {
       const reloadBtn = actions.createEl("button", { cls: "wb-btn-secondary wb-header-btn" });
@@ -3739,8 +4109,9 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
     }
   }
   /**
-   * Groups: one collapsible sub-section per `type` property (Corporation, Government, Military, then Criminal),
-   * with groups that have no recognised type in an "Unassigned" section last. Headers use the
+   * Groups: one collapsible sub-section per `type` property (Corporation, Government, Military, then Criminal,
+   * then any custom types added in Edit Metadata, in the order they were added), with groups
+   * whose type isn't one of those in an "Unassigned" section last. Headers use the
    * same chevron as the Characters group groups, without a logo. Each section is its own
    * drag-to-reorder list; its order is merged back into the tab's single saved order.
    *
@@ -3752,7 +4123,9 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
    */
   renderTypeGroups(tab, container, entries, getCard, opts) {
     var _a;
-    const known = new Set(GROUP_TYPES);
+    const typeField = metadataField("groups", "groupType");
+    const typeValues = this.plugin.optionValues(typeField);
+    const known = new Set(typeValues.map(optionKey));
     const { roots, childrenOf } = buildParentTree(
       entries,
       (fm) => {
@@ -3766,13 +4139,13 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
     );
     const groups = /* @__PURE__ */ new Map();
     for (const entry of roots) {
-      const raw = ((_a = entry.fm.type) != null ? _a : "").trim().toLowerCase();
+      const raw = optionKey((_a = entry.fm.type) != null ? _a : "");
       const key = known.has(raw) ? raw : "";
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key).push(entry);
     }
     const sections = [
-      ...GROUP_TYPES.map((key) => ({ key, label: optionLabel("groupType", key) })),
+      ...typeValues.map((value) => ({ key: optionKey(value), label: optionLabel("groupType", value) })),
       { key: "", label: t("group.unassigned") }
     ].filter((s) => groups.has(s.key));
     for (const { key, label } of sections) {
@@ -4009,7 +4382,7 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
     if (badge || extras.length) {
       const badgeHost = stackBadge ? body.createDiv("wb-card-badge-row") : titleEl;
       if (badge) {
-        const b = badgeHost.createSpan({ cls: `wb-badge wb-badge-${badge.toLowerCase()}` });
+        const b = badgeHost.createSpan({ cls: `wb-badge wb-badge-${badge.trim().toLowerCase().replace(/[^\p{L}\p{N}_-]+/gu, "-")}` });
         b.setText(badgeText || badge);
       }
       for (const extra of extras) badgeHost.createSpan({ cls: `wb-badge ${extra.cls}`, text: extra.text });
@@ -5414,6 +5787,90 @@ var PortraitPicker = class {
     this.objectUrl = null;
   }
 };
+async function readSectionFrontmatter(app, plugin, tab) {
+  var _a;
+  const out = [];
+  for (const file of getMarkdownFilesIn(app, `${plugin.settings.worldFolder}/${SECTION_FOLDERS[tab]}`)) {
+    const fm = readFrontmatter(await app.vault.cachedRead(file));
+    out.push({ ...fm, name: ((_a = fm.name) != null ? _a : "").trim() || file.basename });
+  }
+  return out;
+}
+function uniqueNames(values) {
+  const byKey = /* @__PURE__ */ new Map();
+  for (const v of values) {
+    const name = parseRefName(v != null ? v : "");
+    if (name && !byKey.has(name.toLowerCase())) byKey.set(name.toLowerCase(), name);
+  }
+  return [...byKey.values()].sort((a, b) => a.localeCompare(b, void 0, { sensitivity: "base", numeric: true }));
+}
+var ADD_NEW_OPTION = "\0add-new";
+function addPickerDropdown(app, container, label, placeholder, values, onChange) {
+  let current2 = "";
+  new import_obsidian2.Setting(container).setName(label).addDropdown((d) => {
+    const select = d.selectEl;
+    d.addOption(ADD_NEW_OPTION, t("form.addNew", { field: label }));
+    d.addOption("", t("form.noneOption"));
+    d.setValue("");
+    const optionFor = (value) => Array.from(select.options).find((o) => o.value !== ADD_NEW_OPTION && o.value.toLowerCase() === value.toLowerCase());
+    void values.then((list) => {
+      for (const v of list) if (!optionFor(v)) d.addOption(v, v);
+      select.value = current2;
+    });
+    d.onChange((v) => {
+      if (v !== ADD_NEW_OPTION) {
+        current2 = v;
+        onChange(v);
+        return;
+      }
+      select.value = current2;
+      void promptForValue(app, t("form.addNewTitle", { field: label }), placeholder).then((added) => {
+        var _a;
+        if (!added) return;
+        const existing = optionFor(added);
+        if (!existing) {
+          const opt = createEl("option", { text: added, attr: { value: added } });
+          select.insertBefore(opt, (_a = select.options[2]) != null ? _a : null);
+        }
+        current2 = existing ? existing.value : added;
+        select.value = current2;
+        onChange(current2);
+      });
+    });
+  });
+}
+function promptForValue(app, title, placeholder) {
+  return new Promise((resolve) => {
+    let result = null;
+    const modal = new import_obsidian2.Modal(app);
+    modal.modalEl.addClass("wb-prompt-modal");
+    modal.titleEl.setText(title);
+    const input = modal.contentEl.createEl("input", { cls: "wb-prompt-input", attr: { type: "text", placeholder, maxlength: "120" } });
+    const buttons = modal.contentEl.createDiv("wb-confirm-buttons");
+    const cancelBtn = buttons.createEl("button", { text: t("confirm.cancel"), cls: "wb-btn-secondary", attr: { type: "button" } });
+    const saveBtn = buttons.createEl("button", { text: t("card.save"), cls: "wb-btn-primary", attr: { type: "button" } });
+    const save = () => {
+      const value = input.value.replace(/\s+/g, " ").trim();
+      if (!value) {
+        input.focus();
+        return;
+      }
+      result = value;
+      modal.close();
+    };
+    cancelBtn.onclick = () => modal.close();
+    saveBtn.onclick = save;
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        save();
+      }
+    });
+    modal.onClose = () => resolve(result);
+    modal.open();
+    input.focus();
+  });
+}
 var CharacterModal = class extends import_obsidian2.Modal {
   constructor(app, plugin, onDone) {
     super(app);
@@ -5436,44 +5893,52 @@ var CharacterModal = class extends import_obsidian2.Modal {
     const { contentEl } = this;
     contentEl.addClass("wb-modal");
     contentEl.createEl("h2", { text: t("character.new") });
-    this.portrait = new PortraitPicker(this.app, this.plugin, contentEl, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.characters}`, this.modalEl);
-    new import_obsidian2.Setting(contentEl).setName(t("form.name")).addText((text) => {
+    const form = contentEl.createDiv("wb-modal-form");
+    this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.characters}`, this.modalEl);
+    new import_obsidian2.Setting(form).setName(t("form.name")).addText((text) => {
       text.setPlaceholder(t("character.namePlaceholder")).onChange((v) => this.data.name = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("character.role")).addDropdown((d) => {
-      CHARACTER_ROLES.forEach((o) => {
-        d.addOption(o, optionLabel("role", o));
-      });
-      d.setValue(this.data.role);
-      d.onChange((v) => this.data.role = v);
-    });
-    new import_obsidian2.Setting(contentEl).setName(t("character.age")).addText((text) => {
+    addEditableDropdown(this, this.plugin, "characters", form, metadataField("characters", "role"), this.data.role, (v) => this.data.role = v);
+    new import_obsidian2.Setting(form).setName(t("character.age")).addText((text) => {
       text.setPlaceholder(t("character.agePlaceholder")).onChange((v) => this.data.age = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("character.group")).addText((text) => {
-      text.setPlaceholder(t("character.groupPlaceholder")).onChange((v) => this.data.group = v);
-    });
-    new import_obsidian2.Setting(contentEl).setName(t("character.ship")).addText((text) => {
-      text.setPlaceholder(t("character.shipPlaceholder")).onChange((v) => this.data.ship = v);
-    });
-    new import_obsidian2.Setting(contentEl).setName(t("character.home")).addText((text) => {
-      text.setPlaceholder(t("character.homePlaceholder")).onChange((v) => this.data.home = v);
-    });
-    new import_obsidian2.Setting(contentEl).setName(t("character.physicalDesc")).addTextArea((text) => {
+    const known = this.knownValues();
+    addPickerDropdown(this.app, form, t("character.group"), t("character.groupPlaceholder"), known.then((k) => k.group), (v) => this.data.group = v);
+    addPickerDropdown(this.app, form, t("character.ship"), t("character.shipPlaceholder"), known.then((k) => k.ship), (v) => this.data.ship = v);
+    addPickerDropdown(this.app, form, t("character.home"), t("character.homePlaceholder"), known.then((k) => k.home), (v) => this.data.home = v);
+    new import_obsidian2.Setting(form).setName(t("character.physicalDesc")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.physicalDesc = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("character.personality")).addTextArea((text) => {
+    new import_obsidian2.Setting(form).setName(t("character.personality")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.personality = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("form.goals")).addTextArea((text) => {
+    new import_obsidian2.Setting(form).setName(t("form.goals")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.goals = v);
     });
-    new import_obsidian2.Setting(contentEl).addButton(
+    new import_obsidian2.Setting(form).addButton(
       (b) => b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
     );
+  }
+  /**
+   * The values the Group / Ship / Home dropdowns offer, each alphabetical and without repeats
+   * (case-insensitive, "[[Name]]" read as "Name"):
+   *   - Group: the names of the notes on the Groups tab, plus every `group` characters already have;
+   *   - Ship: the ship-type notes on the Locations tab, plus every character `ship`;
+   *   - Home: every note on the Locations tab, plus every character `home`.
+   * A note's name is its `name` property, else its file name.
+   */
+  async knownValues() {
+    const read = (tab) => readSectionFrontmatter(this.app, this.plugin, tab);
+    const [characters, groups, locations] = await Promise.all([read("characters"), read("groups"), read("locations")]);
+    const collect = uniqueNames;
+    return {
+      group: collect([...groups.map((g) => g.name), ...characters.map((c) => c.group)]),
+      ship: collect([...locations.filter(isShip).map((l) => l.name), ...characters.map((c) => c.ship)]),
+      home: collect([...locations.map((l) => l.name), ...characters.map((c) => c.home)])
+    };
   }
   async submit() {
     var _a;
@@ -5504,11 +5969,11 @@ var CharacterModal = class extends import_obsidian2.Modal {
     const content = [
       "---",
       `name: "${this.data.name}"`,
-      `role: ${this.data.role}`,
+      `role: ${yamlScalar(this.data.role)}`,
       `age: "${this.data.age}"`,
-      `group: "${this.data.group}"`,
-      `ship: "${this.data.ship}"`,
-      `home: "${this.data.home}"`,
+      `group: ${JSON.stringify(this.data.group)}`,
+      `ship: ${JSON.stringify(this.data.ship)}`,
+      `home: ${JSON.stringify(this.data.home)}`,
       `type: character`,
       "---",
       "",
@@ -5548,33 +6013,29 @@ var LocationModal = class extends import_obsidian2.Modal {
     const { contentEl } = this;
     contentEl.addClass("wb-modal");
     contentEl.createEl("h2", { text: t("location.new") });
-    this.portrait = new PortraitPicker(this.app, this.plugin, contentEl, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.locations}`, this.modalEl);
-    new import_obsidian2.Setting(contentEl).setName(t("form.name")).addText((text) => {
+    const form = contentEl.createDiv("wb-modal-form");
+    this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.locations}`, this.modalEl);
+    new import_obsidian2.Setting(form).setName(t("form.name")).addText((text) => {
       text.setPlaceholder(t("location.namePlaceholder")).onChange((v) => this.data.name = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("form.type")).addDropdown((d) => {
-      LOCATION_TYPES.forEach((o) => {
-        d.addOption(o, optionLabel("locationType", o));
-      });
-      d.setValue(this.data.type);
-      d.onChange((v) => this.data.type = v);
-    });
-    new import_obsidian2.Setting(contentEl).setName(t("location.parent")).addText((text) => {
-      text.setPlaceholder(t("location.parentPlaceholder")).onChange((v) => this.data.parent = v);
-    });
-    new import_obsidian2.Setting(contentEl).setName(t("form.description")).addTextArea((text) => {
+    addEditableDropdown(this, this.plugin, "locations", form, metadataField("locations", "locationType"), this.data.type, (v) => this.data.type = v);
+    const parents = readSectionFrontmatter(this.app, this.plugin, "locations").then(
+      (locations) => uniqueNames([...locations.map((l) => l.name), ...locations.map((l) => l.parent)])
+    );
+    addPickerDropdown(this.app, form, t("location.parent"), t("location.parentPlaceholder"), parents, (v) => this.data.parent = v);
+    new import_obsidian2.Setting(form).setName(t("form.description")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.description = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("location.inhabitants")).addTextArea((text) => {
+    new import_obsidian2.Setting(form).setName(t("location.inhabitants")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.inhabitants = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("location.secrets")).addTextArea((text) => {
+    new import_obsidian2.Setting(form).setName(t("location.secrets")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.secrets = v);
     });
-    new import_obsidian2.Setting(contentEl).addButton(
+    new import_obsidian2.Setting(form).addButton(
       (b) => b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
     );
   }
@@ -5589,8 +6050,8 @@ var LocationModal = class extends import_obsidian2.Modal {
     const content = [
       "---",
       `name: "${this.data.name}"`,
-      `type: ${this.data.type}`,
-      `parent: "${this.data.parent}"`,
+      `type: ${yamlScalar(this.data.type)}`,
+      `parent: ${JSON.stringify(this.data.parent)}`,
       `entry_type: location`,
       "---",
       "",
@@ -5640,17 +6101,12 @@ var GroupModal = class extends import_obsidian2.Modal {
     const { contentEl } = this;
     contentEl.addClass("wb-modal");
     contentEl.createEl("h2", { text: t("group.new") });
-    this.portrait = new PortraitPicker(this.app, this.plugin, contentEl, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.groups}`, this.modalEl);
-    new import_obsidian2.Setting(contentEl).setName(t("form.name")).addText((text) => {
+    const form = contentEl.createDiv("wb-modal-form");
+    this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.groups}`, this.modalEl);
+    new import_obsidian2.Setting(form).setName(t("form.name")).addText((text) => {
       text.setPlaceholder(t("group.namePlaceholder")).onChange((v) => this.data.name = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("form.type")).addDropdown((d) => {
-      GROUP_TYPES.forEach((key) => {
-        d.addOption(key, optionLabel("groupType", key));
-      });
-      d.setValue(this.data.type);
-      d.onChange((v) => this.data.type = v);
-    });
+    addEditableDropdown(this, this.plugin, "groups", form, metadataField("groups", "groupType"), this.data.type, (v) => this.data.type = v);
     const folder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.groups}`;
     const existing = Array.from(new Set(
       getMarkdownFilesIn(this.app, folder).map((f) => {
@@ -5659,7 +6115,7 @@ var GroupModal = class extends import_obsidian2.Modal {
         return typeof name === "string" && name.trim() ? name.trim() : f.basename;
       })
     )).sort((a, b) => a.localeCompare(b));
-    new import_obsidian2.Setting(contentEl).setName(t("group.subsidiaryOf")).setDesc(t("group.subsidiaryOfDesc")).addDropdown((d) => {
+    new import_obsidian2.Setting(form).setName(t("group.subsidiaryOf")).setDesc(t("group.subsidiaryOfDesc")).addDropdown((d) => {
       d.addOption("", t("group.subsidiaryNone"));
       existing.forEach((n) => {
         d.addOption(n, n);
@@ -5667,28 +6123,22 @@ var GroupModal = class extends import_obsidian2.Modal {
       d.setValue(this.data.subsidiaryOf);
       d.onChange((v) => this.data.subsidiaryOf = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("group.alignment")).addDropdown((d) => {
-      GROUP_ALIGNMENTS.forEach((o) => {
-        d.addOption(o, optionLabel("alignment", o));
-      });
-      d.setValue(this.data.alignment);
-      d.onChange((v) => this.data.alignment = v);
-    });
-    new import_obsidian2.Setting(contentEl).setName(t("form.goals")).addTextArea((text) => {
+    addEditableDropdown(this, this.plugin, "groups", form, metadataField("groups", "alignment"), this.data.alignment, (v) => this.data.alignment = v);
+    new import_obsidian2.Setting(form).setName(t("form.goals")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.goals = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("group.enemies")).addText((text) => {
+    new import_obsidian2.Setting(form).setName(t("group.enemies")).addText((text) => {
       text.setPlaceholder(t("form.commaSeparated")).onChange((v) => this.data.enemies = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("group.allies")).addText((text) => {
+    new import_obsidian2.Setting(form).setName(t("group.allies")).addText((text) => {
       text.setPlaceholder(t("form.commaSeparated")).onChange((v) => this.data.allies = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("form.description")).addTextArea((text) => {
+    new import_obsidian2.Setting(form).setName(t("form.description")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.description = v);
     });
-    new import_obsidian2.Setting(contentEl).addButton(
+    new import_obsidian2.Setting(form).addButton(
       (b) => b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
     );
   }
@@ -5704,9 +6154,9 @@ var GroupModal = class extends import_obsidian2.Modal {
     const lines = [
       "---",
       `name: "${this.data.name}"`,
-      `type: ${this.data.type}`,
+      `type: ${yamlScalar(this.data.type)}`,
       `${SUBSIDIARY_OF}: "${this.data.subsidiaryOf.replace(/"/g, "'")}"`,
-      `alignment: ${this.data.alignment}`,
+      `alignment: ${yamlScalar(this.data.alignment)}`,
       `goals: "${this.data.goals.replace(/"/g, "'")}"`,
       `entry_type: group`,
       "---",
@@ -5740,6 +6190,211 @@ var GroupModal = class extends import_obsidian2.Modal {
     this.contentEl.empty();
   }
 };
+var MetadataEditor = class {
+  constructor(app, plugin, tab, fields, container, onAdd) {
+    this.app = app;
+    this.plugin = plugin;
+    this.tab = tab;
+    this.fields = fields;
+    this.container = container;
+    this.onAdd = onAdd;
+    /** Per field: stored value (lower-cased) -> number of the section's notes using it. */
+    this.usage = null;
+  }
+  /**
+   * Draws the controls, then fills in the usage counts once the section's notes are read (only
+   * the counts are updated, so a value being typed in meanwhile isn't lost).
+   */
+  start(focusField) {
+    this.draw(focusField);
+    void this.countUsage().then(() => this.updateCounts());
+  }
+  updateCounts() {
+    for (const field of this.fields) {
+      this.container.querySelectorAll(`.wb-metadata-item[data-field="${field.id}"]`).forEach((row) => {
+        var _a;
+        const count = this.usageOf(field, (_a = row.dataset.value) != null ? _a : "");
+        const el = row.querySelector(".wb-metadata-count");
+        if (el && count !== null) el.textContent = tn("metadata.uses", count);
+      });
+    }
+  }
+  /** Counts, for every field shown, how many of the section's notes use each value. */
+  async countUsage() {
+    var _a;
+    const usage = new Map(this.fields.map((f) => [f.id, /* @__PURE__ */ new Map()]));
+    const folder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS[this.tab]}`;
+    for (const file of getMarkdownFilesIn(this.app, folder)) {
+      const fm = readFrontmatter(await this.app.vault.cachedRead(file));
+      for (const field of this.fields) {
+        const value = fm[field.key];
+        if (!value) continue;
+        const counts = usage.get(field.id);
+        counts.set(optionKey(value), ((_a = counts.get(optionKey(value))) != null ? _a : 0) + 1);
+      }
+    }
+    this.usage = usage;
+  }
+  usageOf(field, value) {
+    var _a, _b;
+    return this.usage ? (_b = (_a = this.usage.get(field.id)) == null ? void 0 : _a.get(optionKey(value))) != null ? _b : 0 : null;
+  }
+  draw(focusField) {
+    var _a;
+    const { container } = this;
+    container.empty();
+    for (const field of this.fields) {
+      const block = container.createDiv("wb-metadata-field");
+      block.createEl("h3", { text: t(field.label) });
+      block.createDiv({ cls: "wb-metadata-caption", text: t("metadata.builtIn") });
+      const chips = block.createDiv("wb-metadata-chips");
+      for (const value of field.builtIn) chips.createSpan({ cls: "wb-metadata-chip", text: optionLabel(field.id, value) });
+      const addRow = block.createDiv("wb-metadata-add");
+      const input = addRow.createEl("input", { attr: { type: "text", placeholder: t("metadata.addPlaceholder"), maxlength: "60" } });
+      const addBtn = addRow.createEl("button", { text: "+", cls: "wb-btn-primary", attr: { type: "button", "aria-label": t("metadata.add") } });
+      const add = () => void this.addValue(field, input.value);
+      addBtn.onclick = add;
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          add();
+        }
+      });
+      if (focusField === field.id) input.focus();
+      block.createDiv({ cls: "wb-metadata-caption", text: t("metadata.custom") });
+      const custom = (_a = this.plugin.settings.customOptions[field.id]) != null ? _a : [];
+      const list = block.createDiv("wb-metadata-list");
+      if (custom.length === 0) list.createDiv({ cls: "wb-metadata-none", text: t("metadata.none") });
+      for (const value of custom) {
+        const row = list.createDiv({ cls: "wb-metadata-item", attr: { "data-field": field.id, "data-value": value } });
+        row.createSpan({ cls: "wb-metadata-value", text: value });
+        const count = this.usageOf(field, value);
+        row.createSpan({ cls: "wb-metadata-count", text: count === null ? "\u2026" : tn("metadata.uses", count) });
+        const del = row.createEl("button", { cls: "wb-metadata-remove clickable-icon", attr: { type: "button", "aria-label": t("metadata.remove", { value }) } });
+        (0, import_obsidian2.setIcon)(del, "x");
+        del.onclick = () => void this.removeValue(field, value);
+      }
+    }
+  }
+  async addValue(field, raw) {
+    var _a, _b;
+    const value = raw.replace(/\s+/g, " ").trim();
+    if (!value) return;
+    const taken = this.plugin.optionValues(field).some(
+      (v) => optionKey(v) === optionKey(value) || optionKey(optionLabel(field.id, v)) === optionKey(value)
+    );
+    if (taken) {
+      new import_obsidian2.Notice(t("metadata.exists", { value }));
+      return;
+    }
+    const custom = this.plugin.settings.customOptions;
+    custom[field.id] = [...(_a = custom[field.id]) != null ? _a : [], value];
+    await this.plugin.saveSettings();
+    if (field.shapesSidebar) this.plugin.refreshSidebar();
+    (_b = this.onAdd) == null ? void 0 : _b.call(this, field, value);
+    this.draw(field.id);
+  }
+  async removeValue(field, value) {
+    var _a, _b;
+    const count = (_a = this.usageOf(field, value)) != null ? _a : 0;
+    if (count > 0) {
+      const ok = await confirmModal(
+        this.app,
+        t("metadata.removeTitle"),
+        [t("metadata.removeInUse", { value, count }), field.removeNote ? t(field.removeNote, { tab: t(`tab.${this.tab}`), unassigned: t("group.unassigned") }) : ""].filter(Boolean).join(" "),
+        t("metadata.removeAction"),
+        true
+      );
+      if (!ok) return;
+    }
+    const custom = this.plugin.settings.customOptions;
+    const rest = ((_b = custom[field.id]) != null ? _b : []).filter((v) => v !== value);
+    if (rest.length) custom[field.id] = rest;
+    else delete custom[field.id];
+    await this.plugin.saveSettings();
+    if (field.shapesSidebar) this.plugin.refreshSidebar();
+    this.draw();
+  }
+};
+var MetadataModal = class extends import_obsidian2.Modal {
+  constructor(app, plugin, tab) {
+    super(app);
+    this.plugin = plugin;
+    this.tab = tab;
+  }
+  onOpen() {
+    this.modalEl.addClass("wb-metadata-modal");
+    this.contentEl.addClass("wb-modal");
+    this.setTitle(t("metadata.title", { section: t(`tab.${this.tab}`) }));
+    if (this.tab === "characters") {
+      new import_obsidian2.Setting(this.contentEl).setName(t("metadata.groupCharactersBy")).setDesc(t("metadata.groupCharactersByDesc")).setClass("wb-metadata-grouping").addDropdown((d) => {
+        for (const g of CHARACTER_GROUPINGS) d.addOption(g, groupingLabel(g));
+        d.setValue(this.plugin.settings.characterGrouping);
+        d.onChange(async (v) => {
+          this.plugin.settings.characterGrouping = v;
+          await this.plugin.saveSettings();
+          this.plugin.refreshSidebar();
+        });
+      });
+    }
+    const fields = SECTION_METADATA[this.tab];
+    if (fields.length === 0) {
+      this.contentEl.createEl("p", { cls: "wb-metadata-empty", text: t("metadata.nothing") });
+      return;
+    }
+    new MetadataEditor(this.app, this.plugin, this.tab, fields, this.contentEl.createDiv()).start();
+  }
+  onClose() {
+    this.contentEl.empty();
+  }
+};
+function addEditableDropdown(modal, plugin, tab, formEl, field, initial, onChange) {
+  let current2 = initial;
+  let select = null;
+  const fill = () => {
+    if (!select) return;
+    select.empty();
+    const values = plugin.optionValues(field);
+    for (const value of values) select.createEl("option", { text: optionLabel(field.id, value), attr: { value } });
+    if (!values.includes(current2) && values.length) {
+      current2 = values[0];
+      onChange(current2);
+    }
+    select.value = current2;
+  };
+  const setting = new import_obsidian2.Setting(formEl).setName(t(field.label)).addDropdown((d) => {
+    select = d.selectEl;
+    fill();
+    d.onChange((v) => {
+      current2 = v;
+      onChange(v);
+    });
+  });
+  const link = setting.descEl.createEl("a", {
+    cls: "wb-metadata-link",
+    text: t("metadata.modifyOptions", { field: t(field.label) }),
+    attr: { href: "#", role: "button" }
+  });
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    formEl.hide();
+    const panel = modal.contentEl.createDiv("wb-metadata-inline");
+    const back = panel.createEl("button", { cls: "wb-metadata-back", attr: { type: "button" } });
+    (0, import_obsidian2.setIcon)(back.createSpan({ cls: "wb-btn-icon" }), "chevron-left");
+    back.createSpan({ text: t("nav.back") });
+    let added = null;
+    new MetadataEditor(modal.app, plugin, tab, [field], panel.createDiv(), (_f, value) => added = value).start(field.id);
+    back.onclick = () => {
+      panel.remove();
+      if (added && plugin.optionValues(field).includes(added) && added !== current2) {
+        current2 = added;
+        onChange(current2);
+      }
+      fill();
+      formEl.show();
+    };
+  });
+}
 var LoreModal = class extends import_obsidian2.Modal {
   constructor(app, plugin, onDone) {
     super(app);
@@ -5752,22 +6407,17 @@ var LoreModal = class extends import_obsidian2.Modal {
     const { contentEl } = this;
     contentEl.addClass("wb-modal");
     contentEl.createEl("h2", { text: t("lore.new") });
-    this.portrait = new PortraitPicker(this.app, this.plugin, contentEl, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.lore}`, this.modalEl);
-    new import_obsidian2.Setting(contentEl).setName(t("form.title")).addText((text) => {
+    const form = contentEl.createDiv("wb-modal-form");
+    this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.lore}`, this.modalEl);
+    new import_obsidian2.Setting(form).setName(t("form.title")).addText((text) => {
       text.setPlaceholder(t("lore.titlePlaceholder")).onChange((v) => this.data.title = v);
     });
-    new import_obsidian2.Setting(contentEl).setName(t("lore.category")).addDropdown((d) => {
-      LORE_CATEGORIES.forEach((o) => {
-        d.addOption(o, optionLabel("loreCategory", o));
-      });
-      d.setValue(this.data.category);
-      d.onChange((v) => this.data.category = v);
-    });
-    new import_obsidian2.Setting(contentEl).setName(t("lore.content")).addTextArea((text) => {
+    addEditableDropdown(this, this.plugin, "lore", form, metadataField("lore", "loreCategory"), this.data.category, (v) => this.data.category = v);
+    new import_obsidian2.Setting(form).setName(t("lore.content")).addTextArea((text) => {
       text.inputEl.addClasses(["wb-textarea", "wb-textarea-tall"]);
       text.onChange((v) => this.data.content = v);
     });
-    new import_obsidian2.Setting(contentEl).addButton(
+    new import_obsidian2.Setting(form).addButton(
       (b) => b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
     );
   }
@@ -5781,7 +6431,7 @@ var LoreModal = class extends import_obsidian2.Modal {
     const content = [
       "---",
       `title: "${this.data.title}"`,
-      `category: ${this.data.category}`,
+      `category: ${yamlScalar(this.data.category)}`,
       `entry_type: lore`,
       "---",
       "",
@@ -6055,11 +6705,14 @@ var UniverseBuilderPlugin = class extends import_obsidian2.Plugin {
     this.registerEvent(
       this.app.vault.on("rename", async (file, oldPath) => {
         let changed = false;
-        for (const order of Object.values(this.settings.characterOrder)) {
-          const i = order.indexOf(oldPath);
-          if (i !== -1) {
-            order[i] = file.path;
-            changed = true;
+        const characterOrders = [this.settings.characterOrder, ...Object.values(this.settings.characterOrderBy)];
+        for (const orders of characterOrders) {
+          for (const order of Object.values(orders != null ? orders : {})) {
+            const i = order.indexOf(oldPath);
+            if (i !== -1) {
+              order[i] = file.path;
+              changed = true;
+            }
           }
         }
         for (const order of Object.values(this.settings.sectionOrder)) {
@@ -6367,7 +7020,10 @@ var UniverseBuilderPlugin = class extends import_obsidian2.Plugin {
       return (_a = moved.get(p)) != null ? _a : p;
     });
     const s = this.settings;
-    for (const key of Object.keys(s.characterOrder)) s.characterOrder[key] = remap(s.characterOrder[key]);
+    for (const orders of [s.characterOrder, ...Object.values(s.characterOrderBy)]) {
+      if (!orders) continue;
+      for (const key of Object.keys(orders)) orders[key] = remap(orders[key]);
+    }
     for (const tab of Object.keys(s.sectionOrder)) {
       const order = s.sectionOrder[tab];
       if (order) s.sectionOrder[tab] = remap(order);
@@ -6393,21 +7049,30 @@ var UniverseBuilderPlugin = class extends import_obsidian2.Plugin {
     }
   }
   async loadSettings() {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k;
     const data = await this.loadData();
     this.settings = Object.assign({}, DEFAULT_SETTINGS, data);
     this.settings.characterOrder = (_a = data == null ? void 0 : data.characterOrder) != null ? _a : {};
     this.settings.collapsedGroups = (_b = data == null ? void 0 : data.collapsedGroups) != null ? _b : [];
-    this.settings.collapsedGroupTypes = (_c = data == null ? void 0 : data.collapsedGroupTypes) != null ? _c : [];
-    this.settings.collapsedParents = (_d = data == null ? void 0 : data.collapsedParents) != null ? _d : [];
-    this.settings.collapsedSubsidiaries = (_e = data == null ? void 0 : data.collapsedSubsidiaries) != null ? _e : [];
-    this.settings.sectionOrder = (_f = data == null ? void 0 : data.sectionOrder) != null ? _f : {};
-    this.settings.bookmarks = (_g = data == null ? void 0 : data.bookmarks) != null ? _g : [];
-    this.settings.collapsedBookmarkGroups = (_h = data == null ? void 0 : data.collapsedBookmarkGroups) != null ? _h : [];
-    this.settings.folderMigration = { ...(_i = data == null ? void 0 : data.folderMigration) != null ? _i : {} };
+    this.settings.characterGrouping = CHARACTER_GROUPINGS.includes(data == null ? void 0 : data.characterGrouping) ? data.characterGrouping : "group";
+    this.settings.characterOrderBy = { ...(_c = data == null ? void 0 : data.characterOrderBy) != null ? _c : {} };
+    this.settings.collapsedCharacterSections = { ...(_d = data == null ? void 0 : data.collapsedCharacterSections) != null ? _d : {} };
+    this.settings.collapsedGroupTypes = (_e = data == null ? void 0 : data.collapsedGroupTypes) != null ? _e : [];
+    this.settings.collapsedParents = (_f = data == null ? void 0 : data.collapsedParents) != null ? _f : [];
+    this.settings.collapsedSubsidiaries = (_g = data == null ? void 0 : data.collapsedSubsidiaries) != null ? _g : [];
+    this.settings.sectionOrder = (_h = data == null ? void 0 : data.sectionOrder) != null ? _h : {};
+    this.settings.bookmarks = (_i = data == null ? void 0 : data.bookmarks) != null ? _i : [];
+    this.settings.collapsedBookmarkGroups = (_j = data == null ? void 0 : data.collapsedBookmarkGroups) != null ? _j : [];
+    this.settings.folderMigration = { ...(_k = data == null ? void 0 : data.folderMigration) != null ? _k : {} };
     this.migrateLegacySettings(data);
     this.settings.inlineEditor = (data == null ? void 0 : data.inlineEditor) === "raw" ? "raw" : "live";
     this.settings.language = normalizeLanguage(data == null ? void 0 : data.language);
+    this.settings.customOptions = normalizeCustomOptions(data == null ? void 0 : data.customOptions);
+  }
+  /** Every value a field's dropdown offers: the built-in ones, then the user's own. */
+  optionValues(field) {
+    var _a;
+    return [...field.builtIn, ...(_a = this.settings.customOptions[field.id]) != null ? _a : []];
   }
   /**
    * Carries over plugin data saved before the "Employers" tab was renamed to "Groups", so
@@ -6430,3 +7095,22 @@ var UniverseBuilderPlugin = class extends import_obsidian2.Plugin {
     await this.saveData(this.settings);
   }
 };
+function normalizeCustomOptions(stored) {
+  const out = {};
+  if (!stored || typeof stored !== "object") return out;
+  for (const field of METADATA_FIELDS) {
+    const list = stored[field.id];
+    if (!Array.isArray(list)) continue;
+    const seen = new Set(field.builtIn.map(optionKey));
+    const values = [];
+    for (const v of list) {
+      if (typeof v !== "string") continue;
+      const value = v.trim();
+      if (!value || seen.has(optionKey(value))) continue;
+      seen.add(optionKey(value));
+      values.push(value);
+    }
+    if (values.length) out[field.id] = values;
+  }
+  return out;
+}

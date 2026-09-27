@@ -90,7 +90,7 @@ export function t(key: TranslationKey, vars: Record<string, string | number> = {
 }
 
 /** Like t(), choosing between `<key>.one` and `<key>.other` by `count` (also passed as {count}). */
-export function tn(key: "migrate.scope" | "migrate.moved", count: number, vars: Record<string, string | number> = {}): string {
+export function tn(key: "migrate.scope" | "migrate.moved" | "metadata.uses", count: number, vars: Record<string, string | number> = {}): string {
 	return t(`${key}.${count === 1 ? "one" : "other"}` as TranslationKey, { count, ...vars });
 }
 
