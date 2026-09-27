@@ -3116,7 +3116,7 @@ function optionKey(value) {
   return value.trim().toLowerCase();
 }
 function yamlScalar(value) {
-  return /^[\p{L}\p{N}][\p{L}\p{N} _\-]*$/u.test(value) && !/^(true|false|yes|no|on|off|null|~)$/i.test(value) && !/^[\d\s._-]+$/.test(value) ? value : JSON.stringify(value);
+  return /^[\p{L}\p{N}][\p{L}\p{N} _-]*$/u.test(value) && !/^(true|false|yes|no|on|off|null|~)$/i.test(value) && !/^[\d\s._-]+$/.test(value) ? value : JSON.stringify(value);
 }
 function slugify(s) {
   return s.replace(/[/\\:*?"<>|#^[\]]/g, "-").trim();

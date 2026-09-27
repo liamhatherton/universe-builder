@@ -228,7 +228,7 @@ function optionKey(value: string): string {
  * "yes"/"null"-like words...) is written as a double-quoted string.
  */
 function yamlScalar(value: string): string {
-	return /^[\p{L}\p{N}][\p{L}\p{N} _\-]*$/u.test(value) && !/^(true|false|yes|no|on|off|null|~)$/i.test(value) && !/^[\d\s._-]+$/.test(value)
+	return /^[\p{L}\p{N}][\p{L}\p{N} _-]*$/u.test(value) && !/^(true|false|yes|no|on|off|null|~)$/i.test(value) && !/^[\d\s._-]+$/.test(value)
 		? value
 		: JSON.stringify(value);
 }
