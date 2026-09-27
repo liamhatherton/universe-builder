@@ -658,6 +658,78 @@ type CardFn = (fm: Record<string, string>) => {
 const hasValue = (v: unknown): boolean =>
 	v !== undefined && v !== null && !(typeof v === "string" && v.trim() === "");
 
+/**
+ * True when a character's `pov` property marks them as a point-of-view character: any value set
+ * by hand counts, except an explicit "no" (no / false / n / 0 / off), which the New Character
+ * form and the expanded card's POV toggle write for non-POV characters.
+ */
+const isPov = (v: unknown): boolean =>
+	hasValue(v) && !/^(no|false|n|0|off)$/i.test(String(v).trim());
+
+/**
+ * Sets (or adds, at the end) one `key: value` line in a block of frontmatter YAML (the text between
+ * the `---` lines), leaving every other line exactly as written (quoting, order, comments).
+ */
+function setYamlLine(yaml: string, key: string, value: string): string {
+	const line = `${key}: ${value}`;
+	if (!yaml.trim()) return line;
+	const eol = yaml.includes("\r\n") ? "\r\n" : "\n";
+	const lines = yaml.split(/\r?\n/);
+	const keyRe = new RegExp(`^${key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*:`);
+	const idx = lines.findIndex((l) => keyRe.test(l));
+	if (idx !== -1) {
+		lines[idx] = line;
+	} else {
+		// After the last non-blank line, so a trailing blank line stays last.
+		let at = lines.length;
+		while (at > 0 && !lines[at - 1].trim()) at--;
+		lines.splice(at, 0, line);
+	}
+	return lines.join(eol);
+}
+
+/** A block of frontmatter YAML's `pov` value, read the same way as a card's (see readFrontmatter). */
+function yamlPov(yaml: string): string | undefined {
+	return readFrontmatter(`---\n${yaml.replace(/\r\n/g, "\n")}\n---`).pov;
+}
+
+/**
+ * The inline editor's POV toggle (characters only): a person icon and "POV", on the right of the
+ * Properties row. It flips `pov: yes` / `pov: no` in the editor's own copy of the frontmatter, so
+ * it's saved with Save and discarded with Cancel like any other edit, and it follows `pov` being
+ * typed into the Properties box by hand. `getYaml` / `setYaml` read and write that frontmatter
+ * text; `watch` is the textarea whose typing should re-sync the button; `onChange` hears the
+ * (unsaved) POV state whenever it's synced, so the card's header can show it straight away.
+ */
+function createPovToggle(
+	row: HTMLElement,
+	getYaml: () => string,
+	setYaml: (yaml: string) => void,
+	watch: HTMLTextAreaElement,
+	onChange?: (on: boolean) => void
+) {
+	const btn = row.createEl("button", {
+		cls: "wb-btn-secondary wb-icon-btn wb-pov-toggle",
+		attr: { type: "button" },
+	});
+	setIcon(btn.createSpan({ cls: "wb-btn-icon" }), "user");
+	btn.createSpan({ text: t("card.pov") });
+	const sync = () => {
+		const on = isPov(yamlPov(getYaml()));
+		btn.classList.toggle("is-pov", on);
+		btn.setAttribute("aria-pressed", String(on));
+		btn.setAttribute("aria-label", on ? t("card.povRemove") : t("card.povAdd"));
+		onChange?.(on);
+	};
+	btn.onclick = () => {
+		setYaml(setYamlLine(getYaml(), "pov", isPov(yamlPov(getYaml())) ? "no" : "yes"));
+		// Resizes the box and re-syncs the button (see the listener below).
+		watch.dispatchEvent(new Event("input"));
+	};
+	watch.addEventListener("input", sync);
+	sync();
+}
+
 /** The five entry sections, each with its own tab and folder. */
 type SectionTab = "characters" | "locations" | "groups" | "lore" | "timeline";
 /** Everything the sidebar can show: a section, or the Bookmarks view (opened from the section header, not the tab bar). */
@@ -997,8 +1069,8 @@ class UniverseBuilderView extends ItemView {
 				].filter(Boolean).join("\n"),
 				badge: fm.role ?? "",
 				badgeText: displayValue("role", fm.role ?? ""),
-				// `pov` is set by hand in the note's properties (not in the New Character modal).
-				extraBadges: hasValue(fm.pov) ? [{ text: t("card.pov"), cls: "wb-badge-pov" }] : [],
+				// `pov` is set by the New Character form, the expanded card's POV toggle, or by hand.
+				extraBadges: isPov(fm.pov) ? [{ text: t("card.pov"), cls: "wb-badge-pov" }] : [],
 				// What the search bar matches against.
 				search: [fm.name, fm.group, fm.ship, fm.home].filter(Boolean).join(" "),
 			}),
@@ -2119,6 +2191,8 @@ class UniverseBuilderView extends ItemView {
 			body.show();
 			expand.removeClass("is-editing");
 			showViewActions();
+			// Undo an unsaved POV flip shown in the header (a save redraws the card from the file instead).
+			if (this.findEntryTab(entry.file) === "characters") this.setCardPovBadge(card, isPov(entry.fm.pov));
 			// The card stays floating, back in read mode.
 		};
 
@@ -2158,10 +2232,14 @@ class UniverseBuilderView extends ItemView {
 				save: () => void runExclusive(finishEditing),
 				cancel: () => void runExclusive(discard),
 			};
+			// Characters get a POV toggle on the editor's Properties row; the card's header shows its
+			// (unsaved) state as it's flipped, and goes back to the saved state if editing is cancelled.
+			const pov = this.findEntryTab(entry.file) === "characters";
+			const onPovChange = (on: boolean) => this.setCardPovBadge(card, on);
 			editor =
 				(this.plugin.settings.inlineEditor === "live"
-					? createLivePreviewEditor(this.app, this, body, entry.file, original, keys, this.findFirstImage(original, entry.file))
-					: null) ?? createRawEditor(body, entry.file, original, keys);
+					? createLivePreviewEditor(this.app, this, body, entry.file, original, keys, this.findFirstImage(original, entry.file), pov, onPovChange)
+					: null) ?? createRawEditor(body, entry.file, original, keys, pov, onPovChange);
 			this.activeEdit = {
 				card,
 				isDirty,
@@ -2559,6 +2637,31 @@ class UniverseBuilderView extends ItemView {
 		btn.classList.toggle("is-bookmarked", on);
 		btn.setAttribute("aria-pressed", String(on));
 		btn.setAttribute("aria-label", on ? t("bookmarks.remove") : t("bookmarks.add"));
+	}
+
+	/**
+	 * Shows or hides the pink POV label in a character card's own header (not the expanded area),
+	 * in the badge row under the name, where renderCard draws it, after the role badge.
+	 */
+	private setCardPovBadge(card: HTMLElement, on: boolean) {
+		const titleEl = Array.from(card.querySelectorAll<HTMLElement>(".wb-card-title")).find((el) => !el.closest(".wb-card-expand"));
+		const head = titleEl?.parentElement;
+		if (!titleEl || !head) return;
+		const existing = head.querySelector<HTMLElement>(":scope > .wb-card-badge-row > .wb-badge-pov, :scope > .wb-card-title > .wb-badge-pov");
+		if (on === !!existing) return;
+		if (existing) {
+			const row = existing.parentElement;
+			existing.remove();
+			// Drop the badge row if the POV label was all it held.
+			if (row?.hasClass("wb-card-badge-row") && !row.hasChildNodes()) row.remove();
+			return;
+		}
+		let host = head.querySelector<HTMLElement>(":scope > .wb-card-badge-row");
+		if (!host) {
+			host = createDiv("wb-card-badge-row");
+			titleEl.insertAdjacentElement("afterend", host);
+		}
+		host.createSpan({ cls: "wb-badge wb-badge-pov", text: t("card.pov") });
 	}
 
 	/** Adds or removes one note from the bookmarks, updating every expanded copy of its card. */
@@ -3095,10 +3198,32 @@ function createAutoTextarea(parent: HTMLElement, cls: string, value: string, lab
  * Uses only standard DOM, so it can't be broken by Obsidian updates. It's the fallback whenever
  * the Live Preview editor can't be created, and what the "Sidebar editor: Raw markdown" setting uses.
  */
-function createRawEditor(anchor: HTMLElement, file: TFile, text: string, keys: InlineEditorKeys): InlineEditor {
+function createRawEditor(
+	anchor: HTMLElement,
+	file: TFile,
+	text: string,
+	keys: InlineEditorKeys,
+	pov = false,
+	onPovChange?: (on: boolean) => void
+): InlineEditor {
 	const wrap = createDiv("wb-card-editor-wrap");
 	anchor.insertAdjacentElement("afterend", wrap);
+	// Characters: a row above the text box with just the POV toggle on its right (there's no
+	// separate Properties box here; the toggle edits the frontmatter at the top of the text).
+	const povRow = pov ? wrap.createDiv("wb-card-editor-props-row") : null;
 	const ta = createAutoTextarea(wrap, "wb-card-editor", text, t("card.editLabel", { name: file.basename }), keys);
+	if (povRow) {
+		createPovToggle(
+			povRow,
+			() => splitFrontmatter(ta.value)?.yaml ?? "",
+			(yaml) => {
+				const fm = splitFrontmatter(ta.value);
+				ta.value = fm ? fm.open + yaml + fm.close + fm.body : `---\n${yaml}\n---\n${ta.value}`;
+			},
+			ta,
+			onPovChange
+		);
+	}
 	return {
 		getText: () => ta.value,
 		isDirty: () => ta.value !== text,
@@ -3199,7 +3324,9 @@ function createLivePreviewEditor(
 	file: TFile,
 	text: string,
 	keys: InlineEditorKeys,
-	portrait: { start: number; end: number } | null = null
+	portrait: { start: number; end: number } | null = null,
+	pov = false,
+	onPovChange?: (on: boolean) => void
 ): InlineEditor | null {
 	const Base = resolveLivePreviewEditorClass(app);
 	if (!Base) return null;
@@ -3210,7 +3337,9 @@ function createLivePreviewEditor(
 	let props: HTMLTextAreaElement | null = null;
 	if (fm) {
 		// Collapsed to start with, so the body text is what's in view; the header toggles it open.
-		const toggle = wrap.createEl("button", {
+		// It sits on the left of its own row, with the POV toggle (characters only) on the right.
+		const row = wrap.createDiv("wb-card-editor-props-row");
+		const toggle = row.createEl("button", {
 			cls: "wb-card-editor-label wb-card-editor-props-toggle",
 			attr: { type: "button", "aria-expanded": "false" },
 		});
@@ -3221,6 +3350,7 @@ function createLivePreviewEditor(
 		const box = createAutoTextarea(wrap, "wb-card-editor wb-card-editor-props", fm.yaml, t("card.propertiesOf", { name: file.basename }), keys);
 		box.hide();
 		props = box;
+		if (pov) createPovToggle(row, () => box.value, (yaml) => (box.value = yaml), box, onPovChange);
 		toggle.onclick = () => {
 			const open = !box.isShown();
 			box.toggle(open);
@@ -3643,7 +3773,7 @@ class CharacterModal extends Modal {
 	onDone: () => void;
 	portrait: PortraitPicker | null = null;
 	data = {
-		name: "", role: "protagonist", age: "", group: "", ship: "", home: "",
+		name: "", role: "protagonist", pov: false, age: "", group: "", ship: "", home: "",
 		physicalDesc: "", personality: "", goals: ""
 	};
 
@@ -3665,6 +3795,13 @@ class CharacterModal extends Modal {
 			text.setPlaceholder(t("character.namePlaceholder")).onChange((v) => (this.data.name = v));
 		});
 		addEditableDropdown(this, this.plugin, "characters", form, metadataField("characters", "role"), this.data.role, (v) => (this.data.role = v));
+		// POV: whether this is a point-of-view character (shown as the pink POV label on the card). No by default.
+		new Setting(form).setName(t("character.pov")).addDropdown((d) => {
+			d.addOption("no", t("form.no"));
+			d.addOption("yes", t("form.yes"));
+			d.setValue("no");
+			d.onChange((v) => (this.data.pov = v === "yes"));
+		});
 		new Setting(form).setName(t("character.age")).addText((text) => {
 			text.setPlaceholder(t("character.agePlaceholder")).onChange((v) => (this.data.age = v));
 		});
@@ -3738,6 +3875,7 @@ class CharacterModal extends Modal {
 			"---",
 			`name: "${this.data.name}"`,
 			`role: ${yamlScalar(this.data.role)}`,
+			`pov: ${this.data.pov ? "yes" : "no"}`,
 			`age: "${this.data.age}"`,
 			`group: ${JSON.stringify(this.data.group)}`,
 			`ship: ${JSON.stringify(this.data.ship)}`,

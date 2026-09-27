@@ -561,6 +561,29 @@
 .wb-card-editor-props-chevron svg { width: 12px; height: 12px; }
 .wb-card-editor-props-toggle.is-open .wb-card-editor-props-chevron { transform: rotate(90deg); }
 .wb-card-editor-props-count { font-weight: normal; letter-spacing: 0; }
+/* The row holding the Properties toggle (left) and, on character entries, the POV toggle (right). */
+.wb-card-editor-props-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 6px;
+}
+/* POV toggle: icon + "POV", sized like the toolbar buttons, turning the same pink as the card's
+   POV label while on. Two-class selectors so they beat Obsidian's `button:not(.clickable-icon)` rule. */
+.wb-card-editor-props-row .wb-pov-toggle {
+	margin-left: auto;
+	height: auto;
+	gap: 4px;
+	padding: 2px 7px;
+	font-size: 0.75em;
+	line-height: 1.4;
+}
+.wb-card-editor-props-row .wb-pov-toggle svg { width: 12px; height: 12px; }
+.wb-icon-btn.wb-pov-toggle.is-pov,
+.wb-icon-btn.wb-pov-toggle.is-pov:hover {
+	background: #8e2d6a33;
+	color: #f06fb4;
+}
 .wb-card-editor-body {
 	min-height: 8em;
 	max-height: 60vh;

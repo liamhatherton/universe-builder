@@ -100,6 +100,8 @@ var en = {
   "card.group": "Group",
   "card.ship": "Ship",
   "card.pov": "POV",
+  "card.povAdd": "Mark as POV character",
+  "card.povRemove": "Unmark as POV character",
   "group.none": "No Group",
   "group.unassigned": "Unassigned",
   "group.subsidiaries": "Subsidiaries",
@@ -161,6 +163,8 @@ var en = {
   "form.addNew": "Add new {field}\u2026",
   "form.addNewTitle": "New {field}",
   "form.noneOption": "None",
+  "form.yes": "Yes",
+  "form.no": "No",
   "form.nameRequired": "Name is required.",
   "form.titleRequired": "Title is required.",
   "form.createdNoPortrait": `"{name}" was created, but its portrait couldn't be imported.`,
@@ -174,6 +178,7 @@ var en = {
   "character.new": "New Character",
   "character.namePlaceholder": "Character name",
   "character.role": "Role",
+  "character.pov": "POV character",
   "character.age": "Age",
   "character.agePlaceholder": "e.g. 34",
   "character.group": "Group",
@@ -391,6 +396,8 @@ var es = {
   "card.group": "Grupo",
   "card.ship": "Nave",
   "card.pov": "PDV",
+  "card.povAdd": "Marcar como personaje PDV",
+  "card.povRemove": "Desmarcar como personaje PDV",
   "group.none": "Sin grupo",
   "group.unassigned": "Sin asignar",
   "group.subsidiaries": "Filiales",
@@ -452,6 +459,8 @@ var es = {
   "form.addNew": "A\xF1adir nuevo: {field}\u2026",
   "form.addNewTitle": "Nuevo: {field}",
   "form.noneOption": "Ninguno",
+  "form.yes": "S\xED",
+  "form.no": "No",
   "form.nameRequired": "El nombre es obligatorio.",
   "form.titleRequired": "El t\xEDtulo es obligatorio.",
   "form.createdNoPortrait": "Se cre\xF3 \xAB{name}\xBB, pero no se pudo importar su retrato.",
@@ -465,6 +474,7 @@ var es = {
   "character.new": "Nuevo personaje",
   "character.namePlaceholder": "Nombre del personaje",
   "character.role": "Rol",
+  "character.pov": "Personaje PDV",
   "character.age": "Edad",
   "character.agePlaceholder": "p. ej., 34",
   "character.group": "Grupo",
@@ -682,6 +692,8 @@ var pt = {
   "card.group": "Grupo",
   "card.ship": "Nave",
   "card.pov": "POV",
+  "card.povAdd": "Marcar como personagem POV",
+  "card.povRemove": "Desmarcar como personagem POV",
   "group.none": "Sem grupo",
   "group.unassigned": "N\xE3o atribu\xEDdo",
   "group.subsidiaries": "Subsidi\xE1rias",
@@ -743,6 +755,8 @@ var pt = {
   "form.addNew": "Adicionar novo: {field}\u2026",
   "form.addNewTitle": "Novo: {field}",
   "form.noneOption": "Nenhum",
+  "form.yes": "Sim",
+  "form.no": "N\xE3o",
   "form.nameRequired": "O nome \xE9 obrigat\xF3rio.",
   "form.titleRequired": "O t\xEDtulo \xE9 obrigat\xF3rio.",
   "form.createdNoPortrait": "\xAB{name}\xBB foi criado, mas n\xE3o foi poss\xEDvel importar o retrato.",
@@ -756,6 +770,7 @@ var pt = {
   "character.new": "Nova personagem",
   "character.namePlaceholder": "Nome da personagem",
   "character.role": "Papel",
+  "character.pov": "Personagem POV",
   "character.age": "Idade",
   "character.agePlaceholder": "p. ex., 34",
   "character.group": "Grupo",
@@ -973,6 +988,8 @@ var ptBR = {
   "card.group": "Grupo",
   "card.ship": "Nave",
   "card.pov": "POV",
+  "card.povAdd": "Marcar como personagem POV",
+  "card.povRemove": "Desmarcar como personagem POV",
   "group.none": "Sem grupo",
   "group.unassigned": "N\xE3o atribu\xEDdo",
   "group.subsidiaries": "Subsidi\xE1rias",
@@ -1034,6 +1051,8 @@ var ptBR = {
   "form.addNew": "Adicionar novo: {field}\u2026",
   "form.addNewTitle": "Novo: {field}",
   "form.noneOption": "Nenhum",
+  "form.yes": "Sim",
+  "form.no": "N\xE3o",
   "form.nameRequired": "O nome \xE9 obrigat\xF3rio.",
   "form.titleRequired": "O t\xEDtulo \xE9 obrigat\xF3rio.",
   "form.createdNoPortrait": "\u201C{name}\u201D foi criado, mas n\xE3o foi poss\xEDvel importar o retrato.",
@@ -1047,6 +1066,7 @@ var ptBR = {
   "character.new": "Novo personagem",
   "character.namePlaceholder": "Nome do personagem",
   "character.role": "Papel",
+  "character.pov": "Personagem POV",
   "character.age": "Idade",
   "character.agePlaceholder": "ex.: 34",
   "character.group": "Grupo",
@@ -1264,6 +1284,8 @@ var fr = {
   "card.group": "Groupe",
   "card.ship": "Vaisseau",
   "card.pov": "PDV",
+  "card.povAdd": "Marquer comme personnage PDV",
+  "card.povRemove": "Retirer le statut de personnage PDV",
   "group.none": "Sans groupe",
   "group.unassigned": "Non class\xE9",
   "group.subsidiaries": "Filiales",
@@ -1325,6 +1347,8 @@ var fr = {
   "form.addNew": "Ajouter : {field}\u2026",
   "form.addNewTitle": "Nouveau : {field}",
   "form.noneOption": "Aucun",
+  "form.yes": "Oui",
+  "form.no": "Non",
   "form.nameRequired": "Le nom est obligatoire.",
   "form.titleRequired": "Le titre est obligatoire.",
   "form.createdNoPortrait": "\xAB\xA0{name}\xA0\xBB a \xE9t\xE9 cr\xE9\xE9, mais son portrait n'a pas pu \xEAtre import\xE9.",
@@ -1338,6 +1362,7 @@ var fr = {
   "character.new": "Nouveau personnage",
   "character.namePlaceholder": "Nom du personnage",
   "character.role": "R\xF4le",
+  "character.pov": "Personnage PDV",
   "character.age": "\xC2ge",
   "character.agePlaceholder": "p. ex. 34",
   "character.group": "Groupe",
@@ -1555,6 +1580,8 @@ var de = {
   "card.group": "Gruppe",
   "card.ship": "Schiff",
   "card.pov": "POV",
+  "card.povAdd": "Als POV-Figur markieren",
+  "card.povRemove": "POV-Markierung entfernen",
   "group.none": "Keine Gruppe",
   "group.unassigned": "Nicht zugeordnet",
   "group.subsidiaries": "Tochtergesellschaften",
@@ -1616,6 +1643,8 @@ var de = {
   "form.addNew": "Neu hinzuf\xFCgen: {field}\u2026",
   "form.addNewTitle": "Neu: {field}",
   "form.noneOption": "Keine Angabe",
+  "form.yes": "Ja",
+  "form.no": "Nein",
   "form.nameRequired": "Ein Name ist erforderlich.",
   "form.titleRequired": "Ein Titel ist erforderlich.",
   "form.createdNoPortrait": "\u201E{name}\u201C wurde erstellt, aber das Portr\xE4t konnte nicht importiert werden.",
@@ -1629,6 +1658,7 @@ var de = {
   "character.new": "Neue Figur",
   "character.namePlaceholder": "Name der Figur",
   "character.role": "Rolle",
+  "character.pov": "POV-Figur",
   "character.age": "Alter",
   "character.agePlaceholder": "z. B. 34",
   "character.group": "Gruppe",
@@ -1846,6 +1876,8 @@ var ru = {
   "card.group": "\u0413\u0440\u0443\u043F\u043F\u0430",
   "card.ship": "\u041A\u043E\u0440\u0430\u0431\u043B\u044C",
   "card.pov": "POV",
+  "card.povAdd": "\u041E\u0442\u043C\u0435\u0442\u0438\u0442\u044C \u043A\u0430\u043A POV-\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430",
+  "card.povRemove": "\u0421\u043D\u044F\u0442\u044C \u043E\u0442\u043C\u0435\u0442\u043A\u0443 POV-\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430",
   "group.none": "\u0411\u0435\u0437 \u0433\u0440\u0443\u043F\u043F\u044B",
   "group.unassigned": "\u0411\u0435\u0437 \u0442\u0438\u043F\u0430",
   "group.subsidiaries": "\u0414\u043E\u0447\u0435\u0440\u043D\u0438\u0435",
@@ -1907,6 +1939,8 @@ var ru = {
   "form.addNew": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C: {field}\u2026",
   "form.addNewTitle": "\u041D\u043E\u0432\u043E\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435: {field}",
   "form.noneOption": "\u041D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E",
+  "form.yes": "\u0414\u0430",
+  "form.no": "\u041D\u0435\u0442",
   "form.nameRequired": "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0438\u043C\u044F.",
   "form.titleRequired": "\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435.",
   "form.createdNoPortrait": "\xAB{name}\xBB \u0441\u043E\u0437\u0434\u0430\u043D\u043E, \u043D\u043E \u043F\u043E\u0440\u0442\u0440\u0435\u0442 \u0438\u043C\u043F\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C.",
@@ -1920,6 +1954,7 @@ var ru = {
   "character.new": "\u041D\u043E\u0432\u044B\u0439 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436",
   "character.namePlaceholder": "\u0418\u043C\u044F \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430",
   "character.role": "\u0420\u043E\u043B\u044C",
+  "character.pov": "POV-\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436",
   "character.age": "\u0412\u043E\u0437\u0440\u0430\u0441\u0442",
   "character.agePlaceholder": "\u043D\u0430\u043F\u0440. 34",
   "character.group": "\u0413\u0440\u0443\u043F\u043F\u0430",
@@ -2137,6 +2172,8 @@ var uk = {
   "card.group": "\u0413\u0440\u0443\u043F\u0430",
   "card.ship": "\u041A\u043E\u0440\u0430\u0431\u0435\u043B\u044C",
   "card.pov": "POV",
+  "card.povAdd": "\u041F\u043E\u0437\u043D\u0430\u0447\u0438\u0442\u0438 \u044F\u043A POV-\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430",
+  "card.povRemove": "\u0417\u043D\u044F\u0442\u0438 \u043F\u043E\u0437\u043D\u0430\u0447\u043A\u0443 POV-\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430",
   "group.none": "\u0411\u0435\u0437 \u0433\u0440\u0443\u043F\u0438",
   "group.unassigned": "\u0411\u0435\u0437 \u0442\u0438\u043F\u0443",
   "group.subsidiaries": "\u0414\u043E\u0447\u0456\u0440\u043D\u0456",
@@ -2198,6 +2235,8 @@ var uk = {
   "form.addNew": "\u0414\u043E\u0434\u0430\u0442\u0438: {field}\u2026",
   "form.addNewTitle": "\u041D\u043E\u0432\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u043D\u044F: {field}",
   "form.noneOption": "\u041D\u0435 \u0432\u043A\u0430\u0437\u0430\u043D\u043E",
+  "form.yes": "\u0422\u0430\u043A",
+  "form.no": "\u041D\u0456",
   "form.nameRequired": "\u0412\u043A\u0430\u0436\u0456\u0442\u044C \u0456\u043C'\u044F.",
   "form.titleRequired": "\u0412\u043A\u0430\u0436\u0456\u0442\u044C \u043D\u0430\u0437\u0432\u0443.",
   "form.createdNoPortrait": "\xAB{name}\xBB \u0441\u0442\u0432\u043E\u0440\u0435\u043D\u043E, \u0430\u043B\u0435 \u043F\u043E\u0440\u0442\u0440\u0435\u0442 \u0456\u043C\u043F\u043E\u0440\u0442\u0443\u0432\u0430\u0442\u0438 \u043D\u0435 \u0432\u0434\u0430\u043B\u043E\u0441\u044F.",
@@ -2211,6 +2250,7 @@ var uk = {
   "character.new": "\u041D\u043E\u0432\u0438\u0439 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436",
   "character.namePlaceholder": "\u0406\u043C'\u044F \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0430",
   "character.role": "\u0420\u043E\u043B\u044C",
+  "character.pov": "POV-\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436",
   "character.age": "\u0412\u0456\u043A",
   "character.agePlaceholder": "\u043D\u0430\u043F\u0440. 34",
   "character.group": "\u0413\u0440\u0443\u043F\u0430",
@@ -2428,6 +2468,8 @@ var zh = {
   "card.group": "\u7EC4\u7EC7",
   "card.ship": "\u98DE\u8239",
   "card.pov": "\u89C6\u89D2",
+  "card.povAdd": "\u6807\u8BB0\u4E3A\u89C6\u89D2\u89D2\u8272",
+  "card.povRemove": "\u53D6\u6D88\u89C6\u89D2\u89D2\u8272\u6807\u8BB0",
   "group.none": "\u65E0\u7EC4\u7EC7",
   "group.unassigned": "\u672A\u5206\u7C7B",
   "group.subsidiaries": "\u4E0B\u5C5E\u7EC4\u7EC7",
@@ -2489,6 +2531,8 @@ var zh = {
   "form.addNew": "\u65B0\u589E{field}\u2026",
   "form.addNewTitle": "\u65B0{field}",
   "form.noneOption": "\u65E0",
+  "form.yes": "\u662F",
+  "form.no": "\u5426",
   "form.nameRequired": "\u540D\u79F0\u4E3A\u5FC5\u586B\u9879\u3002",
   "form.titleRequired": "\u6807\u9898\u4E3A\u5FC5\u586B\u9879\u3002",
   "form.createdNoPortrait": "\u5DF2\u521B\u5EFA\u201C{name}\u201D\uFF0C\u4F46\u65E0\u6CD5\u5BFC\u5165\u5176\u8096\u50CF\u3002",
@@ -2502,6 +2546,7 @@ var zh = {
   "character.new": "\u65B0\u5EFA\u89D2\u8272",
   "character.namePlaceholder": "\u89D2\u8272\u540D\u79F0",
   "character.role": "\u89D2\u8272\u5B9A\u4F4D",
+  "character.pov": "\u89C6\u89D2\u89D2\u8272",
   "character.age": "\u5E74\u9F84",
   "character.agePlaceholder": "\u4F8B\u5982 34",
   "character.group": "\u7EC4\u7EC7",
@@ -2719,6 +2764,8 @@ var ja = {
   "card.group": "\u7D44\u7E54",
   "card.ship": "\u5B87\u5B99\u8239",
   "card.pov": "\u8996\u70B9",
+  "card.povAdd": "\u8996\u70B9\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u306B\u3059\u308B",
+  "card.povRemove": "\u8996\u70B9\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u3092\u89E3\u9664",
   "group.none": "\u7D44\u7E54\u306A\u3057",
   "group.unassigned": "\u672A\u5206\u985E",
   "group.subsidiaries": "\u4E0B\u90E8\u7D44\u7E54",
@@ -2780,6 +2827,8 @@ var ja = {
   "form.addNew": "{field}\u3092\u8FFD\u52A0\u2026",
   "form.addNewTitle": "\u65B0\u3057\u3044{field}",
   "form.noneOption": "\u306A\u3057",
+  "form.yes": "\u306F\u3044",
+  "form.no": "\u3044\u3044\u3048",
   "form.nameRequired": "\u540D\u524D\u306F\u5FC5\u9808\u3067\u3059\u3002",
   "form.titleRequired": "\u30BF\u30A4\u30C8\u30EB\u306F\u5FC5\u9808\u3067\u3059\u3002",
   "form.createdNoPortrait": "\u300C{name}\u300D\u3092\u4F5C\u6210\u3057\u307E\u3057\u305F\u304C\u3001\u8096\u50CF\u753B\u3092\u30A4\u30F3\u30DD\u30FC\u30C8\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F\u3002",
@@ -2793,6 +2842,7 @@ var ja = {
   "character.new": "\u65B0\u3057\u3044\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC",
   "character.namePlaceholder": "\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u540D",
   "character.role": "\u5F79\u5272",
+  "character.pov": "\u8996\u70B9\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC",
   "character.age": "\u5E74\u9F62",
   "character.agePlaceholder": "\u4F8B\uFF1A34",
   "character.group": "\u7D44\u7E54",
@@ -3321,6 +3371,49 @@ function documentSearchText(content, fm) {
   return [...values, body].join(" ");
 }
 var hasValue = (v) => v !== void 0 && v !== null && !(typeof v === "string" && v.trim() === "");
+var isPov = (v) => hasValue(v) && !/^(no|false|n|0|off)$/i.test(String(v).trim());
+function setYamlLine(yaml, key, value) {
+  const line = `${key}: ${value}`;
+  if (!yaml.trim()) return line;
+  const eol = yaml.includes("\r\n") ? "\r\n" : "\n";
+  const lines = yaml.split(/\r?\n/);
+  const keyRe = new RegExp(`^${key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*:`);
+  const idx = lines.findIndex((l) => keyRe.test(l));
+  if (idx !== -1) {
+    lines[idx] = line;
+  } else {
+    let at = lines.length;
+    while (at > 0 && !lines[at - 1].trim()) at--;
+    lines.splice(at, 0, line);
+  }
+  return lines.join(eol);
+}
+function yamlPov(yaml) {
+  return readFrontmatter(`---
+${yaml.replace(/\r\n/g, "\n")}
+---`).pov;
+}
+function createPovToggle(row, getYaml, setYaml, watch, onChange) {
+  const btn = row.createEl("button", {
+    cls: "wb-btn-secondary wb-icon-btn wb-pov-toggle",
+    attr: { type: "button" }
+  });
+  (0, import_obsidian2.setIcon)(btn.createSpan({ cls: "wb-btn-icon" }), "user");
+  btn.createSpan({ text: t("card.pov") });
+  const sync = () => {
+    const on = isPov(yamlPov(getYaml()));
+    btn.classList.toggle("is-pov", on);
+    btn.setAttribute("aria-pressed", String(on));
+    btn.setAttribute("aria-label", on ? t("card.povRemove") : t("card.povAdd"));
+    onChange == null ? void 0 : onChange(on);
+  };
+  btn.onclick = () => {
+    setYaml(setYamlLine(getYaml(), "pov", isPov(yamlPov(getYaml())) ? "no" : "yes"));
+    watch.dispatchEvent(new Event("input"));
+  };
+  watch.addEventListener("input", sync);
+  sync();
+}
 var SECTION_TABS = ["characters", "locations", "groups", "lore", "timeline"];
 var SECTION_FOLDERS = {
   characters: "Characters",
@@ -3605,8 +3698,8 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
           ].filter(Boolean).join("\n"),
           badge: (_b2 = fm.role) != null ? _b2 : "",
           badgeText: displayValue("role", (_c2 = fm.role) != null ? _c2 : ""),
-          // `pov` is set by hand in the note's properties (not in the New Character modal).
-          extraBadges: hasValue(fm.pov) ? [{ text: t("card.pov"), cls: "wb-badge-pov" }] : [],
+          // `pov` is set by the New Character form, the expanded card's POV toggle, or by hand.
+          extraBadges: isPov(fm.pov) ? [{ text: t("card.pov"), cls: "wb-badge-pov" }] : [],
           // What the search bar matches against.
           search: [fm.name, fm.group, fm.ship, fm.home].filter(Boolean).join(" ")
         };
@@ -4562,6 +4655,7 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
       body.show();
       expand.removeClass("is-editing");
       showViewActions();
+      if (this.findEntryTab(entry.file) === "characters") this.setCardPovBadge(card, isPov(entry.fm.pov));
     };
     const startEditing = async () => {
       var _a2, _b2, _c2;
@@ -4595,7 +4689,9 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
         save: () => void runExclusive(finishEditing),
         cancel: () => void runExclusive(discard)
       };
-      editor = (_c2 = this.plugin.settings.inlineEditor === "live" ? createLivePreviewEditor(this.app, this, body, entry.file, original, keys, this.findFirstImage(original, entry.file)) : null) != null ? _c2 : createRawEditor(body, entry.file, original, keys);
+      const pov = this.findEntryTab(entry.file) === "characters";
+      const onPovChange = (on) => this.setCardPovBadge(card, on);
+      editor = (_c2 = this.plugin.settings.inlineEditor === "live" ? createLivePreviewEditor(this.app, this, body, entry.file, original, keys, this.findFirstImage(original, entry.file), pov, onPovChange) : null) != null ? _c2 : createRawEditor(body, entry.file, original, keys, pov, onPovChange);
       this.activeEdit = {
         card,
         isDirty,
@@ -4958,6 +5054,29 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
     btn.classList.toggle("is-bookmarked", on);
     btn.setAttribute("aria-pressed", String(on));
     btn.setAttribute("aria-label", on ? t("bookmarks.remove") : t("bookmarks.add"));
+  }
+  /**
+   * Shows or hides the pink POV label in a character card's own header (not the expanded area),
+   * in the badge row under the name, where renderCard draws it, after the role badge.
+   */
+  setCardPovBadge(card, on) {
+    const titleEl = Array.from(card.querySelectorAll(".wb-card-title")).find((el) => !el.closest(".wb-card-expand"));
+    const head = titleEl == null ? void 0 : titleEl.parentElement;
+    if (!titleEl || !head) return;
+    const existing = head.querySelector(":scope > .wb-card-badge-row > .wb-badge-pov, :scope > .wb-card-title > .wb-badge-pov");
+    if (on === !!existing) return;
+    if (existing) {
+      const row = existing.parentElement;
+      existing.remove();
+      if ((row == null ? void 0 : row.hasClass("wb-card-badge-row")) && !row.hasChildNodes()) row.remove();
+      return;
+    }
+    let host = head.querySelector(":scope > .wb-card-badge-row");
+    if (!host) {
+      host = createDiv("wb-card-badge-row");
+      titleEl.insertAdjacentElement("afterend", host);
+    }
+    host.createSpan({ cls: "wb-badge wb-badge-pov", text: t("card.pov") });
   }
   /** Adds or removes one note from the bookmarks, updating every expanded copy of its card. */
   async toggleBookmark(path) {
@@ -5421,10 +5540,29 @@ function createAutoTextarea(parent, cls, value, label, keys) {
   window.requestAnimationFrame(autosize);
   return ta;
 }
-function createRawEditor(anchor, file, text, keys) {
+function createRawEditor(anchor, file, text, keys, pov = false, onPovChange) {
   const wrap = createDiv("wb-card-editor-wrap");
   anchor.insertAdjacentElement("afterend", wrap);
+  const povRow = pov ? wrap.createDiv("wb-card-editor-props-row") : null;
   const ta = createAutoTextarea(wrap, "wb-card-editor", text, t("card.editLabel", { name: file.basename }), keys);
+  if (povRow) {
+    createPovToggle(
+      povRow,
+      () => {
+        var _a, _b;
+        return (_b = (_a = splitFrontmatter(ta.value)) == null ? void 0 : _a.yaml) != null ? _b : "";
+      },
+      (yaml) => {
+        const fm = splitFrontmatter(ta.value);
+        ta.value = fm ? fm.open + yaml + fm.close + fm.body : `---
+${yaml}
+---
+${ta.value}`;
+      },
+      ta,
+      onPovChange
+    );
+  }
   return {
     getText: () => ta.value,
     isDirty: () => ta.value !== text,
@@ -5462,7 +5600,7 @@ function resolveLivePreviewEditorClass(app) {
   }
   return livePreviewEditorClass;
 }
-function createLivePreviewEditor(app, parent, anchor, file, text, keys, portrait = null) {
+function createLivePreviewEditor(app, parent, anchor, file, text, keys, portrait = null, pov = false, onPovChange) {
   const Base = resolveLivePreviewEditorClass(app);
   if (!Base) return null;
   const wrap = createDiv("wb-card-editor-wrap wb-card-editor-live");
@@ -5470,7 +5608,8 @@ function createLivePreviewEditor(app, parent, anchor, file, text, keys, portrait
   const fm = splitFrontmatter(text);
   let props = null;
   if (fm) {
-    const toggle = wrap.createEl("button", {
+    const row = wrap.createDiv("wb-card-editor-props-row");
+    const toggle = row.createEl("button", {
       cls: "wb-card-editor-label wb-card-editor-props-toggle",
       attr: { type: "button", "aria-expanded": "false" }
     });
@@ -5481,6 +5620,7 @@ function createLivePreviewEditor(app, parent, anchor, file, text, keys, portrait
     const box = createAutoTextarea(wrap, "wb-card-editor wb-card-editor-props", fm.yaml, t("card.propertiesOf", { name: file.basename }), keys);
     box.hide();
     props = box;
+    if (pov) createPovToggle(row, () => box.value, (yaml) => box.value = yaml, box, onPovChange);
     toggle.onclick = () => {
       const open = !box.isShown();
       box.toggle(open);
@@ -5878,6 +6018,7 @@ var CharacterModal = class extends import_obsidian2.Modal {
     this.data = {
       name: "",
       role: "protagonist",
+      pov: false,
       age: "",
       group: "",
       ship: "",
@@ -5899,6 +6040,12 @@ var CharacterModal = class extends import_obsidian2.Modal {
       text.setPlaceholder(t("character.namePlaceholder")).onChange((v) => this.data.name = v);
     });
     addEditableDropdown(this, this.plugin, "characters", form, metadataField("characters", "role"), this.data.role, (v) => this.data.role = v);
+    new import_obsidian2.Setting(form).setName(t("character.pov")).addDropdown((d) => {
+      d.addOption("no", t("form.no"));
+      d.addOption("yes", t("form.yes"));
+      d.setValue("no");
+      d.onChange((v) => this.data.pov = v === "yes");
+    });
     new import_obsidian2.Setting(form).setName(t("character.age")).addText((text) => {
       text.setPlaceholder(t("character.agePlaceholder")).onChange((v) => this.data.age = v);
     });
@@ -5970,6 +6117,7 @@ var CharacterModal = class extends import_obsidian2.Modal {
       "---",
       `name: "${this.data.name}"`,
       `role: ${yamlScalar(this.data.role)}`,
+      `pov: ${this.data.pov ? "yes" : "no"}`,
       `age: "${this.data.age}"`,
       `group: ${JSON.stringify(this.data.group)}`,
       `ship: ${JSON.stringify(this.data.ship)}`,
