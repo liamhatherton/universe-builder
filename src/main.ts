@@ -41,10 +41,20 @@ function getMarkdownFilesIn(app: App, folderPath: string): TFile[] {
 
 interface UniverseBuilderSettings {
 	worldFolder: string;
-	/** Custom character order, keyed by lower-cased group name -> ordered note paths. */
+	/** Custom character order, keyed by lower-cased group name -> ordered note paths ("Group Characters By: Group"). */
 	characterOrder: Record<string, string[]>;
-	/** Lower-cased group names whose character sub-section is collapsed. */
+	/** Lower-cased group names whose character sub-section is collapsed ("Group Characters By: Group"). */
 	collapsedGroups: string[];
+	/** How the Characters tab is split into sections (Edit Metadata's "Group Characters By"). */
+	characterGrouping: CharacterGrouping;
+	/**
+	 * Custom character order for the other section-making groupings (Role, Ship, Home), each kept
+	 * separately so switching grouping never disturbs another one's order: grouping -> section key
+	 * -> ordered note paths. "Group" keeps using `characterOrder`.
+	 */
+	characterOrderBy: Partial<Record<SectionedGrouping, Record<string, string[]>>>;
+	/** Collapsed character sub-sections for the other groupings (Role, Ship, Home), by section key. */
+	collapsedCharacterSections: Partial<Record<SectionedGrouping, string[]>>;
 	/** Group type groups ("corporation", "government", "military", "criminal", "" = unassigned) collapsed on the Groups tab. */
 	collapsedGroupTypes: string[];
 	/** Note paths of parent entries on hierarchical tabs (Locations) whose subtree is collapsed. */
@@ -66,6 +76,11 @@ interface UniverseBuilderSettings {
 	folderMigration: FolderMigrationState;
 	/** Display language: "auto" follows Obsidian's own language (see i18n.ts), otherwise a fixed one. */
 	language: LanguageSetting;
+	/**
+	 * User-added values for the New entry forms' dropdowns, keyed by field (see SECTION_METADATA),
+	 * offered after the built-in values. Edited in the section header's Edit Metadata window.
+	 */
+	customOptions: Partial<Record<OptionField, string[]>>;
 }
 /**
  * Where the World -> UniverseBuilder folder move stands. `status` unset means "not settled yet":
@@ -107,6 +122,9 @@ const DEFAULT_SETTINGS: UniverseBuilderSettings = {
 	worldFolder: DEFAULT_FOLDER,
 	characterOrder: {},
 	collapsedGroups: [],
+	characterGrouping: "group",
+	characterOrderBy: {},
+	collapsedCharacterSections: {},
 	collapsedGroupTypes: [],
 	collapsedParents: [],
 	collapsedSubsidiaries: [],
@@ -116,6 +134,7 @@ const DEFAULT_SETTINGS: UniverseBuilderSettings = {
 	inlineEditor: "live",
 	folderMigration: {},
 	language: "auto",
+	customOptions: {},
 };
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -124,9 +143,95 @@ const DEFAULT_SETTINGS: UniverseBuilderSettings = {
 const GROUP_TYPES = ["corporation", "government", "military", "criminal"];
 /** Stored option values for the New entry forms' dropdowns (their labels come from i18n.ts). */
 const CHARACTER_ROLES = ["protagonist", "antagonist", "supporting", "minor"];
-const LOCATION_TYPES = ["planet", "dwarf planet", "moon", "station", "asteroid", "belt", "ship", "city", "region", "building", "landmark", "other"];
+
+/**
+ * "Group Characters By" choices (Edit Metadata on the Characters tab), in dropdown order. Group,
+ * Role, Ship and Home split the tab into collapsible sections, each with its own drag-to-reorder
+ * order; Name and Age are a single list sorted automatically.
+ */
+const CHARACTER_GROUPINGS = ["group", "name", "role", "age-asc", "age-desc", "ship", "home"] as const;
+type CharacterGrouping = (typeof CHARACTER_GROUPINGS)[number];
+/** Groupings (besides "group", which predates them) that make sections with their own saved order. */
+type SectionedGrouping = "role" | "ship" | "home";
+/** The dropdown label of a grouping. */
+function groupingLabel(g: CharacterGrouping): string {
+	switch (g) {
+		case "group": return t("character.group");
+		case "name": return t("form.name");
+		case "role": return t("character.role");
+		case "age-asc": return t("grouping.ageAsc");
+		case "age-desc": return t("grouping.ageDesc");
+		case "ship": return t("character.ship");
+		case "home": return t("character.home");
+	}
+}
+/** The first number in an age ("34", "~34", "1,200 years" -> 1200), or null if there's none. */
+function ageNumber(age: string | undefined): number | null {
+	const m = (age ?? "").replace(/,/g, "").match(/-?\d+(?:\.\d+)?/);
+	return m ? parseFloat(m[0]) : null;
+}
+/**
+ * No built-in "other": custom types can be added in Edit Metadata instead. Notes that already say
+ * `type: other` keep it (its label is still translated on their badge); it's just not offered.
+ */
+const LOCATION_TYPES = ["planet", "dwarf planet", "moon", "station", "asteroid", "belt", "ship", "city", "region", "building", "landmark"];
 const GROUP_ALIGNMENTS = ["lawful", "neutral", "chaotic"];
 const LORE_CATEGORIES = ["history", "tech", "religion", "culture", "other"];
+
+/** A dropdown field whose options can be extended from the Edit Metadata window. */
+type OptionField = "loreCategory" | "groupType" | "alignment" | "locationType" | "role";
+interface MetadataField {
+	/** Key in settings.customOptions (and the i18n prefix of its built-in values' labels). */
+	id: OptionField;
+	/** Frontmatter key the value is written to, used to count the entries using a value. */
+	key: string;
+	/** The field's name, as shown on its New entry form. */
+	label: TranslationKey;
+	/** Values that ship with the plugin: always offered, can't be removed. */
+	builtIn: readonly string[];
+	/**
+	 * The sidebar lays entries out by this field (Groups' Type sections), so it's redrawn when the
+	 * field's values change, and removing a value in use gets an extra warning (`removeNote`).
+	 */
+	shapesSidebar?: boolean;
+	/** Extra line for the "remove a value that's in use" confirmation. */
+	removeNote?: TranslationKey;
+}
+/**
+ * The editable dropdown fields of each section, in the order the Edit Metadata window shows
+ * them. A section with none still gets the button; its window says there's nothing to edit yet.
+ */
+const SECTION_METADATA: Record<SectionTab, MetadataField[]> = {
+	characters: [{ id: "role", key: "role", label: "character.role", builtIn: CHARACTER_ROLES, shapesSidebar: true }],
+	locations: [{ id: "locationType", key: "type", label: "form.type", builtIn: LOCATION_TYPES }],
+	groups: [
+		{ id: "groupType", key: "type", label: "form.type", builtIn: GROUP_TYPES, shapesSidebar: true, removeNote: "metadata.removeGroupType" },
+		{ id: "alignment", key: "alignment", label: "group.alignment", builtIn: GROUP_ALIGNMENTS },
+	],
+	lore: [{ id: "loreCategory", key: "category", label: "lore.category", builtIn: LORE_CATEGORIES }],
+	timeline: [],
+};
+const METADATA_FIELDS: MetadataField[] = Object.values(SECTION_METADATA).flat();
+/** A section's editable field by id (it must be listed in SECTION_METADATA). */
+function metadataField(tab: SectionTab, id: OptionField): MetadataField {
+	const field = SECTION_METADATA[tab].find((f) => f.id === id);
+	if (!field) throw new Error(`Universe Builder: no editable field ${id} in ${tab}`);
+	return field;
+}
+/** How option values are compared: "Foo", " foo " and "FOO" are the same value. */
+function optionKey(value: string): string {
+	return value.trim().toLowerCase();
+}
+/**
+ * A frontmatter value as it goes after "key: ". Built-in values ("history", "dwarf planet") are
+ * written bare, as before; anything that YAML could misread (a colon, a leading quote or dash,
+ * "yes"/"null"-like words...) is written as a double-quoted string.
+ */
+function yamlScalar(value: string): string {
+	return /^[\p{L}\p{N}][\p{L}\p{N} _\-]*$/u.test(value) && !/^(true|false|yes|no|on|off|null|~)$/i.test(value) && !/^[\d\s._-]+$/.test(value)
+		? value
+		: JSON.stringify(value);
+}
 
 function slugify(s: string) {
 	return s.replace(/[/\\:*?"<>|#^[\]]/g, "-").trim();
@@ -1175,7 +1280,7 @@ class UniverseBuilderView extends ItemView {
 	) {
 		const container = pane.body;
 		this.sectionConfigs[tab] = { getCard, thumbs: !!opts.thumbs, stackBadge: !!opts.stackBadge };
-		this.renderSectionHeader(pane, onCreate, opts.reload ?? true);
+		this.renderSectionHeader(pane, onCreate, opts.reload ?? true, tab);
 
 		const files = getMarkdownFilesIn(this.app, folderPath);
 
@@ -1236,45 +1341,112 @@ class UniverseBuilderView extends ItemView {
 			return;
 		}
 
-		// Characters: one sub-section per group, each with its own drag-to-reorder list.
-		const groups = new Map<string, { label: string; items: NoteEntry[] }>();
-		for (const entry of entries) {
-			const group = (entry.fm.group ?? "").trim();
-			const key = group.toLowerCase();
-			let bucket = groups.get(key);
-			if (!bucket) {
-				bucket = { label: group || t("group.none"), items: [] };
-				groups.set(key, bucket);
-			}
+		// Characters: sub-sections by the "Group Characters By" setting (see renderCharacterSections).
+		await this.renderCharacterSections(tab, container, entries, getCard, opts);
+		this.createNoResultsLine(container);
+	}
+
+	/**
+	 * The Characters tab, laid out by the "Group Characters By" setting (Edit Metadata):
+	 *   - Group (default): one collapsible sub-section per `group`, alphabetically, "No Group" last,
+	 *     each header showing the group's logo (first image in its Groups note);
+	 *   - Ship / Home: the same by `ship` / `home` ("[[Name]]" and "Name" are the same section),
+	 *     with the matching Locations note's image as the logo;
+	 *   - Role: one sub-section per role, in the Role dropdown's order, then Unassigned;
+	 *   - Name / Age: a single list sorted by name, or by age (the first number in it; entries
+	 *     without one last), with no drag-to-reorder since the order is automatic.
+	 * Every sectioned grouping keeps its own drag-and-drop order and collapsed sections, so
+	 * switching grouping and back leaves each one exactly as it was.
+	 */
+	private async renderCharacterSections(
+		tab: WBTab,
+		container: HTMLElement,
+		entries: NoteEntry[],
+		getCard: CardFn,
+		opts: { thumbs?: boolean; stackBadge?: boolean; expandable?: boolean }
+	) {
+		const settings = this.plugin.settings;
+		const grouping = settings.characterGrouping;
+		const byName = (a: NoteEntry, b: NoteEntry) =>
+			(a.fm.name || a.file.basename).localeCompare(b.fm.name || b.file.basename, undefined, { sensitivity: "base", numeric: true });
+
+		if (grouping === "name" || grouping === "age-asc" || grouping === "age-desc") {
+			const dir = grouping === "age-desc" ? -1 : 1;
+			const sorted = [...entries].sort((a, b) => {
+				if (grouping === "name") return byName(a, b);
+				const x = ageNumber(a.fm.age), y = ageNumber(b.fm.age);
+				if (x === null || y === null) return (x === null ? 1 : 0) - (y === null ? 1 : 0) || byName(a, b);
+				return (x - y) * dir || byName(a, b);
+			});
+			const list = container.createDiv("wb-list");
+			for (const entry of sorted) this.renderCard(tab, list, entry, getCard, !!opts.thumbs, !!opts.stackBadge, !!opts.expandable);
+			return;
+		}
+
+		// Bucket the characters: section key -> label + entries.
+		const buckets = new Map<string, { label: string; items: NoteEntry[] }>();
+		const add = (key: string, label: string, entry: NoteEntry) => {
+			let bucket = buckets.get(key);
+			if (!bucket) buckets.set(key, (bucket = { label, items: [] }));
 			bucket.items.push(entry);
+		};
+		let sectionOrder: string[];
+		if (grouping === "role") {
+			const roles = this.plugin.optionValues(metadataField("characters", "role"));
+			const known = new Map(roles.map((r) => [optionKey(r), r]));
+			for (const entry of entries) {
+				const value = known.get(optionKey(entry.fm.role ?? ""));
+				if (value) add(optionKey(value), optionLabel("role", value), entry);
+				else add("", t("group.unassigned"), entry);
+			}
+			sectionOrder = [...roles.map(optionKey), ""];
+		} else {
+			for (const entry of entries) {
+				if (grouping === "group") {
+					// Unchanged from before the other groupings existed, so saved orders still apply.
+					const group = (entry.fm.group ?? "").trim();
+					add(group.toLowerCase(), group || t("group.none"), entry);
+				} else {
+					const name = parseRefName(entry.fm[grouping] ?? "");
+					add(name.toLowerCase(), name || t(grouping === "ship" ? "character.noShip" : "character.noHome"), entry);
+				}
+			}
+			// Alphabetical, with characters who have no value last.
+			sectionOrder = [...buckets.keys()].sort((a, b) => (a === "" ? 1 : 0) - (b === "" ? 1 : 0) || a.localeCompare(b));
 		}
 
-		// Each group's logo: the first image in its note under <World>/Groups, matched by
-		// the note's `name` property or its file name (case-insensitive).
-		const groupLogos = new Map<string, string>();
-		const groupFolder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.groups}`;
-		for (const file of getMarkdownFilesIn(this.app, groupFolder)) {
-			const content = await this.app.vault.cachedRead(file);
-			const src = this.findFirstImageSrc(content, file);
-			if (!src) continue;
-			const names = [readFrontmatter(content).name ?? "", file.basename];
-			for (const n of names) {
-				const k = parseRefName(n).toLowerCase();
-				if (k && !groupLogos.has(k)) groupLogos.set(k, src);
+		// Header logos: the first image in the matching note (by its `name` property or file name,
+		// case-insensitive) - Groups notes for groups, Locations notes for ships and homes.
+		const logos = new Map<string, string>();
+		if (grouping !== "role") {
+			const logoFolder = `${settings.worldFolder}/${SECTION_FOLDERS[grouping === "group" ? "groups" : "locations"]}`;
+			for (const file of getMarkdownFilesIn(this.app, logoFolder)) {
+				const content = await this.app.vault.cachedRead(file);
+				const src = this.findFirstImageSrc(content, file);
+				if (!src) continue;
+				for (const n of [readFrontmatter(content).name ?? "", file.basename]) {
+					const k = parseRefName(n).toLowerCase();
+					if (k && !logos.has(k)) logos.set(k, src);
+				}
 			}
 		}
 
-		// Alphabetical by group, with characters who have no group last.
-		const orderedGroups = [...groups.entries()].sort(
-			([a], [b]) => (a === "" ? 1 : 0) - (b === "" ? 1 : 0) || a.localeCompare(b)
-		);
+		// This grouping's own saved order and collapsed sections.
+		const orders = grouping === "group" ? settings.characterOrder : (settings.characterOrderBy[grouping] ??= {});
+		const getCollapsed = () => (grouping === "group" ? settings.collapsedGroups : settings.collapsedCharacterSections[grouping] ?? []);
+		const setCollapsed = (keys: string[]) => {
+			if (grouping === "group") settings.collapsedGroups = keys;
+			else settings.collapsedCharacterSections[grouping] = keys;
+		};
 
-		for (const [key, group] of orderedGroups) {
+		for (const key of sectionOrder) {
+			const bucket = buckets.get(key);
+			if (!bucket) continue;
 			const header = container.createDiv("wb-group-header");
 			header.setAttribute("role", "button");
 			header.setAttribute("tabindex", "0");
 			setIcon(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
-			const logoSrc = key ? groupLogos.get(parseRefName(key).toLowerCase()) : undefined;
+			const logoSrc = key ? logos.get(parseRefName(key).toLowerCase()) : undefined;
 			if (logoSrc) {
 				const logo = header.createEl("img", {
 					cls: "wb-group-logo",
@@ -1282,7 +1454,7 @@ class UniverseBuilderView extends ItemView {
 				});
 				logo.onerror = () => logo.remove();
 			}
-			header.createSpan({ cls: "wb-group-title", text: group.label });
+			header.createSpan({ cls: "wb-group-title", text: bucket.label });
 			const list = container.createDiv("wb-list");
 
 			const applyCollapsed = (collapsed: boolean) => {
@@ -1290,21 +1462,17 @@ class UniverseBuilderView extends ItemView {
 				list.classList.toggle("is-collapsed", collapsed);
 				header.setAttribute("aria-expanded", String(!collapsed));
 			};
-			applyCollapsed(this.plugin.settings.collapsedGroups.includes(key));
+			applyCollapsed(getCollapsed().includes(key));
 			this.groupCollapsers.set(header, () => {
-				const settings = this.plugin.settings;
-				if (!settings.collapsedGroups.includes(key)) settings.collapsedGroups = [...settings.collapsedGroups, key];
+				if (!getCollapsed().includes(key)) setCollapsed([...getCollapsed(), key]);
 				applyCollapsed(true);
 			});
 
 			const toggleCollapsed = async () => {
 				// While searching, matching sections are shown open regardless; leave the saved state alone.
 				if (normalizeForSearch(this.searchQueries[tab]).trim()) return;
-				const settings = this.plugin.settings;
-				const collapse = !settings.collapsedGroups.includes(key);
-				settings.collapsedGroups = collapse
-					? [...settings.collapsedGroups, key]
-					: settings.collapsedGroups.filter((k) => k !== key);
+				const collapse = !getCollapsed().includes(key);
+				setCollapsed(collapse ? [...getCollapsed(), key] : getCollapsed().filter((k) => k !== key));
 				applyCollapsed(collapse);
 				await this.plugin.saveSettings();
 			};
@@ -1317,16 +1485,13 @@ class UniverseBuilderView extends ItemView {
 			};
 
 			// Saved order first; anything not yet ordered keeps its default position after them.
-			const items = this.orderEntries(group.items, this.plugin.settings.characterOrder[key] ?? []);
-
+			const items = this.orderEntries(bucket.items, orders[key] ?? []);
 			for (const entry of items) this.renderCard(tab, list, entry, getCard, !!opts.thumbs, !!opts.stackBadge, !!opts.expandable);
 			this.enableReorder(list, async (order) => {
-				this.plugin.settings.characterOrder[key] = order;
+				orders[key] = order;
 				await this.plugin.saveSettings();
 			});
 		}
-
-		this.createNoResultsLine(container);
 	}
 
 	/**
@@ -1335,7 +1500,7 @@ class UniverseBuilderView extends ItemView {
 	 * Bookmarks button (.wb-header-btn). The section's name isn't shown here: the highlighted tab
 	 * above already shows it.
 	 */
-	private renderSectionHeader(pane: TabPane, onCreate: (() => void) | null, reload: boolean) {
+	private renderSectionHeader(pane: TabPane, onCreate: (() => void) | null, reload: boolean, tab: SectionTab | null = null) {
 		const hdr = pane.head.createDiv("wb-section-header");
 		// Back/forward (if shown) at the left edge of the header.
 		const titleGroup = hdr.createDiv("wb-section-title");
@@ -1355,6 +1520,13 @@ class UniverseBuilderView extends ItemView {
 			fwdBtn.onclick = () => this.navigateForward();
 			this.navButtons.push({ back: backBtn, fwd: fwdBtn });
 		}
+		// Entry sections: Edit Metadata, anchored to the left (after Back/Forward when those are shown).
+		if (tab) {
+			const metaBtn = titleGroup.createEl("button", { cls: "wb-btn-secondary wb-header-btn", attr: { type: "button" } });
+			setIcon(metaBtn.createSpan({ cls: "wb-btn-icon" }), "list-plus");
+			metaBtn.createSpan({ text: t("metadata.edit") });
+			metaBtn.onclick = () => new MetadataModal(this.app, this.plugin, tab).open();
+		}
 
 		const actions = hdr.createDiv("wb-section-actions");
 		if (reload) {
@@ -1373,8 +1545,9 @@ class UniverseBuilderView extends ItemView {
 	}
 
 	/**
-	 * Groups: one collapsible sub-section per `type` property (Corporation, Government, Military, then Criminal),
-	 * with groups that have no recognised type in an "Unassigned" section last. Headers use the
+	 * Groups: one collapsible sub-section per `type` property (Corporation, Government, Military, then Criminal,
+	 * then any custom types added in Edit Metadata, in the order they were added), with groups
+	 * whose type isn't one of those in an "Unassigned" section last. Headers use the
 	 * same chevron as the Characters group groups, without a logo. Each section is its own
 	 * drag-to-reorder list; its order is merged back into the tab's single saved order.
 	 *
@@ -1391,7 +1564,10 @@ class UniverseBuilderView extends ItemView {
 		getCard: CardFn,
 		opts: { thumbs?: boolean; stackBadge?: boolean; expandable?: boolean }
 	) {
-		const known = new Set(GROUP_TYPES);
+		// Built-in types, then the user's own (see Edit Metadata), matched case-insensitively.
+		const typeField = metadataField("groups", "groupType");
+		const typeValues = this.plugin.optionValues(typeField);
+		const known = new Set(typeValues.map(optionKey));
 		// Only entries whose parent was actually found are nested; everything else is a root.
 		const { roots, childrenOf } = buildParentTree(
 			entries,
@@ -1400,14 +1576,14 @@ class UniverseBuilderView extends ItemView {
 		);
 		const groups = new Map<string, NoteEntry[]>();
 		for (const entry of roots) {
-			const raw = (entry.fm.type ?? "").trim().toLowerCase();
+			const raw = optionKey(entry.fm.type ?? "");
 			const key = known.has(raw) ? raw : "";
 			if (!groups.has(key)) groups.set(key, []);
 			groups.get(key)!.push(entry);
 		}
 
 		const sections = [
-			...GROUP_TYPES.map((key) => ({ key, label: optionLabel("groupType", key) })),
+			...typeValues.map((value) => ({ key: optionKey(value), label: optionLabel("groupType", value) })),
 			{ key: "", label: t("group.unassigned") },
 		].filter((s) => groups.has(s.key));
 		for (const { key, label } of sections) {
@@ -1715,7 +1891,8 @@ class UniverseBuilderView extends ItemView {
 			// stackBadge: badge on its own line under the name; otherwise inline beside it
 			const badgeHost = stackBadge ? body.createDiv("wb-card-badge-row") : titleEl;
 			if (badge) {
-				const b = badgeHost.createSpan({ cls: `wb-badge wb-badge-${badge.toLowerCase()}` });
+				// One class per value, even for user-defined ones with spaces ("dwarf planet" -> wb-badge-dwarf-planet).
+				const b = badgeHost.createSpan({ cls: `wb-badge wb-badge-${badge.trim().toLowerCase().replace(/[^\p{L}\p{N}_-]+/gu, "-")}` });
 				b.setText(badgeText || badge);
 			}
 			for (const extra of extras) badgeHost.createSpan({ cls: `wb-badge ${extra.cls}`, text: extra.text });
@@ -3355,6 +3532,112 @@ class PortraitPicker {
 	}
 }
 
+/**
+ * The frontmatter of every note in a section's folder, with `name` always set (the `name`
+ * property, else the file name). Used to fill the New entry forms' pickers.
+ */
+async function readSectionFrontmatter(app: App, plugin: UniverseBuilderPlugin, tab: SectionTab): Promise<Record<string, string>[]> {
+	const out: Record<string, string>[] = [];
+	for (const file of getMarkdownFilesIn(app, `${plugin.settings.worldFolder}/${SECTION_FOLDERS[tab]}`)) {
+		const fm = readFrontmatter(await app.vault.cachedRead(file));
+		out.push({ ...fm, name: (fm.name ?? "").trim() || file.basename });
+	}
+	return out;
+}
+/** Names for a picker: "[[Name]]" read as "Name", empty ones dropped, each once (case-insensitive), alphabetical. */
+function uniqueNames(values: (string | undefined)[]): string[] {
+	const byKey = new Map<string, string>();
+	for (const v of values) {
+		const name = parseRefName(v ?? "");
+		if (name && !byKey.has(name.toLowerCase())) byKey.set(name.toLowerCase(), name);
+	}
+	return [...byKey.values()].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base", numeric: true }));
+}
+
+/** The dropdown value of a picker's "Add new ..." entry (never a real value: it's reverted as soon as it's chosen). */
+const ADD_NEW_OPTION = "\u0000add-new";
+
+/**
+ * A New entry form's dropdown for a free-text property (a character's Group, Ship, Home): "Add
+ * new <field>…" at the very top, then None (the default: the property is left empty), then
+ * `values` once they've loaded. Choosing "Add new" opens a small window above the form (see
+ * promptForValue); Save adds that value to the list and selects it (or selects the existing one,
+ * if it's already there under another capitalisation), Cancel puts the dropdown back as it was.
+ */
+function addPickerDropdown(
+	app: App,
+	container: HTMLElement,
+	label: string,
+	placeholder: string,
+	values: Promise<string[]>,
+	onChange: (value: string) => void
+) {
+	let current = "";
+	new Setting(container).setName(label).addDropdown((d) => {
+		const select = d.selectEl;
+		d.addOption(ADD_NEW_OPTION, t("form.addNew", { field: label }));
+		d.addOption("", t("form.noneOption"));
+		d.setValue("");
+		const optionFor = (value: string) =>
+			Array.from(select.options).find((o) => o.value !== ADD_NEW_OPTION && o.value.toLowerCase() === value.toLowerCase());
+		void values.then((list) => {
+			for (const v of list) if (!optionFor(v)) d.addOption(v, v);
+			select.value = current;
+		});
+		d.onChange((v) => {
+			if (v !== ADD_NEW_OPTION) {
+				current = v;
+				onChange(v);
+				return;
+			}
+			select.value = current;
+			void promptForValue(app, t("form.addNewTitle", { field: label }), placeholder).then((added) => {
+				if (!added) return;
+				const existing = optionFor(added);
+				if (!existing) {
+					// Straight after None, so it's easy to spot.
+					const opt = createEl("option", { text: added, attr: { value: added } });
+					select.insertBefore(opt, select.options[2] ?? null);
+				}
+				current = existing ? existing.value : added;
+				select.value = current;
+				onChange(current);
+			});
+		});
+	});
+}
+
+/**
+ * A small window with one text box and Cancel / Save (Enter saves, Esc cancels). Resolves with
+ * the trimmed text on Save, or null on Cancel, on closing it, or if nothing was typed.
+ */
+function promptForValue(app: App, title: string, placeholder: string): Promise<string | null> {
+	return new Promise((resolve) => {
+		let result: string | null = null;
+		const modal = new Modal(app);
+		modal.modalEl.addClass("wb-prompt-modal");
+		modal.titleEl.setText(title);
+		const input = modal.contentEl.createEl("input", { cls: "wb-prompt-input", attr: { type: "text", placeholder, maxlength: "120" } });
+		const buttons = modal.contentEl.createDiv("wb-confirm-buttons");
+		const cancelBtn = buttons.createEl("button", { text: t("confirm.cancel"), cls: "wb-btn-secondary", attr: { type: "button" } });
+		const saveBtn = buttons.createEl("button", { text: t("card.save"), cls: "wb-btn-primary", attr: { type: "button" } });
+		const save = () => {
+			const value = input.value.replace(/\s+/g, " ").trim();
+			if (!value) { input.focus(); return; }
+			result = value;
+			modal.close();
+		};
+		cancelBtn.onclick = () => modal.close();
+		saveBtn.onclick = save;
+		input.addEventListener("keydown", (e) => {
+			if (e.key === "Enter") { e.preventDefault(); save(); }
+		});
+		modal.onClose = () => resolve(result);
+		modal.open();
+		input.focus();
+	});
+}
+
 class CharacterModal extends Modal {
 	plugin: UniverseBuilderPlugin;
 	onDone: () => void;
@@ -3374,46 +3657,57 @@ class CharacterModal extends Modal {
 		const { contentEl } = this;
 		contentEl.addClass("wb-modal");
 		contentEl.createEl("h2", { text: t("character.new") });
-		this.portrait = new PortraitPicker(this.app, this.plugin, contentEl, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.characters}`, this.modalEl);
+		// Everything under the heading, so a "Modify ... options" link can swap it out (see addEditableDropdown).
+		const form = contentEl.createDiv("wb-modal-form");
+		this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.characters}`, this.modalEl);
 
-		new Setting(contentEl).setName(t("form.name")).addText((text) => {
+		new Setting(form).setName(t("form.name")).addText((text) => {
 			text.setPlaceholder(t("character.namePlaceholder")).onChange((v) => (this.data.name = v));
 		});
-		new Setting(contentEl).setName(t("character.role")).addDropdown((d) => {
-			CHARACTER_ROLES.forEach((o) => {
-				d.addOption(o, optionLabel("role", o));
-			});
-			d.setValue(this.data.role);
-			d.onChange((v) => (this.data.role = v));
-		});
-		new Setting(contentEl).setName(t("character.age")).addText((text) => {
+		addEditableDropdown(this, this.plugin, "characters", form, metadataField("characters", "role"), this.data.role, (v) => (this.data.role = v));
+		new Setting(form).setName(t("character.age")).addText((text) => {
 			text.setPlaceholder(t("character.agePlaceholder")).onChange((v) => (this.data.age = v));
 		});
-		new Setting(contentEl).setName(t("character.group")).addText((text) => {
-			text.setPlaceholder(t("character.groupPlaceholder")).onChange((v) => (this.data.group = v));
-		});
-		new Setting(contentEl).setName(t("character.ship")).addText((text) => {
-			text.setPlaceholder(t("character.shipPlaceholder")).onChange((v) => (this.data.ship = v));
-		});
-		new Setting(contentEl).setName(t("character.home")).addText((text) => {
-			text.setPlaceholder(t("character.homePlaceholder")).onChange((v) => (this.data.home = v));
-		});
-		new Setting(contentEl).setName(t("character.physicalDesc")).addTextArea((text) => {
+		// Group / Ship / Home: pick from what the vault already has, or add a new one.
+		const known = this.knownValues();
+		addPickerDropdown(this.app, form, t("character.group"), t("character.groupPlaceholder"), known.then((k) => k.group), (v) => (this.data.group = v));
+		addPickerDropdown(this.app, form, t("character.ship"), t("character.shipPlaceholder"), known.then((k) => k.ship), (v) => (this.data.ship = v));
+		addPickerDropdown(this.app, form, t("character.home"), t("character.homePlaceholder"), known.then((k) => k.home), (v) => (this.data.home = v));
+		new Setting(form).setName(t("character.physicalDesc")).addTextArea((text) => {
 			text.inputEl.addClass("wb-textarea");
 			text.onChange((v) => (this.data.physicalDesc = v));
 		});
-		new Setting(contentEl).setName(t("character.personality")).addTextArea((text) => {
+		new Setting(form).setName(t("character.personality")).addTextArea((text) => {
 			text.inputEl.addClass("wb-textarea");
 			text.onChange((v) => (this.data.personality = v));
 		});
-		new Setting(contentEl).setName(t("form.goals")).addTextArea((text) => {
+		new Setting(form).setName(t("form.goals")).addTextArea((text) => {
 			text.inputEl.addClass("wb-textarea");
 			text.onChange((v) => (this.data.goals = v));
 		});
 
-		new Setting(contentEl).addButton((b) =>
+		new Setting(form).addButton((b) =>
 			b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
 		);
+	}
+
+	/**
+	 * The values the Group / Ship / Home dropdowns offer, each alphabetical and without repeats
+	 * (case-insensitive, "[[Name]]" read as "Name"):
+	 *   - Group: the names of the notes on the Groups tab, plus every `group` characters already have;
+	 *   - Ship: the ship-type notes on the Locations tab, plus every character `ship`;
+	 *   - Home: every note on the Locations tab, plus every character `home`.
+	 * A note's name is its `name` property, else its file name.
+	 */
+	private async knownValues(): Promise<{ group: string[]; ship: string[]; home: string[] }> {
+		const read = (tab: SectionTab) => readSectionFrontmatter(this.app, this.plugin, tab);
+		const [characters, groups, locations] = await Promise.all([read("characters"), read("groups"), read("locations")]);
+		const collect = uniqueNames;
+		return {
+			group: collect([...groups.map((g) => g.name), ...characters.map((c) => c.group)]),
+			ship: collect([...locations.filter(isShip).map((l) => l.name), ...characters.map((c) => c.ship)]),
+			home: collect([...locations.map((l) => l.name), ...characters.map((c) => c.home)]),
+		};
 	}
 
 	async submit() {
@@ -3443,11 +3737,11 @@ class CharacterModal extends Modal {
 		const content = [
 			"---",
 			`name: "${this.data.name}"`,
-			`role: ${this.data.role}`,
+			`role: ${yamlScalar(this.data.role)}`,
 			`age: "${this.data.age}"`,
-			`group: "${this.data.group}"`,
-			`ship: "${this.data.ship}"`,
-			`home: "${this.data.home}"`,
+			`group: ${JSON.stringify(this.data.group)}`,
+			`ship: ${JSON.stringify(this.data.ship)}`,
+			`home: ${JSON.stringify(this.data.home)}`,
 			`type: character`,
 			"---",
 			"",
@@ -3488,35 +3782,33 @@ class LocationModal extends Modal {
 		const { contentEl } = this;
 		contentEl.addClass("wb-modal");
 		contentEl.createEl("h2", { text: t("location.new") });
-		this.portrait = new PortraitPicker(this.app, this.plugin, contentEl, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.locations}`, this.modalEl);
+		// Everything under the heading, so a "Modify ... options" link can swap it out (see addEditableDropdown).
+		const form = contentEl.createDiv("wb-modal-form");
+		this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.locations}`, this.modalEl);
 
-		new Setting(contentEl).setName(t("form.name")).addText((text) => {
+		new Setting(form).setName(t("form.name")).addText((text) => {
 			text.setPlaceholder(t("location.namePlaceholder")).onChange((v) => (this.data.name = v));
 		});
-		new Setting(contentEl).setName(t("form.type")).addDropdown((d) => {
-			LOCATION_TYPES.forEach((o) => {
-				d.addOption(o, optionLabel("locationType", o));
-			});
-			d.setValue(this.data.type);
-			d.onChange((v) => (this.data.type = v));
-		});
-		new Setting(contentEl).setName(t("location.parent")).addText((text) => {
-			text.setPlaceholder(t("location.parentPlaceholder")).onChange((v) => (this.data.parent = v));
-		});
-		new Setting(contentEl).setName(t("form.description")).addTextArea((text) => {
+		addEditableDropdown(this, this.plugin, "locations", form, metadataField("locations", "locationType"), this.data.type, (v) => (this.data.type = v));
+		// Parent: any location already on the tab, or any parent another location already names.
+		const parents = readSectionFrontmatter(this.app, this.plugin, "locations").then((locations) =>
+			uniqueNames([...locations.map((l) => l.name), ...locations.map((l) => l.parent)])
+		);
+		addPickerDropdown(this.app, form, t("location.parent"), t("location.parentPlaceholder"), parents, (v) => (this.data.parent = v));
+		new Setting(form).setName(t("form.description")).addTextArea((text) => {
 			text.inputEl.addClass("wb-textarea");
 			text.onChange((v) => (this.data.description = v));
 		});
-		new Setting(contentEl).setName(t("location.inhabitants")).addTextArea((text) => {
+		new Setting(form).setName(t("location.inhabitants")).addTextArea((text) => {
 			text.inputEl.addClass("wb-textarea");
 			text.onChange((v) => (this.data.inhabitants = v));
 		});
-		new Setting(contentEl).setName(t("location.secrets")).addTextArea((text) => {
+		new Setting(form).setName(t("location.secrets")).addTextArea((text) => {
 			text.inputEl.addClass("wb-textarea");
 			text.onChange((v) => (this.data.secrets = v));
 		});
 
-		new Setting(contentEl).addButton((b) =>
+		new Setting(form).addButton((b) =>
 			b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
 		);
 	}
@@ -3528,8 +3820,8 @@ class LocationModal extends Modal {
 		const content = [
 			"---",
 			`name: "${this.data.name}"`,
-			`type: ${this.data.type}`,
-			`parent: "${this.data.parent}"`,
+			`type: ${yamlScalar(this.data.type)}`,
+			`parent: ${JSON.stringify(this.data.parent)}`,
 			`entry_type: location`,
 			"---",
 			"",
@@ -3577,16 +3869,14 @@ class GroupModal extends Modal {
 		const { contentEl } = this;
 		contentEl.addClass("wb-modal");
 		contentEl.createEl("h2", { text: t("group.new") });
-		this.portrait = new PortraitPicker(this.app, this.plugin, contentEl, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.groups}`, this.modalEl);
+		// Everything under the heading, so a "Modify ... options" link can swap it out (see addEditableDropdown).
+		const form = contentEl.createDiv("wb-modal-form");
+		this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.groups}`, this.modalEl);
 
-		new Setting(contentEl).setName(t("form.name")).addText((text) => {
+		new Setting(form).setName(t("form.name")).addText((text) => {
 			text.setPlaceholder(t("group.namePlaceholder")).onChange((v) => (this.data.name = v));
 		});
-		new Setting(contentEl).setName(t("form.type")).addDropdown((d) => {
-			GROUP_TYPES.forEach((key) => { d.addOption(key, optionLabel("groupType", key)); });
-			d.setValue(this.data.type);
-			d.onChange((v) => (this.data.type = v));
-		});
+		addEditableDropdown(this, this.plugin, "groups", form, metadataField("groups", "groupType"), this.data.type, (v) => (this.data.type = v));
 		// Existing groups (by their `name` property, else the file name), alphabetically.
 		const folder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.groups}`;
 		const existing = Array.from(new Set(
@@ -3596,7 +3886,7 @@ class GroupModal extends Modal {
 					return (typeof name === "string" && name.trim()) ? name.trim() : f.basename;
 				})
 		)).sort((a, b) => a.localeCompare(b));
-		new Setting(contentEl)
+		new Setting(form)
 			.setName(t("group.subsidiaryOf"))
 			.setDesc(t("group.subsidiaryOfDesc"))
 			.addDropdown((d) => {
@@ -3605,29 +3895,23 @@ class GroupModal extends Modal {
 				d.setValue(this.data.subsidiaryOf);
 				d.onChange((v) => (this.data.subsidiaryOf = v));
 			});
-		new Setting(contentEl).setName(t("group.alignment")).addDropdown((d) => {
-			GROUP_ALIGNMENTS.forEach((o) => {
-				d.addOption(o, optionLabel("alignment", o));
-			});
-			d.setValue(this.data.alignment);
-			d.onChange((v) => (this.data.alignment = v));
-		});
-		new Setting(contentEl).setName(t("form.goals")).addTextArea((text) => {
+		addEditableDropdown(this, this.plugin, "groups", form, metadataField("groups", "alignment"), this.data.alignment, (v) => (this.data.alignment = v));
+		new Setting(form).setName(t("form.goals")).addTextArea((text) => {
 			text.inputEl.addClass("wb-textarea");
 			text.onChange((v) => (this.data.goals = v));
 		});
-		new Setting(contentEl).setName(t("group.enemies")).addText((text) => {
+		new Setting(form).setName(t("group.enemies")).addText((text) => {
 			text.setPlaceholder(t("form.commaSeparated")).onChange((v) => (this.data.enemies = v));
 		});
-		new Setting(contentEl).setName(t("group.allies")).addText((text) => {
+		new Setting(form).setName(t("group.allies")).addText((text) => {
 			text.setPlaceholder(t("form.commaSeparated")).onChange((v) => (this.data.allies = v));
 		});
-		new Setting(contentEl).setName(t("form.description")).addTextArea((text) => {
+		new Setting(form).setName(t("form.description")).addTextArea((text) => {
 			text.inputEl.addClass("wb-textarea");
 			text.onChange((v) => (this.data.description = v));
 		});
 
-		new Setting(contentEl).addButton((b) =>
+		new Setting(form).addButton((b) =>
 			b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
 		);
 	}
@@ -3640,9 +3924,9 @@ class GroupModal extends Modal {
 		const lines = [
 			"---",
 			`name: "${this.data.name}"`,
-			`type: ${this.data.type}`,
+			`type: ${yamlScalar(this.data.type)}`,
 			`${SUBSIDIARY_OF}: "${this.data.subsidiaryOf.replace(/"/g, "'")}"`,
-			`alignment: ${this.data.alignment}`,
+			`alignment: ${yamlScalar(this.data.alignment)}`,
 			`goals: "${this.data.goals.replace(/"/g, "'")}"`,
 			`entry_type: group`,
 			"---",
@@ -3673,6 +3957,251 @@ class GroupModal extends Modal {
 	}
 }
 
+/**
+ * The editing controls for a section's editable dropdown fields (see SECTION_METADATA), drawn
+ * into `container`: for each field, its built-in values as a row of chips that can't be removed,
+ * a box with a + button to add a value of your own, and the list of values you've added, each
+ * with how many of the section's entries use it and an X to remove it. Custom values are saved in
+ * the plugin's data (data.json) straight away. Removing one never touches notes: entries keep the
+ * value, it just isn't offered for new entries any more.
+ *
+ * Used by the section header's Edit Metadata window and, for a single field, by the "Modify ...
+ * options" link under a New entry form's dropdown (see addEditableDropdown).
+ */
+class MetadataEditor {
+	/** Per field: stored value (lower-cased) -> number of the section's notes using it. */
+	private usage: Map<OptionField, Map<string, number>> | null = null;
+
+	constructor(
+		private app: App,
+		private plugin: UniverseBuilderPlugin,
+		private tab: SectionTab,
+		private fields: MetadataField[],
+		private container: HTMLElement,
+		/** Called with each value added, after it's saved. */
+		private onAdd?: (field: MetadataField, value: string) => void
+	) {}
+
+	/**
+	 * Draws the controls, then fills in the usage counts once the section's notes are read (only
+	 * the counts are updated, so a value being typed in meanwhile isn't lost).
+	 */
+	start(focusField?: OptionField) {
+		this.draw(focusField);
+		void this.countUsage().then(() => this.updateCounts());
+	}
+
+	private updateCounts() {
+		for (const field of this.fields) {
+			this.container.querySelectorAll<HTMLElement>(`.wb-metadata-item[data-field="${field.id}"]`).forEach((row) => {
+				const count = this.usageOf(field, row.dataset.value ?? "");
+				const el = row.querySelector(".wb-metadata-count");
+				if (el && count !== null) el.textContent = tn("metadata.uses", count);
+			});
+		}
+	}
+
+	/** Counts, for every field shown, how many of the section's notes use each value. */
+	private async countUsage() {
+		const usage = new Map<OptionField, Map<string, number>>(this.fields.map((f) => [f.id, new Map()]));
+		const folder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS[this.tab]}`;
+		for (const file of getMarkdownFilesIn(this.app, folder)) {
+			const fm = readFrontmatter(await this.app.vault.cachedRead(file));
+			for (const field of this.fields) {
+				const value = fm[field.key];
+				if (!value) continue;
+				const counts = usage.get(field.id)!;
+				counts.set(optionKey(value), (counts.get(optionKey(value)) ?? 0) + 1);
+			}
+		}
+		this.usage = usage;
+	}
+
+	private usageOf(field: MetadataField, value: string): number | null {
+		return this.usage ? this.usage.get(field.id)?.get(optionKey(value)) ?? 0 : null;
+	}
+
+	private draw(focusField?: OptionField) {
+		const { container } = this;
+		container.empty();
+		for (const field of this.fields) {
+			const block = container.createDiv("wb-metadata-field");
+			block.createEl("h3", { text: t(field.label) });
+
+			block.createDiv({ cls: "wb-metadata-caption", text: t("metadata.builtIn") });
+			const chips = block.createDiv("wb-metadata-chips");
+			for (const value of field.builtIn) chips.createSpan({ cls: "wb-metadata-chip", text: optionLabel(field.id, value) });
+
+			const addRow = block.createDiv("wb-metadata-add");
+			const input = addRow.createEl("input", { attr: { type: "text", placeholder: t("metadata.addPlaceholder"), maxlength: "60" } });
+			const addBtn = addRow.createEl("button", { text: "+", cls: "wb-btn-primary", attr: { type: "button", "aria-label": t("metadata.add") } });
+			const add = () => void this.addValue(field, input.value);
+			addBtn.onclick = add;
+			input.addEventListener("keydown", (e) => {
+				if (e.key === "Enter") { e.preventDefault(); add(); }
+			});
+			if (focusField === field.id) input.focus();
+
+			block.createDiv({ cls: "wb-metadata-caption", text: t("metadata.custom") });
+			const custom = this.plugin.settings.customOptions[field.id] ?? [];
+			const list = block.createDiv("wb-metadata-list");
+			if (custom.length === 0) list.createDiv({ cls: "wb-metadata-none", text: t("metadata.none") });
+			for (const value of custom) {
+				const row = list.createDiv({ cls: "wb-metadata-item", attr: { "data-field": field.id, "data-value": value } });
+				row.createSpan({ cls: "wb-metadata-value", text: value });
+				const count = this.usageOf(field, value);
+				row.createSpan({ cls: "wb-metadata-count", text: count === null ? "…" : tn("metadata.uses", count) });
+				const del = row.createEl("button", { cls: "wb-metadata-remove clickable-icon", attr: { type: "button", "aria-label": t("metadata.remove", { value }) } });
+				setIcon(del, "x");
+				del.onclick = () => void this.removeValue(field, value);
+			}
+		}
+	}
+
+	private async addValue(field: MetadataField, raw: string) {
+		const value = raw.replace(/\s+/g, " ").trim();
+		if (!value) return;
+		// Already offered? Compare with the stored values and with the built-ins' shown labels ("History").
+		const taken = this.plugin.optionValues(field).some(
+			(v) => optionKey(v) === optionKey(value) || optionKey(optionLabel(field.id, v)) === optionKey(value)
+		);
+		if (taken) {
+			new Notice(t("metadata.exists", { value }));
+			return;
+		}
+		const custom = this.plugin.settings.customOptions;
+		custom[field.id] = [...(custom[field.id] ?? []), value];
+		await this.plugin.saveSettings();
+		if (field.shapesSidebar) this.plugin.refreshSidebar();
+		this.onAdd?.(field, value);
+		this.draw(field.id);
+	}
+
+	private async removeValue(field: MetadataField, value: string) {
+		const count = this.usageOf(field, value) ?? 0;
+		if (count > 0) {
+			const ok = await confirmModal(
+				this.app,
+				t("metadata.removeTitle"),
+				[t("metadata.removeInUse", { value, count }), field.removeNote ? t(field.removeNote, { tab: t(`tab.${this.tab}`), unassigned: t("group.unassigned") }) : ""].filter(Boolean).join(" "),
+				t("metadata.removeAction"),
+				true
+			);
+			if (!ok) return;
+		}
+		const custom = this.plugin.settings.customOptions;
+		const rest = (custom[field.id] ?? []).filter((v) => v !== value);
+		if (rest.length) custom[field.id] = rest;
+		else delete custom[field.id];
+		await this.plugin.saveSettings();
+		if (field.shapesSidebar) this.plugin.refreshSidebar();
+		this.draw();
+	}
+}
+
+/** The section header's Edit Metadata window: a MetadataEditor for all of the section's editable fields. */
+class MetadataModal extends Modal {
+	constructor(app: App, private plugin: UniverseBuilderPlugin, private tab: SectionTab) {
+		super(app);
+	}
+
+	onOpen() {
+		this.modalEl.addClass("wb-metadata-modal");
+		this.contentEl.addClass("wb-modal");
+		this.setTitle(t("metadata.title", { section: t(`tab.${this.tab}`) }));
+		// Characters only (and only here, not in the New Character form's options panel): how the tab is laid out.
+		if (this.tab === "characters") {
+			new Setting(this.contentEl)
+				.setName(t("metadata.groupCharactersBy"))
+				.setDesc(t("metadata.groupCharactersByDesc"))
+				.setClass("wb-metadata-grouping")
+				.addDropdown((d) => {
+					for (const g of CHARACTER_GROUPINGS) d.addOption(g, groupingLabel(g));
+					d.setValue(this.plugin.settings.characterGrouping);
+					d.onChange(async (v) => {
+						this.plugin.settings.characterGrouping = v as CharacterGrouping;
+						await this.plugin.saveSettings();
+						this.plugin.refreshSidebar();
+					});
+				});
+		}
+		const fields = SECTION_METADATA[this.tab];
+		if (fields.length === 0) {
+			this.contentEl.createEl("p", { cls: "wb-metadata-empty", text: t("metadata.nothing") });
+			return;
+		}
+		new MetadataEditor(this.app, this.plugin, this.tab, fields, this.contentEl.createDiv()).start();
+	}
+
+	onClose() {
+		this.contentEl.empty();
+	}
+}
+
+/**
+ * A New entry form's dropdown for an editable field, with a "Modify <field> options" link under
+ * its name. The link swaps the form (everything in `formEl`: portrait, fields, Create button) for
+ * that field's MetadataEditor with a "< Back" button above it, leaving the form's heading in
+ * place; the form is only hidden, so whatever was typed stays. Back returns to the form with the
+ * dropdown refilled from the edited list, set to the last value added there (if it's still in the
+ * list), otherwise keeping its selection (or the first value, if the selected one was removed).
+ */
+function addEditableDropdown(
+	modal: Modal,
+	plugin: UniverseBuilderPlugin,
+	tab: SectionTab,
+	formEl: HTMLElement,
+	field: MetadataField,
+	initial: string,
+	onChange: (value: string) => void
+) {
+	let current = initial;
+	let select: HTMLSelectElement | null = null;
+	const fill = () => {
+		if (!select) return;
+		select.empty();
+		const values = plugin.optionValues(field);
+		for (const value of values) select.createEl("option", { text: optionLabel(field.id, value), attr: { value } });
+		if (!values.includes(current) && values.length) {
+			current = values[0];
+			onChange(current);
+		}
+		select.value = current;
+	};
+	const setting = new Setting(formEl).setName(t(field.label)).addDropdown((d) => {
+		select = d.selectEl;
+		fill();
+		d.onChange((v) => {
+			current = v;
+			onChange(v);
+		});
+	});
+	const link = setting.descEl.createEl("a", {
+		cls: "wb-metadata-link",
+		text: t("metadata.modifyOptions", { field: t(field.label) }),
+		attr: { href: "#", role: "button" },
+	});
+	link.addEventListener("click", (e) => {
+		e.preventDefault();
+		formEl.hide();
+		const panel = modal.contentEl.createDiv("wb-metadata-inline");
+		const back = panel.createEl("button", { cls: "wb-metadata-back", attr: { type: "button" } });
+		setIcon(back.createSpan({ cls: "wb-btn-icon" }), "chevron-left");
+		back.createSpan({ text: t("nav.back") });
+		let added: string | null = null;
+		new MetadataEditor(modal.app, plugin, tab, [field], panel.createDiv(), (_f, value) => (added = value)).start(field.id);
+		back.onclick = () => {
+			panel.remove();
+			if (added && plugin.optionValues(field).includes(added) && added !== current) {
+				current = added;
+				onChange(current);
+			}
+			fill();
+			formEl.show();
+		};
+	});
+}
+
 class LoreModal extends Modal {
 	plugin: UniverseBuilderPlugin;
 	onDone: () => void;
@@ -3689,24 +4218,20 @@ class LoreModal extends Modal {
 		const { contentEl } = this;
 		contentEl.addClass("wb-modal");
 		contentEl.createEl("h2", { text: t("lore.new") });
-		this.portrait = new PortraitPicker(this.app, this.plugin, contentEl, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.lore}`, this.modalEl);
+		// Everything under the heading, so a "Modify ... options" link can swap it out (see addEditableDropdown).
+		const form = contentEl.createDiv("wb-modal-form");
+		this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.lore}`, this.modalEl);
 
-		new Setting(contentEl).setName(t("form.title")).addText((text) => {
+		new Setting(form).setName(t("form.title")).addText((text) => {
 			text.setPlaceholder(t("lore.titlePlaceholder")).onChange((v) => (this.data.title = v));
 		});
-		new Setting(contentEl).setName(t("lore.category")).addDropdown((d) => {
-			LORE_CATEGORIES.forEach((o) => {
-				d.addOption(o, optionLabel("loreCategory", o));
-			});
-			d.setValue(this.data.category);
-			d.onChange((v) => (this.data.category = v));
-		});
-		new Setting(contentEl).setName(t("lore.content")).addTextArea((text) => {
+		addEditableDropdown(this, this.plugin, "lore", form, metadataField("lore", "loreCategory"), this.data.category, (v) => (this.data.category = v));
+		new Setting(form).setName(t("lore.content")).addTextArea((text) => {
 			text.inputEl.addClasses(["wb-textarea", "wb-textarea-tall"]);
 			text.onChange((v) => (this.data.content = v));
 		});
 
-		new Setting(contentEl).addButton((b) =>
+		new Setting(form).addButton((b) =>
 			b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
 		);
 	}
@@ -3717,7 +4242,7 @@ class LoreModal extends Modal {
 		const content = [
 			"---",
 			`title: "${this.data.title}"`,
-			`category: ${this.data.category}`,
+			`category: ${yamlScalar(this.data.category)}`,
 			`entry_type: lore`,
 			"---",
 			"",
@@ -4035,9 +4560,12 @@ export default class UniverseBuilderPlugin extends Plugin {
 		this.registerEvent(
 			this.app.vault.on("rename", async (file, oldPath) => {
 				let changed = false;
-				for (const order of Object.values(this.settings.characterOrder)) {
-					const i = order.indexOf(oldPath);
-					if (i !== -1) { order[i] = file.path; changed = true; }
+				const characterOrders = [this.settings.characterOrder, ...Object.values(this.settings.characterOrderBy)];
+				for (const orders of characterOrders) {
+					for (const order of Object.values(orders ?? {})) {
+						const i = order.indexOf(oldPath);
+						if (i !== -1) { order[i] = file.path; changed = true; }
+					}
 				}
 				for (const order of Object.values(this.settings.sectionOrder)) {
 					if (!order) continue;
@@ -4386,7 +4914,10 @@ export default class UniverseBuilderPlugin extends Plugin {
 		if (!moved.size) return;
 		const remap = (paths: string[]) => paths.map((p) => moved.get(p) ?? p);
 		const s = this.settings;
-		for (const key of Object.keys(s.characterOrder)) s.characterOrder[key] = remap(s.characterOrder[key]);
+		for (const orders of [s.characterOrder, ...Object.values(s.characterOrderBy)]) {
+			if (!orders) continue;
+			for (const key of Object.keys(orders)) orders[key] = remap(orders[key]);
+		}
 		for (const tab of Object.keys(s.sectionOrder) as WBTab[]) {
 			const order = s.sectionOrder[tab];
 			if (order) s.sectionOrder[tab] = remap(order);
@@ -4418,6 +4949,11 @@ export default class UniverseBuilderPlugin extends Plugin {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, data);
 		this.settings.characterOrder = data?.characterOrder ?? {};
 		this.settings.collapsedGroups = data?.collapsedGroups ?? [];
+		this.settings.characterGrouping = CHARACTER_GROUPINGS.includes(data?.characterGrouping as CharacterGrouping)
+			? (data!.characterGrouping as CharacterGrouping)
+			: "group";
+		this.settings.characterOrderBy = { ...(data?.characterOrderBy ?? {}) };
+		this.settings.collapsedCharacterSections = { ...(data?.collapsedCharacterSections ?? {}) };
 		this.settings.collapsedGroupTypes = data?.collapsedGroupTypes ?? [];
 		this.settings.collapsedParents = data?.collapsedParents ?? [];
 		this.settings.collapsedSubsidiaries = data?.collapsedSubsidiaries ?? [];
@@ -4428,6 +4964,12 @@ export default class UniverseBuilderPlugin extends Plugin {
 		this.migrateLegacySettings(data);
 		this.settings.inlineEditor = data?.inlineEditor === "raw" ? "raw" : "live";
 		this.settings.language = normalizeLanguage(data?.language);
+		this.settings.customOptions = normalizeCustomOptions(data?.customOptions);
+	}
+
+	/** Every value a field's dropdown offers: the built-in ones, then the user's own. */
+	optionValues(field: MetadataField): string[] {
+		return [...field.builtIn, ...(this.settings.customOptions[field.id] ?? [])];
 	}
 	/**
 	 * Carries over plugin data saved before the "Employers" tab was renamed to "Groups", so
@@ -4449,4 +4991,28 @@ export default class UniverseBuilderPlugin extends Plugin {
 	async saveSettings() {
 		await this.saveData(this.settings);
 	}
+}
+
+/**
+ * The stored custom dropdown values, cleaned up: only known fields, trimmed non-empty strings,
+ * no value repeated or duplicating a built-in one (compared case-insensitively).
+ */
+function normalizeCustomOptions(stored: unknown): Partial<Record<OptionField, string[]>> {
+	const out: Partial<Record<OptionField, string[]>> = {};
+	if (!stored || typeof stored !== "object") return out;
+	for (const field of METADATA_FIELDS) {
+		const list = (stored as Record<string, unknown>)[field.id];
+		if (!Array.isArray(list)) continue;
+		const seen = new Set(field.builtIn.map(optionKey));
+		const values: string[] = [];
+		for (const v of list) {
+			if (typeof v !== "string") continue;
+			const value = v.trim();
+			if (!value || seen.has(optionKey(value))) continue;
+			seen.add(optionKey(value));
+			values.push(value);
+		}
+		if (values.length) out[field.id] = values;
+	}
+	return out;
 }
