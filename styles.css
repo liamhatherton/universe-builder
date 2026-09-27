@@ -298,7 +298,8 @@
 
 .wb-list .wb-card[draggable="true"] { cursor: grab; }
 .wb-list .wb-card[draggable="true"]:active { cursor: grabbing; }
-.wb-card.wb-dragging { opacity: 0.4; }
+.wb-card.wb-dragging,
+.wb-list > .wb-tree-header.wb-dragging { opacity: 0.4; }
 .wb-list > .wb-drop-before { box-shadow: 0 -3px 0 0 var(--interactive-accent); }
 .wb-list > .wb-drop-after { box-shadow: 0 3px 0 0 var(--interactive-accent); }
 

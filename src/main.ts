@@ -3052,14 +3052,24 @@ class UniverseBuilderView extends ItemView {
 	 * an ancestor list's bookkeeping, and every listener stops propagation so a drag started in a
 	 * nested list isn't also seen by the (ancestor) lists it's nested inside. The new order is
 	 * handed to `onReorder` to persist to plugin data; notes themselves are never modified.
+	 * On hierarchical tabs the collapsible label above each card is a drag handle for that card too,
+	 * so a collapsed entry (label only, card and subtree hidden) can still be dragged and dropped on.
 	 */
 	private enableReorder(list: HTMLElement, onReorder: (order: string[]) => Promise<void>) {
 		let dragged: HTMLElement | null = null;
 		let dropTarget: HTMLElement | null = null;
 		let dropAfter = false;
 
-		const cardAt = (t: EventTarget | null): HTMLElement | null =>
-			t instanceof HTMLElement ? t.closest<HTMLElement>(".wb-card") : null;
+		// The card under the pointer. A tree label (hierarchical tabs) stands in for the card right
+		// below it, so a collapsed entry - whose card is hidden - can be picked up and dropped on.
+		const cardAt = (t: EventTarget | null): HTMLElement | null => {
+			if (!(t instanceof HTMLElement)) return null;
+			const el = t.closest<HTMLElement>(".wb-card, .wb-tree-header");
+			if (!el || !el.classList.contains("wb-tree-header")) return el;
+			const next = el.nextElementSibling;
+			return next instanceof HTMLElement && next.classList.contains("wb-card") ? next : null;
+		};
+		const isShown = (el: HTMLElement) => el.getClientRects().length > 0;
 		// A card's "unit": its tree label above it and its nested child group below it (hierarchical
 		// tabs), so a parent is always dragged together with its whole subtree.
 		const unitOf = (card: HTMLElement): HTMLElement[] => {
@@ -3078,8 +3088,8 @@ class UniverseBuilderView extends ItemView {
 			dropTarget = null;
 		};
 
-		list.querySelectorAll<HTMLElement>(":scope > .wb-card").forEach((card) =>
-			card.setAttribute("draggable", "true")
+		list.querySelectorAll<HTMLElement>(":scope > .wb-card, :scope > .wb-tree-header").forEach((el) =>
+			el.setAttribute("draggable", "true")
 		);
 
 		list.addEventListener("dragstart", (e) => {
@@ -3090,11 +3100,12 @@ class UniverseBuilderView extends ItemView {
 			e.dataTransfer.effectAllowed = "move";
 			// Custom type only, so dropping onto a note or editor doesn't paste anything.
 			e.dataTransfer.setData("application/x-wb-card", card.getAttribute("data-path") ?? "");
-			window.setTimeout(() => card.classList.add("wb-dragging"), 0);
+			const parts = unitOf(card);
+			window.setTimeout(() => parts.forEach((p) => p.classList.add("wb-dragging")), 0);
 		});
 
 		list.addEventListener("dragend", () => {
-			dragged?.classList.remove("wb-dragging");
+			if (dragged) unitOf(dragged).forEach((p) => p.classList.remove("wb-dragging"));
 			dragged = null;
 			clearMarks();
 		});
@@ -3108,10 +3119,14 @@ class UniverseBuilderView extends ItemView {
 			if (!target || target.parentElement !== list) return; // in a gap, or over a nested child group: keep the last indicator
 			clearMarks();
 			if (target === dragged) return;
-			const r = target.getBoundingClientRect();
+			// Measure and mark only what's on screen: a collapsed entry is just its label.
+			const unit = unitOf(target).filter(isShown);
+			if (!unit.length) return;
+			const head = unit.filter((p) => !p.classList.contains("wb-child-group"));
+			const top = head[0].getBoundingClientRect().top;
+			const bottom = head[head.length - 1].getBoundingClientRect().bottom;
 			dropTarget = target;
-			dropAfter = e.clientY >= r.top + r.height / 2;
-			const unit = unitOf(target);
+			dropAfter = e.clientY >= (top + bottom) / 2;
 			(dropAfter ? unit[unit.length - 1] : unit[0]).classList.add(dropAfter ? "wb-drop-after" : "wb-drop-before");
 		});
 

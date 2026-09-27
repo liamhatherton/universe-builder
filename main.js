@@ -5428,12 +5428,21 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
    * an ancestor list's bookkeeping, and every listener stops propagation so a drag started in a
    * nested list isn't also seen by the (ancestor) lists it's nested inside. The new order is
    * handed to `onReorder` to persist to plugin data; notes themselves are never modified.
+   * On hierarchical tabs the collapsible label above each card is a drag handle for that card too,
+   * so a collapsed entry (label only, card and subtree hidden) can still be dragged and dropped on.
    */
   enableReorder(list, onReorder) {
     let dragged = null;
     let dropTarget = null;
     let dropAfter = false;
-    const cardAt = (t2) => t2 instanceof HTMLElement ? t2.closest(".wb-card") : null;
+    const cardAt = (t2) => {
+      if (!(t2 instanceof HTMLElement)) return null;
+      const el = t2.closest(".wb-card, .wb-tree-header");
+      if (!el || !el.classList.contains("wb-tree-header")) return el;
+      const next = el.nextElementSibling;
+      return next instanceof HTMLElement && next.classList.contains("wb-card") ? next : null;
+    };
+    const isShown = (el) => el.getClientRects().length > 0;
     const unitOf = (card) => {
       const parts = [];
       const prev = card.previousElementSibling;
@@ -5449,8 +5458,8 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
       );
       dropTarget = null;
     };
-    list.querySelectorAll(":scope > .wb-card").forEach(
-      (card) => card.setAttribute("draggable", "true")
+    list.querySelectorAll(":scope > .wb-card, :scope > .wb-tree-header").forEach(
+      (el) => el.setAttribute("draggable", "true")
     );
     list.addEventListener("dragstart", (e) => {
       var _a;
@@ -5460,10 +5469,11 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
       dragged = card;
       e.dataTransfer.effectAllowed = "move";
       e.dataTransfer.setData("application/x-wb-card", (_a = card.getAttribute("data-path")) != null ? _a : "");
-      window.setTimeout(() => card.classList.add("wb-dragging"), 0);
+      const parts = unitOf(card);
+      window.setTimeout(() => parts.forEach((p) => p.classList.add("wb-dragging")), 0);
     });
     list.addEventListener("dragend", () => {
-      dragged == null ? void 0 : dragged.classList.remove("wb-dragging");
+      if (dragged) unitOf(dragged).forEach((p) => p.classList.remove("wb-dragging"));
       dragged = null;
       clearMarks();
     });
@@ -5476,10 +5486,13 @@ var UniverseBuilderView = class extends import_obsidian2.ItemView {
       if (!target || target.parentElement !== list) return;
       clearMarks();
       if (target === dragged) return;
-      const r = target.getBoundingClientRect();
+      const unit = unitOf(target).filter(isShown);
+      if (!unit.length) return;
+      const head = unit.filter((p) => !p.classList.contains("wb-child-group"));
+      const top = head[0].getBoundingClientRect().top;
+      const bottom = head[head.length - 1].getBoundingClientRect().bottom;
       dropTarget = target;
-      dropAfter = e.clientY >= r.top + r.height / 2;
-      const unit = unitOf(target);
+      dropAfter = e.clientY >= (top + bottom) / 2;
       (dropAfter ? unit[unit.length - 1] : unit[0]).classList.add(dropAfter ? "wb-drop-after" : "wb-drop-before");
     });
     list.addEventListener("dragleave", (e) => {
