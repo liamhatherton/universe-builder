@@ -22,6 +22,8 @@ import {
 import type { MarkdownFileInfo, SettingDefinitionItem } from "obsidian";
 import { t, tn, setLanguage, detectLocale, displayValue, optionLabel, LANGUAGE_NAMES, LOCALES } from "./i18n";
 import type { LanguageSetting, TranslationKey } from "./i18n";
+import { NovelEditor, NOVEL_EDITOR_DEFAULTS, normalizeNovelEditorSettings, parseProperties } from "./novel-editor";
+import type { NovelEditorSettings } from "./novel-editor";
 
 /**
  * Markdown files inside `folderPath` (recursively), found by walking that folder only,
@@ -39,7 +41,7 @@ function getMarkdownFilesIn(app: App, folderPath: string): TFile[] {
 
 // ─── Settings ────────────────────────────────────────────────────────────────
 
-interface UniverseBuilderSettings {
+interface UniverseBuilderSettings extends NovelEditorSettings {
 	worldFolder: string;
 	/** Custom character order, keyed by lower-cased group name -> ordered note paths ("Group Characters By: Group"). */
 	characterOrder: Record<string, string[]>;
@@ -135,6 +137,7 @@ const DEFAULT_SETTINGS: UniverseBuilderSettings = {
 	folderMigration: {},
 	language: "auto",
 	customOptions: {},
+	...NOVEL_EDITOR_DEFAULTS,
 };
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -4664,6 +4667,48 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 					defaultValue: DEFAULT_SETTINGS.inlineEditor,
 				},
 			},
+			{
+				type: "group",
+				heading: t("settings.novelHeading"),
+				items: [
+					{
+						name: t("settings.novel"),
+						desc: t("settings.novelDesc"),
+						aliases: ["novel", "scene", "novelr", "toolbar", "formatting", "word count", "properties"],
+						control: { type: "toggle", key: "novelEditor", defaultValue: DEFAULT_SETTINGS.novelEditor },
+					},
+					{
+						name: t("settings.novelProps"),
+						desc: t("settings.novelPropsDesc"),
+						aliases: ["novelr-type", "novelr-status", "frontmatter"],
+						visible: () => this.plugin.settings.novelEditor,
+						control: {
+							type: "text",
+							key: "novelEditorProperties",
+							placeholder: DEFAULT_SETTINGS.novelEditorProperties,
+							defaultValue: DEFAULT_SETTINGS.novelEditorProperties,
+						},
+					},
+					{
+						name: t("settings.novelLivePreview"),
+						desc: t("settings.novelLivePreviewDesc"),
+						visible: () => this.plugin.settings.novelEditor,
+						control: { type: "toggle", key: "novelEditorLivePreview", defaultValue: DEFAULT_SETTINGS.novelEditorLivePreview },
+					},
+					{
+						name: t("settings.novelHideProps"),
+						desc: t("settings.novelHidePropsDesc"),
+						visible: () => this.plugin.settings.novelEditor,
+						control: { type: "toggle", key: "novelEditorHideProperties", defaultValue: DEFAULT_SETTINGS.novelEditorHideProperties },
+					},
+					{
+						name: t("settings.novelWordCount"),
+						desc: t("settings.novelWordCountDesc"),
+						visible: () => this.plugin.settings.novelEditor,
+						control: { type: "toggle", key: "novelEditorWordCount", defaultValue: DEFAULT_SETTINGS.novelEditorWordCount },
+					},
+				],
+			},
 		];
 	}
 
@@ -4681,6 +4726,27 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 			case "inlineEditor":
 				settings.inlineEditor = value === "raw" ? "raw" : "live";
 				break;
+			case "novelEditor":
+				settings.novelEditor = value === true;
+				await this.plugin.saveSettings();
+				this.plugin.novelEditor.refresh();
+				// Show or hide the novel editor's other settings.
+				this.update();
+				return;
+			case "novelEditorProperties":
+				// Empty (or only commas) falls back to the default pair.
+				settings.novelEditorProperties =
+					typeof value === "string" && parseProperties(value).length ? value : DEFAULT_SETTINGS.novelEditorProperties;
+				await this.plugin.saveSettings();
+				this.plugin.novelEditor.refresh();
+				return;
+			case "novelEditorLivePreview":
+			case "novelEditorHideProperties":
+			case "novelEditorWordCount":
+				settings[key] = value === true;
+				await this.plugin.saveSettings();
+				this.plugin.novelEditor.refresh();
+				return;
 			case "language":
 				settings.language = normalizeLanguage(value);
 				await this.plugin.saveSettings();
@@ -4699,6 +4765,8 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 
 export default class UniverseBuilderPlugin extends Plugin {
 	settings!: UniverseBuilderSettings;
+	/** Toolbar + Properties panel for novel scenes in the main editor (see src/novel-editor). */
+	novelEditor!: NovelEditor;
 
 	async onload() {
 		await this.loadSettings();
@@ -4708,6 +4776,7 @@ export default class UniverseBuilderPlugin extends Plugin {
 
 		this.addRibbonIcon("orbit", "Universe Builder", () => void this.activateSidebar());
 
+		this.novelEditor = this.addChild(new NovelEditor(this));
 		this.registerCommands();
 
 		this.registerEvent(
@@ -4764,6 +4833,7 @@ export default class UniverseBuilderPlugin extends Plugin {
 		for (const [id, key, callback] of this.commandNames) {
 			this.addCommand({ id, name: t(key), callback });
 		}
+		this.novelEditor.registerCommands();
 	}
 
 	/**
@@ -4773,8 +4843,10 @@ export default class UniverseBuilderPlugin extends Plugin {
 	applyLanguage() {
 		setLanguage(this.settings.language);
 		for (const [id] of this.commandNames) this.removeCommand(id);
+		for (const id of this.novelEditor.commandIds()) this.removeCommand(id);
 		this.registerCommands();
 		this.refreshSidebar();
+		this.novelEditor.refresh();
 	}
 
 	// ─── Folder migration (World/ -> UniverseBuilder/) ───────────────────────────
@@ -5118,6 +5190,7 @@ export default class UniverseBuilderPlugin extends Plugin {
 		this.settings.inlineEditor = data?.inlineEditor === "raw" ? "raw" : "live";
 		this.settings.language = normalizeLanguage(data?.language);
 		this.settings.customOptions = normalizeCustomOptions(data?.customOptions);
+		Object.assign(this.settings, normalizeNovelEditorSettings(data));
 	}
 
 	/** Every value a field's dropdown offers: the built-in ones, then the user's own. */

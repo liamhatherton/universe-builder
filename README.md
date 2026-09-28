@@ -15,6 +15,7 @@ A fiction world-building toolkit for Obsidian: characters, locations, groups, lo
 - **Bookmarks** — bookmark any entry from its expanded view, and open them all from the **Bookmarks** button beside the sidebar's title
 - **10 languages** — English, Español, Português, Português (Brasil), Français, Deutsch, Русский, Українська, 简体中文 and 日本語. The sidebar, forms, messages, commands and settings follow Obsidian's language, or the **Language** setting
 - **Search** — a search bar pinned under the section header on every tab (each tab keeps its own text); type to hide whatever doesn't match, all words must match. Characters are matched on name, group, ship and home; the other tabs on the name and the text of the note
+- **Novel scene editor** — notes in the main editor with both `novelr-type` and `novelr-status` properties open in Live Preview with a toolbar above the text: a **Properties** button on the left (a floating panel to edit, add and remove properties, instead of the properties block at the top of the note), bold / italic / underline / strikethrough and align left / center / right in the middle, and the word count on the right. With nothing selected, formatting applies to the word the cursor is in or touching. Alignment is stored as a hidden comment at the end of the line (`%%align:center%%`), so other apps just show the paragraph left-aligned
 
 ## Settings
 
@@ -23,6 +24,7 @@ Requires Obsidian 1.13.0 or later. Settings are declared with Obsidian's declara
 - **Language** — the language the plugin is shown in: **Automatic** (the default) follows Obsidian's own language (Settings › General › Language), or pick one of the plugin's languages to override it. Falls back to English when Obsidian is set to a language the plugin hasn't been translated into
 - **Universe folder** — where all Universe Builder notes are stored (default: `UniverseBuilder`). Changing it doesn't move existing notes
 - **Sidebar editor** — what the Edit button on an expanded entry opens: **Live Preview** (Obsidian's own editor, the default) or **Raw markdown** (a plain text box holding the whole file, frontmatter included). See [Undocumented Obsidian API](https://github.com/liamhatherton/universe-builder/blob/main/UNDOCUMENTED-API.md)
+- **Novel scene editor** — turns the novel scene editor on or off (on by default). While it's on: **Required properties** (the properties a note must all have, default `novelr-type, novelr-status`), **Open in Live Preview**, **Hide inline properties** and **Show word count**
 
 ## Privacy
 
