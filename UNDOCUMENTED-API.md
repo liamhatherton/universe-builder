@@ -1,6 +1,6 @@
 # Undocumented Obsidian API
 
-Obsidian's public plugin API has no supported way to put its Live Preview editor inside a custom view. The sidebar's inline **Edit** (Live Preview mode) gets one anyway through Obsidian internals. This is the only place the plugin uses undocumented API; everything else uses the public API.
+Obsidian's public plugin API has no supported way to put its Live Preview editor inside a custom view. The sidebar's inline **Edit** (Live Preview mode) gets one anyway through Obsidian internals. This and the novel scene editor's two small uses (below) are the only places the plugin uses undocumented API; everything else uses the public API.
 
 ## Where it's used
 
@@ -26,3 +26,12 @@ This is the same technique the [Kanban plugin](https://github.com/mgmeyers/obsid
 ## The raw-markdown alternative
 
 `createRawEditor()` is the fallback and needs no internals. It's a plain auto-growing `<textarea>` holding the note's **entire file** (frontmatter included), exactly as read with `app.vault.read()`. Save writes the textarea's contents back with `app.vault.modify()`. It follows the same Save / Cancel / one-entry-at-a-time rules and keyboard shortcuts (Ctrl/Cmd+S or Ctrl/Cmd+Enter to save, Esc to cancel, Tab inserts a tab). Because it uses only standard DOM and public API, Obsidian updates can't break it.
+
+## Novel scene editor (`src/novel-editor/`)
+
+The novel scene editor decorates Obsidian's own `MarkdownView` using public API (workspace events, `processFrontMatter`, editor extensions). It touches two internals, both widely used by other plugins:
+
+- **`editor.cm`** (`cmOf()` in `toolbar.ts`) — the CodeMirror 6 `EditorView` behind a `MarkdownEditor`. The toolbar buttons and commands use it to change every selection in one transaction (`toggleFormat()`, `setAlignment()`) and to match editor updates to their toolbar. If it disappears, the buttons do nothing and the word count falls back to the note's saved text; nothing is written to the note.
+- **`app.metadataTypeManager`** (`assignedType()` in `properties.ts`) — Obsidian's property types (checkbox, number, date, list, …), used to pick the right input in the Properties panel. It's wrapped in `try`; if it's missing, the panel guesses the type from the value instead.
+
+To turn the whole feature off without code changes, switch off **Settings → Universe Builder → Novel scene editor**.

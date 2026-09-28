@@ -22,6 +22,9 @@ import {
 import type { MarkdownFileInfo, SettingDefinitionItem } from "obsidian";
 import { t, tn, setLanguage, detectLocale, displayValue, optionLabel, LANGUAGE_NAMES, LOCALES } from "./i18n";
 import type { LanguageSetting, TranslationKey } from "./i18n";
+import { NovelEditor, NOVEL_EDITOR_DEFAULTS, normalizeNovelEditorSettings, parseProperties } from "./novel-editor";
+import { ENTRY_DRAG_TYPE } from "./novel-editor";
+import type { NovelEditorHost, NovelEditorSettings, SceneKind, UniverseEntry } from "./novel-editor";
 
 /**
  * Markdown files inside `folderPath` (recursively), found by walking that folder only,
@@ -39,7 +42,7 @@ function getMarkdownFilesIn(app: App, folderPath: string): TFile[] {
 
 // ─── Settings ────────────────────────────────────────────────────────────────
 
-interface UniverseBuilderSettings {
+interface UniverseBuilderSettings extends NovelEditorSettings {
 	worldFolder: string;
 	/** Custom character order, keyed by lower-cased group name -> ordered note paths ("Group Characters By: Group"). */
 	characterOrder: Record<string, string[]>;
@@ -135,6 +138,7 @@ const DEFAULT_SETTINGS: UniverseBuilderSettings = {
 	folderMigration: {},
 	language: "auto",
 	customOptions: {},
+	...NOVEL_EDITOR_DEFAULTS,
 };
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -245,6 +249,19 @@ function isShip(fm: Record<string, string>): boolean {
 	return (fm.type ?? "").trim().toLowerCase() === "ship";
 }
 
+/**
+ * Orders two timeline `date` values, earliest first. Dates are free text ("Year 342 AE",
+ * "2187-03-14", "-50"), so: plain numbers (negatives included) compare as numbers, anything else
+ * in natural order, where runs of digits compare by value ("Year 99" before "Year 342"). Events
+ * with no date go last.
+ */
+function compareTimelineDates(a: string, b: string): number {
+	if (!a || !b) return (a ? 0 : 1) - (b ? 0 : 1);
+	const num = /^[-+−]?\d+(\.\d+)?$/;
+	if (num.test(a) && num.test(b)) return Number(a.replace("−", "-")) - Number(b.replace("−", "-"));
+	return a.localeCompare(b, undefined, { sensitivity: "base", numeric: true });
+}
+
 /** File extensions treated as images (portraits, dropped files). */
 const IMG_EXT = /\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
 
@@ -264,6 +281,50 @@ interface PortraitMatch {
 	name: string;
 	/** Size spec carried over when the image is replaced ("" if none). */
 	size: string;
+}
+
+/**
+ * Finds the first image embedded in a note (the one shown as the card's portrait): its
+ * displayable URL plus where its embed sits in `content`, so it can be swapped for another.
+ * `size` is an Obsidian size spec on the embed ("300" or "300x200"), if it had one.
+ */
+function findFirstImage(app: App, content: string, file: TFile): PortraitMatch | null {
+	const re = /!\[\[([^\]]+)\]\]|!\[([^\]]*)\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
+	let m: RegExpExecArray | null;
+	while ((m = re.exec(content)) !== null) {
+		const start = m.index;
+		const end = m.index + m[0].length;
+		let target: string;
+		let size = "";
+		if (m[1] !== undefined) {
+			// Wiki embed: ![[image.png|300]]
+			const parts = m[1].split("|");
+			target = parts[0].split("#")[0].trim();
+			size = (parts[1] ?? "").trim();
+		} else {
+			// Markdown embed: ![alt](path/to/image.png) or ![alt|300](...)
+			size = (m[2] ?? "").split("|").pop()!.trim();
+			target = (m[3] ?? "").trim();
+			if (target.startsWith("<") && target.endsWith(">")) target = target.slice(1, -1);
+			if (/^https?:\/\//i.test(target)) {
+				const bare = target.split(/[?#]/)[0];
+				if (IMG_EXT.test(bare)) {
+					return { src: target, start, end, file: null, name: bare.split("/").pop() || target, size: SIZE_SPEC.test(size) ? size : "" };
+				}
+				continue;
+			}
+			try { target = decodeURIComponent(target); } catch { /* keep as-is */ }
+			target = target.split("#")[0];
+		}
+		if (!IMG_EXT.test(target)) continue;
+		const dest =
+			app.metadataCache.getFirstLinkpathDest(target, file.path) ??
+			app.vault.getAbstractFileByPath(target);
+		if (dest instanceof TFile) {
+			return { src: app.vault.getResourcePath(dest), start, end, file: dest, name: dest.name, size: SIZE_SPEC.test(size) ? size : "" };
+		}
+	}
+	return null;
 }
 
 /** An image dragged onto a card: a file already in the vault, or one from outside it (e.g. File Explorer). */
@@ -824,6 +885,8 @@ function mergeGroupOrder(overall: string[], groupPaths: string[], newGroupOrder:
 // ─── Sidebar View ─────────────────────────────────────────────────────────────
 
 const VIEW_TYPE = "universe-builder-sidebar";
+/** Local-storage key (per vault, per device): the sidebar was open when the plugin was turned off. */
+const REOPEN_SIDEBAR_KEY = "universe-builder-reopen-sidebar";
 
 class UniverseBuilderView extends ItemView {
 	plugin: UniverseBuilderPlugin;
@@ -907,7 +970,44 @@ class UniverseBuilderView extends ItemView {
 	getDisplayText() { return "Universe Builder"; }
 	getIcon() { return "orbit"; }
 
-	async onOpen() { await this.render(); }
+	async onOpen() {
+		// Capture phase: runs before a list's own drag-to-reorder handler, which stops propagation.
+		this.registerDomEvent(this.containerEl, "dragstart", (e) => this.onEntryDragStart(e), { capture: true });
+		await this.render();
+	}
+
+	/**
+	 * Lets any entry be dragged out of the sidebar onto a novel scene (see src/novel-editor): a
+	 * collapsed card (or the tree label standing in for it), or the header row of the expanded,
+	 * floating card. The drag carries the note's path under ENTRY_DRAG_TYPE; within the sidebar,
+	 * collapsed cards keep reordering as before.
+	 */
+	private onEntryDragStart(e: DragEvent) {
+		const target = e.target instanceof HTMLElement ? e.target : null;
+		if (!target || !e.dataTransfer) return;
+
+		const floating = this.floating?.card;
+		const header = floating ? target.closest<HTMLElement>(".wb-card-row, .wb-card-title") : null;
+		if (floating && header && header.parentElement === floating) {
+			e.dataTransfer.setData(ENTRY_DRAG_TYPE, floating.getAttribute("data-path") ?? "");
+			e.dataTransfer.effectAllowed = "copy";
+			// The floating card is still in its list: don't let that list treat this as a reorder.
+			e.stopPropagation();
+			return;
+		}
+
+		let card = target.closest<HTMLElement>(".wb-card, .wb-tree-header");
+		if (card?.classList.contains("wb-tree-header")) {
+			const next = card.nextElementSibling;
+			card = next instanceof HTMLElement && next.classList.contains("wb-card") ? next : null;
+		}
+		// Text dragged out of an expanded card's preview isn't an entry drag.
+		if (!card || card.classList.contains("wb-card-expanded")) return;
+		const path = card.getAttribute("data-path");
+		if (!path) return;
+		e.dataTransfer.setData(ENTRY_DRAG_TYPE, path);
+		e.dataTransfer.effectAllowed = "copyMove";
+	}
 	async onClose() {}
 
 	/**
@@ -1283,48 +1383,9 @@ class UniverseBuilderView extends ItemView {
 		return this.findFirstImage(content, file)?.src ?? null;
 	}
 
-	/**
-	 * Finds the first image embedded in a note (the one shown as the card's portrait): its
-	 * displayable URL plus where its embed sits in `content`, so it can be swapped for another.
-	 * `size` is an Obsidian size spec on the embed ("300" or "300x200"), if it had one.
-	 */
+	/** The first image embedded in a note, i.e. its portrait (see the module-level findFirstImage). */
 	findFirstImage(content: string, file: TFile): PortraitMatch | null {
-		const re = /!\[\[([^\]]+)\]\]|!\[([^\]]*)\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
-		let m: RegExpExecArray | null;
-		while ((m = re.exec(content)) !== null) {
-			const start = m.index;
-			const end = m.index + m[0].length;
-			let target: string;
-			let size = "";
-			if (m[1] !== undefined) {
-				// Wiki embed: ![[image.png|300]]
-				const parts = m[1].split("|");
-				target = parts[0].split("#")[0].trim();
-				size = (parts[1] ?? "").trim();
-			} else {
-				// Markdown embed: ![alt](path/to/image.png) or ![alt|300](...)
-				size = (m[2] ?? "").split("|").pop()!.trim();
-				target = (m[3] ?? "").trim();
-				if (target.startsWith("<") && target.endsWith(">")) target = target.slice(1, -1);
-				if (/^https?:\/\//i.test(target)) {
-					const bare = target.split(/[?#]/)[0];
-					if (IMG_EXT.test(bare)) {
-						return { src: target, start, end, file: null, name: bare.split("/").pop() || target, size: SIZE_SPEC.test(size) ? size : "" };
-					}
-					continue;
-				}
-				try { target = decodeURIComponent(target); } catch { /* keep as-is */ }
-				target = target.split("#")[0];
-			}
-			if (!IMG_EXT.test(target)) continue;
-			const dest =
-				this.app.metadataCache.getFirstLinkpathDest(target, file.path) ??
-				this.app.vault.getAbstractFileByPath(target);
-			if (dest instanceof TFile) {
-				return { src: this.app.vault.getResourcePath(dest), start, end, file: dest, name: dest.name, size: SIZE_SPEC.test(size) ? size : "" };
-			}
-		}
-		return null;
+		return findFirstImage(this.app, content, file);
 	}
 
 	async renderSection(
@@ -1918,6 +1979,9 @@ class UniverseBuilderView extends ItemView {
 		const { title, meta, badge, badgeText, search, extraBadges } = getCard(fm);
 
 		const card = parent.createDiv("wb-card");
+		// Every card can be dragged onto a novel scene (see onEntryDragStart), even in lists that
+		// can't be reordered.
+		card.setAttribute("draggable", "true");
 		if (stackBadge) card.addClass("wb-card-stacked");
 		card.setAttribute("data-path", file.path);
 		// Characters supply their own (four properties); everything else searches name + note text.
@@ -2426,8 +2490,10 @@ class UniverseBuilderView extends ItemView {
 		this.floating = { card, placeholder, pane, backdrop, observer, draggable: card.getAttribute("draggable") };
 		this.updateFloatBounds();
 
-		// Cards are drag-sortable; don't let the floating one be picked up.
+		// Cards are drag-sortable; don't let the floating one be picked up. Its header row can be
+		// dragged instead, onto a novel scene (see onEntryDragStart).
 		card.setAttribute("draggable", "false");
+		card.querySelector<HTMLElement>(":scope > .wb-card-row, :scope > .wb-card-title")?.setAttribute("draggable", "true");
 		// The chevron becomes an X while floating: clicking the title row closes the card.
 		this.setCardChevron(card, "x");
 		root.addClass("wb-has-edit-focus");
@@ -2471,6 +2537,7 @@ class UniverseBuilderView extends ItemView {
 			this.setCardChevron(card, "chevron-right");
 			if (focus.draggable === null) card.removeAttribute("draggable");
 			else card.setAttribute("draggable", focus.draggable);
+			card.querySelector<HTMLElement>(":scope > .wb-card-row, :scope > .wb-card-title")?.removeAttribute("draggable");
 			placeholder.remove();
 			backdrop.remove();
 			pane.removeClass("wb-edit-focus-pane");
@@ -2906,6 +2973,23 @@ class UniverseBuilderView extends ItemView {
 	}
 
 	/**
+	 * Shows a note's card from outside the sidebar (the novel editor's scene labels): switches to its
+	 * tab and expands it, the same as following a wiki-link inside an expanded card. Returns false if
+	 * the note has no card here.
+	 */
+	async revealEntry(file: TFile): Promise<boolean> {
+		const tab = this.findEntryTab(file);
+		if (!tab) return false;
+		const selector = `.wb-card[data-path="${CSS.escape(file.path)}"]`;
+		// A sidebar that was only just opened may still be drawing its cards.
+		if (!this.tabContents[tab]?.body.querySelector(selector)) await this.render();
+		if (!this.tabContents[tab]?.body.querySelector(selector)) return false;
+		if (tab !== this.activeTab) this.switchTab(tab);
+		this.revealCard(tab, file.path);
+		return true;
+	}
+
+	/**
 	 * Brings one tab's card into view: un-collapses its group group if needed, clears an active
 	 * search filter that would otherwise hide it, expands it (recording that as a nav entry, same as
 	 * a direct click would), and scrolls it into view.
@@ -3097,7 +3181,8 @@ class UniverseBuilderView extends ItemView {
 			if (!card || card.parentElement !== list || !e.dataTransfer) return;
 			e.stopPropagation(); // keep an ancestor (hierarchical) list from also seeing this drag
 			dragged = card;
-			e.dataTransfer.effectAllowed = "move";
+			// "copy" too, so the same drag can also be dropped on a novel scene (see onEntryDragStart).
+			e.dataTransfer.effectAllowed = "copyMove";
 			// Custom type only, so dropping onto a note or editor doesn't paste anything.
 			e.dataTransfer.setData("application/x-wb-card", card.getAttribute("data-path") ?? "");
 			const parts = unitOf(card);
@@ -4664,6 +4749,60 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 					defaultValue: DEFAULT_SETTINGS.inlineEditor,
 				},
 			},
+			{
+				type: "group",
+				heading: t("settings.novelHeading"),
+				items: [
+					{
+						name: t("settings.novel"),
+						desc: t("settings.novelDesc"),
+						aliases: ["novel", "scene", "novelr", "toolbar", "formatting", "word count", "properties"],
+						control: { type: "toggle", key: "novelEditor", defaultValue: DEFAULT_SETTINGS.novelEditor },
+					},
+					{
+						name: t("settings.novelProps"),
+						desc: t("settings.novelPropsDesc"),
+						aliases: ["novelr-type", "novelr-status", "frontmatter"],
+						visible: () => this.plugin.settings.novelEditor,
+						control: {
+							type: "text",
+							key: "novelEditorProperties",
+							placeholder: DEFAULT_SETTINGS.novelEditorProperties,
+							defaultValue: DEFAULT_SETTINGS.novelEditorProperties,
+						},
+					},
+					{
+						name: t("settings.novelLivePreview"),
+						desc: t("settings.novelLivePreviewDesc"),
+						visible: () => this.plugin.settings.novelEditor,
+						control: { type: "toggle", key: "novelEditorLivePreview", defaultValue: DEFAULT_SETTINGS.novelEditorLivePreview },
+					},
+					{
+						name: t("settings.novelPropsButton"),
+						desc: t("settings.novelPropsButtonDesc"),
+						visible: () => this.plugin.settings.novelEditor,
+						control: { type: "toggle", key: "novelEditorPropertiesButton", defaultValue: DEFAULT_SETTINGS.novelEditorPropertiesButton },
+					},
+					{
+						name: t("settings.novelHideProps"),
+						desc: t("settings.novelHidePropsDesc"),
+						visible: () => this.plugin.settings.novelEditor,
+						control: { type: "toggle", key: "novelEditorHideProperties", defaultValue: DEFAULT_SETTINGS.novelEditorHideProperties },
+					},
+					{
+						name: t("settings.novelLockTitle"),
+						desc: t("settings.novelLockTitleDesc"),
+						visible: () => this.plugin.settings.novelEditor,
+						control: { type: "toggle", key: "novelEditorLockTitle", defaultValue: DEFAULT_SETTINGS.novelEditorLockTitle },
+					},
+					{
+						name: t("settings.novelWordCount"),
+						desc: t("settings.novelWordCountDesc"),
+						visible: () => this.plugin.settings.novelEditor,
+						control: { type: "toggle", key: "novelEditorWordCount", defaultValue: DEFAULT_SETTINGS.novelEditorWordCount },
+					},
+				],
+			},
 		];
 	}
 
@@ -4681,6 +4820,29 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 			case "inlineEditor":
 				settings.inlineEditor = value === "raw" ? "raw" : "live";
 				break;
+			case "novelEditor":
+				settings.novelEditor = value === true;
+				await this.plugin.saveSettings();
+				this.plugin.novelEditor.refresh();
+				// Show or hide the novel editor's other settings.
+				this.update();
+				return;
+			case "novelEditorProperties":
+				// Empty (or only commas) falls back to the default pair.
+				settings.novelEditorProperties =
+					typeof value === "string" && parseProperties(value).length ? value : DEFAULT_SETTINGS.novelEditorProperties;
+				await this.plugin.saveSettings();
+				this.plugin.novelEditor.refresh();
+				return;
+			case "novelEditorLivePreview":
+			case "novelEditorHideProperties":
+			case "novelEditorWordCount":
+			case "novelEditorPropertiesButton":
+			case "novelEditorLockTitle":
+				settings[key] = value === true;
+				await this.plugin.saveSettings();
+				this.plugin.novelEditor.refresh();
+				return;
 			case "language":
 				settings.language = normalizeLanguage(value);
 				await this.plugin.saveSettings();
@@ -4697,8 +4859,10 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 
 // ─── Plugin ───────────────────────────────────────────────────────────────────
 
-export default class UniverseBuilderPlugin extends Plugin {
+export default class UniverseBuilderPlugin extends Plugin implements NovelEditorHost {
 	settings!: UniverseBuilderSettings;
+	/** Toolbar + Properties panel for novel scenes in the main editor (see src/novel-editor). */
+	novelEditor!: NovelEditor;
 
 	async onload() {
 		await this.loadSettings();
@@ -4708,6 +4872,7 @@ export default class UniverseBuilderPlugin extends Plugin {
 
 		this.addRibbonIcon("orbit", "Universe Builder", () => void this.activateSidebar());
 
+		this.novelEditor = this.addChild(new NovelEditor(this));
 		this.registerCommands();
 
 		this.registerEvent(
@@ -4746,6 +4911,50 @@ export default class UniverseBuilderPlugin extends Plugin {
 		this.addSettingTab(new UniverseBuilderSettingTab(this.app, this));
 		// The vault's file tree isn't fully indexed until layout is ready.
 		this.app.workspace.onLayoutReady(() => void this.checkFolderMigration());
+
+		// Bring the sidebar back after the plugin is turned off and on again (see onunload).
+		this.registerEvent(this.app.workspace.on("layout-change", () => this.trackSidebarOpen()));
+		this.app.workspace.onLayoutReady(() => {
+			this.trackSidebarOpen();
+			void this.restoreSidebarAfterReload();
+		});
+	}
+
+	/**
+	 * Whether the sidebar was open the last time the layout changed. Kept up to date rather than
+	 * checked in onunload, because by the time onunload runs Obsidian may already have closed it.
+	 */
+	private sidebarWasOpen = false;
+
+	private trackSidebarOpen() {
+		this.sidebarWasOpen = this.app.workspace.getLeavesOfType(VIEW_TYPE).length > 0;
+	}
+
+	/**
+	 * Turning the plugin off makes Obsidian close the sidebar (its view type goes away with the
+	 * plugin), and nothing reopens it when the plugin is turned back on. So remember, on this device
+	 * for this vault, that it was open. Quitting Obsidian doesn't need this - the saved workspace
+	 * restores the sidebar - and restoreSidebarAfterReload does nothing then since it's already open.
+	 */
+	onunload() {
+		const open = this.sidebarWasOpen || this.app.workspace.getLeavesOfType(VIEW_TYPE).length > 0;
+		this.app.saveLocalStorage(REOPEN_SIDEBAR_KEY, open ? true : null);
+	}
+
+	/** Reopens the sidebar if it was open when the plugin was last turned off, without taking focus from the note. */
+	private async restoreSidebarAfterReload() {
+		const reopen = this.app.loadLocalStorage(REOPEN_SIDEBAR_KEY) === true;
+		this.app.saveLocalStorage(REOPEN_SIDEBAR_KEY, null);
+		const { workspace } = this.app;
+		if (!reopen || workspace.getLeavesOfType(VIEW_TYPE).length > 0) return;
+		const previous = workspace.getMostRecentLeaf();
+		const leaf = workspace.getRightLeaf(false);
+		if (!leaf) return;
+		await leaf.setViewState({ type: VIEW_TYPE, active: false });
+		// Show it as the right sidebar's current tab, then hand focus back to where it was.
+		await workspace.revealLeaf(leaf);
+		if (previous && previous !== leaf) workspace.setActiveLeaf(previous, { focus: true });
+		this.trackSidebarOpen();
 	}
 
 	/** Command ids and their names' translation keys, in Command palette order. */
@@ -4764,6 +4973,7 @@ export default class UniverseBuilderPlugin extends Plugin {
 		for (const [id, key, callback] of this.commandNames) {
 			this.addCommand({ id, name: t(key), callback });
 		}
+		this.novelEditor.registerCommands();
 	}
 
 	/**
@@ -4773,8 +4983,10 @@ export default class UniverseBuilderPlugin extends Plugin {
 	applyLanguage() {
 		setLanguage(this.settings.language);
 		for (const [id] of this.commandNames) this.removeCommand(id);
+		for (const id of this.novelEditor.commandIds()) this.removeCommand(id);
 		this.registerCommands();
 		this.refreshSidebar();
+		this.novelEditor.refresh();
 	}
 
 	// ─── Folder migration (World/ -> UniverseBuilder/) ───────────────────────────
@@ -5090,6 +5302,71 @@ export default class UniverseBuilderPlugin extends Plugin {
 		await workspace.revealLeaf(leaf);
 	}
 
+	/** A sidebar section's entries for the novel editor's Characters / Locations / Groups / Lore / Timeline menus. */
+	universeEntries(kind: SceneKind): UniverseEntry[] {
+		const files = getMarkdownFilesIn(this.app, `${this.settings.worldFolder}/${SECTION_FOLDERS[kind]}`);
+		const text = (v: unknown) => (typeof v === "string" || typeof v === "number" ? String(v).trim() : "");
+		return files
+			.map((file) => {
+				const fm = this.app.metadataCache.getFileCache(file)?.frontmatter;
+				// Characters, locations and groups have a `name`; lore and timeline entries a `title`.
+				const entry: UniverseEntry = { file, name: text(fm?.name) || text(fm?.title) || file.basename };
+				if (kind === "timeline") entry.detail = text(fm?.date);
+				return entry;
+			})
+			.sort((a, b) =>
+				(kind === "timeline" ? compareTimelineDates(a.detail ?? "", b.detail ?? "") : 0) ||
+				a.name.localeCompare(b.name, undefined, { sensitivity: "base", numeric: true }),
+			);
+	}
+
+	/** Which sidebar section (that a scene can list) a note belongs to, from its folder. */
+	universeEntryKind(file: TFile): SceneKind | null {
+		const kinds: SceneKind[] = ["characters", "locations", "groups", "lore", "timeline"];
+		return kinds.find((k) => file.path.startsWith(`${this.settings.worldFolder}/${SECTION_FOLDERS[k]}/`)) ?? null;
+	}
+
+	/** Portrait URL per note path, with the note's mtime it was read at (see universePortrait). */
+	private portraitCache = new Map<string, { mtime: number; src: string | null }>();
+	private portraitLoading = new Set<string>();
+
+	/**
+	 * An entry's portrait (the same image its sidebar card shows) for the novel editor. Answered from
+	 * a cache so the toolbar can draw synchronously: undefined = not read yet. A missing or outdated
+	 * value is (re)read in the background, and the novel editor is told to redraw if it changed.
+	 */
+	universePortrait(file: TFile): string | null | undefined {
+		const cached = this.portraitCache.get(file.path);
+		if (cached && cached.mtime === file.stat.mtime) return cached.src;
+		if (!this.portraitLoading.has(file.path)) {
+			this.portraitLoading.add(file.path);
+			const mtime = file.stat.mtime;
+			void this.app.vault
+				.cachedRead(file)
+				.then((content) => {
+					const src = findFirstImage(this.app, content, file)?.src ?? null;
+					this.portraitCache.set(file.path, { mtime, src });
+					if (cached?.src !== src || !cached) this.novelEditor.portraitsChanged();
+				})
+				.catch(() => { /* unreadable: keep the icon */ })
+				.finally(() => this.portraitLoading.delete(file.path));
+		}
+		// While re-reading, keep showing the old portrait rather than flickering to the icon.
+		return cached?.src;
+	}
+
+	/** Opens the sidebar with this entry's card expanded (a novel editor scene label was clicked). */
+	async revealUniverseEntry(file: TFile): Promise<void> {
+		await this.activateSidebar();
+		const leaf = this.app.workspace.getLeavesOfType(VIEW_TYPE)[0];
+		if (!leaf) return;
+		await leaf.loadIfDeferred();
+		const view = leaf.view;
+		if (!(view instanceof UniverseBuilderView) || !(await view.revealEntry(file))) {
+			new Notice(t("novel.entryNotFound", { name: file.basename }));
+		}
+	}
+
 	refreshSidebar() {
 		const leaf = this.app.workspace.getLeavesOfType(VIEW_TYPE)[0];
 		if (leaf?.view instanceof UniverseBuilderView) {
@@ -5118,6 +5395,7 @@ export default class UniverseBuilderPlugin extends Plugin {
 		this.settings.inlineEditor = data?.inlineEditor === "raw" ? "raw" : "live";
 		this.settings.language = normalizeLanguage(data?.language);
 		this.settings.customOptions = normalizeCustomOptions(data?.customOptions);
+		Object.assign(this.settings, normalizeNovelEditorSettings(data));
 	}
 
 	/** Every value a field's dropdown offers: the built-in ones, then the user's own. */

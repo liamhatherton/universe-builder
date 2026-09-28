@@ -1065,3 +1065,375 @@
 /* "Add new <field>…" window over the New Character form (Group / Ship / Home dropdowns). */
 .wb-prompt-modal { width: min(400px, 92vw); }
 .wb-prompt-input { width: 100%; }
+
+
+/* ═══ Novel scene editor (src/novel-editor) ═══════════════════════════════════ */
+
+
+/* Hide Obsidian's inline properties block in Universe notes (live preview + reading). */
+.ue-editor.ue-hide-props .metadata-container {
+	display: none !important;
+}
+
+/* Toolbar sits between the view header and the editor.
+   Three columns: info (left) · formatting (center, truly centered) · Properties (right). */
+.ue-toolbar {
+	position: relative;
+	z-index: var(--layer-cover, 5);
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+	align-items: center;
+	column-gap: 12px;
+	flex: 0 0 auto;
+	min-height: 36px;
+	padding: 3px var(--size-4-3, 12px);
+	background: var(--background-primary);
+	border-bottom: 1px solid var(--background-modifier-border);
+	font-size: var(--font-ui-small);
+}
+
+.ue-toolbar-section {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	min-width: 0;
+}
+.ue-toolbar-left { justify-content: flex-start; overflow: hidden; }
+.ue-toolbar-tags { margin-left: 6px; min-width: 0; overflow: hidden; }
+.ue-props-btn { flex: 0 0 auto; }
+.ue-props-btn.is-hidden { display: none; }
+.ue-toolbar-center { justify-content: center; }
+.ue-toolbar-right { justify-content: flex-end; }
+
+.ue-toolbar-group {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+
+.ue-toolbar-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 28px;
+	min-width: 28px;
+	padding: 0 6px;
+	border: none;
+	box-shadow: none;
+	background: transparent;
+	color: var(--text-muted);
+	border-radius: var(--radius-s);
+	cursor: var(--cursor);
+	font-size: var(--font-ui-small);
+	white-space: nowrap;
+}
+.ue-toolbar-btn:hover {
+	background: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+.ue-toolbar-btn.is-active {
+	background: var(--background-modifier-active-hover, var(--background-modifier-hover));
+	color: var(--interactive-accent);
+}
+.ue-toolbar-btn svg,
+.ue-btn-icon svg {
+	width: var(--icon-s, 16px);
+	height: var(--icon-s, 16px);
+}
+.ue-btn-icon { display: inline-flex; }
+
+.ue-toolbar-info {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--text-faint);
+	white-space: nowrap;
+}
+
+.ue-chip {
+	height: 22px;
+	padding: 0 8px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-l, 12px);
+	background: var(--background-secondary);
+	box-shadow: none;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	cursor: var(--cursor);
+}
+.ue-chip:hover { color: var(--text-normal); background: var(--background-modifier-hover); }
+
+.ue-wordcount { margin-left: 2px; font-variant-numeric: tabular-nums; }
+.ue-wordcount-sel { color: var(--text-accent); }
+
+/* ---------- Properties popover ---------- */
+
+.ue-props-popover {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 8px;
+	width: min(520px, calc(100% - 16px));
+	max-height: min(60vh, 520px);
+	overflow-y: auto;
+	padding: 8px;
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	box-shadow: var(--shadow-l);
+	z-index: var(--layer-popover, 30);
+	cursor: default;
+}
+
+.ue-props-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 2px 6px 4px;
+	margin-bottom: 4px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+.ue-props-title { font-weight: var(--font-semibold); color: var(--text-normal); }
+
+.ue-props-list { display: flex; flex-direction: column; gap: 2px; }
+
+.ue-props-row,
+.ue-props-add {
+	display: grid;
+	grid-template-columns: 20px minmax(90px, 34%) 1fr 28px;
+	align-items: center;
+	gap: 6px;
+	padding: 2px 2px;
+	border-radius: var(--radius-s);
+}
+.ue-props-row:hover { background: var(--background-modifier-hover); }
+.ue-props-add {
+	grid-template-columns: minmax(90px, 34%) 1fr auto;
+	margin-top: 8px;
+	padding-top: 8px;
+	border-top: 1px solid var(--background-modifier-border);
+	border-radius: 0;
+}
+
+.ue-props-icon { display: inline-flex; color: var(--text-faint); }
+.ue-props-icon svg { width: 14px; height: 14px; }
+
+.ue-props-popover input[type="text"],
+.ue-props-popover input[type="number"],
+.ue-props-popover input[type="date"],
+.ue-props-popover input[type="datetime-local"],
+.ue-props-popover textarea {
+	width: 100%;
+	height: 28px;
+	font-size: var(--font-ui-small);
+	background: transparent;
+	border: 1px solid transparent;
+	box-shadow: none;
+}
+.ue-props-popover input:hover,
+.ue-props-popover textarea:hover { border-color: var(--background-modifier-border); }
+.ue-props-popover input:focus,
+.ue-props-popover textarea:focus {
+	border-color: var(--interactive-accent);
+	background: var(--background-primary);
+}
+.ue-props-add input { border-color: var(--background-modifier-border) !important; }
+
+.ue-props-key { color: var(--text-muted); }
+.ue-props-row.is-required .ue-props-key { color: var(--text-accent); cursor: default; }
+
+.ue-props-popover textarea.ue-props-json {
+	height: auto;
+	min-height: 56px;
+	font-family: var(--font-monospace);
+	resize: vertical;
+}
+.ue-props-popover .is-invalid { border-color: var(--text-error) !important; }
+
+.ue-props-delete { color: var(--text-faint); }
+.ue-props-delete:hover { color: var(--text-error); }
+.ue-props-delete.is-hidden { visibility: hidden; }
+
+.ue-props-empty { padding: 6px 4px; color: var(--text-faint); }
+
+.ue-props-add-btn { height: 28px; font-size: var(--font-ui-small); }
+
+/* ---------- Alignment ---------- */
+
+/* Small gap between the formatting and alignment groups. */
+.ue-align-group { margin-left: 12px; }
+
+.markdown-source-view.mod-cm6 .cm-line.ue-align-center,
+.markdown-rendered .ue-align-center { text-align: center; }
+.markdown-source-view.mod-cm6 .cm-line.ue-align-right,
+.markdown-rendered .ue-align-right { text-align: right; }
+.ue-align-marker { display: none; }
+
+/* On narrow panes, long property values truncate instead of pushing the formatting buttons. */
+.ue-toolbar-info .ue-chip { flex: 0 1 auto; min-width: 0; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
+.ue-wordcount { flex: 0 0 auto; }
+
+/* ---------- Scene lists (Characters / Locations / Groups) ---------- */
+
+/* Scene Metadata toggle: chevron points right when closed, turns to point down when open. */
+.ue-scene-toggle { flex: 0 0 auto; }
+.ue-scene-toggle .ue-scene-chevron { transition: transform 180ms ease; }
+.ue-scene-toggle.is-open .ue-scene-chevron { transform: rotate(90deg); }
+
+/* The section slides open / closed: its one grid row animates between 0fr and 1fr. */
+.ue-scene-wrap {
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-rows: 0fr;
+	opacity: 0;
+	transition: grid-template-rows 220ms ease, opacity 180ms ease;
+}
+.ue-scene-wrap.is-open { grid-template-rows: 1fr; opacity: 1; }
+.ue-scene-wrap.no-anim,
+.ue-scene-wrap.no-anim .ue-scene-clip { transition: none !important; }
+.ue-scene-clip { min-height: 0; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+	.ue-scene-wrap,
+	.ue-scene-toggle .ue-scene-chevron { transition: none; }
+}
+
+/* Under the toolbar: one row per category with entries in the scene. Column 1 is the category
+   name (right-aligned, only as wide as the longest name shown); column 2 holds its labels. */
+.ue-toolbar-scene {
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);
+	align-items: center;
+	column-gap: 10px;
+	row-gap: 4px;
+	padding: 4px 0 5px;
+}
+.ue-scene-category {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 4px;
+	align-self: start;
+	min-height: 28px;
+	text-align: right;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	white-space: nowrap;
+}
+.ue-scene-entries {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 4px;
+	min-width: 0;
+}
+/* The labels wrap within the right column. */
+.ue-scene-pills { display: contents; }
+.ue-scene-add {
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	border-radius: 50%;
+	color: var(--text-faint);
+}
+.ue-scene-add svg { width: 14px; height: 14px; }
+.ue-scene-add:hover,
+.ue-scene-add.is-active { color: var(--text-normal); background: var(--background-modifier-hover); }
+
+.ue-scene-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	max-width: 240px;
+	height: 28px;
+	padding: 0 6px 0 10px;
+	border-radius: 14px;
+	font-size: var(--font-ui-small);
+	line-height: 26px;
+	user-select: none;
+}
+.ue-scene-pill-icon { display: inline-flex; color: var(--text-faint); }
+.ue-scene-pill-icon svg { width: 14px; height: 14px; }
+.ue-scene-pill-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ue-scene-pill-remove {
+	display: inline-flex;
+	border-radius: 50%;
+	color: var(--text-faint);
+	opacity: 0;
+}
+.ue-scene-pill-remove svg { width: 14px; height: 14px; }
+.ue-scene-pill:hover .ue-scene-pill-remove,
+.ue-scene-pill:focus-within .ue-scene-pill-remove { opacity: 1; }
+.ue-scene-pill-remove:hover { color: var(--text-error); background: var(--background-modifier-hover); }
+.ue-scene-pill:focus-visible { box-shadow: 0 0 0 2px var(--background-modifier-border-focus); outline: none; }
+.ue-scene-pill[data-kind="characters"] .ue-scene-pill-icon { color: var(--color-blue, var(--text-accent)); }
+.ue-scene-pill[data-kind="locations"] .ue-scene-pill-icon { color: var(--color-green, var(--text-accent)); }
+.ue-scene-pill[data-kind="groups"] .ue-scene-pill-icon { color: var(--color-orange, var(--text-accent)); }
+.ue-scene-pill[data-kind="lore"] .ue-scene-pill-icon { color: var(--color-purple, var(--text-accent)); }
+.ue-scene-pill[data-kind="timeline"] .ue-scene-pill-icon { color: var(--color-cyan, var(--text-accent)); }
+.ue-scene-pill.is-unresolved { border-style: dashed; color: var(--text-faint); }
+
+/* The pick menu reuses the Properties panel's frame. */
+.ue-scene-picker { width: min(300px, calc(100% - 16px)); display: flex; flex-direction: column; overflow: hidden; }
+.ue-scene-picker-title { display: inline-flex; align-items: center; gap: 6px; }
+.ue-scene-picker input.ue-scene-search {
+	width: 100%;
+	height: 28px;
+	margin-bottom: 4px;
+	font-size: var(--font-ui-small);
+}
+.ue-scene-options { display: flex; flex-direction: column; gap: 1px; overflow-y: auto; min-height: 0; }
+.ue-scene-option {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 8px;
+	width: 100%;
+	min-height: 32px;
+	padding: 3px 8px 3px 6px;
+	color: var(--text-normal);
+	font-size: var(--font-ui-small);
+	text-align: left;
+	border-radius: var(--radius-s);
+	cursor: var(--cursor);
+	flex: 0 0 auto;
+	user-select: none;
+}
+.ue-scene-option:hover,
+.ue-scene-option.is-active { background: var(--background-modifier-hover); }
+.ue-scene-option.is-selected { color: var(--text-accent); }
+.ue-scene-check { display: inline-flex; width: 16px; flex: 0 0 16px; margin-left: auto; color: var(--text-accent); }
+.ue-scene-option-detail + .ue-scene-check { margin-left: 0; }
+.ue-scene-check svg { width: 14px; height: 14px; }
+.ue-scene-option-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Portraits (the image each entry's sidebar card shows) in place of the section icon. */
+.ue-scene-pill-icon.has-portrait,
+.ue-scene-avatar.has-portrait {
+	flex: 0 0 auto;
+	overflow: hidden;
+	border-radius: 50%;
+	background: var(--background-modifier-border);
+}
+.ue-scene-pill-icon.has-portrait { width: 24px; height: 24px; margin-left: -8px; }
+.ue-scene-pill-icon.has-portrait img,
+.ue-scene-avatar.has-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ue-scene-avatar { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; flex: 0 0 24px; color: var(--text-faint); }
+.ue-scene-avatar svg { width: 14px; height: 14px; }
+
+/* A timeline event's date, after its name in the Timeline menu. */
+.ue-scene-option-detail { margin-left: auto; padding-left: 8px; flex: 0 0 auto; max-width: 45%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-faint); font-size: var(--font-ui-smaller); }
+
+/* A sidebar entry is being dragged over a scene: outline the whole view (dropping adds it). */
+.ue-editor.ue-drop-target {
+	outline: 2px dashed var(--interactive-accent);
+	outline-offset: -3px;
+}
+.ue-editor.ue-drop-target .ue-toolbar { background: var(--background-modifier-hover); }
+
+/* "Lock scene title": the inline title (the note's file name, above the text) can't be clicked into
+   and renamed; see lockInlineTitle in src/novel-editor/toolbar.ts. */
+.ue-editor.ue-lock-title .inline-title {
+	pointer-events: none;
+	cursor: default;
+	caret-color: transparent;
+}
