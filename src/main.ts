@@ -23,7 +23,7 @@ import type { MarkdownFileInfo, SettingDefinitionItem } from "obsidian";
 import { t, tn, setLanguage, detectLocale, displayValue, optionLabel, LANGUAGE_NAMES, LOCALES } from "./i18n";
 import type { LanguageSetting, TranslationKey } from "./i18n";
 import { NovelEditor, NOVEL_EDITOR_DEFAULTS, normalizeNovelEditorSettings, parseProperties } from "./novel-editor";
-import type { NovelEditorSettings } from "./novel-editor";
+import type { NovelEditorHost, NovelEditorSettings, SceneKind, UniverseEntry } from "./novel-editor";
 
 /**
  * Markdown files inside `folderPath` (recursively), found by walking that folder only,
@@ -267,6 +267,50 @@ interface PortraitMatch {
 	name: string;
 	/** Size spec carried over when the image is replaced ("" if none). */
 	size: string;
+}
+
+/**
+ * Finds the first image embedded in a note (the one shown as the card's portrait): its
+ * displayable URL plus where its embed sits in `content`, so it can be swapped for another.
+ * `size` is an Obsidian size spec on the embed ("300" or "300x200"), if it had one.
+ */
+function findFirstImage(app: App, content: string, file: TFile): PortraitMatch | null {
+	const re = /!\[\[([^\]]+)\]\]|!\[([^\]]*)\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
+	let m: RegExpExecArray | null;
+	while ((m = re.exec(content)) !== null) {
+		const start = m.index;
+		const end = m.index + m[0].length;
+		let target: string;
+		let size = "";
+		if (m[1] !== undefined) {
+			// Wiki embed: ![[image.png|300]]
+			const parts = m[1].split("|");
+			target = parts[0].split("#")[0].trim();
+			size = (parts[1] ?? "").trim();
+		} else {
+			// Markdown embed: ![alt](path/to/image.png) or ![alt|300](...)
+			size = (m[2] ?? "").split("|").pop()!.trim();
+			target = (m[3] ?? "").trim();
+			if (target.startsWith("<") && target.endsWith(">")) target = target.slice(1, -1);
+			if (/^https?:\/\//i.test(target)) {
+				const bare = target.split(/[?#]/)[0];
+				if (IMG_EXT.test(bare)) {
+					return { src: target, start, end, file: null, name: bare.split("/").pop() || target, size: SIZE_SPEC.test(size) ? size : "" };
+				}
+				continue;
+			}
+			try { target = decodeURIComponent(target); } catch { /* keep as-is */ }
+			target = target.split("#")[0];
+		}
+		if (!IMG_EXT.test(target)) continue;
+		const dest =
+			app.metadataCache.getFirstLinkpathDest(target, file.path) ??
+			app.vault.getAbstractFileByPath(target);
+		if (dest instanceof TFile) {
+			return { src: app.vault.getResourcePath(dest), start, end, file: dest, name: dest.name, size: SIZE_SPEC.test(size) ? size : "" };
+		}
+	}
+	return null;
 }
 
 /** An image dragged onto a card: a file already in the vault, or one from outside it (e.g. File Explorer). */
@@ -1286,48 +1330,9 @@ class UniverseBuilderView extends ItemView {
 		return this.findFirstImage(content, file)?.src ?? null;
 	}
 
-	/**
-	 * Finds the first image embedded in a note (the one shown as the card's portrait): its
-	 * displayable URL plus where its embed sits in `content`, so it can be swapped for another.
-	 * `size` is an Obsidian size spec on the embed ("300" or "300x200"), if it had one.
-	 */
+	/** The first image embedded in a note, i.e. its portrait (see the module-level findFirstImage). */
 	findFirstImage(content: string, file: TFile): PortraitMatch | null {
-		const re = /!\[\[([^\]]+)\]\]|!\[([^\]]*)\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
-		let m: RegExpExecArray | null;
-		while ((m = re.exec(content)) !== null) {
-			const start = m.index;
-			const end = m.index + m[0].length;
-			let target: string;
-			let size = "";
-			if (m[1] !== undefined) {
-				// Wiki embed: ![[image.png|300]]
-				const parts = m[1].split("|");
-				target = parts[0].split("#")[0].trim();
-				size = (parts[1] ?? "").trim();
-			} else {
-				// Markdown embed: ![alt](path/to/image.png) or ![alt|300](...)
-				size = (m[2] ?? "").split("|").pop()!.trim();
-				target = (m[3] ?? "").trim();
-				if (target.startsWith("<") && target.endsWith(">")) target = target.slice(1, -1);
-				if (/^https?:\/\//i.test(target)) {
-					const bare = target.split(/[?#]/)[0];
-					if (IMG_EXT.test(bare)) {
-						return { src: target, start, end, file: null, name: bare.split("/").pop() || target, size: SIZE_SPEC.test(size) ? size : "" };
-					}
-					continue;
-				}
-				try { target = decodeURIComponent(target); } catch { /* keep as-is */ }
-				target = target.split("#")[0];
-			}
-			if (!IMG_EXT.test(target)) continue;
-			const dest =
-				this.app.metadataCache.getFirstLinkpathDest(target, file.path) ??
-				this.app.vault.getAbstractFileByPath(target);
-			if (dest instanceof TFile) {
-				return { src: this.app.vault.getResourcePath(dest), start, end, file: dest, name: dest.name, size: SIZE_SPEC.test(size) ? size : "" };
-			}
-		}
-		return null;
+		return findFirstImage(this.app, content, file);
 	}
 
 	async renderSection(
@@ -2906,6 +2911,23 @@ class UniverseBuilderView extends ItemView {
 		}
 		if (tab !== this.activeTab) this.switchTab(tab);
 		this.revealCard(tab, dest.path);
+	}
+
+	/**
+	 * Shows a note's card from outside the sidebar (the novel editor's scene labels): switches to its
+	 * tab and expands it, the same as following a wiki-link inside an expanded card. Returns false if
+	 * the note has no card here.
+	 */
+	async revealEntry(file: TFile): Promise<boolean> {
+		const tab = this.findEntryTab(file);
+		if (!tab) return false;
+		const selector = `.wb-card[data-path="${CSS.escape(file.path)}"]`;
+		// A sidebar that was only just opened may still be drawing its cards.
+		if (!this.tabContents[tab]?.body.querySelector(selector)) await this.render();
+		if (!this.tabContents[tab]?.body.querySelector(selector)) return false;
+		if (tab !== this.activeTab) this.switchTab(tab);
+		this.revealCard(tab, file.path);
+		return true;
 	}
 
 	/**
@@ -4696,6 +4718,12 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 						control: { type: "toggle", key: "novelEditorLivePreview", defaultValue: DEFAULT_SETTINGS.novelEditorLivePreview },
 					},
 					{
+						name: t("settings.novelPropsButton"),
+						desc: t("settings.novelPropsButtonDesc"),
+						visible: () => this.plugin.settings.novelEditor,
+						control: { type: "toggle", key: "novelEditorPropertiesButton", defaultValue: DEFAULT_SETTINGS.novelEditorPropertiesButton },
+					},
+					{
 						name: t("settings.novelHideProps"),
 						desc: t("settings.novelHidePropsDesc"),
 						visible: () => this.plugin.settings.novelEditor,
@@ -4743,6 +4771,7 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 			case "novelEditorLivePreview":
 			case "novelEditorHideProperties":
 			case "novelEditorWordCount":
+			case "novelEditorPropertiesButton":
 				settings[key] = value === true;
 				await this.plugin.saveSettings();
 				this.plugin.novelEditor.refresh();
@@ -4763,7 +4792,7 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 
 // ─── Plugin ───────────────────────────────────────────────────────────────────
 
-export default class UniverseBuilderPlugin extends Plugin {
+export default class UniverseBuilderPlugin extends Plugin implements NovelEditorHost {
 	settings!: UniverseBuilderSettings;
 	/** Toolbar + Properties panel for novel scenes in the main editor (see src/novel-editor). */
 	novelEditor!: NovelEditor;
@@ -5160,6 +5189,58 @@ export default class UniverseBuilderPlugin extends Plugin {
 			await leaf.setViewState({ type: VIEW_TYPE, active: true });
 		}
 		await workspace.revealLeaf(leaf);
+	}
+
+	/** A sidebar section's entries for the novel editor's Characters / Locations / Groups menus. */
+	universeEntries(kind: SceneKind): UniverseEntry[] {
+		const files = getMarkdownFilesIn(this.app, `${this.settings.worldFolder}/${SECTION_FOLDERS[kind]}`);
+		return files
+			.map((file) => {
+				const name: unknown = this.app.metadataCache.getFileCache(file)?.frontmatter?.name;
+				return { file, name: typeof name === "string" && name.trim() ? name.trim() : file.basename };
+			})
+			.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base", numeric: true }));
+	}
+
+	/** Portrait URL per note path, with the note's mtime it was read at (see universePortrait). */
+	private portraitCache = new Map<string, { mtime: number; src: string | null }>();
+	private portraitLoading = new Set<string>();
+
+	/**
+	 * An entry's portrait (the same image its sidebar card shows) for the novel editor. Answered from
+	 * a cache so the toolbar can draw synchronously: undefined = not read yet. A missing or outdated
+	 * value is (re)read in the background, and the novel editor is told to redraw if it changed.
+	 */
+	universePortrait(file: TFile): string | null | undefined {
+		const cached = this.portraitCache.get(file.path);
+		if (cached && cached.mtime === file.stat.mtime) return cached.src;
+		if (!this.portraitLoading.has(file.path)) {
+			this.portraitLoading.add(file.path);
+			const mtime = file.stat.mtime;
+			void this.app.vault
+				.cachedRead(file)
+				.then((content) => {
+					const src = findFirstImage(this.app, content, file)?.src ?? null;
+					this.portraitCache.set(file.path, { mtime, src });
+					if (cached?.src !== src || !cached) this.novelEditor.portraitsChanged();
+				})
+				.catch(() => { /* unreadable: keep the icon */ })
+				.finally(() => this.portraitLoading.delete(file.path));
+		}
+		// While re-reading, keep showing the old portrait rather than flickering to the icon.
+		return cached?.src;
+	}
+
+	/** Opens the sidebar with this entry's card expanded (a novel editor scene label was clicked). */
+	async revealUniverseEntry(file: TFile): Promise<void> {
+		await this.activateSidebar();
+		const leaf = this.app.workspace.getLeavesOfType(VIEW_TYPE)[0];
+		if (!leaf) return;
+		await leaf.loadIfDeferred();
+		const view = leaf.view;
+		if (!(view instanceof UniverseBuilderView) || !(await view.revealEntry(file))) {
+			new Notice(t("novel.entryNotFound", { name: file.basename }));
+		}
 	}
 
 	refreshSidebar() {

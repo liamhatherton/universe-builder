@@ -1,9 +1,10 @@
-import { MarkdownView, TFile, setIcon } from "obsidian";
+import { MarkdownView, Notice, TFile, setIcon } from "obsidian";
 import { EditorView } from "@codemirror/view";
 import type { TranslationKey } from "../i18n";
 import { FormatKind, countWords, isActive, toggleFormat } from "./format";
 import { Alignment, currentAlignment, setAlignment } from "./align";
 import { PropertiesPopover } from "./properties";
+import { SCENE_LISTS, SceneKind, SceneLists, ScenePicker, renderAvatar } from "./scene";
 import { t, tn } from "../i18n";
 import type { NovelEditor } from "./index";
 
@@ -19,6 +20,9 @@ const FORMAT_BUTTONS: { kind: FormatKind; icon: string; label: TranslationKey }[
 	{ kind: "strikethrough", icon: "strikethrough", label: "novel.strikethrough" },
 ];
 
+/** Required properties that don't get a label in the toolbar (they only mark the note as a scene). */
+const UNLABELLED_PROPERTIES = new Set(["novelr-status", "novelr-type"]);
+
 const ALIGN_BUTTONS: { align: Alignment; icon: string; label: TranslationKey }[] = [
 	{ align: "left", icon: "align-left", label: "novel.alignLeft" },
 	{ align: "center", icon: "align-center", label: "novel.alignCenter" },
@@ -27,7 +31,8 @@ const ALIGN_BUTTONS: { align: Alignment; icon: string; label: TranslationKey }[]
 
 /**
  * Toolbar mounted at the top of a MarkdownView (between the view header and the
- * editor): formatting buttons, a Properties button, and note info.
+ * editor): formatting buttons, the scene's Characters / Locations / Groups (with a row of labels
+ * for the chosen entries underneath), an optional Properties button, and note info.
  */
 export class NovelToolbar {
 	readonly el: HTMLElement;
@@ -40,13 +45,18 @@ export class NovelToolbar {
 	private readonly propsBtn: HTMLButtonElement;
 	private readonly infoEl: HTMLElement;
 	private readonly countEl: HTMLElement;
+	private readonly sceneEl: HTMLElement;
 	private readonly popover: PropertiesPopover;
+	private readonly sceneLists: SceneLists;
+	private readonly pickers = new Map<SceneKind, ScenePicker>();
+	/** What the scene row last showed, so unrelated metadata changes don't redraw it. */
+	private sceneSignature = "";
 	private countTimer: number | null = null;
 
 	constructor(private readonly plugin: NovelEditor, readonly view: MarkdownView) {
 		this.el = createDiv({ cls: "ue-toolbar" });
 
-		// Three sections: Properties + property tags (left), formatting (center), word count (right).
+		// Three sections: scene menus + property tags (left), formatting (center), word count (right).
 		const left = this.el.createDiv({ cls: "ue-toolbar-section ue-toolbar-left" });
 		const center = this.el.createDiv({ cls: "ue-toolbar-section ue-toolbar-center" });
 		const right = this.el.createDiv({ cls: "ue-toolbar-section ue-toolbar-right" });
@@ -70,12 +80,34 @@ export class NovelToolbar {
 			this.alignBtns.set(b.align, btn);
 		}
 
+		// Icon only, to save room; its name shows as a tooltip.
 		this.propsBtn = left.createEl("button", { cls: "ue-toolbar-btn ue-props-btn", attr: { "aria-label": t("novel.propertiesTooltip") } });
-		setIcon(this.propsBtn.createSpan({ cls: "ue-btn-icon" }), "list");
-		this.propsBtn.createSpan({ text: t("novel.properties") });
+		setIcon(this.propsBtn, "list");
 		this.propsBtn.addEventListener("click", () => this.toggleProperties());
+
+		this.sceneLists = new SceneLists(plugin);
+		const sceneBtns = left.createDiv({ cls: "ue-toolbar-group ue-scene-group" });
+		for (const def of SCENE_LISTS) {
+			const btn = sceneBtns.createEl("button", {
+				cls: "ue-toolbar-btn ue-scene-btn",
+				attr: { "aria-label": t(def.tooltip), "data-kind": def.kind },
+			});
+			setIcon(btn.createSpan({ cls: "ue-btn-icon" }), def.icon);
+			btn.createSpan({ cls: "ue-btn-label", text: t(def.label) });
+			const picker = new ScenePicker(plugin, this.sceneLists, def, this.el, () => this.view.file, (open) =>
+				btn.toggleClass("is-active", open),
+			);
+			btn.addEventListener("click", () => {
+				this.closePopovers(picker);
+				picker.toggle(btn);
+			});
+			this.pickers.set(def.kind, picker);
+		}
+
 		this.infoEl = left.createDiv({ cls: "ue-toolbar-info ue-toolbar-tags" });
 		this.countEl = right.createDiv({ cls: "ue-toolbar-info" });
+		// Second row, full width: a label for each character / location / group in the scene.
+		this.sceneEl = this.el.createDiv({ cls: "ue-toolbar-scene" });
 
 
 		this.popover = new PropertiesPopover(
@@ -95,7 +127,7 @@ export class NovelToolbar {
 	}
 
 	unmount(): void {
-		this.popover.close();
+		this.closePopovers();
 		if (this.countTimer !== null) window.clearTimeout(this.countTimer);
 		this.el.remove();
 		this.view.containerEl.removeClass("ue-editor", "ue-hide-props");
@@ -103,26 +135,100 @@ export class NovelToolbar {
 
 	applySettings(): void {
 		this.view.containerEl.toggleClass("ue-hide-props", this.plugin.settings.hideInlineProperties);
+		this.propsBtn.toggleClass("is-hidden", !this.plugin.settings.showPropertiesButton);
 		this.refreshInfo();
+		this.refreshScene(true);
 	}
 
 	setFile(file: TFile | null): void {
 		const path = file?.path ?? null;
 		if (path !== this.filePath) {
 			this.filePath = path;
-			this.popover.close();
+			this.closePopovers();
 		}
 		this.refreshInfo();
+		this.refreshScene(true);
 		this.refreshActiveStates();
 	}
 
 	toggleProperties(): void {
-		this.popover.toggle(this.propsBtn);
+		this.closePopovers(this.popover);
+		// With the button hidden (the Properties command), anchor the panel to the toolbar's left edge.
+		this.popover.toggle(this.propsBtn.hasClass("is-hidden") ? this.el : this.propsBtn);
+	}
+
+	/** Close every floating panel except `keep`. */
+	private closePopovers(keep?: PropertiesPopover | ScenePicker): void {
+		if (keep !== this.popover) this.popover.close();
+		for (const p of this.pickers.values()) if (p !== keep) p.close();
 	}
 
 	onMetadataChanged(): void {
 		this.refreshInfo();
+		this.refreshScene();
 		this.popover.onMetadataChanged();
+		for (const p of this.pickers.values()) p.refresh();
+	}
+
+	/** Portraits loaded or changed: update the labels and any open menu. */
+	refreshPortraits(): void {
+		this.refreshScene();
+		for (const p of this.pickers.values()) p.refresh();
+	}
+
+	/** Redraw the row of scene labels (characters, locations, groups) if what it shows changed. */
+	refreshScene(force = false): void {
+		const file = this.view.file;
+		const lists = file
+			? SCENE_LISTS.map((def) => ({ def, items: this.sceneLists.items(file, def) }))
+			: [];
+		const signature = JSON.stringify(
+			lists.map(({ def, items }) => [def.kind, items.map((i) => [i.raw, i.name, i.file?.path ?? "", i.file ? this.plugin.portrait(i.file) : ""])]),
+		);
+		if (!force && signature === this.sceneSignature) return;
+		this.sceneSignature = signature;
+
+		const row = this.sceneEl;
+		row.empty();
+		let any = false;
+		for (const { def, items } of lists) {
+			for (const item of items) {
+				any = true;
+				const pill = row.createDiv({
+					cls: "ue-chip ue-scene-pill",
+					attr: {
+						role: "button",
+						tabindex: "0",
+						"data-kind": def.kind,
+						"aria-label": item.file ? t("novel.openInSidebar", { name: item.name }) : t("novel.entryNotFound", { name: item.name }),
+					},
+				});
+				if (!item.file) pill.addClass("is-unresolved");
+				// The entry's portrait, as on its sidebar card, else the section's icon.
+				renderAvatar(pill.createSpan({ cls: "ue-scene-pill-icon" }), this.plugin, item.file, def.icon);
+				pill.createSpan({ cls: "ue-scene-pill-name", text: item.name });
+				const remove = pill.createSpan({ cls: "ue-scene-pill-remove", attr: { role: "button", "aria-label": t("novel.removeFromScene") } });
+				setIcon(remove, "x");
+
+				const open = () => {
+					if (item.file) void this.plugin.revealEntry(item.file);
+					else new Notice(t("novel.entryNotFound", { name: item.name }));
+				};
+				remove.addEventListener("click", (e) => {
+					e.stopPropagation();
+					const f = this.view.file;
+					if (f) void this.sceneLists.remove(f, def, item.file ?? item.raw);
+				});
+				pill.addEventListener("click", open);
+				pill.addEventListener("keydown", (e) => {
+					if (e.key === "Enter" || e.key === " ") {
+						e.preventDefault();
+						open();
+					}
+				});
+			}
+		}
+		row.toggleClass("is-empty", !any);
 	}
 
 	/** Called on every CodeMirror update for this view's editor. */
@@ -172,11 +278,12 @@ export class NovelToolbar {
 		const fm = this.plugin.app.metadataCache.getFileCache(file)?.frontmatter ?? {};
 
 		for (const key of this.plugin.settings.requiredProperties) {
+			if (UNLABELLED_PROPERTIES.has(key)) continue;
 			const raw: unknown = fm[key];
 			if (raw == null || raw === "") continue;
 			const text = Array.isArray(raw) ? raw.join(", ") : String(raw);
 			const chip = info.createEl("button", { cls: "ue-chip", text, attr: { "aria-label": `${key}: ${text}`, "data-key": key } });
-			chip.addEventListener("click", () => this.popover.toggle(this.propsBtn));
+			chip.addEventListener("click", () => this.toggleProperties());
 		}
 
 		if (this.plugin.settings.showWordCount) {

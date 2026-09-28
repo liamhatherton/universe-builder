@@ -3,10 +3,12 @@
  *
  * Notes in the main editor area (never the sidebars) that have every required property
  * (by default `novelr-type` and `novelr-status`) get a toolbar above the editor with:
- *   - the Properties button and the note's required property values (left),
+ *   - Characters / Locations / Groups menus (and, if turned on, the Properties button) on the left,
+ *     with the scene's chosen entries as labels on a row underneath (see scene.ts),
  *   - bold / italic / underline / strikethrough and align left / center / right (center),
  *   - the word count (right).
- * The inline properties block is hidden; Properties opens a floating panel to edit them instead.
+ * The inline properties block is hidden; the Properties button (off by default) or command opens a
+ * floating panel to edit them instead.
  *
  * It decorates Obsidian's own MarkdownView rather than replacing it, so every Live Preview
  * feature keeps working. See UNDOCUMENTED-API.md for the two internals it touches.
@@ -18,6 +20,9 @@ import type { TranslationKey } from "../i18n";
 import { toggleFormat } from "./format";
 import { Alignment, alignmentExtension, alignmentKeeper, alignmentPostProcessor, setAlignment } from "./align";
 import { NovelToolbar, cmOf } from "./toolbar";
+import type { SceneKind, UniverseEntry } from "./scene";
+
+export type { SceneKind, UniverseEntry } from "./scene";
 
 /** The plugin settings the novel editor reads (stored flat in the plugin's data.json). */
 export interface NovelEditorSettings {
@@ -31,6 +36,8 @@ export interface NovelEditorSettings {
 	novelEditorHideProperties: boolean;
 	/** Show the word count in the toolbar. */
 	novelEditorWordCount: boolean;
+	/** Show the Properties button in the toolbar (the command works either way). */
+	novelEditorPropertiesButton: boolean;
 }
 
 export const NOVEL_EDITOR_DEFAULTS: NovelEditorSettings = {
@@ -39,6 +46,7 @@ export const NOVEL_EDITOR_DEFAULTS: NovelEditorSettings = {
 	novelEditorLivePreview: true,
 	novelEditorHideProperties: true,
 	novelEditorWordCount: true,
+	novelEditorPropertiesButton: false,
 };
 
 /** Stored values checked and filled in, for loadSettings(). */
@@ -53,6 +61,7 @@ export function normalizeNovelEditorSettings(data: Partial<Record<keyof NovelEdi
 		novelEditorLivePreview: bool(data?.novelEditorLivePreview, NOVEL_EDITOR_DEFAULTS.novelEditorLivePreview),
 		novelEditorHideProperties: bool(data?.novelEditorHideProperties, NOVEL_EDITOR_DEFAULTS.novelEditorHideProperties),
 		novelEditorWordCount: bool(data?.novelEditorWordCount, NOVEL_EDITOR_DEFAULTS.novelEditorWordCount),
+		novelEditorPropertiesButton: bool(data?.novelEditorPropertiesButton, NOVEL_EDITOR_DEFAULTS.novelEditorPropertiesButton),
 	};
 }
 
@@ -66,9 +75,24 @@ interface ResolvedSettings {
 	forceLivePreview: boolean;
 	hideInlineProperties: boolean;
 	showWordCount: boolean;
+	showPropertiesButton: boolean;
 }
 
-type HostPlugin = Plugin & { settings: NovelEditorSettings };
+/** What the novel editor needs from the plugin's sidebar. */
+export interface NovelEditorHost {
+	settings: NovelEditorSettings;
+	/** The entries in one sidebar section, sorted by name. */
+	universeEntries(kind: SceneKind): UniverseEntry[];
+	/** Show the sidebar with this entry's card expanded. */
+	revealUniverseEntry(file: TFile): Promise<void>;
+	/**
+	 * The entry's portrait URL (the image its sidebar card shows): null = none, undefined = not
+	 * known yet (the host looks it up and calls portraitsChanged() when it has).
+	 */
+	universePortrait(file: TFile): string | null | undefined;
+}
+
+type HostPlugin = Plugin & NovelEditorHost;
 
 export class NovelEditor extends Component {
 	private readonly toolbars = new Map<MarkdownView, NovelToolbar>();
@@ -103,7 +127,32 @@ export class NovelEditor extends Component {
 			forceLivePreview: s.novelEditorLivePreview,
 			hideInlineProperties: s.novelEditorHideProperties,
 			showWordCount: s.novelEditorWordCount,
+			showPropertiesButton: s.novelEditorPropertiesButton,
 		};
+	}
+
+	entries(kind: SceneKind): UniverseEntry[] {
+		return this.host.universeEntries(kind);
+	}
+
+	revealEntry(file: TFile): Promise<void> {
+		return this.host.revealUniverseEntry(file);
+	}
+
+	portrait(file: TFile): string | null {
+		return this.host.universePortrait(file) ?? null;
+	}
+
+	private portraitsQueued = false;
+
+	/** Portraits finished loading or changed: redraw the scene labels and open menus (once per frame). */
+	portraitsChanged(): void {
+		if (this.portraitsQueued) return;
+		this.portraitsQueued = true;
+		window.requestAnimationFrame(() => {
+			this.portraitsQueued = false;
+			for (const tb of this.toolbars.values()) tb.refreshPortraits();
+		});
 	}
 
 	onload(): void {
@@ -132,6 +181,8 @@ export class NovelEditor extends Component {
 				this.queueSync();
 				for (const tb of this.toolbars.values()) {
 					if (tb.view.file === file) tb.onMetadataChanged();
+					// A sidebar entry may have been renamed: keep the scene labels' names current.
+					else tb.refreshScene();
 				}
 			}),
 		);

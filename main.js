@@ -22,7 +22,7 @@ __export(main_exports, {
   default: () => UniverseBuilderPlugin
 });
 module.exports = __toCommonJS(main_exports);
-var import_obsidian6 = require("obsidian");
+var import_obsidian7 = require("obsidian");
 
 // src/i18n.ts
 var import_obsidian = require("obsidian");
@@ -344,20 +344,33 @@ var en = {
   "novel.listPlaceholder": "item, item, \u2026",
   "novel.propertyExists": 'Property "{name}" already exists.',
   "novel.updateFailed": "Couldn't update properties. Check the note's frontmatter for YAML errors.",
+  "novel.charactersTooltip": "Characters in this scene",
+  "novel.locationsTooltip": "Locations in this scene",
+  "novel.groupsTooltip": "Groups in this scene",
+  "novel.noCharacters": "No characters in the sidebar yet.",
+  "novel.noLocations": "No locations in the sidebar yet.",
+  "novel.noGroups": "No groups in the sidebar yet.",
+  "novel.filter": "Filter\u2026",
+  "novel.noMatches": "No matches.",
+  "novel.openInSidebar": "Open {name} in the sidebar",
+  "novel.entryNotFound": `"{name}" isn't in the Universe Builder sidebar.`,
+  "novel.removeFromScene": "Remove from scene",
   "command.novelUnderline": "Toggle underline",
   "command.novelStrikethrough": "Toggle strikethrough",
   "command.novelProperties": "Open properties panel",
   "settings.novelHeading": "Novel scene editor",
   "settings.novel": "Use the novel scene editor",
-  "settings.novelDesc": "For notes in the main editor that have every required property: adds a toolbar above the text (Properties, bold / italic / underline / strikethrough, alignment, word count) and hides the properties block at the top of the note.",
+  "settings.novelDesc": "For notes in the main editor that have every required property: adds a toolbar above the text (the scene's characters / locations / groups, bold / italic / underline / strikethrough, alignment, word count) and hides the properties block at the top of the note.",
   "settings.novelProps": "Required properties",
   "settings.novelPropsDesc": "Comma-separated property names. A note needs all of them to open in the novel scene editor.",
   "settings.novelLivePreview": "Open in Live Preview",
   "settings.novelLivePreviewDesc": "Switch these notes to Live Preview when they're opened.",
   "settings.novelHideProps": "Hide inline properties",
-  "settings.novelHidePropsDesc": "Hide the properties block at the top of the note; the toolbar's Properties button edits them instead.",
+  "settings.novelHidePropsDesc": 'Hide the properties block at the top of the note; edit them with the Properties button or the "Open properties panel" command instead.',
   "settings.novelWordCount": "Show word count",
-  "settings.novelWordCountDesc": "Show the note's word count, and the selection's, on the right of the toolbar."
+  "settings.novelWordCountDesc": "Show the note's word count, and the selection's, on the right of the toolbar.",
+  "settings.novelPropsButton": "Show Properties button",
+  "settings.novelPropsButtonDesc": `Add a Properties button to the toolbar for editing the note's properties. The "Open properties panel" command works either way.`
 };
 
 // src/locales/es.ts
@@ -677,20 +690,33 @@ var es = {
   "novel.listPlaceholder": "elemento, elemento, \u2026",
   "novel.propertyExists": 'La propiedad "{name}" ya existe.',
   "novel.updateFailed": "No se pudieron actualizar las propiedades. Revisa si hay errores de YAML en el frontmatter de la nota.",
+  "novel.charactersTooltip": "Personajes de esta escena",
+  "novel.locationsTooltip": "Lugares de esta escena",
+  "novel.groupsTooltip": "Grupos de esta escena",
+  "novel.noCharacters": "A\xFAn no hay personajes en la barra lateral.",
+  "novel.noLocations": "A\xFAn no hay lugares en la barra lateral.",
+  "novel.noGroups": "A\xFAn no hay grupos en la barra lateral.",
+  "novel.filter": "Filtrar\u2026",
+  "novel.noMatches": "Sin resultados.",
+  "novel.openInSidebar": "Abrir {name} en la barra lateral",
+  "novel.entryNotFound": "\xAB{name}\xBB no est\xE1 en la barra lateral de Universe Builder.",
+  "novel.removeFromScene": "Quitar de la escena",
   "command.novelUnderline": "Alternar subrayado",
   "command.novelStrikethrough": "Alternar tachado",
   "command.novelProperties": "Abrir el panel de propiedades",
   "settings.novelHeading": "Editor de escenas de novela",
   "settings.novel": "Usar el editor de escenas de novela",
-  "settings.novelDesc": "En las notas del editor principal que tienen todas las propiedades obligatorias: a\xF1ade una barra de herramientas sobre el texto (Propiedades, negrita / cursiva / subrayado / tachado, alineaci\xF3n, recuento de palabras) y oculta el bloque de propiedades al principio de la nota.",
+  "settings.novelDesc": "En las notas del editor principal que tienen todas las propiedades obligatorias: a\xF1ade una barra de herramientas sobre el texto (personajes / lugares / grupos de la escena, negrita / cursiva / subrayado / tachado, alineaci\xF3n, recuento de palabras) y oculta el bloque de propiedades al principio de la nota.",
   "settings.novelProps": "Propiedades obligatorias",
   "settings.novelPropsDesc": "Nombres de propiedades separados por comas. Una nota necesita todas para abrirse en el editor de escenas de novela.",
   "settings.novelLivePreview": "Abrir en vista previa en vivo",
   "settings.novelLivePreviewDesc": "Cambia estas notas a vista previa en vivo al abrirlas.",
   "settings.novelHideProps": "Ocultar las propiedades en la nota",
-  "settings.novelHidePropsDesc": "Oculta el bloque de propiedades al principio de la nota; se editan con el bot\xF3n Propiedades de la barra de herramientas.",
+  "settings.novelHidePropsDesc": "Oculta el bloque de propiedades al principio de la nota; se editan con el bot\xF3n Propiedades o con el comando \xABAbrir el panel de propiedades\xBB.",
   "settings.novelWordCount": "Mostrar el recuento de palabras",
-  "settings.novelWordCountDesc": "Muestra el n\xFAmero de palabras de la nota, y de la selecci\xF3n, a la derecha de la barra de herramientas."
+  "settings.novelWordCountDesc": "Muestra el n\xFAmero de palabras de la nota, y de la selecci\xF3n, a la derecha de la barra de herramientas.",
+  "settings.novelPropsButton": "Mostrar el bot\xF3n Propiedades",
+  "settings.novelPropsButtonDesc": "A\xF1ade a la barra de herramientas un bot\xF3n Propiedades para editar las propiedades de la nota. El comando \xABAbrir el panel de propiedades\xBB funciona en cualquier caso."
 };
 
 // src/locales/pt.ts
@@ -1010,20 +1036,33 @@ var pt = {
   "novel.listPlaceholder": "item, item, \u2026",
   "novel.propertyExists": 'A propriedade "{name}" j\xE1 existe.',
   "novel.updateFailed": "N\xE3o foi poss\xEDvel atualizar as propriedades. Verifique se h\xE1 erros de YAML no frontmatter da nota.",
+  "novel.charactersTooltip": "Personagens desta cena",
+  "novel.locationsTooltip": "Locais desta cena",
+  "novel.groupsTooltip": "Grupos desta cena",
+  "novel.noCharacters": "Ainda n\xE3o h\xE1 personagens na barra lateral.",
+  "novel.noLocations": "Ainda n\xE3o h\xE1 locais na barra lateral.",
+  "novel.noGroups": "Ainda n\xE3o h\xE1 grupos na barra lateral.",
+  "novel.filter": "Filtrar\u2026",
+  "novel.noMatches": "Sem resultados.",
+  "novel.openInSidebar": "Abrir {name} na barra lateral",
+  "novel.entryNotFound": "\xAB{name}\xBB n\xE3o est\xE1 na barra lateral do Universe Builder.",
+  "novel.removeFromScene": "Retirar da cena",
   "command.novelUnderline": "Alternar sublinhado",
   "command.novelStrikethrough": "Alternar rasurado",
   "command.novelProperties": "Abrir o painel de propriedades",
   "settings.novelHeading": "Editor de cenas de romance",
   "settings.novel": "Usar o editor de cenas de romance",
-  "settings.novelDesc": "Nas notas do editor principal que t\xEAm todas as propriedades obrigat\xF3rias: adiciona uma barra de ferramentas acima do texto (Propriedades, negrito / it\xE1lico / sublinhado / rasurado, alinhamento, contagem de palavras) e oculta o bloco de propriedades no in\xEDcio da nota.",
+  "settings.novelDesc": "Nas notas do editor principal que t\xEAm todas as propriedades obrigat\xF3rias: adiciona uma barra de ferramentas acima do texto (personagens / locais / grupos da cena, negrito / it\xE1lico / sublinhado / rasurado, alinhamento, contagem de palavras) e oculta o bloco de propriedades no in\xEDcio da nota.",
   "settings.novelProps": "Propriedades obrigat\xF3rias",
   "settings.novelPropsDesc": "Nomes de propriedades separados por v\xEDrgulas. Uma nota precisa de todas para abrir no editor de cenas de romance.",
   "settings.novelLivePreview": "Abrir em pr\xE9-visualiza\xE7\xE3o em direto",
   "settings.novelLivePreviewDesc": "Muda estas notas para pr\xE9-visualiza\xE7\xE3o em direto quando s\xE3o abertas.",
   "settings.novelHideProps": "Ocultar as propriedades na nota",
-  "settings.novelHidePropsDesc": "Oculta o bloco de propriedades no in\xEDcio da nota; s\xE3o editadas com o bot\xE3o Propriedades da barra de ferramentas.",
+  "settings.novelHidePropsDesc": "Oculta o bloco de propriedades no in\xEDcio da nota; s\xE3o editadas com o bot\xE3o Propriedades ou com o comando \xABAbrir o painel de propriedades\xBB.",
   "settings.novelWordCount": "Mostrar a contagem de palavras",
-  "settings.novelWordCountDesc": "Mostra o n\xFAmero de palavras da nota, e da sele\xE7\xE3o, \xE0 direita da barra de ferramentas."
+  "settings.novelWordCountDesc": "Mostra o n\xFAmero de palavras da nota, e da sele\xE7\xE3o, \xE0 direita da barra de ferramentas.",
+  "settings.novelPropsButton": "Mostrar o bot\xE3o Propriedades",
+  "settings.novelPropsButtonDesc": "Adiciona \xE0 barra de ferramentas um bot\xE3o Propriedades para editar as propriedades da nota. O comando \xABAbrir o painel de propriedades\xBB funciona de qualquer forma."
 };
 
 // src/locales/pt-BR.ts
@@ -1343,20 +1382,33 @@ var ptBR = {
   "novel.listPlaceholder": "item, item, \u2026",
   "novel.propertyExists": 'A propriedade "{name}" j\xE1 existe.',
   "novel.updateFailed": "N\xE3o foi poss\xEDvel atualizar as propriedades. Verifique se h\xE1 erros de YAML no frontmatter da nota.",
+  "novel.charactersTooltip": "Personagens desta cena",
+  "novel.locationsTooltip": "Locais desta cena",
+  "novel.groupsTooltip": "Grupos desta cena",
+  "novel.noCharacters": "Ainda n\xE3o h\xE1 personagens na barra lateral.",
+  "novel.noLocations": "Ainda n\xE3o h\xE1 locais na barra lateral.",
+  "novel.noGroups": "Ainda n\xE3o h\xE1 grupos na barra lateral.",
+  "novel.filter": "Filtrar\u2026",
+  "novel.noMatches": "Nenhum resultado.",
+  "novel.openInSidebar": "Abrir {name} na barra lateral",
+  "novel.entryNotFound": '"{name}" n\xE3o est\xE1 na barra lateral do Universe Builder.',
+  "novel.removeFromScene": "Remover da cena",
   "command.novelUnderline": "Alternar sublinhado",
   "command.novelStrikethrough": "Alternar tachado",
   "command.novelProperties": "Abrir o painel de propriedades",
   "settings.novelHeading": "Editor de cenas de romance",
   "settings.novel": "Usar o editor de cenas de romance",
-  "settings.novelDesc": "Nas notas do editor principal que t\xEAm todas as propriedades obrigat\xF3rias: adiciona uma barra de ferramentas acima do texto (Propriedades, negrito / it\xE1lico / sublinhado / tachado, alinhamento, contagem de palavras) e oculta o bloco de propriedades no in\xEDcio da nota.",
+  "settings.novelDesc": "Nas notas do editor principal que t\xEAm todas as propriedades obrigat\xF3rias: adiciona uma barra de ferramentas acima do texto (personagens / locais / grupos da cena, negrito / it\xE1lico / sublinhado / tachado, alinhamento, contagem de palavras) e oculta o bloco de propriedades no in\xEDcio da nota.",
   "settings.novelProps": "Propriedades obrigat\xF3rias",
   "settings.novelPropsDesc": "Nomes de propriedades separados por v\xEDrgulas. Uma nota precisa de todas para abrir no editor de cenas de romance.",
   "settings.novelLivePreview": "Abrir na visualiza\xE7\xE3o ao vivo",
   "settings.novelLivePreviewDesc": "Muda essas notas para a visualiza\xE7\xE3o ao vivo quando s\xE3o abertas.",
   "settings.novelHideProps": "Ocultar as propriedades na nota",
-  "settings.novelHidePropsDesc": "Oculta o bloco de propriedades no in\xEDcio da nota; elas s\xE3o editadas pelo bot\xE3o Propriedades da barra de ferramentas.",
+  "settings.novelHidePropsDesc": 'Oculta o bloco de propriedades no in\xEDcio da nota; elas s\xE3o editadas pelo bot\xE3o Propriedades ou pelo comando "Abrir o painel de propriedades".',
   "settings.novelWordCount": "Mostrar a contagem de palavras",
-  "settings.novelWordCountDesc": "Mostra o n\xFAmero de palavras da nota, e da sele\xE7\xE3o, \xE0 direita da barra de ferramentas."
+  "settings.novelWordCountDesc": "Mostra o n\xFAmero de palavras da nota, e da sele\xE7\xE3o, \xE0 direita da barra de ferramentas.",
+  "settings.novelPropsButton": "Mostrar o bot\xE3o Propriedades",
+  "settings.novelPropsButtonDesc": 'Adiciona \xE0 barra de ferramentas um bot\xE3o Propriedades para editar as propriedades da nota. O comando "Abrir o painel de propriedades" funciona de qualquer jeito.'
 };
 
 // src/locales/fr.ts
@@ -1676,20 +1728,33 @@ var fr = {
   "novel.listPlaceholder": "\xE9l\xE9ment, \xE9l\xE9ment, \u2026",
   "novel.propertyExists": "La propri\xE9t\xE9 \xAB {name} \xBB existe d\xE9j\xE0.",
   "novel.updateFailed": "Impossible de mettre \xE0 jour les propri\xE9t\xE9s. V\xE9rifiez le frontmatter de la note (erreurs YAML).",
+  "novel.charactersTooltip": "Personnages de cette sc\xE8ne",
+  "novel.locationsTooltip": "Lieux de cette sc\xE8ne",
+  "novel.groupsTooltip": "Groupes de cette sc\xE8ne",
+  "novel.noCharacters": "Aucun personnage dans la barre lat\xE9rale pour l'instant.",
+  "novel.noLocations": "Aucun lieu dans la barre lat\xE9rale pour l'instant.",
+  "novel.noGroups": "Aucun groupe dans la barre lat\xE9rale pour l'instant.",
+  "novel.filter": "Filtrer\u2026",
+  "novel.noMatches": "Aucun r\xE9sultat.",
+  "novel.openInSidebar": "Ouvrir {name} dans la barre lat\xE9rale",
+  "novel.entryNotFound": "\xAB {name} \xBB n'est pas dans la barre lat\xE9rale d'Universe Builder.",
+  "novel.removeFromScene": "Retirer de la sc\xE8ne",
   "command.novelUnderline": "Activer/d\xE9sactiver le soulign\xE9",
   "command.novelStrikethrough": "Activer/d\xE9sactiver le barr\xE9",
   "command.novelProperties": "Ouvrir le panneau des propri\xE9t\xE9s",
   "settings.novelHeading": "\xC9diteur de sc\xE8nes de roman",
   "settings.novel": "Utiliser l'\xE9diteur de sc\xE8nes de roman",
-  "settings.novelDesc": "Pour les notes de l'\xE9diteur principal qui ont toutes les propri\xE9t\xE9s obligatoires : ajoute une barre d'outils au-dessus du texte (Propri\xE9t\xE9s, gras / italique / soulign\xE9 / barr\xE9, alignement, nombre de mots) et masque le bloc des propri\xE9t\xE9s en haut de la note.",
+  "settings.novelDesc": "Pour les notes de l'\xE9diteur principal qui ont toutes les propri\xE9t\xE9s obligatoires : ajoute une barre d'outils au-dessus du texte (personnages / lieux / groupes de la sc\xE8ne, gras / italique / soulign\xE9 / barr\xE9, alignement, nombre de mots) et masque le bloc des propri\xE9t\xE9s en haut de la note.",
   "settings.novelProps": "Propri\xE9t\xE9s obligatoires",
   "settings.novelPropsDesc": "Noms de propri\xE9t\xE9s s\xE9par\xE9s par des virgules. Une note doit toutes les avoir pour s'ouvrir dans l'\xE9diteur de sc\xE8nes de roman.",
   "settings.novelLivePreview": "Ouvrir en aper\xE7u en direct",
   "settings.novelLivePreviewDesc": "Passe ces notes en aper\xE7u en direct \xE0 leur ouverture.",
   "settings.novelHideProps": "Masquer les propri\xE9t\xE9s dans la note",
-  "settings.novelHidePropsDesc": "Masque le bloc des propri\xE9t\xE9s en haut de la note ; le bouton Propri\xE9t\xE9s de la barre d'outils permet de les modifier.",
+  "settings.novelHidePropsDesc": "Masque le bloc des propri\xE9t\xE9s en haut de la note ; le bouton Propri\xE9t\xE9s ou la commande \xAB Ouvrir le panneau des propri\xE9t\xE9s \xBB permettent de les modifier.",
   "settings.novelWordCount": "Afficher le nombre de mots",
-  "settings.novelWordCountDesc": "Affiche le nombre de mots de la note, et de la s\xE9lection, \xE0 droite de la barre d'outils."
+  "settings.novelWordCountDesc": "Affiche le nombre de mots de la note, et de la s\xE9lection, \xE0 droite de la barre d'outils.",
+  "settings.novelPropsButton": "Afficher le bouton Propri\xE9t\xE9s",
+  "settings.novelPropsButtonDesc": "Ajoute \xE0 la barre d'outils un bouton Propri\xE9t\xE9s pour modifier les propri\xE9t\xE9s de la note. La commande \xAB Ouvrir le panneau des propri\xE9t\xE9s \xBB fonctionne dans tous les cas."
 };
 
 // src/locales/de.ts
@@ -2009,20 +2074,33 @@ var de = {
   "novel.listPlaceholder": "Eintrag, Eintrag, \u2026",
   "novel.propertyExists": "Die Eigenschaft \u201E{name}\u201C gibt es schon.",
   "novel.updateFailed": "Die Eigenschaften konnten nicht aktualisiert werden. Pr\xFCfe das Frontmatter der Notiz auf YAML-Fehler.",
+  "novel.charactersTooltip": "Figuren in dieser Szene",
+  "novel.locationsTooltip": "Orte in dieser Szene",
+  "novel.groupsTooltip": "Gruppen in dieser Szene",
+  "novel.noCharacters": "Noch keine Figuren in der Seitenleiste.",
+  "novel.noLocations": "Noch keine Orte in der Seitenleiste.",
+  "novel.noGroups": "Noch keine Gruppen in der Seitenleiste.",
+  "novel.filter": "Filtern\u2026",
+  "novel.noMatches": "Keine Treffer.",
+  "novel.openInSidebar": "{name} in der Seitenleiste \xF6ffnen",
+  "novel.entryNotFound": "\u201E{name}\u201C ist nicht in der Universe-Builder-Seitenleiste.",
+  "novel.removeFromScene": "Aus der Szene entfernen",
   "command.novelUnderline": "Unterstreichen umschalten",
   "command.novelStrikethrough": "Durchstreichen umschalten",
   "command.novelProperties": "Eigenschaften-Panel \xF6ffnen",
   "settings.novelHeading": "Roman-Szeneneditor",
   "settings.novel": "Roman-Szeneneditor verwenden",
-  "settings.novelDesc": "F\xFCr Notizen im Haupteditor, die alle Pflichteigenschaften haben: f\xFCgt \xFCber dem Text eine Werkzeugleiste hinzu (Eigenschaften, fett / kursiv / unterstrichen / durchgestrichen, Ausrichtung, Wortzahl) und blendet den Eigenschaftenblock oben in der Notiz aus.",
+  "settings.novelDesc": "F\xFCr Notizen im Haupteditor, die alle Pflichteigenschaften haben: f\xFCgt \xFCber dem Text eine Werkzeugleiste hinzu (Figuren / Orte / Gruppen der Szene, fett / kursiv / unterstrichen / durchgestrichen, Ausrichtung, Wortzahl) und blendet den Eigenschaftenblock oben in der Notiz aus.",
   "settings.novelProps": "Pflichteigenschaften",
   "settings.novelPropsDesc": "Durch Kommas getrennte Eigenschaftsnamen. Eine Notiz braucht alle, um im Roman-Szeneneditor ge\xF6ffnet zu werden.",
   "settings.novelLivePreview": "In der Live-Vorschau \xF6ffnen",
   "settings.novelLivePreviewDesc": "Schaltet diese Notizen beim \xD6ffnen in die Live-Vorschau.",
   "settings.novelHideProps": "Eigenschaften in der Notiz ausblenden",
-  "settings.novelHidePropsDesc": "Blendet den Eigenschaftenblock oben in der Notiz aus; bearbeitet werden sie \xFCber die Schaltfl\xE4che Eigenschaften in der Werkzeugleiste.",
+  "settings.novelHidePropsDesc": "Blendet den Eigenschaftenblock oben in der Notiz aus; bearbeitet werden sie \xFCber die Schaltfl\xE4che Eigenschaften oder den Befehl \u201EEigenschaften-Panel \xF6ffnen\u201C.",
   "settings.novelWordCount": "Wortzahl anzeigen",
-  "settings.novelWordCountDesc": "Zeigt die Wortzahl der Notiz, und der Auswahl, rechts in der Werkzeugleiste."
+  "settings.novelWordCountDesc": "Zeigt die Wortzahl der Notiz, und der Auswahl, rechts in der Werkzeugleiste.",
+  "settings.novelPropsButton": "Schaltfl\xE4che Eigenschaften anzeigen",
+  "settings.novelPropsButtonDesc": "F\xFCgt der Werkzeugleiste eine Schaltfl\xE4che Eigenschaften zum Bearbeiten der Eigenschaften der Notiz hinzu. Der Befehl \u201EEigenschaften-Panel \xF6ffnen\u201C funktioniert in jedem Fall."
 };
 
 // src/locales/ru.ts
@@ -2342,20 +2420,33 @@ var ru = {
   "novel.listPlaceholder": "\u044D\u043B\u0435\u043C\u0435\u043D\u0442, \u044D\u043B\u0435\u043C\u0435\u043D\u0442, \u2026",
   "novel.propertyExists": "\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u043E \xAB{name}\xBB \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442.",
   "novel.updateFailed": "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430. \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 frontmatter \u0437\u0430\u043C\u0435\u0442\u043A\u0438 \u043D\u0430 \u043E\u0448\u0438\u0431\u043A\u0438 YAML.",
+  "novel.charactersTooltip": "\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438 \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
+  "novel.locationsTooltip": "\u041C\u0435\u0441\u0442\u0430 \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
+  "novel.groupsTooltip": "\u0413\u0440\u0443\u043F\u043F\u044B \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
+  "novel.noCharacters": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0435\u0439.",
+  "novel.noLocations": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043C\u0435\u0441\u0442.",
+  "novel.noGroups": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0433\u0440\u0443\u043F\u043F.",
+  "novel.filter": "\u0424\u0438\u043B\u044C\u0442\u0440\u2026",
+  "novel.noMatches": "\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E.",
+  "novel.openInSidebar": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \xAB{name}\xBB \u043D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438",
+  "novel.entryNotFound": "\xAB{name}\xBB \u043D\u0435\u0442 \u043D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 Universe Builder.",
+  "novel.removeFromScene": "\u0423\u0431\u0440\u0430\u0442\u044C \u0438\u0437 \u0441\u0446\u0435\u043D\u044B",
   "command.novelUnderline": "\u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043F\u043E\u0434\u0447\u0451\u0440\u043A\u0438\u0432\u0430\u043D\u0438\u0435",
   "command.novelStrikethrough": "\u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0430\u0447\u0451\u0440\u043A\u0438\u0432\u0430\u043D\u0438\u0435",
   "command.novelProperties": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0430\u043D\u0435\u043B\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432",
   "settings.novelHeading": "\u0420\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0430",
   "settings.novel": "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0430",
-  "settings.novelDesc": "\u0414\u043B\u044F \u0437\u0430\u043C\u0435\u0442\u043E\u043A \u0432 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435, \u0443 \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0435\u0441\u0442\u044C \u0432\u0441\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430: \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442 \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C \u043F\u0430\u043D\u0435\u043B\u044C \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432 (\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u0430, \u0436\u0438\u0440\u043D\u044B\u0439 / \u043A\u0443\u0440\u0441\u0438\u0432 / \u043F\u043E\u0434\u0447\u0451\u0440\u043A\u043D\u0443\u0442\u044B\u0439 / \u0437\u0430\u0447\u0451\u0440\u043A\u043D\u0443\u0442\u044B\u0439, \u0432\u044B\u0440\u0430\u0432\u043D\u0438\u0432\u0430\u043D\u0438\u0435, \u0447\u0438\u0441\u043B\u043E \u0441\u043B\u043E\u0432) \u0438 \u0441\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0431\u043B\u043E\u043A \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0432 \u043D\u0430\u0447\u0430\u043B\u0435 \u0437\u0430\u043C\u0435\u0442\u043A\u0438.",
+  "settings.novelDesc": "\u0414\u043B\u044F \u0437\u0430\u043C\u0435\u0442\u043E\u043A \u0432 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435, \u0443 \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0435\u0441\u0442\u044C \u0432\u0441\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430: \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442 \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C \u043F\u0430\u043D\u0435\u043B\u044C \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432 (\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438 / \u043C\u0435\u0441\u0442\u0430 / \u0433\u0440\u0443\u043F\u043F\u044B \u0441\u0446\u0435\u043D\u044B, \u0436\u0438\u0440\u043D\u044B\u0439 / \u043A\u0443\u0440\u0441\u0438\u0432 / \u043F\u043E\u0434\u0447\u0451\u0440\u043A\u043D\u0443\u0442\u044B\u0439 / \u0437\u0430\u0447\u0451\u0440\u043A\u043D\u0443\u0442\u044B\u0439, \u0432\u044B\u0440\u0430\u0432\u043D\u0438\u0432\u0430\u043D\u0438\u0435, \u0447\u0438\u0441\u043B\u043E \u0441\u043B\u043E\u0432) \u0438 \u0441\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0431\u043B\u043E\u043A \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0432 \u043D\u0430\u0447\u0430\u043B\u0435 \u0437\u0430\u043C\u0435\u0442\u043A\u0438.",
   "settings.novelProps": "\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430",
   "settings.novelPropsDesc": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u044F \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0447\u0435\u0440\u0435\u0437 \u0437\u0430\u043F\u044F\u0442\u0443\u044E. \u0427\u0442\u043E\u0431\u044B \u0437\u0430\u043C\u0435\u0442\u043A\u0430 \u043E\u0442\u043A\u0440\u044B\u043B\u0430\u0441\u044C \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0430, \u0443 \u043D\u0435\u0451 \u0434\u043E\u043B\u0436\u043D\u044B \u0431\u044B\u0442\u044C \u0432\u0441\u0435 \u043E\u043D\u0438.",
   "settings.novelLivePreview": "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u0432 \u0440\u0435\u0436\u0438\u043C\u0435 \u0436\u0438\u0432\u043E\u0433\u043E \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430",
   "settings.novelLivePreviewDesc": "\u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0430\u0442\u044C \u044D\u0442\u0438 \u0437\u0430\u043C\u0435\u0442\u043A\u0438 \u0432 \u0436\u0438\u0432\u043E\u0439 \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440 \u043F\u0440\u0438 \u043E\u0442\u043A\u0440\u044B\u0442\u0438\u0438.",
   "settings.novelHideProps": "\u0421\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430 \u0432 \u0437\u0430\u043C\u0435\u0442\u043A\u0435",
-  "settings.novelHidePropsDesc": "\u0421\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0431\u043B\u043E\u043A \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0432 \u043D\u0430\u0447\u0430\u043B\u0435 \u0437\u0430\u043C\u0435\u0442\u043A\u0438; \u0438\u0445 \u043C\u043E\u0436\u043D\u043E \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043A\u043D\u043E\u043F\u043A\u043E\u0439 \xAB\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u0430\xBB \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u0438 \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432.",
+  "settings.novelHidePropsDesc": "\u0421\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0431\u043B\u043E\u043A \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0432 \u043D\u0430\u0447\u0430\u043B\u0435 \u0437\u0430\u043C\u0435\u0442\u043A\u0438; \u0438\u0445 \u043C\u043E\u0436\u043D\u043E \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043A\u043D\u043E\u043F\u043A\u043E\u0439 \xAB\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u0430\xBB \u0438\u043B\u0438 \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u0439 \xAB\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0430\u043D\u0435\u043B\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432\xBB.",
   "settings.novelWordCount": "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C \u0447\u0438\u0441\u043B\u043E \u0441\u043B\u043E\u0432",
-  "settings.novelWordCountDesc": "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442 \u0447\u0438\u0441\u043B\u043E \u0441\u043B\u043E\u0432 \u0432 \u0437\u0430\u043C\u0435\u0442\u043A\u0435 \u0438 \u0432 \u0432\u044B\u0434\u0435\u043B\u0435\u043D\u0438\u0438 \u0441\u043F\u0440\u0430\u0432\u0430 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u0438 \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432."
+  "settings.novelWordCountDesc": "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442 \u0447\u0438\u0441\u043B\u043E \u0441\u043B\u043E\u0432 \u0432 \u0437\u0430\u043C\u0435\u0442\u043A\u0435 \u0438 \u0432 \u0432\u044B\u0434\u0435\u043B\u0435\u043D\u0438\u0438 \u0441\u043F\u0440\u0430\u0432\u0430 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u0438 \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432.",
+  "settings.novelPropsButton": "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C \u043A\u043D\u043E\u043F\u043A\u0443 \xAB\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u0430\xBB",
+  "settings.novelPropsButtonDesc": "\u0414\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u044C \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432 \u043A\u043D\u043E\u043F\u043A\u0443 \xAB\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u0430\xBB \u0434\u043B\u044F \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0437\u0430\u043C\u0435\u0442\u043A\u0438. \u041A\u043E\u043C\u0430\u043D\u0434\u0430 \xAB\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0430\u043D\u0435\u043B\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432\xBB \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u0432 \u043B\u044E\u0431\u043E\u043C \u0441\u043B\u0443\u0447\u0430\u0435."
 };
 
 // src/locales/uk.ts
@@ -2675,20 +2766,33 @@ var uk = {
   "novel.listPlaceholder": "\u0435\u043B\u0435\u043C\u0435\u043D\u0442, \u0435\u043B\u0435\u043C\u0435\u043D\u0442, \u2026",
   "novel.propertyExists": "\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u0456\u0441\u0442\u044C \xAB{name}\xBB \u0443\u0436\u0435 \u0456\u0441\u043D\u0443\u0454.",
   "novel.updateFailed": "\u041D\u0435 \u0432\u0434\u0430\u043B\u043E\u0441\u044F \u043E\u043D\u043E\u0432\u0438\u0442\u0438 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456. \u041F\u0435\u0440\u0435\u0432\u0456\u0440\u0442\u0435 frontmatter \u043D\u043E\u0442\u0430\u0442\u043A\u0438 \u043D\u0430 \u043F\u043E\u043C\u0438\u043B\u043A\u0438 YAML.",
+  "novel.charactersTooltip": "\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456 \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
+  "novel.locationsTooltip": "\u041C\u0456\u0441\u0446\u044F \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
+  "novel.groupsTooltip": "\u0413\u0440\u0443\u043F\u0438 \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
+  "novel.noCharacters": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456\u0432.",
+  "novel.noLocations": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u043C\u0456\u0441\u0446\u044C.",
+  "novel.noGroups": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u0433\u0440\u0443\u043F.",
+  "novel.filter": "\u0424\u0456\u043B\u044C\u0442\u0440\u2026",
+  "novel.noMatches": "\u041D\u0456\u0447\u043E\u0433\u043E \u043D\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u043D\u043E.",
+  "novel.openInSidebar": "\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \xAB{name}\xBB \u043D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456",
+  "novel.entryNotFound": "\xAB{name}\xBB \u043D\u0435\u043C\u0430\u0454 \u043D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 Universe Builder.",
+  "novel.removeFromScene": "\u041F\u0440\u0438\u0431\u0440\u0430\u0442\u0438 \u0437\u0456 \u0441\u0446\u0435\u043D\u0438",
   "command.novelUnderline": "\u041F\u0435\u0440\u0435\u043C\u043A\u043D\u0443\u0442\u0438 \u043F\u0456\u0434\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u043D\u044F",
   "command.novelStrikethrough": "\u041F\u0435\u0440\u0435\u043C\u043A\u043D\u0443\u0442\u0438 \u0437\u0430\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u043D\u044F",
   "command.novelProperties": "\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \u043F\u0430\u043D\u0435\u043B\u044C \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439",
   "settings.novelHeading": "\u0420\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0443",
   "settings.novel": "\u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0432\u0430\u0442\u0438 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0443",
-  "settings.novelDesc": "\u0414\u043B\u044F \u043D\u043E\u0442\u0430\u0442\u043E\u043A \u0432 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C\u0443 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0456, \u0449\u043E \u043C\u0430\u044E\u0442\u044C \u0443\u0441\u0456 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0456 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456: \u0434\u043E\u0434\u0430\u0454 \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C \u043F\u0430\u043D\u0435\u043B\u044C \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432 (\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456, \u0436\u0438\u0440\u043D\u0438\u0439 / \u043A\u0443\u0440\u0441\u0438\u0432 / \u043F\u0456\u0434\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u0438\u0439 / \u0437\u0430\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u0438\u0439, \u0432\u0438\u0440\u0456\u0432\u043D\u044E\u0432\u0430\u043D\u043D\u044F, \u043A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043B\u0456\u0432) \u0456 \u043F\u0440\u0438\u0445\u043E\u0432\u0443\u0454 \u0431\u043B\u043E\u043A \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443 \u043D\u043E\u0442\u0430\u0442\u043A\u0438.",
+  "settings.novelDesc": "\u0414\u043B\u044F \u043D\u043E\u0442\u0430\u0442\u043E\u043A \u0432 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C\u0443 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0456, \u0449\u043E \u043C\u0430\u044E\u0442\u044C \u0443\u0441\u0456 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0456 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456: \u0434\u043E\u0434\u0430\u0454 \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C \u043F\u0430\u043D\u0435\u043B\u044C \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432 (\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456 / \u043C\u0456\u0441\u0446\u044F / \u0433\u0440\u0443\u043F\u0438 \u0441\u0446\u0435\u043D\u0438, \u0436\u0438\u0440\u043D\u0438\u0439 / \u043A\u0443\u0440\u0441\u0438\u0432 / \u043F\u0456\u0434\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u0438\u0439 / \u0437\u0430\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u0438\u0439, \u0432\u0438\u0440\u0456\u0432\u043D\u044E\u0432\u0430\u043D\u043D\u044F, \u043A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043B\u0456\u0432) \u0456 \u043F\u0440\u0438\u0445\u043E\u0432\u0443\u0454 \u0431\u043B\u043E\u043A \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443 \u043D\u043E\u0442\u0430\u0442\u043A\u0438.",
   "settings.novelProps": "\u041E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0456 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456",
   "settings.novelPropsDesc": "\u041D\u0430\u0437\u0432\u0438 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u0447\u0435\u0440\u0435\u0437 \u043A\u043E\u043C\u0443. \u0429\u043E\u0431 \u043D\u043E\u0442\u0430\u0442\u043A\u0430 \u0432\u0456\u0434\u043A\u0440\u0438\u043B\u0430\u0441\u044F \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0456 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0443, \u0432\u043E\u043D\u0430 \u043F\u043E\u0432\u0438\u043D\u043D\u0430 \u043C\u0430\u0442\u0438 \u0457\u0445 \u0443\u0441\u0456.",
   "settings.novelLivePreview": "\u0412\u0456\u0434\u043A\u0440\u0438\u0432\u0430\u0442\u0438 \u0432 \u0440\u0435\u0436\u0438\u043C\u0456 \u0436\u0438\u0432\u043E\u0433\u043E \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434\u0443",
   "settings.novelLivePreviewDesc": "\u041F\u0435\u0440\u0435\u043C\u0438\u043A\u0430\u0442\u0438 \u0446\u0456 \u043D\u043E\u0442\u0430\u0442\u043A\u0438 \u0432 \u0436\u0438\u0432\u0438\u0439 \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434 \u043F\u0456\u0434 \u0447\u0430\u0441 \u0432\u0456\u0434\u043A\u0440\u0438\u0442\u0442\u044F.",
   "settings.novelHideProps": "\u041F\u0440\u0438\u0445\u043E\u0432\u0443\u0432\u0430\u0442\u0438 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456 \u0432 \u043D\u043E\u0442\u0430\u0442\u0446\u0456",
-  "settings.novelHidePropsDesc": "\u041F\u0440\u0438\u0445\u043E\u0432\u0443\u0454 \u0431\u043B\u043E\u043A \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443 \u043D\u043E\u0442\u0430\u0442\u043A\u0438; \u0457\u0445 \u043C\u043E\u0436\u043D\u0430 \u0437\u043C\u0456\u043D\u0438\u0442\u0438 \u043A\u043D\u043E\u043F\u043A\u043E\u044E \xAB\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456\xBB \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u0456 \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432.",
+  "settings.novelHidePropsDesc": "\u041F\u0440\u0438\u0445\u043E\u0432\u0443\u0454 \u0431\u043B\u043E\u043A \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443 \u043D\u043E\u0442\u0430\u0442\u043A\u0438; \u0457\u0445 \u043C\u043E\u0436\u043D\u0430 \u0437\u043C\u0456\u043D\u0438\u0442\u0438 \u043A\u043D\u043E\u043F\u043A\u043E\u044E \xAB\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456\xBB \u0430\u0431\u043E \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u044E \xAB\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \u043F\u0430\u043D\u0435\u043B\u044C \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439\xBB.",
   "settings.novelWordCount": "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u043A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043B\u0456\u0432",
-  "settings.novelWordCountDesc": "\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u043A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043B\u0456\u0432 \u0443 \u043D\u043E\u0442\u0430\u0442\u0446\u0456 \u0442\u0430 \u0443 \u0432\u0438\u0434\u0456\u043B\u0435\u043D\u043D\u0456 \u043F\u0440\u0430\u0432\u043E\u0440\u0443\u0447 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u0456 \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432."
+  "settings.novelWordCountDesc": "\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u043A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043B\u0456\u0432 \u0443 \u043D\u043E\u0442\u0430\u0442\u0446\u0456 \u0442\u0430 \u0443 \u0432\u0438\u0434\u0456\u043B\u0435\u043D\u043D\u0456 \u043F\u0440\u0430\u0432\u043E\u0440\u0443\u0447 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u0456 \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432.",
+  "settings.novelPropsButton": "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u043A\u043D\u043E\u043F\u043A\u0443 \xAB\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456\xBB",
+  "settings.novelPropsButtonDesc": "\u0414\u043E\u0434\u0430\u0454 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u044C \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432 \u043A\u043D\u043E\u043F\u043A\u0443 \xAB\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456\xBB \u0434\u043B\u044F \u0437\u043C\u0456\u043D\u0438 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u043E\u0442\u0430\u0442\u043A\u0438. \u041A\u043E\u043C\u0430\u043D\u0434\u0430 \xAB\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \u043F\u0430\u043D\u0435\u043B\u044C \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439\xBB \u043F\u0440\u0430\u0446\u044E\u0454 \u0432 \u0431\u0443\u0434\u044C-\u044F\u043A\u043E\u043C\u0443 \u0440\u0430\u0437\u0456."
 };
 
 // src/locales/zh.ts
@@ -3008,20 +3112,33 @@ var zh = {
   "novel.listPlaceholder": "\u9879\u76EE, \u9879\u76EE, \u2026",
   "novel.propertyExists": "\u5C5E\u6027\u201C{name}\u201D\u5DF2\u5B58\u5728\u3002",
   "novel.updateFailed": "\u65E0\u6CD5\u66F4\u65B0\u5C5E\u6027\u3002\u8BF7\u68C0\u67E5\u7B14\u8BB0\u7684 frontmatter \u662F\u5426\u6709 YAML \u9519\u8BEF\u3002",
+  "novel.charactersTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u89D2\u8272",
+  "novel.locationsTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u5730\u70B9",
+  "novel.groupsTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u7EC4\u7EC7",
+  "novel.noCharacters": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u89D2\u8272\u3002",
+  "novel.noLocations": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u5730\u70B9\u3002",
+  "novel.noGroups": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u7EC4\u7EC7\u3002",
+  "novel.filter": "\u7B5B\u9009\u2026",
+  "novel.noMatches": "\u6CA1\u6709\u5339\u914D\u9879\u3002",
+  "novel.openInSidebar": "\u5728\u4FA7\u8FB9\u680F\u4E2D\u6253\u5F00 {name}",
+  "novel.entryNotFound": "\u201C{name}\u201D\u4E0D\u5728 Universe Builder \u4FA7\u8FB9\u680F\u4E2D\u3002",
+  "novel.removeFromScene": "\u4ECE\u573A\u666F\u4E2D\u79FB\u9664",
   "command.novelUnderline": "\u5207\u6362\u4E0B\u5212\u7EBF",
   "command.novelStrikethrough": "\u5207\u6362\u5220\u9664\u7EBF",
   "command.novelProperties": "\u6253\u5F00\u5C5E\u6027\u9762\u677F",
   "settings.novelHeading": "\u5C0F\u8BF4\u573A\u666F\u7F16\u8F91\u5668",
   "settings.novel": "\u4F7F\u7528\u5C0F\u8BF4\u573A\u666F\u7F16\u8F91\u5668",
-  "settings.novelDesc": "\u5BF9\u4E3B\u7F16\u8F91\u5668\u4E2D\u5177\u6709\u5168\u90E8\u5FC5\u9700\u5C5E\u6027\u7684\u7B14\u8BB0\uFF1A\u5728\u6B63\u6587\u4E0A\u65B9\u6DFB\u52A0\u5DE5\u5177\u680F\uFF08\u5C5E\u6027\u3001\u7C97\u4F53 / \u659C\u4F53 / \u4E0B\u5212\u7EBF / \u5220\u9664\u7EBF\u3001\u5BF9\u9F50\u3001\u5B57\u6570\uFF09\uFF0C\u5E76\u9690\u85CF\u7B14\u8BB0\u9876\u90E8\u7684\u5C5E\u6027\u533A\u5757\u3002",
+  "settings.novelDesc": "\u5BF9\u4E3B\u7F16\u8F91\u5668\u4E2D\u5177\u6709\u5168\u90E8\u5FC5\u9700\u5C5E\u6027\u7684\u7B14\u8BB0\uFF1A\u5728\u6B63\u6587\u4E0A\u65B9\u6DFB\u52A0\u5DE5\u5177\u680F\uFF08\u573A\u666F\u7684\u89D2\u8272 / \u5730\u70B9 / \u7EC4\u7EC7\u3001\u7C97\u4F53 / \u659C\u4F53 / \u4E0B\u5212\u7EBF / \u5220\u9664\u7EBF\u3001\u5BF9\u9F50\u3001\u5B57\u6570\uFF09\uFF0C\u5E76\u9690\u85CF\u7B14\u8BB0\u9876\u90E8\u7684\u5C5E\u6027\u533A\u5757\u3002",
   "settings.novelProps": "\u5FC5\u9700\u5C5E\u6027",
   "settings.novelPropsDesc": "\u4EE5\u9017\u53F7\u5206\u9694\u7684\u5C5E\u6027\u540D\u3002\u7B14\u8BB0\u5FC5\u987B\u5177\u6709\u5168\u90E8\u8FD9\u4E9B\u5C5E\u6027\u624D\u4F1A\u5728\u5C0F\u8BF4\u573A\u666F\u7F16\u8F91\u5668\u4E2D\u6253\u5F00\u3002",
   "settings.novelLivePreview": "\u4EE5\u5B9E\u65F6\u9884\u89C8\u6253\u5F00",
   "settings.novelLivePreviewDesc": "\u6253\u5F00\u8FD9\u4E9B\u7B14\u8BB0\u65F6\u5207\u6362\u5230\u5B9E\u65F6\u9884\u89C8\u3002",
   "settings.novelHideProps": "\u9690\u85CF\u7B14\u8BB0\u4E2D\u7684\u5C5E\u6027",
-  "settings.novelHidePropsDesc": "\u9690\u85CF\u7B14\u8BB0\u9876\u90E8\u7684\u5C5E\u6027\u533A\u5757\uFF1B\u6539\u7528\u5DE5\u5177\u680F\u4E0A\u7684\u201C\u5C5E\u6027\u201D\u6309\u94AE\u7F16\u8F91\u3002",
+  "settings.novelHidePropsDesc": "\u9690\u85CF\u7B14\u8BB0\u9876\u90E8\u7684\u5C5E\u6027\u533A\u5757\uFF1B\u6539\u7528\u201C\u5C5E\u6027\u201D\u6309\u94AE\u6216\u201C\u6253\u5F00\u5C5E\u6027\u9762\u677F\u201D\u547D\u4EE4\u7F16\u8F91\u3002",
   "settings.novelWordCount": "\u663E\u793A\u5B57\u6570",
-  "settings.novelWordCountDesc": "\u5728\u5DE5\u5177\u680F\u53F3\u4FA7\u663E\u793A\u7B14\u8BB0\u548C\u6240\u9009\u5185\u5BB9\u7684\u5B57\u6570\u3002"
+  "settings.novelWordCountDesc": "\u5728\u5DE5\u5177\u680F\u53F3\u4FA7\u663E\u793A\u7B14\u8BB0\u548C\u6240\u9009\u5185\u5BB9\u7684\u5B57\u6570\u3002",
+  "settings.novelPropsButton": "\u663E\u793A\u201C\u5C5E\u6027\u201D\u6309\u94AE",
+  "settings.novelPropsButtonDesc": "\u5728\u5DE5\u5177\u680F\u4E0A\u6DFB\u52A0\u201C\u5C5E\u6027\u201D\u6309\u94AE\uFF0C\u7528\u4E8E\u7F16\u8F91\u7B14\u8BB0\u5C5E\u6027\u3002\u65E0\u8BBA\u662F\u5426\u5F00\u542F\uFF0C\u201C\u6253\u5F00\u5C5E\u6027\u9762\u677F\u201D\u547D\u4EE4\u90FD\u53EF\u4F7F\u7528\u3002"
 };
 
 // src/locales/ja.ts
@@ -3341,20 +3458,33 @@ var ja = {
   "novel.listPlaceholder": "\u9805\u76EE, \u9805\u76EE, \u2026",
   "novel.propertyExists": "\u30D7\u30ED\u30D1\u30C6\u30A3\u300C{name}\u300D\u306F\u3059\u3067\u306B\u3042\u308A\u307E\u3059\u3002",
   "novel.updateFailed": "\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u66F4\u65B0\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F\u3002\u30CE\u30FC\u30C8\u306E\u30D5\u30ED\u30F3\u30C8\u30DE\u30BF\u30FC\u306B YAML \u306E\u30A8\u30E9\u30FC\u304C\u306A\u3044\u304B\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+  "novel.charactersTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC",
+  "novel.locationsTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u5834\u6240",
+  "novel.groupsTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u7D44\u7E54",
+  "novel.noCharacters": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
+  "novel.noLocations": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u5834\u6240\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
+  "novel.noGroups": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u7D44\u7E54\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
+  "novel.filter": "\u7D5E\u308A\u8FBC\u307F\u2026",
+  "novel.noMatches": "\u4E00\u81F4\u3059\u308B\u9805\u76EE\u306F\u3042\u308A\u307E\u305B\u3093\u3002",
+  "novel.openInSidebar": "{name} \u3092\u30B5\u30A4\u30C9\u30D0\u30FC\u3067\u958B\u304F",
+  "novel.entryNotFound": "\u300C{name}\u300D\u306F Universe Builder \u306E\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u3042\u308A\u307E\u305B\u3093\u3002",
+  "novel.removeFromScene": "\u30B7\u30FC\u30F3\u304B\u3089\u5916\u3059",
   "command.novelUnderline": "\u4E0B\u7DDA\u306E\u5207\u308A\u66FF\u3048",
   "command.novelStrikethrough": "\u53D6\u308A\u6D88\u3057\u7DDA\u306E\u5207\u308A\u66FF\u3048",
   "command.novelProperties": "\u30D7\u30ED\u30D1\u30C6\u30A3\u30D1\u30CD\u30EB\u3092\u958B\u304F",
   "settings.novelHeading": "\u5C0F\u8AAC\u30B7\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC",
   "settings.novel": "\u5C0F\u8AAC\u30B7\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u3092\u4F7F\u3046",
-  "settings.novelDesc": "\u5FC5\u9808\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u3059\u3079\u3066\u6301\u3064\u30E1\u30A4\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u306E\u30CE\u30FC\u30C8\u3067\u3001\u672C\u6587\u306E\u4E0A\u306B\u30C4\u30FC\u30EB\u30D0\u30FC\uFF08\u30D7\u30ED\u30D1\u30C6\u30A3\u3001\u592A\u5B57 / \u659C\u4F53 / \u4E0B\u7DDA / \u53D6\u308A\u6D88\u3057\u7DDA\u3001\u914D\u7F6E\u3001\u8A9E\u6570\uFF09\u3092\u8FFD\u52A0\u3057\u3001\u30CE\u30FC\u30C8\u4E0A\u90E8\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u6B04\u3092\u96A0\u3057\u307E\u3059\u3002",
+  "settings.novelDesc": "\u5FC5\u9808\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u3059\u3079\u3066\u6301\u3064\u30E1\u30A4\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u306E\u30CE\u30FC\u30C8\u3067\u3001\u672C\u6587\u306E\u4E0A\u306B\u30C4\u30FC\u30EB\u30D0\u30FC\uFF08\u30B7\u30FC\u30F3\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC / \u5834\u6240 / \u7D44\u7E54\u3001\u592A\u5B57 / \u659C\u4F53 / \u4E0B\u7DDA / \u53D6\u308A\u6D88\u3057\u7DDA\u3001\u914D\u7F6E\u3001\u8A9E\u6570\uFF09\u3092\u8FFD\u52A0\u3057\u3001\u30CE\u30FC\u30C8\u4E0A\u90E8\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u6B04\u3092\u96A0\u3057\u307E\u3059\u3002",
   "settings.novelProps": "\u5FC5\u9808\u30D7\u30ED\u30D1\u30C6\u30A3",
   "settings.novelPropsDesc": "\u30AB\u30F3\u30DE\u533A\u5207\u308A\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u540D\u3067\u3059\u3002\u30CE\u30FC\u30C8\u304C\u5C0F\u8AAC\u30B7\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u3067\u958B\u304F\u306B\u306F\u3001\u3053\u308C\u3089\u3059\u3079\u3066\u304C\u5FC5\u8981\u3067\u3059\u3002",
   "settings.novelLivePreview": "\u30E9\u30A4\u30D6\u30D7\u30EC\u30D3\u30E5\u30FC\u3067\u958B\u304F",
   "settings.novelLivePreviewDesc": "\u3053\u308C\u3089\u306E\u30CE\u30FC\u30C8\u3092\u958B\u3044\u305F\u3068\u304D\u306B\u30E9\u30A4\u30D6\u30D7\u30EC\u30D3\u30E5\u30FC\u306B\u5207\u308A\u66FF\u3048\u307E\u3059\u3002",
   "settings.novelHideProps": "\u30CE\u30FC\u30C8\u5185\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u96A0\u3059",
-  "settings.novelHidePropsDesc": "\u30CE\u30FC\u30C8\u4E0A\u90E8\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u6B04\u3092\u96A0\u3057\u307E\u3059\u3002\u7DE8\u96C6\u306F\u30C4\u30FC\u30EB\u30D0\u30FC\u306E\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u300D\u30DC\u30BF\u30F3\u3067\u884C\u3044\u307E\u3059\u3002",
+  "settings.novelHidePropsDesc": "\u30CE\u30FC\u30C8\u4E0A\u90E8\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u6B04\u3092\u96A0\u3057\u307E\u3059\u3002\u7DE8\u96C6\u306F\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u300D\u30DC\u30BF\u30F3\u304B\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u30D1\u30CD\u30EB\u3092\u958B\u304F\u300D\u30B3\u30DE\u30F3\u30C9\u3067\u884C\u3044\u307E\u3059\u3002",
   "settings.novelWordCount": "\u8A9E\u6570\u3092\u8868\u793A",
-  "settings.novelWordCountDesc": "\u30CE\u30FC\u30C8\u3068\u9078\u629E\u7BC4\u56F2\u306E\u8A9E\u6570\u3092\u30C4\u30FC\u30EB\u30D0\u30FC\u306E\u53F3\u5074\u306B\u8868\u793A\u3057\u307E\u3059\u3002"
+  "settings.novelWordCountDesc": "\u30CE\u30FC\u30C8\u3068\u9078\u629E\u7BC4\u56F2\u306E\u8A9E\u6570\u3092\u30C4\u30FC\u30EB\u30D0\u30FC\u306E\u53F3\u5074\u306B\u8868\u793A\u3057\u307E\u3059\u3002",
+  "settings.novelPropsButton": "\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u300D\u30DC\u30BF\u30F3\u3092\u8868\u793A",
+  "settings.novelPropsButtonDesc": "\u30CE\u30FC\u30C8\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u7DE8\u96C6\u3059\u308B\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u300D\u30DC\u30BF\u30F3\u3092\u30C4\u30FC\u30EB\u30D0\u30FC\u306B\u8FFD\u52A0\u3057\u307E\u3059\u3002\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u30D1\u30CD\u30EB\u3092\u958B\u304F\u300D\u30B3\u30DE\u30F3\u30C9\u306F\u3069\u3061\u3089\u306E\u5834\u5408\u3082\u4F7F\u3048\u307E\u3059\u3002"
 };
 
 // src/i18n.ts
@@ -3408,7 +3538,7 @@ function optionLabel(prefix, value) {
 }
 
 // src/novel-editor/index.ts
-var import_obsidian5 = require("obsidian");
+var import_obsidian6 = require("obsidian");
 var import_view2 = require("@codemirror/view");
 
 // src/novel-editor/format.ts
@@ -3771,7 +3901,7 @@ function alignmentPostProcessor(el, ctx) {
 }
 
 // src/novel-editor/toolbar.ts
-var import_obsidian4 = require("obsidian");
+var import_obsidian5 = require("obsidian");
 
 // src/novel-editor/properties.ts
 var import_obsidian3 = require("obsidian");
@@ -4114,6 +4244,240 @@ function enterBlurs(inp) {
   });
 }
 
+// src/novel-editor/scene.ts
+var import_obsidian4 = require("obsidian");
+var SCENE_LISTS = [
+  { kind: "characters", key: "universe-builder-scene-characterlist", icon: "user", label: "tab.characters", tooltip: "novel.charactersTooltip", empty: "novel.noCharacters" },
+  { kind: "locations", key: "universe-builder-scene-locationlist", icon: "map-pin", label: "tab.locations", tooltip: "novel.locationsTooltip", empty: "novel.noLocations" },
+  { kind: "groups", key: "universe-builder-scene-grouplist", icon: "users", label: "tab.groups", tooltip: "novel.groupsTooltip", empty: "novel.noGroups" }
+];
+function renderAvatar(el, plugin, file, icon) {
+  el.empty();
+  const src = file ? plugin.portrait(file) : null;
+  if (!src) {
+    el.removeClass("has-portrait");
+    (0, import_obsidian4.setIcon)(el, icon);
+    return;
+  }
+  el.addClass("has-portrait");
+  const img = el.createEl("img", { attr: { src, alt: "", draggable: "false" } });
+  img.onerror = () => {
+    img.remove();
+    el.removeClass("has-portrait");
+    (0, import_obsidian4.setIcon)(el, icon);
+  };
+}
+function asList(value) {
+  if (Array.isArray(value)) return value.filter((v) => v != null && v !== "").map((v) => String(v));
+  if (value == null || value === "") return [];
+  return [String(value)];
+}
+function parseItem(raw) {
+  const m = /^\s*\[\[([^\]]*)\]\]\s*$/.exec(raw);
+  const inner = m ? m[1] : raw.trim();
+  const [target, alias] = inner.split("|");
+  return { linkpath: target.split("#")[0].trim(), alias: (alias == null ? void 0 : alias.trim()) || null };
+}
+var SceneLists = class {
+  constructor(plugin) {
+    this.plugin = plugin;
+  }
+  /** Resolve a stored item: as a link first, then by entry name or file name within the section. */
+  resolve(raw, def, source, entries) {
+    var _a, _b, _c, _d, _e;
+    const { linkpath, alias } = parseItem(raw);
+    let file = linkpath ? this.plugin.app.metadataCache.getFirstLinkpathDest(linkpath, source.path) : null;
+    if (!file && linkpath) {
+      const wanted = linkpath.toLowerCase();
+      file = (_b = (_a = entries.find((e) => e.name.toLowerCase() === wanted || e.file.basename.toLowerCase() === wanted)) == null ? void 0 : _a.file) != null ? _b : null;
+    }
+    const entry = file ? entries.find((e) => e.file === file) : void 0;
+    return { raw, file, name: (_e = (_d = (_c = entry == null ? void 0 : entry.name) != null ? _c : alias) != null ? _d : file == null ? void 0 : file.basename) != null ? _e : linkpath };
+  }
+  items(source, def, entries = this.plugin.entries(def.kind)) {
+    var _a;
+    const fm = (_a = this.plugin.app.metadataCache.getFileCache(source)) == null ? void 0 : _a.frontmatter;
+    return asList(fm == null ? void 0 : fm[def.key]).map((raw) => this.resolve(raw, def, source, entries));
+  }
+  /** Add an entry to the list (no-op if it's already there). */
+  async add(source, def, file) {
+    const entries = this.plugin.entries(def.kind);
+    const link = `[[${this.plugin.app.metadataCache.fileToLinktext(file, source.path, true)}]]`;
+    await this.write(source, (fm) => {
+      const list = asList(fm[def.key]);
+      if (list.some((raw) => this.resolve(raw, def, source, entries).file === file)) return;
+      list.push(link);
+      fm[def.key] = list;
+    });
+  }
+  /** Remove an item: every stored value pointing at `file`, or the exact raw value if it points nowhere. */
+  async remove(source, def, target) {
+    const entries = this.plugin.entries(def.kind);
+    await this.write(source, (fm) => {
+      const list = asList(fm[def.key]).filter(
+        (raw) => typeof target === "string" ? raw !== target : this.resolve(raw, def, source, entries).file !== target
+      );
+      if (list.length) fm[def.key] = list;
+      else delete fm[def.key];
+    });
+  }
+  async write(file, mutate) {
+    try {
+      await this.plugin.app.fileManager.processFrontMatter(file, mutate);
+    } catch (e) {
+      console.error("Universe Builder: novel editor failed to update a scene list", e);
+      new import_obsidian4.Notice(t("novel.updateFailed"));
+    }
+  }
+};
+var ScenePicker = class {
+  constructor(plugin, lists, def, host, getFile, onToggle) {
+    this.plugin = plugin;
+    this.lists = lists;
+    this.def = def;
+    this.host = host;
+    this.getFile = getFile;
+    this.onToggle = onToggle;
+    this.el = null;
+    this.anchor = null;
+    this.listEl = null;
+    this.searchEl = null;
+    this.query = "";
+    this.activeIndex = 0;
+    this.onOutside = (evt) => {
+      var _a;
+      const target = evt.target;
+      if (!this.el || !target) return;
+      if (this.el.contains(target) || ((_a = this.anchor) == null ? void 0 : _a.contains(target))) return;
+      this.close();
+    };
+  }
+  get isOpen() {
+    return this.el !== null;
+  }
+  toggle(anchor) {
+    if (this.isOpen) this.close();
+    else this.open(anchor);
+  }
+  open(anchor) {
+    if (this.isOpen) return;
+    this.anchor = anchor;
+    this.query = "";
+    this.activeIndex = 0;
+    const el = this.el = this.host.createDiv({ cls: "ue-props-popover ue-scene-picker" });
+    const header = el.createDiv({ cls: "ue-props-header" });
+    const title = header.createSpan({ cls: "ue-props-title ue-scene-picker-title" });
+    (0, import_obsidian4.setIcon)(title.createSpan({ cls: "ue-btn-icon" }), this.def.icon);
+    title.createSpan({ text: t(this.def.label) });
+    const closeBtn = header.createEl("button", { cls: "clickable-icon ue-props-close", attr: { "aria-label": t("novel.close") } });
+    (0, import_obsidian4.setIcon)(closeBtn, "x");
+    closeBtn.addEventListener("click", () => this.close());
+    const search = this.searchEl = el.createEl("input", { type: "text", cls: "ue-scene-search", placeholder: t("novel.filter") });
+    search.spellcheck = false;
+    search.addEventListener("input", () => {
+      this.query = search.value;
+      this.activeIndex = 0;
+      this.renderList();
+    });
+    search.addEventListener("keydown", (evt) => this.onKey(evt));
+    el.addEventListener("keydown", (evt) => {
+      if (evt.key === "Escape") {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.close();
+        anchor.focus();
+      }
+    });
+    this.listEl = el.createDiv({ cls: "ue-scene-options" });
+    this.renderList();
+    this.position();
+    this.host.ownerDocument.addEventListener("mousedown", this.onOutside, true);
+    this.onToggle(true);
+    window.setTimeout(() => search.focus(), 0);
+  }
+  close() {
+    if (!this.el) return;
+    this.host.ownerDocument.removeEventListener("mousedown", this.onOutside, true);
+    this.el.remove();
+    this.el = this.listEl = this.searchEl = null;
+    this.onToggle(false);
+  }
+  /** Re-draw the checkmarks after the scene's frontmatter changes. */
+  refresh() {
+    if (this.el) this.renderList();
+  }
+  position() {
+    if (!this.el || !this.anchor) return;
+    const hostRect = this.host.getBoundingClientRect();
+    const aRect = this.anchor.getBoundingClientRect();
+    const left = Math.max(8, Math.min(aRect.left - hostRect.left, hostRect.width - this.el.offsetWidth - 8));
+    this.el.style.left = `${left}px`;
+  }
+  visibleEntries() {
+    const q = this.query.trim().toLowerCase();
+    const all = this.plugin.entries(this.def.kind);
+    return q ? all.filter((e) => e.name.toLowerCase().includes(q) || e.file.basename.toLowerCase().includes(q)) : all;
+  }
+  renderList() {
+    const listEl = this.listEl;
+    const file = this.getFile();
+    if (!listEl || !file) return;
+    const scrollTop = listEl.scrollTop;
+    listEl.empty();
+    const entries = this.visibleEntries();
+    const chosen = new Set(this.lists.items(file, this.def).map((i) => i.file).filter((f) => !!f));
+    if (entries.length === 0) {
+      listEl.createDiv({ cls: "ue-props-empty", text: this.query.trim() ? t("novel.noMatches") : t(this.def.empty) });
+      return;
+    }
+    this.activeIndex = Math.min(this.activeIndex, entries.length - 1);
+    entries.forEach((entry, i) => {
+      const selected = chosen.has(entry.file);
+      const row = listEl.createEl("button", {
+        cls: "ue-scene-option",
+        attr: { "aria-pressed": String(selected), "data-path": entry.file.path }
+      });
+      if (selected) row.addClass("is-selected");
+      if (i === this.activeIndex) row.addClass("is-active");
+      const check = row.createSpan({ cls: "ue-scene-check" });
+      if (selected) (0, import_obsidian4.setIcon)(check, "check");
+      renderAvatar(row.createSpan({ cls: "ue-scene-avatar" }), this.plugin, entry.file, this.def.icon);
+      row.createSpan({ cls: "ue-scene-option-name", text: entry.name });
+      row.addEventListener("mousedown", (e) => e.preventDefault());
+      row.addEventListener("click", () => {
+        this.activeIndex = i;
+        void this.toggleEntry(entry.file, selected);
+      });
+    });
+    listEl.scrollTop = scrollTop;
+  }
+  onKey(evt) {
+    var _a, _b;
+    const count = this.visibleEntries().length;
+    if (evt.key === "ArrowDown" || evt.key === "ArrowUp") {
+      evt.preventDefault();
+      if (!count) return;
+      this.activeIndex = (this.activeIndex + (evt.key === "ArrowDown" ? 1 : count - 1)) % count;
+      this.renderList();
+      (_b = (_a = this.listEl) == null ? void 0 : _a.querySelector(".ue-scene-option.is-active")) == null ? void 0 : _b.scrollIntoView({ block: "nearest" });
+    } else if (evt.key === "Enter") {
+      evt.preventDefault();
+      const entry = this.visibleEntries()[this.activeIndex];
+      const file = this.getFile();
+      if (!entry || !file) return;
+      const selected = this.lists.items(file, this.def).some((i) => i.file === entry.file);
+      void this.toggleEntry(entry.file, selected);
+    }
+  }
+  async toggleEntry(entryFile, selected) {
+    const file = this.getFile();
+    if (!file) return;
+    if (selected) await this.lists.remove(file, this.def, entryFile);
+    else await this.lists.add(file, this.def, entryFile);
+    this.refresh();
+  }
+};
+
 // src/novel-editor/toolbar.ts
 function cmOf(view) {
   var _a;
@@ -4125,6 +4489,7 @@ var FORMAT_BUTTONS = [
   { kind: "underline", icon: "underline", label: "novel.underline" },
   { kind: "strikethrough", icon: "strikethrough", label: "novel.strikethrough" }
 ];
+var UNLABELLED_PROPERTIES = /* @__PURE__ */ new Set(["novelr-status", "novelr-type"]);
 var ALIGN_BUTTONS = [
   { align: "left", icon: "align-left", label: "novel.alignLeft" },
   { align: "center", icon: "align-center", label: "novel.alignCenter" },
@@ -4139,6 +4504,9 @@ var NovelToolbar = class {
     this.forcedFor = null;
     this.formatBtns = /* @__PURE__ */ new Map();
     this.alignBtns = /* @__PURE__ */ new Map();
+    this.pickers = /* @__PURE__ */ new Map();
+    /** What the scene row last showed, so unrelated metadata changes don't redraw it. */
+    this.sceneSignature = "";
     this.countTimer = null;
     this.el = createDiv({ cls: "ue-toolbar" });
     const left = this.el.createDiv({ cls: "ue-toolbar-section ue-toolbar-left" });
@@ -4147,7 +4515,7 @@ var NovelToolbar = class {
     const fmt = center.createDiv({ cls: "ue-toolbar-group" });
     for (const b of FORMAT_BUTTONS) {
       const btn = fmt.createEl("button", { cls: "ue-toolbar-btn", attr: { "aria-label": t(b.label), "data-format": b.kind } });
-      (0, import_obsidian4.setIcon)(btn, b.icon);
+      (0, import_obsidian5.setIcon)(btn, b.icon);
       btn.addEventListener("mousedown", (e) => e.preventDefault());
       btn.addEventListener("click", () => this.applyFormat(b.kind));
       this.formatBtns.set(b.kind, btn);
@@ -4155,17 +4523,40 @@ var NovelToolbar = class {
     const align = center.createDiv({ cls: "ue-toolbar-group ue-align-group" });
     for (const b of ALIGN_BUTTONS) {
       const btn = align.createEl("button", { cls: "ue-toolbar-btn", attr: { "aria-label": t(b.label), "data-align": b.align } });
-      (0, import_obsidian4.setIcon)(btn, b.icon);
+      (0, import_obsidian5.setIcon)(btn, b.icon);
       btn.addEventListener("mousedown", (e) => e.preventDefault());
       btn.addEventListener("click", () => this.applyAlign(b.align));
       this.alignBtns.set(b.align, btn);
     }
     this.propsBtn = left.createEl("button", { cls: "ue-toolbar-btn ue-props-btn", attr: { "aria-label": t("novel.propertiesTooltip") } });
-    (0, import_obsidian4.setIcon)(this.propsBtn.createSpan({ cls: "ue-btn-icon" }), "list");
-    this.propsBtn.createSpan({ text: t("novel.properties") });
+    (0, import_obsidian5.setIcon)(this.propsBtn, "list");
     this.propsBtn.addEventListener("click", () => this.toggleProperties());
+    this.sceneLists = new SceneLists(plugin);
+    const sceneBtns = left.createDiv({ cls: "ue-toolbar-group ue-scene-group" });
+    for (const def of SCENE_LISTS) {
+      const btn = sceneBtns.createEl("button", {
+        cls: "ue-toolbar-btn ue-scene-btn",
+        attr: { "aria-label": t(def.tooltip), "data-kind": def.kind }
+      });
+      (0, import_obsidian5.setIcon)(btn.createSpan({ cls: "ue-btn-icon" }), def.icon);
+      btn.createSpan({ cls: "ue-btn-label", text: t(def.label) });
+      const picker = new ScenePicker(
+        plugin,
+        this.sceneLists,
+        def,
+        this.el,
+        () => this.view.file,
+        (open) => btn.toggleClass("is-active", open)
+      );
+      btn.addEventListener("click", () => {
+        this.closePopovers(picker);
+        picker.toggle(btn);
+      });
+      this.pickers.set(def.kind, picker);
+    }
     this.infoEl = left.createDiv({ cls: "ue-toolbar-info ue-toolbar-tags" });
     this.countEl = right.createDiv({ cls: "ue-toolbar-info" });
+    this.sceneEl = this.el.createDiv({ cls: "ue-toolbar-scene" });
     this.popover = new PropertiesPopover(
       plugin,
       this.el,
@@ -4181,31 +4572,100 @@ var NovelToolbar = class {
     this.setFile(this.view.file);
   }
   unmount() {
-    this.popover.close();
+    this.closePopovers();
     if (this.countTimer !== null) window.clearTimeout(this.countTimer);
     this.el.remove();
     this.view.containerEl.removeClass("ue-editor", "ue-hide-props");
   }
   applySettings() {
     this.view.containerEl.toggleClass("ue-hide-props", this.plugin.settings.hideInlineProperties);
+    this.propsBtn.toggleClass("is-hidden", !this.plugin.settings.showPropertiesButton);
     this.refreshInfo();
+    this.refreshScene(true);
   }
   setFile(file) {
     var _a;
     const path = (_a = file == null ? void 0 : file.path) != null ? _a : null;
     if (path !== this.filePath) {
       this.filePath = path;
-      this.popover.close();
+      this.closePopovers();
     }
     this.refreshInfo();
+    this.refreshScene(true);
     this.refreshActiveStates();
   }
   toggleProperties() {
-    this.popover.toggle(this.propsBtn);
+    this.closePopovers(this.popover);
+    this.popover.toggle(this.propsBtn.hasClass("is-hidden") ? this.el : this.propsBtn);
+  }
+  /** Close every floating panel except `keep`. */
+  closePopovers(keep) {
+    if (keep !== this.popover) this.popover.close();
+    for (const p of this.pickers.values()) if (p !== keep) p.close();
   }
   onMetadataChanged() {
     this.refreshInfo();
+    this.refreshScene();
     this.popover.onMetadataChanged();
+    for (const p of this.pickers.values()) p.refresh();
+  }
+  /** Portraits loaded or changed: update the labels and any open menu. */
+  refreshPortraits() {
+    this.refreshScene();
+    for (const p of this.pickers.values()) p.refresh();
+  }
+  /** Redraw the row of scene labels (characters, locations, groups) if what it shows changed. */
+  refreshScene(force = false) {
+    const file = this.view.file;
+    const lists = file ? SCENE_LISTS.map((def) => ({ def, items: this.sceneLists.items(file, def) })) : [];
+    const signature = JSON.stringify(
+      lists.map(({ def, items }) => [def.kind, items.map((i) => {
+        var _a, _b;
+        return [i.raw, i.name, (_b = (_a = i.file) == null ? void 0 : _a.path) != null ? _b : "", i.file ? this.plugin.portrait(i.file) : ""];
+      })])
+    );
+    if (!force && signature === this.sceneSignature) return;
+    this.sceneSignature = signature;
+    const row = this.sceneEl;
+    row.empty();
+    let any = false;
+    for (const { def, items } of lists) {
+      for (const item of items) {
+        any = true;
+        const pill = row.createDiv({
+          cls: "ue-chip ue-scene-pill",
+          attr: {
+            role: "button",
+            tabindex: "0",
+            "data-kind": def.kind,
+            "aria-label": item.file ? t("novel.openInSidebar", { name: item.name }) : t("novel.entryNotFound", { name: item.name })
+          }
+        });
+        if (!item.file) pill.addClass("is-unresolved");
+        renderAvatar(pill.createSpan({ cls: "ue-scene-pill-icon" }), this.plugin, item.file, def.icon);
+        pill.createSpan({ cls: "ue-scene-pill-name", text: item.name });
+        const remove = pill.createSpan({ cls: "ue-scene-pill-remove", attr: { role: "button", "aria-label": t("novel.removeFromScene") } });
+        (0, import_obsidian5.setIcon)(remove, "x");
+        const open = () => {
+          if (item.file) void this.plugin.revealEntry(item.file);
+          else new import_obsidian5.Notice(t("novel.entryNotFound", { name: item.name }));
+        };
+        remove.addEventListener("click", (e) => {
+          var _a;
+          e.stopPropagation();
+          const f = this.view.file;
+          if (f) void this.sceneLists.remove(f, def, (_a = item.file) != null ? _a : item.raw);
+        });
+        pill.addEventListener("click", open);
+        pill.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            open();
+          }
+        });
+      }
+    }
+    row.toggleClass("is-empty", !any);
   }
   /** Called on every CodeMirror update for this view's editor. */
   onEditorUpdate(docChanged) {
@@ -4249,11 +4709,12 @@ var NovelToolbar = class {
     if (!file) return;
     const fm = (_b = (_a = this.plugin.app.metadataCache.getFileCache(file)) == null ? void 0 : _a.frontmatter) != null ? _b : {};
     for (const key of this.plugin.settings.requiredProperties) {
+      if (UNLABELLED_PROPERTIES.has(key)) continue;
       const raw = fm[key];
       if (raw == null || raw === "") continue;
       const text = Array.isArray(raw) ? raw.join(", ") : String(raw);
       const chip = info.createEl("button", { cls: "ue-chip", text, attr: { "aria-label": `${key}: ${text}`, "data-key": key } });
-      chip.addEventListener("click", () => this.popover.toggle(this.propsBtn));
+      chip.addEventListener("click", () => this.toggleProperties());
     }
     if (this.plugin.settings.showWordCount) {
       const cm = cmOf(this.view);
@@ -4277,7 +4738,8 @@ var NOVEL_EDITOR_DEFAULTS = {
   novelEditorProperties: "novelr-type, novelr-status",
   novelEditorLivePreview: true,
   novelEditorHideProperties: true,
-  novelEditorWordCount: true
+  novelEditorWordCount: true,
+  novelEditorPropertiesButton: false
 };
 function normalizeNovelEditorSettings(data) {
   const bool = (v, d) => typeof v === "boolean" ? v : d;
@@ -4287,13 +4749,14 @@ function normalizeNovelEditorSettings(data) {
     novelEditorProperties: props,
     novelEditorLivePreview: bool(data == null ? void 0 : data.novelEditorLivePreview, NOVEL_EDITOR_DEFAULTS.novelEditorLivePreview),
     novelEditorHideProperties: bool(data == null ? void 0 : data.novelEditorHideProperties, NOVEL_EDITOR_DEFAULTS.novelEditorHideProperties),
-    novelEditorWordCount: bool(data == null ? void 0 : data.novelEditorWordCount, NOVEL_EDITOR_DEFAULTS.novelEditorWordCount)
+    novelEditorWordCount: bool(data == null ? void 0 : data.novelEditorWordCount, NOVEL_EDITOR_DEFAULTS.novelEditorWordCount),
+    novelEditorPropertiesButton: bool(data == null ? void 0 : data.novelEditorPropertiesButton, NOVEL_EDITOR_DEFAULTS.novelEditorPropertiesButton)
   };
 }
 function parseProperties(value) {
   return value.split(",").map((s) => s.trim()).filter(Boolean);
 }
-var NovelEditor = class extends import_obsidian5.Component {
+var NovelEditor = class extends import_obsidian6.Component {
   constructor(host) {
     super();
     this.host = host;
@@ -4311,6 +4774,7 @@ var NovelEditor = class extends import_obsidian5.Component {
         ]
       )
     ];
+    this.portraitsQueued = false;
   }
   get app() {
     return this.host.app;
@@ -4322,8 +4786,28 @@ var NovelEditor = class extends import_obsidian5.Component {
       requiredProperties: props.length ? props : parseProperties(NOVEL_EDITOR_DEFAULTS.novelEditorProperties),
       forceLivePreview: s.novelEditorLivePreview,
       hideInlineProperties: s.novelEditorHideProperties,
-      showWordCount: s.novelEditorWordCount
+      showWordCount: s.novelEditorWordCount,
+      showPropertiesButton: s.novelEditorPropertiesButton
     };
+  }
+  entries(kind) {
+    return this.host.universeEntries(kind);
+  }
+  revealEntry(file) {
+    return this.host.revealUniverseEntry(file);
+  }
+  portrait(file) {
+    var _a;
+    return (_a = this.host.universePortrait(file)) != null ? _a : null;
+  }
+  /** Portraits finished loading or changed: redraw the scene labels and open menus (once per frame). */
+  portraitsChanged() {
+    if (this.portraitsQueued) return;
+    this.portraitsQueued = true;
+    window.requestAnimationFrame(() => {
+      this.portraitsQueued = false;
+      for (const tb of this.toolbars.values()) tb.refreshPortraits();
+    });
   }
   onload() {
     this.host.registerEditorExtension([alignmentExtension, alignmentKeeper]);
@@ -4349,6 +4833,7 @@ var NovelEditor = class extends import_obsidian5.Component {
         this.queueSync();
         for (const tb of this.toolbars.values()) {
           if (tb.view.file === file) tb.onMetadataChanged();
+          else tb.refreshScene();
         }
       })
     );
@@ -4364,7 +4849,7 @@ var NovelEditor = class extends import_obsidian5.Component {
         id,
         name: t(key),
         editorCallback: (_editor, ctx) => {
-          if (!(ctx instanceof import_obsidian5.MarkdownView)) return;
+          if (!(ctx instanceof import_obsidian6.MarkdownView)) return;
           const cm = cmOf(ctx);
           if (cm) run(cm);
         }
@@ -4374,7 +4859,7 @@ var NovelEditor = class extends import_obsidian5.Component {
       id: "novel-open-properties",
       name: t("command.novelProperties"),
       checkCallback: (checking) => {
-        const view = this.app.workspace.getActiveViewOfType(import_obsidian5.MarkdownView);
+        const view = this.app.workspace.getActiveViewOfType(import_obsidian6.MarkdownView);
         const tb = view ? this.toolbars.get(view) : void 0;
         if (!tb) return false;
         if (!checking) tb.toggleProperties();
@@ -4421,7 +4906,7 @@ var NovelEditor = class extends import_obsidian5.Component {
     const live = /* @__PURE__ */ new Set();
     this.app.workspace.iterateAllLeaves((leaf) => {
       const view = leaf.view;
-      if (!(view instanceof import_obsidian5.MarkdownView)) return;
+      if (!(view instanceof import_obsidian6.MarkdownView)) return;
       if (!this.isCenterLeaf(leaf) || !this.qualifies(view.file)) return;
       live.add(view);
       let tb = this.toolbars.get(view);
@@ -4454,11 +4939,11 @@ var NovelEditor = class extends import_obsidian5.Component {
 
 // src/main.ts
 function getMarkdownFilesIn(app, folderPath) {
-  const folder = app.vault.getAbstractFileByPath((0, import_obsidian6.normalizePath)(folderPath));
-  if (!(folder instanceof import_obsidian6.TFolder)) return [];
+  const folder = app.vault.getAbstractFileByPath((0, import_obsidian7.normalizePath)(folderPath));
+  if (!(folder instanceof import_obsidian7.TFolder)) return [];
   const out = [];
-  import_obsidian6.Vault.recurseChildren(folder, (f) => {
-    if (f instanceof import_obsidian6.TFile && f.extension === "md") out.push(f);
+  import_obsidian7.Vault.recurseChildren(folder, (f) => {
+    if (f instanceof import_obsidian7.TFile && f.extension === "md") out.push(f);
   });
   return out;
 }
@@ -4544,6 +5029,44 @@ function isShip(fm) {
 }
 var IMG_EXT = /\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
 var SIZE_SPEC = /^\d+(x\d+)?$/;
+function findFirstImage(app, content, file) {
+  var _a, _b, _c, _d;
+  const re = /!\[\[([^\]]+)\]\]|!\[([^\]]*)\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
+  let m;
+  while ((m = re.exec(content)) !== null) {
+    const start = m.index;
+    const end = m.index + m[0].length;
+    let target;
+    let size = "";
+    if (m[1] !== void 0) {
+      const parts = m[1].split("|");
+      target = parts[0].split("#")[0].trim();
+      size = ((_a = parts[1]) != null ? _a : "").trim();
+    } else {
+      size = ((_b = m[2]) != null ? _b : "").split("|").pop().trim();
+      target = ((_c = m[3]) != null ? _c : "").trim();
+      if (target.startsWith("<") && target.endsWith(">")) target = target.slice(1, -1);
+      if (/^https?:\/\//i.test(target)) {
+        const bare = target.split(/[?#]/)[0];
+        if (IMG_EXT.test(bare)) {
+          return { src: target, start, end, file: null, name: bare.split("/").pop() || target, size: SIZE_SPEC.test(size) ? size : "" };
+        }
+        continue;
+      }
+      try {
+        target = decodeURIComponent(target);
+      } catch (e) {
+      }
+      target = target.split("#")[0];
+    }
+    if (!IMG_EXT.test(target)) continue;
+    const dest = (_d = app.metadataCache.getFirstLinkpathDest(target, file.path)) != null ? _d : app.vault.getAbstractFileByPath(target);
+    if (dest instanceof import_obsidian7.TFile) {
+      return { src: app.vault.getResourcePath(dest), start, end, file: dest, name: dest.name, size: SIZE_SPEC.test(size) ? size : "" };
+    }
+  }
+  return null;
+}
 var SHOW_NAV_BUTTONS = false;
 var FLOAT_GAP = 20;
 var FLOAT_GAP_BOTTOM = FLOAT_GAP + 18;
@@ -4553,12 +5076,12 @@ function migratedFolderNames() {
   return [...SECTION_TABS.map((tab) => SECTION_FOLDERS[tab]), IMAGES_SUBFOLDER];
 }
 function imagesFolderPath(worldFolder) {
-  return (0, import_obsidian6.normalizePath)(`${worldFolder}/${IMAGES_SUBFOLDER}`);
+  return (0, import_obsidian7.normalizePath)(`${worldFolder}/${IMAGES_SUBFOLDER}`);
 }
 function portraitFolderFor(worldFolder, notePath) {
-  const root = (0, import_obsidian6.normalizePath)(worldFolder);
+  const root = (0, import_obsidian7.normalizePath)(worldFolder);
   const images = imagesFolderPath(worldFolder);
-  const path = (0, import_obsidian6.normalizePath)(notePath);
+  const path = (0, import_obsidian7.normalizePath)(notePath);
   if (!path.toLowerCase().startsWith(root.toLowerCase() + "/")) return images;
   const first = path.slice(root.length + 1).split("/")[0].toLowerCase();
   const section = SECTION_TABS.map((tab) => SECTION_FOLDERS[tab]).find((label) => label.toLowerCase() === first);
@@ -4566,7 +5089,7 @@ function portraitFolderFor(worldFolder, notePath) {
 }
 async function ensureFolderPath(app, path) {
   let current2 = "";
-  for (const part of (0, import_obsidian6.normalizePath)(path).split("/")) {
+  for (const part of (0, import_obsidian7.normalizePath)(path).split("/")) {
     current2 = current2 ? `${current2}/${part}` : part;
     if (!app.vault.getAbstractFileByPath(current2)) await app.vault.createFolder(current2);
   }
@@ -4576,13 +5099,13 @@ function draggedVaultImage(app) {
   const draggable = (_a = app.dragManager) == null ? void 0 : _a.draggable;
   if (!draggable) return null;
   const candidates = draggable.type === "file" ? [draggable.file] : draggable.type === "files" ? (_b = draggable.files) != null ? _b : [] : [];
-  for (const f of candidates) if (f instanceof import_obsidian6.TFile && IMG_EXT.test(f.name)) return f;
+  for (const f of candidates) if (f instanceof import_obsidian7.TFile && IMG_EXT.test(f.name)) return f;
   return null;
 }
 function vaultFileForDropped(app, dropped) {
   var _a, _b, _c, _d;
   const adapter = app.vault.adapter;
-  if (!(adapter instanceof import_obsidian6.FileSystemAdapter)) return null;
+  if (!(adapter instanceof import_obsidian7.FileSystemAdapter)) return null;
   let osPath = "";
   try {
     const electron = (_a = window.require) == null ? void 0 : _a.call(window, "electron");
@@ -4595,8 +5118,8 @@ function vaultFileForDropped(app, dropped) {
   const base = norm(adapter.getBasePath());
   const full = norm(osPath);
   if (!full.toLowerCase().startsWith(base.toLowerCase() + "/")) return null;
-  const found = app.vault.getAbstractFileByPath((0, import_obsidian6.normalizePath)(full.slice(base.length + 1)));
-  return found instanceof import_obsidian6.TFile ? found : null;
+  const found = app.vault.getAbstractFileByPath((0, import_obsidian7.normalizePath)(full.slice(base.length + 1)));
+  return found instanceof import_obsidian7.TFile ? found : null;
 }
 function isImageDrag(app, e) {
   var _a;
@@ -4617,7 +5140,7 @@ function imageFromFiles(app, files) {
   if (files.length === 0) return null;
   const picked = files.find((f) => IMG_EXT.test(f.name));
   if (!picked) {
-    new import_obsidian6.Notice(files.length === 1 ? t("notice.notAnImage", { name: files[0].name }) : t("notice.noImages"));
+    new import_obsidian7.Notice(files.length === 1 ? t("notice.notAnImage", { name: files[0].name }) : t("notice.noImages"));
     return null;
   }
   const inVault = vaultFileForDropped(app, picked);
@@ -4639,8 +5162,8 @@ async function importImage(app, worldFolder, file, notePath) {
   const ext = (dot > 0 ? file.name.slice(dot + 1) : "png").toLowerCase();
   const folderObj = app.vault.getAbstractFileByPath(folder);
   const siblings = /* @__PURE__ */ new Map();
-  if (folderObj instanceof import_obsidian6.TFolder) {
-    for (const child of folderObj.children) if (child instanceof import_obsidian6.TFile) siblings.set(child.name.toLowerCase(), child);
+  if (folderObj instanceof import_obsidian7.TFolder) {
+    for (const child of folderObj.children) if (child instanceof import_obsidian7.TFile) siblings.set(child.name.toLowerCase(), child);
   }
   for (let n = 0; ; n++) {
     const name = n === 0 ? `${stem}.${ext}` : `${stem} ${n}.${ext}`;
@@ -4748,7 +5271,7 @@ async function createNote(app, folder, filename, content) {
   await ensureFolder(app, folder);
   const path = `${folder}/${slugify(filename)}.md`;
   const existing = app.vault.getAbstractFileByPath(path);
-  if (existing instanceof import_obsidian6.TFile) {
+  if (existing instanceof import_obsidian7.TFile) {
     await app.vault.modify(existing, content);
     return existing;
   }
@@ -4814,7 +5337,7 @@ function createPovToggle(row, getYaml, setYaml, watch, onChange) {
     cls: "wb-btn-secondary wb-icon-btn wb-pov-toggle",
     attr: { type: "button" }
   });
-  (0, import_obsidian6.setIcon)(btn.createSpan({ cls: "wb-btn-icon" }), "user");
+  (0, import_obsidian7.setIcon)(btn.createSpan({ cls: "wb-btn-icon" }), "user");
   btn.createSpan({ text: t("card.pov") });
   const sync = () => {
     const on = isPov(yamlPov(getYaml()));
@@ -4896,7 +5419,7 @@ function mergeGroupOrder(overall, groupPaths, newGroupOrder) {
   return result;
 }
 var VIEW_TYPE = "universe-builder-sidebar";
-var UniverseBuilderView = class extends import_obsidian6.ItemView {
+var UniverseBuilderView = class extends import_obsidian7.ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     this.activeTab = "characters";
@@ -5007,7 +5530,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       cls: "wb-btn-secondary wb-icon-btn wb-bookmarks-btn wb-header-btn",
       attr: { type: "button", "aria-label": t("bookmarks") }
     });
-    (0, import_obsidian6.setIcon)(bookmarksBtn.createSpan({ cls: "wb-btn-icon" }), "bookmark");
+    (0, import_obsidian7.setIcon)(bookmarksBtn.createSpan({ cls: "wb-btn-icon" }), "bookmark");
     bookmarksBtn.createSpan({ text: t("bookmarks") });
     bookmarksBtn.onclick = () => this.toggleBookmarksView();
     this.bookmarkHeaderButtons.push(bookmarksBtn);
@@ -5052,7 +5575,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
     this.searchTargets.bookmarks = bookmarksPane.body;
     this.tabContents = contents;
     const searchBox = fixed.createDiv("wb-search");
-    (0, import_obsidian6.setIcon)(searchBox.createSpan({ cls: "wb-search-icon" }), "search");
+    (0, import_obsidian7.setIcon)(searchBox.createSpan({ cls: "wb-search-icon" }), "search");
     const searchInput = searchBox.createEl("input", {
       cls: "wb-search-input",
       attr: { type: "text", spellcheck: "false" }
@@ -5061,7 +5584,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       cls: "wb-search-clear",
       attr: { type: "button", "aria-label": t("search.clear") }
     });
-    (0, import_obsidian6.setIcon)(clearBtn, "x");
+    (0, import_obsidian7.setIcon)(clearBtn, "x");
     const syncClear = () => clearBtn.classList.toggle("is-visible", searchInput.value.length > 0);
     const showTabSearch = () => {
       const label = t(`search.${this.activeTab}`);
@@ -5321,48 +5844,9 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
     var _a, _b;
     return (_b = (_a = this.findFirstImage(content, file)) == null ? void 0 : _a.src) != null ? _b : null;
   }
-  /**
-   * Finds the first image embedded in a note (the one shown as the card's portrait): its
-   * displayable URL plus where its embed sits in `content`, so it can be swapped for another.
-   * `size` is an Obsidian size spec on the embed ("300" or "300x200"), if it had one.
-   */
+  /** The first image embedded in a note, i.e. its portrait (see the module-level findFirstImage). */
   findFirstImage(content, file) {
-    var _a, _b, _c, _d;
-    const re = /!\[\[([^\]]+)\]\]|!\[([^\]]*)\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
-    let m;
-    while ((m = re.exec(content)) !== null) {
-      const start = m.index;
-      const end = m.index + m[0].length;
-      let target;
-      let size = "";
-      if (m[1] !== void 0) {
-        const parts = m[1].split("|");
-        target = parts[0].split("#")[0].trim();
-        size = ((_a = parts[1]) != null ? _a : "").trim();
-      } else {
-        size = ((_b = m[2]) != null ? _b : "").split("|").pop().trim();
-        target = ((_c = m[3]) != null ? _c : "").trim();
-        if (target.startsWith("<") && target.endsWith(">")) target = target.slice(1, -1);
-        if (/^https?:\/\//i.test(target)) {
-          const bare = target.split(/[?#]/)[0];
-          if (IMG_EXT.test(bare)) {
-            return { src: target, start, end, file: null, name: bare.split("/").pop() || target, size: SIZE_SPEC.test(size) ? size : "" };
-          }
-          continue;
-        }
-        try {
-          target = decodeURIComponent(target);
-        } catch (e) {
-        }
-        target = target.split("#")[0];
-      }
-      if (!IMG_EXT.test(target)) continue;
-      const dest = (_d = this.app.metadataCache.getFirstLinkpathDest(target, file.path)) != null ? _d : this.app.vault.getAbstractFileByPath(target);
-      if (dest instanceof import_obsidian6.TFile) {
-        return { src: this.app.vault.getResourcePath(dest), start, end, file: dest, name: dest.name, size: SIZE_SPEC.test(size) ? size : "" };
-      }
-    }
-    return null;
+    return findFirstImage(this.app, content, file);
   }
   async renderSection(tab, pane, folderPath, onCreate, getCard, opts = {}) {
     var _a, _b, _c, _d;
@@ -5528,7 +6012,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       const header = container.createDiv("wb-group-header");
       header.setAttribute("role", "button");
       header.setAttribute("tabindex", "0");
-      (0, import_obsidian6.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
+      (0, import_obsidian7.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
       const logoSrc = key ? logos.get(parseRefName(key).toLowerCase()) : void 0;
       if (logoSrc) {
         const logo = header.createEl("img", {
@@ -5598,18 +6082,18 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
     }
     if (tab) {
       const metaBtn = titleGroup.createEl("button", { cls: "wb-btn-secondary wb-header-btn", attr: { type: "button" } });
-      (0, import_obsidian6.setIcon)(metaBtn.createSpan({ cls: "wb-btn-icon" }), "list-plus");
+      (0, import_obsidian7.setIcon)(metaBtn.createSpan({ cls: "wb-btn-icon" }), "list-plus");
       metaBtn.createSpan({ text: t("metadata.edit") });
       metaBtn.onclick = () => new MetadataModal(this.app, this.plugin, tab).open();
     }
     const actions = hdr.createDiv("wb-section-actions");
     if (reload) {
       const reloadBtn = actions.createEl("button", { cls: "wb-btn-secondary wb-header-btn" });
-      (0, import_obsidian6.setIcon)(reloadBtn.createSpan({ cls: "wb-btn-icon" }), "refresh-cw");
+      (0, import_obsidian7.setIcon)(reloadBtn.createSpan({ cls: "wb-btn-icon" }), "refresh-cw");
       reloadBtn.createSpan({ text: t("reload") });
       reloadBtn.onclick = async () => {
         await this.render();
-        new import_obsidian6.Notice(t("reload.done"));
+        new import_obsidian7.Notice(t("reload.done"));
       };
     }
     if (onCreate) {
@@ -5661,7 +6145,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       const header = container.createDiv("wb-group-header");
       header.setAttribute("role", "button");
       header.setAttribute("tabindex", "0");
-      (0, import_obsidian6.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
+      (0, import_obsidian7.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
       header.createSpan({ cls: "wb-group-title", text: label });
       const list = container.createDiv("wb-list");
       const applyCollapsed = (collapsed) => {
@@ -5723,7 +6207,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
     const header = group.createDiv("wb-group-header wb-subsidiary-header");
     header.setAttribute("role", "button");
     header.setAttribute("tabindex", "0");
-    (0, import_obsidian6.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
+    (0, import_obsidian7.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
     header.createSpan({ cls: "wb-group-title", text: t("group.subsidiaries") });
     header.createSpan({ cls: "wb-group-count", text: String(kids.length) });
     const subList = group.createDiv("wb-list");
@@ -5804,7 +6288,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
     const header = list.createDiv("wb-group-header wb-tree-header");
     header.setAttribute("role", "button");
     header.setAttribute("tabindex", "0");
-    (0, import_obsidian6.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
+    (0, import_obsidian7.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
     header.createSpan({ cls: "wb-group-title", text: title });
     return header;
   }
@@ -5868,7 +6352,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
         const img = thumb.createEl("img", { attr: { src, alt: "", draggable: "false" } });
         thumb.addClass("wb-thumb-has-img");
         const zoomBadge = thumb.createSpan({ cls: "wb-thumb-zoom", attr: { "aria-hidden": "true" } });
-        (0, import_obsidian6.setIcon)(zoomBadge, "zoom-in");
+        (0, import_obsidian7.setIcon)(zoomBadge, "zoom-in");
         img.onerror = () => {
           img.remove();
           zoomBadge.remove();
@@ -5896,7 +6380,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       }
       for (const extra of extras) badgeHost.createSpan({ cls: `wb-badge ${extra.cls}`, text: extra.text });
     }
-    if (expandable) (0, import_obsidian6.setIcon)(titleEl.createSpan({ cls: "wb-card-chevron" }), "chevron-right");
+    if (expandable) (0, import_obsidian7.setIcon)(titleEl.createSpan({ cls: "wb-card-chevron" }), "chevron-right");
     if (meta) for (const line of meta.split("\n")) body.createDiv({ cls: "wb-card-meta", text: line });
     if (expandable) {
       card.setAttribute("role", "button");
@@ -5967,10 +6451,10 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       if (!text.trim() || !(selection == null ? void 0 : selection.anchorNode) || !body.contains(selection.anchorNode)) return;
       e.preventDefault();
       e.stopPropagation();
-      const menu = new import_obsidian6.Menu();
+      const menu = new import_obsidian7.Menu();
       menu.addItem(
         (item) => item.setTitle(t("card.copy")).setIcon("copy").onClick(() => {
-          void navigator.clipboard.writeText(text).catch(() => new import_obsidian6.Notice(t("card.copyFailed")));
+          void navigator.clipboard.writeText(text).catch(() => new import_obsidian7.Notice(t("card.copyFailed")));
         })
       );
       menu.showAtMouseEvent(e);
@@ -5978,7 +6462,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
     const portraitMatch = this.findFirstImage(entry.content, entry.file);
     const withoutPortrait = portraitMatch ? entry.content.slice(0, portraitMatch.start) + entry.content.slice(portraitMatch.end) : entry.content;
     const bodyText = stripLeadingHeading(stripFrontmatterBlock(withoutPortrait));
-    void import_obsidian6.MarkdownRenderer.render(this.app, bodyText, body, entry.file.path, this);
+    void import_obsidian7.MarkdownRenderer.render(this.app, bodyText, body, entry.file.path, this);
     body.addEventListener("click", (e) => {
       var _a2;
       const target = e.target;
@@ -6003,7 +6487,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
         cls: "wb-btn-secondary wb-icon-btn wb-card-nav-btn",
         attr: { type: "button", "aria-label": label }
       });
-      (0, import_obsidian6.setIcon)(btn, icon);
+      (0, import_obsidian7.setIcon)(btn, icon);
       btn.onclick = () => this.navigateCard(dir);
       return btn;
     };
@@ -6016,7 +6500,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       cls: "wb-btn-secondary wb-icon-btn wb-bookmark-toggle",
       attr: { type: "button", "data-bookmark-path": entry.file.path }
     });
-    (0, import_obsidian6.setIcon)(bookmarkBtn.createSpan({ cls: "wb-btn-icon" }), "bookmark");
+    (0, import_obsidian7.setIcon)(bookmarkBtn.createSpan({ cls: "wb-btn-icon" }), "bookmark");
     bookmarkBtn.createSpan({ text: t("bookmarks.button") });
     this.syncBookmarkToggle(bookmarkBtn, this.plugin.settings.bookmarks.includes(entry.file.path));
     bookmarkBtn.onclick = () => void this.toggleBookmark(entry.file.path);
@@ -6024,22 +6508,22 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
     const showViewActions = () => {
       actions.empty();
       const modifyBtn = actions.createEl("button", { cls: "wb-btn-secondary", attr: { type: "button" } });
-      (0, import_obsidian6.setIcon)(modifyBtn.createSpan({ cls: "wb-btn-icon" }), "file-text");
+      (0, import_obsidian7.setIcon)(modifyBtn.createSpan({ cls: "wb-btn-icon" }), "file-text");
       modifyBtn.createSpan({ text: t("card.modifyMd") });
       modifyBtn.onclick = () => this.app.workspace.getLeaf().openFile(entry.file);
       const editBtn = actions.createEl("button", { cls: "wb-btn-secondary", attr: { type: "button" } });
-      (0, import_obsidian6.setIcon)(editBtn.createSpan({ cls: "wb-btn-icon" }), "pencil");
+      (0, import_obsidian7.setIcon)(editBtn.createSpan({ cls: "wb-btn-icon" }), "pencil");
       editBtn.createSpan({ text: t("card.edit") });
       editBtn.onclick = () => void runExclusive(startEditing);
     };
     const showEditActions = () => {
       actions.empty();
       const cancelBtn = actions.createEl("button", { cls: "wb-btn-secondary", attr: { type: "button" } });
-      (0, import_obsidian6.setIcon)(cancelBtn.createSpan({ cls: "wb-btn-icon" }), "x");
+      (0, import_obsidian7.setIcon)(cancelBtn.createSpan({ cls: "wb-btn-icon" }), "x");
       cancelBtn.createSpan({ text: t("card.cancel") });
       cancelBtn.onclick = () => void runExclusive(discard);
       const saveBtn = actions.createEl("button", { cls: "wb-btn-secondary", attr: { type: "button" } });
-      (0, import_obsidian6.setIcon)(saveBtn.createSpan({ cls: "wb-btn-icon" }), "check");
+      (0, import_obsidian7.setIcon)(saveBtn.createSpan({ cls: "wb-btn-icon" }), "check");
       saveBtn.createSpan({ text: t("card.save") });
       saveBtn.onclick = () => void runExclusive(finishEditing);
     };
@@ -6088,7 +6572,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       try {
         original = await this.app.vault.read(entry.file);
       } catch (e) {
-        new import_obsidian6.Notice(t("notice.readFailed", { name: entry.file.basename }));
+        new import_obsidian7.Notice(t("notice.readFailed", { name: entry.file.basename }));
         return;
       }
       if (!card.isConnected || !expand.isConnected || editor) return;
@@ -6158,10 +6642,10 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
         editor == null ? void 0 : editor.destroy();
         editor = null;
         await this.render({ keepExpanded: true });
-        new import_obsidian6.Notice(t("notice.saved", { name: entry.file.basename }));
+        new import_obsidian7.Notice(t("notice.saved", { name: entry.file.basename }));
       } catch (err) {
         console.error("Universe Builder: save failed", err);
-        new import_obsidian6.Notice(t("notice.saveFailed", { name: entry.file.basename }));
+        new import_obsidian7.Notice(t("notice.saveFailed", { name: entry.file.basename }));
       }
     };
     showViewActions();
@@ -6170,7 +6654,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       cls: "wb-btn-secondary wb-btn-danger wb-card-delete-btn",
       attr: { type: "button", "aria-label": t("card.deleteLabel") }
     });
-    (0, import_obsidian6.setIcon)(deleteBtn.createSpan({ cls: "wb-btn-icon" }), "trash-2");
+    (0, import_obsidian7.setIcon)(deleteBtn.createSpan({ cls: "wb-btn-icon" }), "trash-2");
     deleteBtn.createSpan({ text: t("card.delete") });
     deleteBtn.onclick = () => void runExclusive(() => this.deleteEntry(card, entry));
     if (this.pendingEditPath === entry.file.path) {
@@ -6201,13 +6685,13 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       await this.app.fileManager.trashFile(entry.file);
     } catch (err) {
       console.error("Universe Builder: delete failed", err);
-      new import_obsidian6.Notice(t("notice.deleteFailed", { name }));
+      new import_obsidian7.Notice(t("notice.deleteFailed", { name }));
       return;
     }
     this.forgetNavPath(path);
     this.recordNav(this.activeTab, null);
     await this.render();
-    new import_obsidian6.Notice(t("notice.deleted", { name }));
+    new import_obsidian7.Notice(t("notice.deleted", { name }));
   }
   /** Drops a deleted note from the Back / Forward history, so those buttons can't step to it. */
   forgetNavPath(path) {
@@ -6336,7 +6820,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
     const chevron = card.querySelector(":scope > .wb-card-row .wb-card-chevron, :scope > .wb-card-title .wb-card-chevron");
     if (!chevron) return;
     chevron.empty();
-    (0, import_obsidian6.setIcon)(chevron, icon);
+    (0, import_obsidian7.setIcon)(chevron, icon);
   }
   /** Recomputes the edges of the area the floating card fills (CSS variables on the root). */
   updateFloatBounds() {
@@ -6544,7 +7028,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       const header = container.createDiv("wb-group-header");
       header.setAttribute("role", "button");
       header.setAttribute("tabindex", "0");
-      (0, import_obsidian6.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
+      (0, import_obsidian7.setIcon)(header.createSpan({ cls: "wb-group-chevron" }), "chevron-down");
       header.createSpan({ cls: "wb-group-title", text: t(`tab.${section}`) });
       const list = container.createDiv("wb-list");
       const applyCollapsed = (collapsed) => {
@@ -6698,7 +7182,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
     const linkPath = linktext.split("#")[0];
     const dest = this.app.metadataCache.getFirstLinkpathDest(linkPath, sourcePath);
     if (!dest) {
-      new import_obsidian6.Notice(t("notice.linkNotFound", { name: linktext }));
+      new import_obsidian7.Notice(t("notice.linkNotFound", { name: linktext }));
       return;
     }
     const tab = this.findEntryTab(dest);
@@ -6708,6 +7192,22 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
     }
     if (tab !== this.activeTab) this.switchTab(tab);
     this.revealCard(tab, dest.path);
+  }
+  /**
+   * Shows a note's card from outside the sidebar (the novel editor's scene labels): switches to its
+   * tab and expands it, the same as following a wiki-link inside an expanded card. Returns false if
+   * the note has no card here.
+   */
+  async revealEntry(file) {
+    var _a, _b;
+    const tab = this.findEntryTab(file);
+    if (!tab) return false;
+    const selector = `.wb-card[data-path="${CSS.escape(file.path)}"]`;
+    if (!((_a = this.tabContents[tab]) == null ? void 0 : _a.body.querySelector(selector))) await this.render();
+    if (!((_b = this.tabContents[tab]) == null ? void 0 : _b.body.querySelector(selector))) return false;
+    if (tab !== this.activeTab) this.switchTab(tab);
+    this.revealCard(tab, file.path);
+    return true;
   }
   /**
    * Brings one tab's card into view: un-collapses its group group if needed, clears an active
@@ -6785,7 +7285,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       const image = droppedImageFrom(this.app, e.dataTransfer);
       if (!image) return;
       if (this.activeEdit) {
-        new import_obsidian6.Notice(t("notice.finishEditing"));
+        new import_obsidian7.Notice(t("notice.finishEditing"));
         return;
       }
       void this.setPortrait(entry.file, title, image);
@@ -6805,7 +7305,7 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
       const existing = this.findFirstImage(await this.app.vault.read(note), note);
       if (existing) {
         if (image.kind === "vault" && ((_a = existing.file) == null ? void 0 : _a.path) === image.file.path) {
-          new import_obsidian6.Notice(t("portrait.alreadySet", { image: image.file.name, name: title }));
+          new import_obsidian7.Notice(t("portrait.alreadySet", { image: image.file.name, name: title }));
           return;
         }
         const ok = await confirmModal(
@@ -6828,10 +7328,10 @@ var UniverseBuilderView = class extends import_obsidian6.ItemView {
         return insertAtBodyTop(data, portraitEmbed(this.app, imageFile, note.path));
       });
       await this.render({ keepExpanded: true });
-      new import_obsidian6.Notice(t(existing ? "portrait.replaced" : "portrait.added", { name: title }));
+      new import_obsidian7.Notice(t(existing ? "portrait.replaced" : "portrait.added", { name: title }));
     } catch (err) {
       console.error("Universe Builder: setting portrait failed", err);
-      new import_obsidian6.Notice(t("portrait.failed", { name: title }));
+      new import_obsidian7.Notice(t("portrait.failed", { name: title }));
     }
   }
   /**
@@ -7042,7 +7542,7 @@ function createLivePreviewEditor(app, parent, anchor, file, text, keys, portrait
       cls: "wb-card-editor-label wb-card-editor-props-toggle",
       attr: { type: "button", "aria-expanded": "false" }
     });
-    (0, import_obsidian6.setIcon)(toggle.createSpan({ cls: "wb-card-editor-props-chevron" }), "chevron-right");
+    (0, import_obsidian7.setIcon)(toggle.createSpan({ cls: "wb-card-editor-props-chevron" }), "chevron-right");
     toggle.createSpan({ text: t("card.properties") });
     const count = fm.yaml.split(/\r?\n/).filter((line) => /^[^\s#-][^:]*:/.test(line)).length;
     if (count) toggle.createSpan({ cls: "wb-card-editor-props-count", text: `(${count})` });
@@ -7142,7 +7642,7 @@ function createLivePreviewEditor(app, parent, anchor, file, text, keys, portrait
     var _a, _b, _c, _d, _e, _f, _g, _h;
     return (_h = (_g = (_b = (_a = cmp == null ? void 0 : cmp.editor) == null ? void 0 : _a.getValue) == null ? void 0 : _b.call(_a)) != null ? _g : (_f = (_e = (_d = (_c = cmp == null ? void 0 : cmp.cm) == null ? void 0 : _c.state) == null ? void 0 : _d.doc) == null ? void 0 : _e.toString) == null ? void 0 : _f.call(_e)) != null ? _h : bodyText;
   }
-  const scope = new import_obsidian6.Scope(app.scope);
+  const scope = new import_obsidian7.Scope(app.scope);
   scope.register(["Mod"], "s", () => {
     keys.save();
     return false;
@@ -7206,7 +7706,7 @@ function createLivePreviewEditor(app, parent, anchor, file, text, keys, portrait
 function confirmModal(app, title, message, actionLabel, danger = false) {
   return new Promise((resolve) => {
     let result = false;
-    const modal = new import_obsidian6.Modal(app);
+    const modal = new import_obsidian7.Modal(app);
     modal.titleEl.setText(title);
     modal.contentEl.createEl("p", { text: message });
     const buttons = modal.contentEl.createDiv("wb-confirm-buttons");
@@ -7240,7 +7740,7 @@ var PortraitPicker = class {
     });
     const preview = this.zone.createDiv("wb-portrait-drop-preview");
     this.previewImg = preview.createEl("img", { attr: { alt: "", draggable: "false" } });
-    (0, import_obsidian6.setIcon)(preview.createDiv("wb-portrait-drop-icon"), "image-plus");
+    (0, import_obsidian7.setIcon)(preview.createDiv("wb-portrait-drop-icon"), "image-plus");
     const text = this.zone.createDiv("wb-portrait-drop-text");
     text.createDiv({ cls: "wb-portrait-drop-title", text: t("portrait.dropTitle") });
     this.nameEl = text.createDiv({ cls: "wb-portrait-drop-name" });
@@ -7249,7 +7749,7 @@ var PortraitPicker = class {
       cls: "wb-portrait-drop-remove clickable-icon",
       attr: { type: "button", "aria-label": t("portrait.remove") }
     });
-    (0, import_obsidian6.setIcon)(removeBtn, "x");
+    (0, import_obsidian7.setIcon)(removeBtn, "x");
     removeBtn.onclick = (e) => {
       e.stopPropagation();
       this.set(null);
@@ -7341,7 +7841,7 @@ var PortraitPicker = class {
       return true;
     } catch (err) {
       console.error("Universe Builder: importing portrait failed", err);
-      new import_obsidian6.Notice(failNotice);
+      new import_obsidian7.Notice(failNotice);
       return false;
     }
   }
@@ -7376,7 +7876,7 @@ function uniqueNames(values) {
 var ADD_NEW_OPTION = "\0add-new";
 function addPickerDropdown(app, container, label, placeholder, values, onChange) {
   let current2 = "";
-  new import_obsidian6.Setting(container).setName(label).addDropdown((d) => {
+  new import_obsidian7.Setting(container).setName(label).addDropdown((d) => {
     const select = d.selectEl;
     d.addOption(ADD_NEW_OPTION, t("form.addNew", { field: label }));
     d.addOption("", t("form.noneOption"));
@@ -7411,7 +7911,7 @@ function addPickerDropdown(app, container, label, placeholder, values, onChange)
 function promptForValue(app, title, placeholder) {
   return new Promise((resolve) => {
     let result = null;
-    const modal = new import_obsidian6.Modal(app);
+    const modal = new import_obsidian7.Modal(app);
     modal.modalEl.addClass("wb-prompt-modal");
     modal.titleEl.setText(title);
     const input = modal.contentEl.createEl("input", { cls: "wb-prompt-input", attr: { type: "text", placeholder, maxlength: "120" } });
@@ -7440,7 +7940,7 @@ function promptForValue(app, title, placeholder) {
     input.focus();
   });
 }
-var CharacterModal = class extends import_obsidian6.Modal {
+var CharacterModal = class extends import_obsidian7.Modal {
   constructor(app, plugin, onDone) {
     super(app);
     this.portrait = null;
@@ -7465,36 +7965,36 @@ var CharacterModal = class extends import_obsidian6.Modal {
     contentEl.createEl("h2", { text: t("character.new") });
     const form = contentEl.createDiv("wb-modal-form");
     this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.characters}`, this.modalEl);
-    new import_obsidian6.Setting(form).setName(t("form.name")).addText((text) => {
+    new import_obsidian7.Setting(form).setName(t("form.name")).addText((text) => {
       text.setPlaceholder(t("character.namePlaceholder")).onChange((v) => this.data.name = v);
     });
     addEditableDropdown(this, this.plugin, "characters", form, metadataField("characters", "role"), this.data.role, (v) => this.data.role = v);
-    new import_obsidian6.Setting(form).setName(t("character.pov")).addDropdown((d) => {
+    new import_obsidian7.Setting(form).setName(t("character.pov")).addDropdown((d) => {
       d.addOption("no", t("form.no"));
       d.addOption("yes", t("form.yes"));
       d.setValue("no");
       d.onChange((v) => this.data.pov = v === "yes");
     });
-    new import_obsidian6.Setting(form).setName(t("character.age")).addText((text) => {
+    new import_obsidian7.Setting(form).setName(t("character.age")).addText((text) => {
       text.setPlaceholder(t("character.agePlaceholder")).onChange((v) => this.data.age = v);
     });
     const known = this.knownValues();
     addPickerDropdown(this.app, form, t("character.group"), t("character.groupPlaceholder"), known.then((k) => k.group), (v) => this.data.group = v);
     addPickerDropdown(this.app, form, t("character.ship"), t("character.shipPlaceholder"), known.then((k) => k.ship), (v) => this.data.ship = v);
     addPickerDropdown(this.app, form, t("character.home"), t("character.homePlaceholder"), known.then((k) => k.home), (v) => this.data.home = v);
-    new import_obsidian6.Setting(form).setName(t("character.physicalDesc")).addTextArea((text) => {
+    new import_obsidian7.Setting(form).setName(t("character.physicalDesc")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.physicalDesc = v);
     });
-    new import_obsidian6.Setting(form).setName(t("character.personality")).addTextArea((text) => {
+    new import_obsidian7.Setting(form).setName(t("character.personality")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.personality = v);
     });
-    new import_obsidian6.Setting(form).setName(t("form.goals")).addTextArea((text) => {
+    new import_obsidian7.Setting(form).setName(t("form.goals")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.goals = v);
     });
-    new import_obsidian6.Setting(form).addButton(
+    new import_obsidian7.Setting(form).addButton(
       (b) => b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
     );
   }
@@ -7519,7 +8019,7 @@ var CharacterModal = class extends import_obsidian6.Modal {
   async submit() {
     var _a;
     if (!this.data.name.trim()) {
-      new import_obsidian6.Notice(t("form.nameRequired"));
+      new import_obsidian7.Notice(t("form.nameRequired"));
       return;
     }
     const folder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.characters}`;
@@ -7560,7 +8060,7 @@ var CharacterModal = class extends import_obsidian6.Modal {
     ].join("\n");
     const file = await createNote(this.app, folder, this.data.name, content);
     await ((_a = this.portrait) == null ? void 0 : _a.attachTo(file, t("form.createdNoPortrait", { name: file.basename })));
-    new import_obsidian6.Notice(t("character.created", { name: this.data.name }));
+    new import_obsidian7.Notice(t("character.created", { name: this.data.name }));
     this.close();
     this.onDone();
     await this.app.workspace.getLeaf().openFile(file);
@@ -7571,7 +8071,7 @@ var CharacterModal = class extends import_obsidian6.Modal {
     this.contentEl.empty();
   }
 };
-var LocationModal = class extends import_obsidian6.Modal {
+var LocationModal = class extends import_obsidian7.Modal {
   constructor(app, plugin, onDone) {
     super(app);
     this.portrait = null;
@@ -7592,7 +8092,7 @@ var LocationModal = class extends import_obsidian6.Modal {
     contentEl.createEl("h2", { text: t("location.new") });
     const form = contentEl.createDiv("wb-modal-form");
     this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.locations}`, this.modalEl);
-    new import_obsidian6.Setting(form).setName(t("form.name")).addText((text) => {
+    new import_obsidian7.Setting(form).setName(t("form.name")).addText((text) => {
       text.setPlaceholder(t("location.namePlaceholder")).onChange((v) => this.data.name = v);
     });
     addEditableDropdown(this, this.plugin, "locations", form, metadataField("locations", "locationType"), this.data.type, (v) => this.data.type = v);
@@ -7600,26 +8100,26 @@ var LocationModal = class extends import_obsidian6.Modal {
       (locations) => uniqueNames([...locations.map((l) => l.name), ...locations.map((l) => l.parent)])
     );
     addPickerDropdown(this.app, form, t("location.parent"), t("location.parentPlaceholder"), parents, (v) => this.data.parent = v);
-    new import_obsidian6.Setting(form).setName(t("form.description")).addTextArea((text) => {
+    new import_obsidian7.Setting(form).setName(t("form.description")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.description = v);
     });
-    new import_obsidian6.Setting(form).setName(t("location.inhabitants")).addTextArea((text) => {
+    new import_obsidian7.Setting(form).setName(t("location.inhabitants")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.inhabitants = v);
     });
-    new import_obsidian6.Setting(form).setName(t("location.secrets")).addTextArea((text) => {
+    new import_obsidian7.Setting(form).setName(t("location.secrets")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.secrets = v);
     });
-    new import_obsidian6.Setting(form).addButton(
+    new import_obsidian7.Setting(form).addButton(
       (b) => b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
     );
   }
   async submit() {
     var _a;
     if (!this.data.name.trim()) {
-      new import_obsidian6.Notice(t("form.nameRequired"));
+      new import_obsidian7.Notice(t("form.nameRequired"));
       return;
     }
     const folder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.locations}`;
@@ -7646,7 +8146,7 @@ var LocationModal = class extends import_obsidian6.Modal {
     ].join("\n");
     const file = await createNote(this.app, folder, this.data.name, content);
     await ((_a = this.portrait) == null ? void 0 : _a.attachTo(file, t("form.createdNoPortrait", { name: file.basename })));
-    new import_obsidian6.Notice(t("location.created", { name: this.data.name }));
+    new import_obsidian7.Notice(t("location.created", { name: this.data.name }));
     this.close();
     this.onDone();
     await this.app.workspace.getLeaf().openFile(file);
@@ -7657,7 +8157,7 @@ var LocationModal = class extends import_obsidian6.Modal {
     this.contentEl.empty();
   }
 };
-var GroupModal = class extends import_obsidian6.Modal {
+var GroupModal = class extends import_obsidian7.Modal {
   constructor(app, plugin, onDone) {
     super(app);
     this.portrait = null;
@@ -7680,7 +8180,7 @@ var GroupModal = class extends import_obsidian6.Modal {
     contentEl.createEl("h2", { text: t("group.new") });
     const form = contentEl.createDiv("wb-modal-form");
     this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.groups}`, this.modalEl);
-    new import_obsidian6.Setting(form).setName(t("form.name")).addText((text) => {
+    new import_obsidian7.Setting(form).setName(t("form.name")).addText((text) => {
       text.setPlaceholder(t("group.namePlaceholder")).onChange((v) => this.data.name = v);
     });
     addEditableDropdown(this, this.plugin, "groups", form, metadataField("groups", "groupType"), this.data.type, (v) => this.data.type = v);
@@ -7692,7 +8192,7 @@ var GroupModal = class extends import_obsidian6.Modal {
         return typeof name === "string" && name.trim() ? name.trim() : f.basename;
       })
     )).sort((a, b) => a.localeCompare(b));
-    new import_obsidian6.Setting(form).setName(t("group.subsidiaryOf")).setDesc(t("group.subsidiaryOfDesc")).addDropdown((d) => {
+    new import_obsidian7.Setting(form).setName(t("group.subsidiaryOf")).setDesc(t("group.subsidiaryOfDesc")).addDropdown((d) => {
       d.addOption("", t("group.subsidiaryNone"));
       existing.forEach((n) => {
         d.addOption(n, n);
@@ -7701,28 +8201,28 @@ var GroupModal = class extends import_obsidian6.Modal {
       d.onChange((v) => this.data.subsidiaryOf = v);
     });
     addEditableDropdown(this, this.plugin, "groups", form, metadataField("groups", "alignment"), this.data.alignment, (v) => this.data.alignment = v);
-    new import_obsidian6.Setting(form).setName(t("form.goals")).addTextArea((text) => {
+    new import_obsidian7.Setting(form).setName(t("form.goals")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.goals = v);
     });
-    new import_obsidian6.Setting(form).setName(t("group.enemies")).addText((text) => {
+    new import_obsidian7.Setting(form).setName(t("group.enemies")).addText((text) => {
       text.setPlaceholder(t("form.commaSeparated")).onChange((v) => this.data.enemies = v);
     });
-    new import_obsidian6.Setting(form).setName(t("group.allies")).addText((text) => {
+    new import_obsidian7.Setting(form).setName(t("group.allies")).addText((text) => {
       text.setPlaceholder(t("form.commaSeparated")).onChange((v) => this.data.allies = v);
     });
-    new import_obsidian6.Setting(form).setName(t("form.description")).addTextArea((text) => {
+    new import_obsidian7.Setting(form).setName(t("form.description")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.description = v);
     });
-    new import_obsidian6.Setting(form).addButton(
+    new import_obsidian7.Setting(form).addButton(
       (b) => b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
     );
   }
   async submit() {
     var _a;
     if (!this.data.name.trim()) {
-      new import_obsidian6.Notice(t("form.nameRequired"));
+      new import_obsidian7.Notice(t("form.nameRequired"));
       return;
     }
     const folder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.groups}`;
@@ -7756,7 +8256,7 @@ var GroupModal = class extends import_obsidian6.Modal {
     );
     const file = await createNote(this.app, folder, this.data.name, lines.join("\n"));
     await ((_a = this.portrait) == null ? void 0 : _a.attachTo(file, t("form.createdNoPortrait", { name: file.basename })));
-    new import_obsidian6.Notice(t("group.created", { name: this.data.name }));
+    new import_obsidian7.Notice(t("group.created", { name: this.data.name }));
     this.close();
     this.onDone();
     await this.app.workspace.getLeaf().openFile(file);
@@ -7848,7 +8348,7 @@ var MetadataEditor = class {
         const count = this.usageOf(field, value);
         row.createSpan({ cls: "wb-metadata-count", text: count === null ? "\u2026" : tn("metadata.uses", count) });
         const del = row.createEl("button", { cls: "wb-metadata-remove clickable-icon", attr: { type: "button", "aria-label": t("metadata.remove", { value }) } });
-        (0, import_obsidian6.setIcon)(del, "x");
+        (0, import_obsidian7.setIcon)(del, "x");
         del.onclick = () => void this.removeValue(field, value);
       }
     }
@@ -7861,7 +8361,7 @@ var MetadataEditor = class {
       (v) => optionKey(v) === optionKey(value) || optionKey(optionLabel(field.id, v)) === optionKey(value)
     );
     if (taken) {
-      new import_obsidian6.Notice(t("metadata.exists", { value }));
+      new import_obsidian7.Notice(t("metadata.exists", { value }));
       return;
     }
     const custom = this.plugin.settings.customOptions;
@@ -7893,7 +8393,7 @@ var MetadataEditor = class {
     this.draw();
   }
 };
-var MetadataModal = class extends import_obsidian6.Modal {
+var MetadataModal = class extends import_obsidian7.Modal {
   constructor(app, plugin, tab) {
     super(app);
     this.plugin = plugin;
@@ -7904,7 +8404,7 @@ var MetadataModal = class extends import_obsidian6.Modal {
     this.contentEl.addClass("wb-modal");
     this.setTitle(t("metadata.title", { section: t(`tab.${this.tab}`) }));
     if (this.tab === "characters") {
-      new import_obsidian6.Setting(this.contentEl).setName(t("metadata.groupCharactersBy")).setDesc(t("metadata.groupCharactersByDesc")).setClass("wb-metadata-grouping").addDropdown((d) => {
+      new import_obsidian7.Setting(this.contentEl).setName(t("metadata.groupCharactersBy")).setDesc(t("metadata.groupCharactersByDesc")).setClass("wb-metadata-grouping").addDropdown((d) => {
         for (const g of CHARACTER_GROUPINGS) d.addOption(g, groupingLabel(g));
         d.setValue(this.plugin.settings.characterGrouping);
         d.onChange(async (v) => {
@@ -7939,7 +8439,7 @@ function addEditableDropdown(modal, plugin, tab, formEl, field, initial, onChang
     }
     select.value = current2;
   };
-  const setting = new import_obsidian6.Setting(formEl).setName(t(field.label)).addDropdown((d) => {
+  const setting = new import_obsidian7.Setting(formEl).setName(t(field.label)).addDropdown((d) => {
     select = d.selectEl;
     fill();
     d.onChange((v) => {
@@ -7957,7 +8457,7 @@ function addEditableDropdown(modal, plugin, tab, formEl, field, initial, onChang
     formEl.hide();
     const panel = modal.contentEl.createDiv("wb-metadata-inline");
     const back = panel.createEl("button", { cls: "wb-metadata-back", attr: { type: "button" } });
-    (0, import_obsidian6.setIcon)(back.createSpan({ cls: "wb-btn-icon" }), "chevron-left");
+    (0, import_obsidian7.setIcon)(back.createSpan({ cls: "wb-btn-icon" }), "chevron-left");
     back.createSpan({ text: t("nav.back") });
     let added = null;
     new MetadataEditor(modal.app, plugin, tab, [field], panel.createDiv(), (_f, value) => added = value).start(field.id);
@@ -7972,7 +8472,7 @@ function addEditableDropdown(modal, plugin, tab, formEl, field, initial, onChang
     };
   });
 }
-var LoreModal = class extends import_obsidian6.Modal {
+var LoreModal = class extends import_obsidian7.Modal {
   constructor(app, plugin, onDone) {
     super(app);
     this.portrait = null;
@@ -7986,22 +8486,22 @@ var LoreModal = class extends import_obsidian6.Modal {
     contentEl.createEl("h2", { text: t("lore.new") });
     const form = contentEl.createDiv("wb-modal-form");
     this.portrait = new PortraitPicker(this.app, this.plugin, form, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.lore}`, this.modalEl);
-    new import_obsidian6.Setting(form).setName(t("form.title")).addText((text) => {
+    new import_obsidian7.Setting(form).setName(t("form.title")).addText((text) => {
       text.setPlaceholder(t("lore.titlePlaceholder")).onChange((v) => this.data.title = v);
     });
     addEditableDropdown(this, this.plugin, "lore", form, metadataField("lore", "loreCategory"), this.data.category, (v) => this.data.category = v);
-    new import_obsidian6.Setting(form).setName(t("lore.content")).addTextArea((text) => {
+    new import_obsidian7.Setting(form).setName(t("lore.content")).addTextArea((text) => {
       text.inputEl.addClasses(["wb-textarea", "wb-textarea-tall"]);
       text.onChange((v) => this.data.content = v);
     });
-    new import_obsidian6.Setting(form).addButton(
+    new import_obsidian7.Setting(form).addButton(
       (b) => b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
     );
   }
   async submit() {
     var _a;
     if (!this.data.title.trim()) {
-      new import_obsidian6.Notice(t("form.titleRequired"));
+      new import_obsidian7.Notice(t("form.titleRequired"));
       return;
     }
     const folder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.lore}`;
@@ -8020,7 +8520,7 @@ var LoreModal = class extends import_obsidian6.Modal {
     ].join("\n");
     const file = await createNote(this.app, folder, this.data.title, content);
     await ((_a = this.portrait) == null ? void 0 : _a.attachTo(file, t("form.createdNoPortrait", { name: file.basename })));
-    new import_obsidian6.Notice(t("lore.created", { name: this.data.title }));
+    new import_obsidian7.Notice(t("lore.created", { name: this.data.title }));
     this.close();
     this.onDone();
     await this.app.workspace.getLeaf().openFile(file);
@@ -8031,7 +8531,7 @@ var LoreModal = class extends import_obsidian6.Modal {
     this.contentEl.empty();
   }
 };
-var TimelineModal = class extends import_obsidian6.Modal {
+var TimelineModal = class extends import_obsidian7.Modal {
   constructor(app, plugin, onDone) {
     super(app);
     this.portrait = null;
@@ -8044,30 +8544,30 @@ var TimelineModal = class extends import_obsidian6.Modal {
     contentEl.addClass("wb-modal");
     contentEl.createEl("h2", { text: t("timeline.new") });
     this.portrait = new PortraitPicker(this.app, this.plugin, contentEl, `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.timeline}`, this.modalEl);
-    new import_obsidian6.Setting(contentEl).setName(t("timeline.date")).addText((text) => {
+    new import_obsidian7.Setting(contentEl).setName(t("timeline.date")).addText((text) => {
       text.setPlaceholder(t("timeline.datePlaceholder")).onChange((v) => this.data.date = v);
     });
-    new import_obsidian6.Setting(contentEl).setName(t("form.title")).addText((text) => {
+    new import_obsidian7.Setting(contentEl).setName(t("form.title")).addText((text) => {
       text.setPlaceholder(t("timeline.titlePlaceholder")).onChange((v) => this.data.title = v);
     });
-    new import_obsidian6.Setting(contentEl).setName(t("form.description")).addTextArea((text) => {
+    new import_obsidian7.Setting(contentEl).setName(t("form.description")).addTextArea((text) => {
       text.inputEl.addClass("wb-textarea");
       text.onChange((v) => this.data.description = v);
     });
-    new import_obsidian6.Setting(contentEl).setName(t("timeline.characters")).addText((text) => {
+    new import_obsidian7.Setting(contentEl).setName(t("timeline.characters")).addText((text) => {
       text.setPlaceholder(t("form.commaSeparatedNames")).onChange((v) => this.data.characters = v);
     });
-    new import_obsidian6.Setting(contentEl).setName(t("timeline.locations")).addText((text) => {
+    new import_obsidian7.Setting(contentEl).setName(t("timeline.locations")).addText((text) => {
       text.setPlaceholder(t("form.commaSeparatedNames")).onChange((v) => this.data.locations = v);
     });
-    new import_obsidian6.Setting(contentEl).addButton(
+    new import_obsidian7.Setting(contentEl).addButton(
       (b) => b.setButtonText(t("form.create")).setCta().onClick(() => void this.submit())
     );
   }
   async submit() {
     var _a;
     if (!this.data.title.trim()) {
-      new import_obsidian6.Notice(t("form.titleRequired"));
+      new import_obsidian7.Notice(t("form.titleRequired"));
       return;
     }
     const folder = `${this.plugin.settings.worldFolder}/${SECTION_FOLDERS.timeline}`;
@@ -8090,7 +8590,7 @@ var TimelineModal = class extends import_obsidian6.Modal {
     lines.push("", `## ${t("note.description")}`, this.data.description || t("note.noneProvided"));
     const file = await createNote(this.app, folder, filename, lines.join("\n"));
     await ((_a = this.portrait) == null ? void 0 : _a.attachTo(file, t("form.createdNoPortrait", { name: file.basename })));
-    new import_obsidian6.Notice(t("timeline.created", { name: this.data.title }));
+    new import_obsidian7.Notice(t("timeline.created", { name: this.data.title }));
     this.close();
     this.onDone();
     await this.app.workspace.getLeaf().openFile(file);
@@ -8101,7 +8601,7 @@ var TimelineModal = class extends import_obsidian6.Modal {
     this.contentEl.empty();
   }
 };
-var FolderMigrationModal = class extends import_obsidian6.Modal {
+var FolderMigrationModal = class extends import_obsidian7.Modal {
   constructor(app, info, onChoose) {
     super(app);
     this.info = info;
@@ -8142,7 +8642,7 @@ var FolderMigrationModal = class extends import_obsidian6.Modal {
     this.onChoose(this.choice);
   }
 };
-var LegacyCleanupModal = class extends import_obsidian6.Modal {
+var LegacyCleanupModal = class extends import_obsidian7.Modal {
   constructor(app, folder, emptyFolders, onChoose) {
     super(app);
     this.folder = folder;
@@ -8178,7 +8678,7 @@ var LegacyCleanupModal = class extends import_obsidian6.Modal {
 function normalizeLanguage(value) {
   return typeof value === "string" && LOCALES.includes(value) ? value : "auto";
 }
-var UniverseBuilderSettingTab = class extends import_obsidian6.PluginSettingTab {
+var UniverseBuilderSettingTab = class extends import_obsidian7.PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
     this.plugin = plugin;
@@ -8257,6 +8757,12 @@ var UniverseBuilderSettingTab = class extends import_obsidian6.PluginSettingTab 
             control: { type: "toggle", key: "novelEditorLivePreview", defaultValue: DEFAULT_SETTINGS.novelEditorLivePreview }
           },
           {
+            name: t("settings.novelPropsButton"),
+            desc: t("settings.novelPropsButtonDesc"),
+            visible: () => this.plugin.settings.novelEditor,
+            control: { type: "toggle", key: "novelEditorPropertiesButton", defaultValue: DEFAULT_SETTINGS.novelEditorPropertiesButton }
+          },
+          {
             name: t("settings.novelHideProps"),
             desc: t("settings.novelHidePropsDesc"),
             visible: () => this.plugin.settings.novelEditor,
@@ -8300,6 +8806,7 @@ var UniverseBuilderSettingTab = class extends import_obsidian6.PluginSettingTab 
       case "novelEditorLivePreview":
       case "novelEditorHideProperties":
       case "novelEditorWordCount":
+      case "novelEditorPropertiesButton":
         settings[key] = value === true;
         await this.plugin.saveSettings();
         this.plugin.novelEditor.refresh();
@@ -8316,7 +8823,7 @@ var UniverseBuilderSettingTab = class extends import_obsidian6.PluginSettingTab 
     await this.plugin.saveSettings();
   }
 };
-var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
+var UniverseBuilderPlugin = class extends import_obsidian7.Plugin {
   constructor() {
     super(...arguments);
     /** Command ids and their names' translation keys, in Command palette order. */
@@ -8332,6 +8839,9 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
     // ─── Folder migration (World/ -> UniverseBuilder/) ───────────────────────────
     /** Set while the prompt is open or a move is running, so the check never runs twice at once. */
     this.migrationBusy = false;
+    /** Portrait URL per note path, with the note's mtime it was read at (see universePortrait). */
+    this.portraitCache = /* @__PURE__ */ new Map();
+    this.portraitLoading = /* @__PURE__ */ new Set();
   }
   async onload() {
     await this.loadSettings();
@@ -8427,7 +8937,7 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
       const current2 = this.settings.worldFolder.toLowerCase();
       if (current2 !== LEGACY_FOLDER.toLowerCase() && current2 !== DEFAULT_FOLDER.toLowerCase()) {
         if (manual) {
-          new import_obsidian6.Notice(t("migrate.customFolder", { folder: this.settings.worldFolder }));
+          new import_obsidian7.Notice(t("migrate.customFolder", { folder: this.settings.worldFolder }));
         } else {
           state.status = "not-needed";
           await this.saveSettings();
@@ -8441,7 +8951,7 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
           await this.offerLegacyCleanup();
           return;
         }
-        if (manual) new import_obsidian6.Notice(t("migrate.nothingToMove", { folder: LEGACY_FOLDER }));
+        if (manual) new import_obsidian7.Notice(t("migrate.nothingToMove", { folder: LEGACY_FOLDER }));
         if (current2 === LEGACY_FOLDER.toLowerCase()) this.settings.worldFolder = DEFAULT_FOLDER;
         if (!state.status) state.status = "not-needed";
         await this.saveSettings();
@@ -8478,7 +8988,7 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
   /** The top-level legacy folder, matched case-insensitively (e.g. "World" or "world"). */
   findLegacyFolder() {
     for (const child of this.app.vault.getRoot().children) {
-      if (child instanceof import_obsidian6.TFolder && child.name.toLowerCase() === LEGACY_FOLDER.toLowerCase()) return child;
+      if (child instanceof import_obsidian7.TFolder && child.name.toLowerCase() === LEGACY_FOLDER.toLowerCase()) return child;
     }
     return null;
   }
@@ -8490,12 +9000,12 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
     const out = [];
     for (const label of migratedFolderNames()) {
       const folder = root.children.find(
-        (c) => c instanceof import_obsidian6.TFolder && c.name.toLowerCase() === label.toLowerCase()
+        (c) => c instanceof import_obsidian7.TFolder && c.name.toLowerCase() === label.toLowerCase()
       );
       if (!folder) continue;
       const files = [];
-      import_obsidian6.Vault.recurseChildren(folder, (f) => {
-        if (f instanceof import_obsidian6.TFile) files.push(f);
+      import_obsidian7.Vault.recurseChildren(folder, (f) => {
+        if (f instanceof import_obsidian7.TFile) files.push(f);
       });
       if (files.length) out.push({ label, folder, files });
     }
@@ -8539,7 +9049,7 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
       await ensureFolder(this.app, DEFAULT_FOLDER);
     } catch (e) {
       console.error(`Universe Builder: couldn't create "${DEFAULT_FOLDER}"`, e);
-      new import_obsidian6.Notice(t("migrate.createFailed", { folder: DEFAULT_FOLDER }));
+      new import_obsidian7.Notice(t("migrate.createFailed", { folder: DEFAULT_FOLDER }));
       return;
     }
     for (const { label, folder, files } of sections) {
@@ -8590,14 +9100,14 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
     if (skipped.length) lines.push(t("migrate.skipped", { count: skipped.length, files: skipped.join(", ") }));
     if (failed.length) lines.push(t("migrate.failed", { count: failed.length, files: failed.join(", ") }));
     if (leftovers.length && legacy) lines.push(t("migrate.leftovers", { folder: legacy.path, items: leftovers.join(", ") }));
-    new import_obsidian6.Notice(lines.join("\n"), skipped.length || failed.length ? 0 : 8e3);
+    new import_obsidian7.Notice(lines.join("\n"), skipped.length || failed.length ? 0 : 8e3);
     if (!failed.length) await this.offerLegacyCleanup();
   }
   /** True when `folder` or any folder inside it holds at least one file. */
   hasFiles(folder) {
     let found = false;
-    import_obsidian6.Vault.recurseChildren(folder, (f) => {
-      if (f instanceof import_obsidian6.TFile) found = true;
+    import_obsidian7.Vault.recurseChildren(folder, (f) => {
+      if (f instanceof import_obsidian7.TFile) found = true;
     });
     return found;
   }
@@ -8612,8 +9122,8 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
     const legacy = this.findLegacyFolder();
     if (!legacy || this.hasFiles(legacy)) return;
     const emptyFolders = [];
-    import_obsidian6.Vault.recurseChildren(legacy, (f) => {
-      if (f instanceof import_obsidian6.TFolder && f !== legacy) emptyFolders.push(f.path.slice(legacy.path.length + 1));
+    import_obsidian7.Vault.recurseChildren(legacy, (f) => {
+      if (f instanceof import_obsidian7.TFolder && f !== legacy) emptyFolders.push(f.path.slice(legacy.path.length + 1));
     });
     const choice = await new Promise((resolve) => {
       new LegacyCleanupModal(this.app, legacy.path, emptyFolders, resolve).open();
@@ -8625,16 +9135,16 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
     } else {
       const current2 = this.findLegacyFolder();
       if (current2 && this.hasFiles(current2)) {
-        new import_obsidian6.Notice(t("cleanup.hasFiles", { folder: current2.path }));
+        new import_obsidian7.Notice(t("cleanup.hasFiles", { folder: current2.path }));
         return;
       }
       try {
         if (current2) await this.app.fileManager.trashFile(current2);
         state.legacyCleanup = "deleted";
-        new import_obsidian6.Notice(t("cleanup.deleted", { folder: legacy.path }));
+        new import_obsidian7.Notice(t("cleanup.deleted", { folder: legacy.path }));
       } catch (e) {
         console.error(`Universe Builder: couldn't delete "${legacy.path}"`, e);
-        new import_obsidian6.Notice(t("cleanup.failed", { folder: legacy.path }));
+        new import_obsidian7.Notice(t("cleanup.failed", { folder: legacy.path }));
         return;
       }
     }
@@ -8643,7 +9153,7 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
   /** Deletes `folder` and any subfolders that hold no files, deepest first. */
   async removeEmptyFolders(folder) {
     for (const child of [...folder.children]) {
-      if (child instanceof import_obsidian6.TFolder) await this.removeEmptyFolders(child);
+      if (child instanceof import_obsidian7.TFolder) await this.removeEmptyFolders(child);
     }
     if (folder.children.length === 0) {
       try {
@@ -8682,6 +9192,47 @@ var UniverseBuilderPlugin = class extends import_obsidian6.Plugin {
       await leaf.setViewState({ type: VIEW_TYPE, active: true });
     }
     await workspace.revealLeaf(leaf);
+  }
+  /** A sidebar section's entries for the novel editor's Characters / Locations / Groups menus. */
+  universeEntries(kind) {
+    const files = getMarkdownFilesIn(this.app, `${this.settings.worldFolder}/${SECTION_FOLDERS[kind]}`);
+    return files.map((file) => {
+      var _a, _b;
+      const name = (_b = (_a = this.app.metadataCache.getFileCache(file)) == null ? void 0 : _a.frontmatter) == null ? void 0 : _b.name;
+      return { file, name: typeof name === "string" && name.trim() ? name.trim() : file.basename };
+    }).sort((a, b) => a.name.localeCompare(b.name, void 0, { sensitivity: "base", numeric: true }));
+  }
+  /**
+   * An entry's portrait (the same image its sidebar card shows) for the novel editor. Answered from
+   * a cache so the toolbar can draw synchronously: undefined = not read yet. A missing or outdated
+   * value is (re)read in the background, and the novel editor is told to redraw if it changed.
+   */
+  universePortrait(file) {
+    const cached = this.portraitCache.get(file.path);
+    if (cached && cached.mtime === file.stat.mtime) return cached.src;
+    if (!this.portraitLoading.has(file.path)) {
+      this.portraitLoading.add(file.path);
+      const mtime = file.stat.mtime;
+      void this.app.vault.cachedRead(file).then((content) => {
+        var _a, _b;
+        const src = (_b = (_a = findFirstImage(this.app, content, file)) == null ? void 0 : _a.src) != null ? _b : null;
+        this.portraitCache.set(file.path, { mtime, src });
+        if ((cached == null ? void 0 : cached.src) !== src || !cached) this.novelEditor.portraitsChanged();
+      }).catch(() => {
+      }).finally(() => this.portraitLoading.delete(file.path));
+    }
+    return cached == null ? void 0 : cached.src;
+  }
+  /** Opens the sidebar with this entry's card expanded (a novel editor scene label was clicked). */
+  async revealUniverseEntry(file) {
+    await this.activateSidebar();
+    const leaf = this.app.workspace.getLeavesOfType(VIEW_TYPE)[0];
+    if (!leaf) return;
+    await leaf.loadIfDeferred();
+    const view = leaf.view;
+    if (!(view instanceof UniverseBuilderView) || !await view.revealEntry(file)) {
+      new import_obsidian7.Notice(t("novel.entryNotFound", { name: file.basename }));
+    }
   }
   refreshSidebar() {
     const leaf = this.app.workspace.getLeavesOfType(VIEW_TYPE)[0];

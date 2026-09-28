@@ -1101,6 +1101,7 @@
 .ue-toolbar-left { justify-content: flex-start; overflow: hidden; }
 .ue-toolbar-tags { margin-left: 6px; min-width: 0; overflow: hidden; }
 .ue-props-btn { flex: 0 0 auto; }
+.ue-props-btn.is-hidden { display: none; }
 .ue-toolbar-center { justify-content: center; }
 .ue-toolbar-right { justify-content: flex-end; }
 
@@ -1270,3 +1271,99 @@
 /* On narrow panes, long property values truncate instead of pushing the formatting buttons. */
 .ue-toolbar-info .ue-chip { flex: 0 1 auto; min-width: 0; max-width: 180px; overflow: hidden; text-overflow: ellipsis; }
 .ue-wordcount { flex: 0 0 auto; }
+
+/* ---------- Scene lists (Characters / Locations / Groups) ---------- */
+
+/* The toolbar is a size container so the scene buttons can drop their labels when it gets narrow. */
+.ue-toolbar { container-type: inline-size; container-name: ue-toolbar; }
+.ue-scene-group { flex: 0 0 auto; }
+@container ue-toolbar (max-width: 860px) {
+	.ue-scene-btn .ue-btn-label { display: none; }
+}
+
+/* Second toolbar row: one label per character / location / group in the scene. */
+.ue-toolbar-scene {
+	grid-column: 1 / -1;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px;
+	padding: 2px 0 3px;
+}
+.ue-toolbar-scene.is-empty { display: none; }
+
+.ue-scene-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	max-width: 220px;
+	padding: 0 4px 0 8px;
+	line-height: 20px;
+	user-select: none;
+}
+.ue-scene-pill-icon { display: inline-flex; color: var(--text-faint); }
+.ue-scene-pill-icon svg { width: 12px; height: 12px; }
+.ue-scene-pill-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ue-scene-pill-remove {
+	display: inline-flex;
+	border-radius: 50%;
+	color: var(--text-faint);
+	opacity: 0;
+}
+.ue-scene-pill-remove svg { width: 12px; height: 12px; }
+.ue-scene-pill:hover .ue-scene-pill-remove,
+.ue-scene-pill:focus-within .ue-scene-pill-remove { opacity: 1; }
+.ue-scene-pill-remove:hover { color: var(--text-error); background: var(--background-modifier-hover); }
+.ue-scene-pill:focus-visible { box-shadow: 0 0 0 2px var(--background-modifier-border-focus); outline: none; }
+.ue-scene-pill[data-kind="characters"] .ue-scene-pill-icon { color: var(--color-blue, var(--text-accent)); }
+.ue-scene-pill[data-kind="locations"] .ue-scene-pill-icon { color: var(--color-green, var(--text-accent)); }
+.ue-scene-pill[data-kind="groups"] .ue-scene-pill-icon { color: var(--color-orange, var(--text-accent)); }
+.ue-scene-pill.is-unresolved { border-style: dashed; color: var(--text-faint); }
+
+/* The pick menu reuses the Properties panel's frame. */
+.ue-scene-picker { width: min(300px, calc(100% - 16px)); display: flex; flex-direction: column; overflow: hidden; }
+.ue-scene-picker-title { display: inline-flex; align-items: center; gap: 6px; }
+.ue-scene-picker input.ue-scene-search {
+	width: 100%;
+	height: 28px;
+	margin-bottom: 4px;
+	font-size: var(--font-ui-small);
+}
+.ue-scene-options { display: flex; flex-direction: column; gap: 1px; overflow-y: auto; min-height: 0; }
+.ue-scene-option {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	width: 100%;
+	height: 28px;
+	padding: 0 6px;
+	border: none;
+	box-shadow: none;
+	background: transparent;
+	color: var(--text-normal);
+	font-size: var(--font-ui-small);
+	text-align: left;
+	border-radius: var(--radius-s);
+	cursor: var(--cursor);
+	flex: 0 0 auto;
+}
+.ue-scene-option:hover,
+.ue-scene-option.is-active { background: var(--background-modifier-hover); }
+.ue-scene-option.is-selected { color: var(--text-accent); }
+.ue-scene-check { display: inline-flex; width: 16px; flex: 0 0 16px; }
+.ue-scene-check svg { width: 14px; height: 14px; }
+.ue-scene-option-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Portraits (the image each entry's sidebar card shows) in place of the section icon. */
+.ue-scene-pill-icon.has-portrait,
+.ue-scene-avatar.has-portrait {
+	flex: 0 0 auto;
+	overflow: hidden;
+	border-radius: 50%;
+	background: var(--background-modifier-border);
+}
+.ue-scene-pill-icon.has-portrait { width: 18px; height: 18px; margin-left: -6px; }
+.ue-scene-pill-icon.has-portrait img,
+.ue-scene-avatar.has-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ue-scene-avatar { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex: 0 0 20px; color: var(--text-faint); }
+.ue-scene-avatar svg { width: 14px; height: 14px; }
