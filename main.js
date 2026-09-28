@@ -344,11 +344,6 @@ var en = {
   "novel.listPlaceholder": "item, item, \u2026",
   "novel.propertyExists": 'Property "{name}" already exists.',
   "novel.updateFailed": "Couldn't update properties. Check the note's frontmatter for YAML errors.",
-  "novel.charactersTooltip": "Characters in this scene",
-  "novel.locationsTooltip": "Locations in this scene",
-  "novel.groupsTooltip": "Groups in this scene",
-  "novel.loreTooltip": "Lore in this scene",
-  "novel.timelineTooltip": "Timeline events in this scene",
   "novel.noCharacters": "No characters in the sidebar yet.",
   "novel.noLocations": "No locations in the sidebar yet.",
   "novel.noGroups": "No groups in the sidebar yet.",
@@ -359,10 +354,14 @@ var en = {
   "novel.openInSidebar": "Open {name} in the sidebar",
   "novel.entryNotFound": `"{name}" isn't in the Universe Builder sidebar.`,
   "novel.removeFromScene": "Remove from scene",
+  "novel.sceneMetadata": "Scene Metadata",
+  "novel.sceneMetadataTooltip": "Show or hide the scene's characters, locations, groups, lore and timeline",
+  "novel.addToScene": "Add to {section}",
   "novel.alreadyInScene": "{name} is already in this scene.",
   "command.novelUnderline": "Toggle underline",
   "command.novelStrikethrough": "Toggle strikethrough",
   "command.novelProperties": "Open properties panel",
+  "command.novelSceneMetadata": "Toggle scene metadata",
   "settings.novelHeading": "Novel scene editor",
   "settings.novel": "Use the novel scene editor",
   "settings.novelDesc": "For notes in the main editor that have every required property: adds a toolbar above the text (the scene's characters / locations / groups / lore / timeline, bold / italic / underline / strikethrough, alignment, word count) and hides the properties block at the top of the note.",
@@ -374,6 +373,8 @@ var en = {
   "settings.novelHidePropsDesc": 'Hide the properties block at the top of the note; edit them with the Properties button or the "Open properties panel" command instead.',
   "settings.novelWordCount": "Show word count",
   "settings.novelWordCountDesc": "Show the note's word count, and the selection's, on the right of the toolbar.",
+  "settings.novelLockTitle": "Lock scene title",
+  "settings.novelLockTitleDesc": "Keep the scene's title (the note's file name, shown in bold above the text) from being edited in the novel scene editor, so a scene can't be renamed there by accident.",
   "settings.novelPropsButton": "Show Properties button",
   "settings.novelPropsButtonDesc": `Add a Properties button to the toolbar for editing the note's properties. The "Open properties panel" command works either way.`
 };
@@ -695,11 +696,6 @@ var es = {
   "novel.listPlaceholder": "elemento, elemento, \u2026",
   "novel.propertyExists": 'La propiedad "{name}" ya existe.',
   "novel.updateFailed": "No se pudieron actualizar las propiedades. Revisa si hay errores de YAML en el frontmatter de la nota.",
-  "novel.charactersTooltip": "Personajes de esta escena",
-  "novel.locationsTooltip": "Lugares de esta escena",
-  "novel.groupsTooltip": "Grupos de esta escena",
-  "novel.loreTooltip": "Trasfondo de esta escena",
-  "novel.timelineTooltip": "Eventos de la cronolog\xEDa en esta escena",
   "novel.noCharacters": "A\xFAn no hay personajes en la barra lateral.",
   "novel.noLocations": "A\xFAn no hay lugares en la barra lateral.",
   "novel.noGroups": "A\xFAn no hay grupos en la barra lateral.",
@@ -710,10 +706,14 @@ var es = {
   "novel.openInSidebar": "Abrir {name} en la barra lateral",
   "novel.entryNotFound": "\xAB{name}\xBB no est\xE1 en la barra lateral de Universe Builder.",
   "novel.removeFromScene": "Quitar de la escena",
+  "novel.sceneMetadata": "Metadatos de la escena",
+  "novel.sceneMetadataTooltip": "Mostrar u ocultar los personajes, lugares, grupos, trasfondo y cronolog\xEDa de la escena",
+  "novel.addToScene": "A\xF1adir a {section}",
   "novel.alreadyInScene": "{name} ya est\xE1 en esta escena.",
   "command.novelUnderline": "Alternar subrayado",
   "command.novelStrikethrough": "Alternar tachado",
   "command.novelProperties": "Abrir el panel de propiedades",
+  "command.novelSceneMetadata": "Mostrar u ocultar los metadatos de la escena",
   "settings.novelHeading": "Editor de escenas de novela",
   "settings.novel": "Usar el editor de escenas de novela",
   "settings.novelDesc": "En las notas del editor principal que tienen todas las propiedades obligatorias: a\xF1ade una barra de herramientas sobre el texto (personajes / lugares / grupos / trasfondo / cronolog\xEDa de la escena, negrita / cursiva / subrayado / tachado, alineaci\xF3n, recuento de palabras) y oculta el bloque de propiedades al principio de la nota.",
@@ -725,6 +725,8 @@ var es = {
   "settings.novelHidePropsDesc": "Oculta el bloque de propiedades al principio de la nota; se editan con el bot\xF3n Propiedades o con el comando \xABAbrir el panel de propiedades\xBB.",
   "settings.novelWordCount": "Mostrar el recuento de palabras",
   "settings.novelWordCountDesc": "Muestra el n\xFAmero de palabras de la nota, y de la selecci\xF3n, a la derecha de la barra de herramientas.",
+  "settings.novelLockTitle": "Bloquear el t\xEDtulo de la escena",
+  "settings.novelLockTitleDesc": "Impide editar el t\xEDtulo de la escena (el nombre del archivo de la nota, en negrita sobre el texto) en el editor de escenas, para no renombrar una escena por accidente.",
   "settings.novelPropsButton": "Mostrar el bot\xF3n Propiedades",
   "settings.novelPropsButtonDesc": "A\xF1ade a la barra de herramientas un bot\xF3n Propiedades para editar las propiedades de la nota. El comando \xABAbrir el panel de propiedades\xBB funciona en cualquier caso."
 };
@@ -1046,11 +1048,6 @@ var pt = {
   "novel.listPlaceholder": "item, item, \u2026",
   "novel.propertyExists": 'A propriedade "{name}" j\xE1 existe.',
   "novel.updateFailed": "N\xE3o foi poss\xEDvel atualizar as propriedades. Verifique se h\xE1 erros de YAML no frontmatter da nota.",
-  "novel.charactersTooltip": "Personagens desta cena",
-  "novel.locationsTooltip": "Locais desta cena",
-  "novel.groupsTooltip": "Grupos desta cena",
-  "novel.loreTooltip": "Lore desta cena",
-  "novel.timelineTooltip": "Eventos da cronologia desta cena",
   "novel.noCharacters": "Ainda n\xE3o h\xE1 personagens na barra lateral.",
   "novel.noLocations": "Ainda n\xE3o h\xE1 locais na barra lateral.",
   "novel.noGroups": "Ainda n\xE3o h\xE1 grupos na barra lateral.",
@@ -1061,10 +1058,14 @@ var pt = {
   "novel.openInSidebar": "Abrir {name} na barra lateral",
   "novel.entryNotFound": "\xAB{name}\xBB n\xE3o est\xE1 na barra lateral do Universe Builder.",
   "novel.removeFromScene": "Retirar da cena",
+  "novel.sceneMetadata": "Metadados da cena",
+  "novel.sceneMetadataTooltip": "Mostrar ou ocultar as personagens, locais, grupos, lore e cronologia da cena",
+  "novel.addToScene": "Adicionar a {section}",
   "novel.alreadyInScene": "{name} j\xE1 est\xE1 nesta cena.",
   "command.novelUnderline": "Alternar sublinhado",
   "command.novelStrikethrough": "Alternar rasurado",
   "command.novelProperties": "Abrir o painel de propriedades",
+  "command.novelSceneMetadata": "Mostrar ou ocultar os metadados da cena",
   "settings.novelHeading": "Editor de cenas de romance",
   "settings.novel": "Usar o editor de cenas de romance",
   "settings.novelDesc": "Nas notas do editor principal que t\xEAm todas as propriedades obrigat\xF3rias: adiciona uma barra de ferramentas acima do texto (personagens / locais / grupos / lore / cronologia da cena, negrito / it\xE1lico / sublinhado / rasurado, alinhamento, contagem de palavras) e oculta o bloco de propriedades no in\xEDcio da nota.",
@@ -1076,6 +1077,8 @@ var pt = {
   "settings.novelHidePropsDesc": "Oculta o bloco de propriedades no in\xEDcio da nota; s\xE3o editadas com o bot\xE3o Propriedades ou com o comando \xABAbrir o painel de propriedades\xBB.",
   "settings.novelWordCount": "Mostrar a contagem de palavras",
   "settings.novelWordCountDesc": "Mostra o n\xFAmero de palavras da nota, e da sele\xE7\xE3o, \xE0 direita da barra de ferramentas.",
+  "settings.novelLockTitle": "Bloquear o t\xEDtulo da cena",
+  "settings.novelLockTitleDesc": "Impede que o t\xEDtulo da cena (o nome do ficheiro da nota, a negrito por cima do texto) seja editado no editor de cenas, para que uma cena n\xE3o seja renomeada por engano.",
   "settings.novelPropsButton": "Mostrar o bot\xE3o Propriedades",
   "settings.novelPropsButtonDesc": "Adiciona \xE0 barra de ferramentas um bot\xE3o Propriedades para editar as propriedades da nota. O comando \xABAbrir o painel de propriedades\xBB funciona de qualquer forma."
 };
@@ -1397,11 +1400,6 @@ var ptBR = {
   "novel.listPlaceholder": "item, item, \u2026",
   "novel.propertyExists": 'A propriedade "{name}" j\xE1 existe.',
   "novel.updateFailed": "N\xE3o foi poss\xEDvel atualizar as propriedades. Verifique se h\xE1 erros de YAML no frontmatter da nota.",
-  "novel.charactersTooltip": "Personagens desta cena",
-  "novel.locationsTooltip": "Locais desta cena",
-  "novel.groupsTooltip": "Grupos desta cena",
-  "novel.loreTooltip": "Lore desta cena",
-  "novel.timelineTooltip": "Eventos da linha do tempo desta cena",
   "novel.noCharacters": "Ainda n\xE3o h\xE1 personagens na barra lateral.",
   "novel.noLocations": "Ainda n\xE3o h\xE1 locais na barra lateral.",
   "novel.noGroups": "Ainda n\xE3o h\xE1 grupos na barra lateral.",
@@ -1412,10 +1410,14 @@ var ptBR = {
   "novel.openInSidebar": "Abrir {name} na barra lateral",
   "novel.entryNotFound": '"{name}" n\xE3o est\xE1 na barra lateral do Universe Builder.',
   "novel.removeFromScene": "Remover da cena",
+  "novel.sceneMetadata": "Metadados da cena",
+  "novel.sceneMetadataTooltip": "Mostrar ou ocultar os personagens, locais, grupos, lore e linha do tempo da cena",
+  "novel.addToScene": "Adicionar a {section}",
   "novel.alreadyInScene": "{name} j\xE1 est\xE1 nesta cena.",
   "command.novelUnderline": "Alternar sublinhado",
   "command.novelStrikethrough": "Alternar tachado",
   "command.novelProperties": "Abrir o painel de propriedades",
+  "command.novelSceneMetadata": "Mostrar ou ocultar os metadados da cena",
   "settings.novelHeading": "Editor de cenas de romance",
   "settings.novel": "Usar o editor de cenas de romance",
   "settings.novelDesc": "Nas notas do editor principal que t\xEAm todas as propriedades obrigat\xF3rias: adiciona uma barra de ferramentas acima do texto (personagens / locais / grupos / lore / linha do tempo da cena, negrito / it\xE1lico / sublinhado / tachado, alinhamento, contagem de palavras) e oculta o bloco de propriedades no in\xEDcio da nota.",
@@ -1427,6 +1429,8 @@ var ptBR = {
   "settings.novelHidePropsDesc": 'Oculta o bloco de propriedades no in\xEDcio da nota; elas s\xE3o editadas pelo bot\xE3o Propriedades ou pelo comando "Abrir o painel de propriedades".',
   "settings.novelWordCount": "Mostrar a contagem de palavras",
   "settings.novelWordCountDesc": "Mostra o n\xFAmero de palavras da nota, e da sele\xE7\xE3o, \xE0 direita da barra de ferramentas.",
+  "settings.novelLockTitle": "Bloquear o t\xEDtulo da cena",
+  "settings.novelLockTitleDesc": "Impede que o t\xEDtulo da cena (o nome do arquivo da nota, em negrito acima do texto) seja editado no editor de cenas, para que uma cena n\xE3o seja renomeada sem querer.",
   "settings.novelPropsButton": "Mostrar o bot\xE3o Propriedades",
   "settings.novelPropsButtonDesc": 'Adiciona \xE0 barra de ferramentas um bot\xE3o Propriedades para editar as propriedades da nota. O comando "Abrir o painel de propriedades" funciona de qualquer jeito.'
 };
@@ -1748,11 +1752,6 @@ var fr = {
   "novel.listPlaceholder": "\xE9l\xE9ment, \xE9l\xE9ment, \u2026",
   "novel.propertyExists": "La propri\xE9t\xE9 \xAB {name} \xBB existe d\xE9j\xE0.",
   "novel.updateFailed": "Impossible de mettre \xE0 jour les propri\xE9t\xE9s. V\xE9rifiez le frontmatter de la note (erreurs YAML).",
-  "novel.charactersTooltip": "Personnages de cette sc\xE8ne",
-  "novel.locationsTooltip": "Lieux de cette sc\xE8ne",
-  "novel.groupsTooltip": "Groupes de cette sc\xE8ne",
-  "novel.loreTooltip": "Lore de cette sc\xE8ne",
-  "novel.timelineTooltip": "\xC9v\xE9nements de la chronologie dans cette sc\xE8ne",
   "novel.noCharacters": "Aucun personnage dans la barre lat\xE9rale pour l'instant.",
   "novel.noLocations": "Aucun lieu dans la barre lat\xE9rale pour l'instant.",
   "novel.noGroups": "Aucun groupe dans la barre lat\xE9rale pour l'instant.",
@@ -1763,10 +1762,14 @@ var fr = {
   "novel.openInSidebar": "Ouvrir {name} dans la barre lat\xE9rale",
   "novel.entryNotFound": "\xAB {name} \xBB n'est pas dans la barre lat\xE9rale d'Universe Builder.",
   "novel.removeFromScene": "Retirer de la sc\xE8ne",
+  "novel.sceneMetadata": "M\xE9tadonn\xE9es de la sc\xE8ne",
+  "novel.sceneMetadataTooltip": "Afficher ou masquer les personnages, lieux, groupes, lore et chronologie de la sc\xE8ne",
+  "novel.addToScene": "Ajouter \xE0 {section}",
   "novel.alreadyInScene": "{name} est d\xE9j\xE0 dans cette sc\xE8ne.",
   "command.novelUnderline": "Activer/d\xE9sactiver le soulign\xE9",
   "command.novelStrikethrough": "Activer/d\xE9sactiver le barr\xE9",
   "command.novelProperties": "Ouvrir le panneau des propri\xE9t\xE9s",
+  "command.novelSceneMetadata": "Afficher ou masquer les m\xE9tadonn\xE9es de la sc\xE8ne",
   "settings.novelHeading": "\xC9diteur de sc\xE8nes de roman",
   "settings.novel": "Utiliser l'\xE9diteur de sc\xE8nes de roman",
   "settings.novelDesc": "Pour les notes de l'\xE9diteur principal qui ont toutes les propri\xE9t\xE9s obligatoires : ajoute une barre d'outils au-dessus du texte (personnages / lieux / groupes / lore / chronologie de la sc\xE8ne, gras / italique / soulign\xE9 / barr\xE9, alignement, nombre de mots) et masque le bloc des propri\xE9t\xE9s en haut de la note.",
@@ -1778,6 +1781,8 @@ var fr = {
   "settings.novelHidePropsDesc": "Masque le bloc des propri\xE9t\xE9s en haut de la note ; le bouton Propri\xE9t\xE9s ou la commande \xAB Ouvrir le panneau des propri\xE9t\xE9s \xBB permettent de les modifier.",
   "settings.novelWordCount": "Afficher le nombre de mots",
   "settings.novelWordCountDesc": "Affiche le nombre de mots de la note, et de la s\xE9lection, \xE0 droite de la barre d'outils.",
+  "settings.novelLockTitle": "Verrouiller le titre de la sc\xE8ne",
+  "settings.novelLockTitleDesc": "Emp\xEAche de modifier le titre de la sc\xE8ne (le nom du fichier de la note, en gras au-dessus du texte) dans l'\xE9diteur de sc\xE8nes, pour ne pas renommer une sc\xE8ne par accident.",
   "settings.novelPropsButton": "Afficher le bouton Propri\xE9t\xE9s",
   "settings.novelPropsButtonDesc": "Ajoute \xE0 la barre d'outils un bouton Propri\xE9t\xE9s pour modifier les propri\xE9t\xE9s de la note. La commande \xAB Ouvrir le panneau des propri\xE9t\xE9s \xBB fonctionne dans tous les cas."
 };
@@ -2099,11 +2104,6 @@ var de = {
   "novel.listPlaceholder": "Eintrag, Eintrag, \u2026",
   "novel.propertyExists": "Die Eigenschaft \u201E{name}\u201C gibt es schon.",
   "novel.updateFailed": "Die Eigenschaften konnten nicht aktualisiert werden. Pr\xFCfe das Frontmatter der Notiz auf YAML-Fehler.",
-  "novel.charactersTooltip": "Figuren in dieser Szene",
-  "novel.locationsTooltip": "Orte in dieser Szene",
-  "novel.groupsTooltip": "Gruppen in dieser Szene",
-  "novel.loreTooltip": "Lore in dieser Szene",
-  "novel.timelineTooltip": "Zeitleisten-Ereignisse in dieser Szene",
   "novel.noCharacters": "Noch keine Figuren in der Seitenleiste.",
   "novel.noLocations": "Noch keine Orte in der Seitenleiste.",
   "novel.noGroups": "Noch keine Gruppen in der Seitenleiste.",
@@ -2114,10 +2114,14 @@ var de = {
   "novel.openInSidebar": "{name} in der Seitenleiste \xF6ffnen",
   "novel.entryNotFound": "\u201E{name}\u201C ist nicht in der Universe-Builder-Seitenleiste.",
   "novel.removeFromScene": "Aus der Szene entfernen",
+  "novel.sceneMetadata": "Szenen-Metadaten",
+  "novel.sceneMetadataTooltip": "Figuren, Orte, Gruppen, Lore und Zeitleiste der Szene ein- oder ausblenden",
+  "novel.addToScene": "Zu {section} hinzuf\xFCgen",
   "novel.alreadyInScene": "{name} ist bereits in dieser Szene.",
   "command.novelUnderline": "Unterstreichen umschalten",
   "command.novelStrikethrough": "Durchstreichen umschalten",
   "command.novelProperties": "Eigenschaften-Panel \xF6ffnen",
+  "command.novelSceneMetadata": "Szenen-Metadaten ein- oder ausblenden",
   "settings.novelHeading": "Roman-Szeneneditor",
   "settings.novel": "Roman-Szeneneditor verwenden",
   "settings.novelDesc": "F\xFCr Notizen im Haupteditor, die alle Pflichteigenschaften haben: f\xFCgt \xFCber dem Text eine Werkzeugleiste hinzu (Figuren / Orte / Gruppen / Lore / Zeitleiste der Szene, fett / kursiv / unterstrichen / durchgestrichen, Ausrichtung, Wortzahl) und blendet den Eigenschaftenblock oben in der Notiz aus.",
@@ -2129,6 +2133,8 @@ var de = {
   "settings.novelHidePropsDesc": "Blendet den Eigenschaftenblock oben in der Notiz aus; bearbeitet werden sie \xFCber die Schaltfl\xE4che Eigenschaften oder den Befehl \u201EEigenschaften-Panel \xF6ffnen\u201C.",
   "settings.novelWordCount": "Wortzahl anzeigen",
   "settings.novelWordCountDesc": "Zeigt die Wortzahl der Notiz, und der Auswahl, rechts in der Werkzeugleiste.",
+  "settings.novelLockTitle": "Szenentitel sperren",
+  "settings.novelLockTitleDesc": "Verhindert, dass der Titel der Szene (der Dateiname der Notiz, fett \xFCber dem Text) im Szeneneditor bearbeitet wird, damit eine Szene nicht versehentlich umbenannt wird.",
   "settings.novelPropsButton": "Schaltfl\xE4che Eigenschaften anzeigen",
   "settings.novelPropsButtonDesc": "F\xFCgt der Werkzeugleiste eine Schaltfl\xE4che Eigenschaften zum Bearbeiten der Eigenschaften der Notiz hinzu. Der Befehl \u201EEigenschaften-Panel \xF6ffnen\u201C funktioniert in jedem Fall."
 };
@@ -2450,11 +2456,6 @@ var ru = {
   "novel.listPlaceholder": "\u044D\u043B\u0435\u043C\u0435\u043D\u0442, \u044D\u043B\u0435\u043C\u0435\u043D\u0442, \u2026",
   "novel.propertyExists": "\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u043E \xAB{name}\xBB \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442.",
   "novel.updateFailed": "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430. \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 frontmatter \u0437\u0430\u043C\u0435\u0442\u043A\u0438 \u043D\u0430 \u043E\u0448\u0438\u0431\u043A\u0438 YAML.",
-  "novel.charactersTooltip": "\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438 \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
-  "novel.locationsTooltip": "\u041C\u0435\u0441\u0442\u0430 \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
-  "novel.groupsTooltip": "\u0413\u0440\u0443\u043F\u043F\u044B \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
-  "novel.loreTooltip": "\u041B\u043E\u0440 \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
-  "novel.timelineTooltip": "\u0421\u043E\u0431\u044B\u0442\u0438\u044F \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0438\u0438 \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
   "novel.noCharacters": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0435\u0439.",
   "novel.noLocations": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043C\u0435\u0441\u0442.",
   "novel.noGroups": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0433\u0440\u0443\u043F\u043F.",
@@ -2465,10 +2466,14 @@ var ru = {
   "novel.openInSidebar": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \xAB{name}\xBB \u043D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438",
   "novel.entryNotFound": "\xAB{name}\xBB \u043D\u0435\u0442 \u043D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 Universe Builder.",
   "novel.removeFromScene": "\u0423\u0431\u0440\u0430\u0442\u044C \u0438\u0437 \u0441\u0446\u0435\u043D\u044B",
+  "novel.sceneMetadata": "\u041C\u0435\u0442\u0430\u0434\u0430\u043D\u043D\u044B\u0435 \u0441\u0446\u0435\u043D\u044B",
+  "novel.sceneMetadataTooltip": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0438\u043B\u0438 \u0441\u043A\u0440\u044B\u0442\u044C \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0435\u0439, \u043C\u0435\u0441\u0442\u0430, \u0433\u0440\u0443\u043F\u043F\u044B, \u043B\u043E\u0440 \u0438 \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0438\u044E \u0441\u0446\u0435\u043D\u044B",
+  "novel.addToScene": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0432 \u0440\u0430\u0437\u0434\u0435\u043B \xAB{section}\xBB",
   "novel.alreadyInScene": "\xAB{name}\xBB \u0443\u0436\u0435 \u0435\u0441\u0442\u044C \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435.",
   "command.novelUnderline": "\u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043F\u043E\u0434\u0447\u0451\u0440\u043A\u0438\u0432\u0430\u043D\u0438\u0435",
   "command.novelStrikethrough": "\u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0430\u0447\u0451\u0440\u043A\u0438\u0432\u0430\u043D\u0438\u0435",
   "command.novelProperties": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0430\u043D\u0435\u043B\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432",
+  "command.novelSceneMetadata": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0438\u043B\u0438 \u0441\u043A\u0440\u044B\u0442\u044C \u043C\u0435\u0442\u0430\u0434\u0430\u043D\u043D\u044B\u0435 \u0441\u0446\u0435\u043D\u044B",
   "settings.novelHeading": "\u0420\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0430",
   "settings.novel": "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0430",
   "settings.novelDesc": "\u0414\u043B\u044F \u0437\u0430\u043C\u0435\u0442\u043E\u043A \u0432 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435, \u0443 \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0435\u0441\u0442\u044C \u0432\u0441\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430: \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442 \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C \u043F\u0430\u043D\u0435\u043B\u044C \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432 (\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438 / \u043C\u0435\u0441\u0442\u0430 / \u0433\u0440\u0443\u043F\u043F\u044B / \u043B\u043E\u0440 / \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0438\u044F \u0441\u0446\u0435\u043D\u044B, \u0436\u0438\u0440\u043D\u044B\u0439 / \u043A\u0443\u0440\u0441\u0438\u0432 / \u043F\u043E\u0434\u0447\u0451\u0440\u043A\u043D\u0443\u0442\u044B\u0439 / \u0437\u0430\u0447\u0451\u0440\u043A\u043D\u0443\u0442\u044B\u0439, \u0432\u044B\u0440\u0430\u0432\u043D\u0438\u0432\u0430\u043D\u0438\u0435, \u0447\u0438\u0441\u043B\u043E \u0441\u043B\u043E\u0432) \u0438 \u0441\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0431\u043B\u043E\u043A \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0432 \u043D\u0430\u0447\u0430\u043B\u0435 \u0437\u0430\u043C\u0435\u0442\u043A\u0438.",
@@ -2480,6 +2485,8 @@ var ru = {
   "settings.novelHidePropsDesc": "\u0421\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0431\u043B\u043E\u043A \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0432 \u043D\u0430\u0447\u0430\u043B\u0435 \u0437\u0430\u043C\u0435\u0442\u043A\u0438; \u0438\u0445 \u043C\u043E\u0436\u043D\u043E \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043A\u043D\u043E\u043F\u043A\u043E\u0439 \xAB\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u0430\xBB \u0438\u043B\u0438 \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u0439 \xAB\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0430\u043D\u0435\u043B\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432\xBB.",
   "settings.novelWordCount": "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C \u0447\u0438\u0441\u043B\u043E \u0441\u043B\u043E\u0432",
   "settings.novelWordCountDesc": "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442 \u0447\u0438\u0441\u043B\u043E \u0441\u043B\u043E\u0432 \u0432 \u0437\u0430\u043C\u0435\u0442\u043A\u0435 \u0438 \u0432 \u0432\u044B\u0434\u0435\u043B\u0435\u043D\u0438\u0438 \u0441\u043F\u0440\u0430\u0432\u0430 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u0438 \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432.",
+  "settings.novelLockTitle": "\u0417\u0430\u0449\u0438\u0442\u0438\u0442\u044C \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0441\u0446\u0435\u043D\u044B",
+  "settings.novelLockTitleDesc": "\u041D\u0435 \u0434\u0430\u0451\u0442 \u0438\u0437\u043C\u0435\u043D\u044F\u0442\u044C \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0441\u0446\u0435\u043D\u044B (\u0438\u043C\u044F \u0444\u0430\u0439\u043B\u0430 \u0437\u0430\u043C\u0435\u0442\u043A\u0438, \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u0435 \u0436\u0438\u0440\u043D\u044B\u043C \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C) \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435 \u0441\u0446\u0435\u043D, \u0447\u0442\u043E\u0431\u044B \u0441\u0446\u0435\u043D\u0443 \u043D\u0435\u043B\u044C\u0437\u044F \u0431\u044B\u043B\u043E \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u043E \u043F\u0435\u0440\u0435\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u0442\u044C.",
   "settings.novelPropsButton": "\u041F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0442\u044C \u043A\u043D\u043E\u043F\u043A\u0443 \xAB\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u0430\xBB",
   "settings.novelPropsButtonDesc": "\u0414\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u044C \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432 \u043A\u043D\u043E\u043F\u043A\u0443 \xAB\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u0430\xBB \u0434\u043B\u044F \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0437\u0430\u043C\u0435\u0442\u043A\u0438. \u041A\u043E\u043C\u0430\u043D\u0434\u0430 \xAB\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0430\u043D\u0435\u043B\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432\xBB \u0440\u0430\u0431\u043E\u0442\u0430\u0435\u0442 \u0432 \u043B\u044E\u0431\u043E\u043C \u0441\u043B\u0443\u0447\u0430\u0435."
 };
@@ -2801,11 +2808,6 @@ var uk = {
   "novel.listPlaceholder": "\u0435\u043B\u0435\u043C\u0435\u043D\u0442, \u0435\u043B\u0435\u043C\u0435\u043D\u0442, \u2026",
   "novel.propertyExists": "\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u0456\u0441\u0442\u044C \xAB{name}\xBB \u0443\u0436\u0435 \u0456\u0441\u043D\u0443\u0454.",
   "novel.updateFailed": "\u041D\u0435 \u0432\u0434\u0430\u043B\u043E\u0441\u044F \u043E\u043D\u043E\u0432\u0438\u0442\u0438 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456. \u041F\u0435\u0440\u0435\u0432\u0456\u0440\u0442\u0435 frontmatter \u043D\u043E\u0442\u0430\u0442\u043A\u0438 \u043D\u0430 \u043F\u043E\u043C\u0438\u043B\u043A\u0438 YAML.",
-  "novel.charactersTooltip": "\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456 \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
-  "novel.locationsTooltip": "\u041C\u0456\u0441\u0446\u044F \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
-  "novel.groupsTooltip": "\u0413\u0440\u0443\u043F\u0438 \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
-  "novel.loreTooltip": "\u041B\u043E\u0440 \u0443 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
-  "novel.timelineTooltip": "\u041F\u043E\u0434\u0456\u0457 \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0456\u0457 \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
   "novel.noCharacters": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456\u0432.",
   "novel.noLocations": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u043C\u0456\u0441\u0446\u044C.",
   "novel.noGroups": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u0433\u0440\u0443\u043F.",
@@ -2816,10 +2818,14 @@ var uk = {
   "novel.openInSidebar": "\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \xAB{name}\xBB \u043D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456",
   "novel.entryNotFound": "\xAB{name}\xBB \u043D\u0435\u043C\u0430\u0454 \u043D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 Universe Builder.",
   "novel.removeFromScene": "\u041F\u0440\u0438\u0431\u0440\u0430\u0442\u0438 \u0437\u0456 \u0441\u0446\u0435\u043D\u0438",
+  "novel.sceneMetadata": "\u041C\u0435\u0442\u0430\u0434\u0430\u043D\u0456 \u0441\u0446\u0435\u043D\u0438",
+  "novel.sceneMetadataTooltip": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u0430\u0431\u043E \u043F\u0440\u0438\u0445\u043E\u0432\u0430\u0442\u0438 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456\u0432, \u043C\u0456\u0441\u0446\u044F, \u0433\u0440\u0443\u043F\u0438, \u043B\u043E\u0440 \u0456 \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0456\u044E \u0441\u0446\u0435\u043D\u0438",
+  "novel.addToScene": "\u0414\u043E\u0434\u0430\u0442\u0438 \u0434\u043E \u0440\u043E\u0437\u0434\u0456\u043B\u0443 \xAB{section}\xBB",
   "novel.alreadyInScene": "\xAB{name}\xBB \u0443\u0436\u0435 \u0454 \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456.",
   "command.novelUnderline": "\u041F\u0435\u0440\u0435\u043C\u043A\u043D\u0443\u0442\u0438 \u043F\u0456\u0434\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u043D\u044F",
   "command.novelStrikethrough": "\u041F\u0435\u0440\u0435\u043C\u043A\u043D\u0443\u0442\u0438 \u0437\u0430\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u043D\u044F",
   "command.novelProperties": "\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \u043F\u0430\u043D\u0435\u043B\u044C \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439",
+  "command.novelSceneMetadata": "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u0438 \u0430\u0431\u043E \u043F\u0440\u0438\u0445\u043E\u0432\u0430\u0442\u0438 \u043C\u0435\u0442\u0430\u0434\u0430\u043D\u0456 \u0441\u0446\u0435\u043D\u0438",
   "settings.novelHeading": "\u0420\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0443",
   "settings.novel": "\u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0432\u0430\u0442\u0438 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0443",
   "settings.novelDesc": "\u0414\u043B\u044F \u043D\u043E\u0442\u0430\u0442\u043E\u043A \u0432 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C\u0443 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0456, \u0449\u043E \u043C\u0430\u044E\u0442\u044C \u0443\u0441\u0456 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0456 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456: \u0434\u043E\u0434\u0430\u0454 \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C \u043F\u0430\u043D\u0435\u043B\u044C \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432 (\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456 / \u043C\u0456\u0441\u0446\u044F / \u0433\u0440\u0443\u043F\u0438 / \u043B\u043E\u0440 / \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0456\u044F \u0441\u0446\u0435\u043D\u0438, \u0436\u0438\u0440\u043D\u0438\u0439 / \u043A\u0443\u0440\u0441\u0438\u0432 / \u043F\u0456\u0434\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u0438\u0439 / \u0437\u0430\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u0438\u0439, \u0432\u0438\u0440\u0456\u0432\u043D\u044E\u0432\u0430\u043D\u043D\u044F, \u043A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043B\u0456\u0432) \u0456 \u043F\u0440\u0438\u0445\u043E\u0432\u0443\u0454 \u0431\u043B\u043E\u043A \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443 \u043D\u043E\u0442\u0430\u0442\u043A\u0438.",
@@ -2831,6 +2837,8 @@ var uk = {
   "settings.novelHidePropsDesc": "\u041F\u0440\u0438\u0445\u043E\u0432\u0443\u0454 \u0431\u043B\u043E\u043A \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443 \u043D\u043E\u0442\u0430\u0442\u043A\u0438; \u0457\u0445 \u043C\u043E\u0436\u043D\u0430 \u0437\u043C\u0456\u043D\u0438\u0442\u0438 \u043A\u043D\u043E\u043F\u043A\u043E\u044E \xAB\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456\xBB \u0430\u0431\u043E \u043A\u043E\u043C\u0430\u043D\u0434\u043E\u044E \xAB\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \u043F\u0430\u043D\u0435\u043B\u044C \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439\xBB.",
   "settings.novelWordCount": "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u043A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043B\u0456\u0432",
   "settings.novelWordCountDesc": "\u041F\u043E\u043A\u0430\u0437\u0443\u0454 \u043A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043B\u0456\u0432 \u0443 \u043D\u043E\u0442\u0430\u0442\u0446\u0456 \u0442\u0430 \u0443 \u0432\u0438\u0434\u0456\u043B\u0435\u043D\u043D\u0456 \u043F\u0440\u0430\u0432\u043E\u0440\u0443\u0447 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u0456 \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432.",
+  "settings.novelLockTitle": "\u0417\u0430\u0445\u0438\u0441\u0442\u0438\u0442\u0438 \u043D\u0430\u0437\u0432\u0443 \u0441\u0446\u0435\u043D\u0438",
+  "settings.novelLockTitleDesc": "\u041D\u0435 \u0434\u0430\u0454 \u0437\u043C\u0456\u043D\u044E\u0432\u0430\u0442\u0438 \u043D\u0430\u0437\u0432\u0443 \u0441\u0446\u0435\u043D\u0438 (\u0456\u043C'\u044F \u0444\u0430\u0439\u043B\u0443 \u043D\u043E\u0442\u0430\u0442\u043A\u0438, \u043F\u043E\u043A\u0430\u0437\u0430\u043D\u0435 \u0436\u0438\u0440\u043D\u0438\u043C \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C) \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0456 \u0441\u0446\u0435\u043D, \u0449\u043E\u0431 \u0441\u0446\u0435\u043D\u0443 \u043D\u0435 \u043C\u043E\u0436\u043D\u0430 \u0431\u0443\u043B\u043E \u0432\u0438\u043F\u0430\u0434\u043A\u043E\u0432\u043E \u043F\u0435\u0440\u0435\u0439\u043C\u0435\u043D\u0443\u0432\u0430\u0442\u0438.",
   "settings.novelPropsButton": "\u041F\u043E\u043A\u0430\u0437\u0443\u0432\u0430\u0442\u0438 \u043A\u043D\u043E\u043F\u043A\u0443 \xAB\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456\xBB",
   "settings.novelPropsButtonDesc": "\u0414\u043E\u0434\u0430\u0454 \u043D\u0430 \u043F\u0430\u043D\u0435\u043B\u044C \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432 \u043A\u043D\u043E\u043F\u043A\u0443 \xAB\u0412\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456\xBB \u0434\u043B\u044F \u0437\u043C\u0456\u043D\u0438 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u043E\u0442\u0430\u0442\u043A\u0438. \u041A\u043E\u043C\u0430\u043D\u0434\u0430 \xAB\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \u043F\u0430\u043D\u0435\u043B\u044C \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439\xBB \u043F\u0440\u0430\u0446\u044E\u0454 \u0432 \u0431\u0443\u0434\u044C-\u044F\u043A\u043E\u043C\u0443 \u0440\u0430\u0437\u0456."
 };
@@ -3152,11 +3160,6 @@ var zh = {
   "novel.listPlaceholder": "\u9879\u76EE, \u9879\u76EE, \u2026",
   "novel.propertyExists": "\u5C5E\u6027\u201C{name}\u201D\u5DF2\u5B58\u5728\u3002",
   "novel.updateFailed": "\u65E0\u6CD5\u66F4\u65B0\u5C5E\u6027\u3002\u8BF7\u68C0\u67E5\u7B14\u8BB0\u7684 frontmatter \u662F\u5426\u6709 YAML \u9519\u8BEF\u3002",
-  "novel.charactersTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u89D2\u8272",
-  "novel.locationsTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u5730\u70B9",
-  "novel.groupsTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u7EC4\u7EC7",
-  "novel.loreTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u8BBE\u5B9A",
-  "novel.timelineTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u65F6\u95F4\u7EBF\u4E8B\u4EF6",
   "novel.noCharacters": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u89D2\u8272\u3002",
   "novel.noLocations": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u5730\u70B9\u3002",
   "novel.noGroups": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u7EC4\u7EC7\u3002",
@@ -3167,10 +3170,14 @@ var zh = {
   "novel.openInSidebar": "\u5728\u4FA7\u8FB9\u680F\u4E2D\u6253\u5F00 {name}",
   "novel.entryNotFound": "\u201C{name}\u201D\u4E0D\u5728 Universe Builder \u4FA7\u8FB9\u680F\u4E2D\u3002",
   "novel.removeFromScene": "\u4ECE\u573A\u666F\u4E2D\u79FB\u9664",
+  "novel.sceneMetadata": "\u573A\u666F\u5143\u6570\u636E",
+  "novel.sceneMetadataTooltip": "\u663E\u793A\u6216\u9690\u85CF\u573A\u666F\u7684\u89D2\u8272\u3001\u5730\u70B9\u3001\u7EC4\u7EC7\u3001\u8BBE\u5B9A\u548C\u65F6\u95F4\u7EBF",
+  "novel.addToScene": "\u6DFB\u52A0\u5230{section}",
   "novel.alreadyInScene": "{name} \u5DF2\u5728\u6B64\u573A\u666F\u4E2D\u3002",
   "command.novelUnderline": "\u5207\u6362\u4E0B\u5212\u7EBF",
   "command.novelStrikethrough": "\u5207\u6362\u5220\u9664\u7EBF",
   "command.novelProperties": "\u6253\u5F00\u5C5E\u6027\u9762\u677F",
+  "command.novelSceneMetadata": "\u663E\u793A\u6216\u9690\u85CF\u573A\u666F\u5143\u6570\u636E",
   "settings.novelHeading": "\u5C0F\u8BF4\u573A\u666F\u7F16\u8F91\u5668",
   "settings.novel": "\u4F7F\u7528\u5C0F\u8BF4\u573A\u666F\u7F16\u8F91\u5668",
   "settings.novelDesc": "\u5BF9\u4E3B\u7F16\u8F91\u5668\u4E2D\u5177\u6709\u5168\u90E8\u5FC5\u9700\u5C5E\u6027\u7684\u7B14\u8BB0\uFF1A\u5728\u6B63\u6587\u4E0A\u65B9\u6DFB\u52A0\u5DE5\u5177\u680F\uFF08\u573A\u666F\u7684\u89D2\u8272 / \u5730\u70B9 / \u7EC4\u7EC7 / \u8BBE\u5B9A / \u65F6\u95F4\u7EBF\u3001\u7C97\u4F53 / \u659C\u4F53 / \u4E0B\u5212\u7EBF / \u5220\u9664\u7EBF\u3001\u5BF9\u9F50\u3001\u5B57\u6570\uFF09\uFF0C\u5E76\u9690\u85CF\u7B14\u8BB0\u9876\u90E8\u7684\u5C5E\u6027\u533A\u5757\u3002",
@@ -3182,6 +3189,8 @@ var zh = {
   "settings.novelHidePropsDesc": "\u9690\u85CF\u7B14\u8BB0\u9876\u90E8\u7684\u5C5E\u6027\u533A\u5757\uFF1B\u6539\u7528\u201C\u5C5E\u6027\u201D\u6309\u94AE\u6216\u201C\u6253\u5F00\u5C5E\u6027\u9762\u677F\u201D\u547D\u4EE4\u7F16\u8F91\u3002",
   "settings.novelWordCount": "\u663E\u793A\u5B57\u6570",
   "settings.novelWordCountDesc": "\u5728\u5DE5\u5177\u680F\u53F3\u4FA7\u663E\u793A\u7B14\u8BB0\u548C\u6240\u9009\u5185\u5BB9\u7684\u5B57\u6570\u3002",
+  "settings.novelLockTitle": "\u9501\u5B9A\u573A\u666F\u6807\u9898",
+  "settings.novelLockTitleDesc": "\u7981\u6B62\u5728\u573A\u666F\u7F16\u8F91\u5668\u4E2D\u7F16\u8F91\u573A\u666F\u6807\u9898\uFF08\u6B63\u6587\u4E0A\u65B9\u4EE5\u7C97\u4F53\u663E\u793A\u7684\u7B14\u8BB0\u6587\u4EF6\u540D\uFF09\uFF0C\u4EE5\u514D\u610F\u5916\u91CD\u547D\u540D\u573A\u666F\u3002",
   "settings.novelPropsButton": "\u663E\u793A\u201C\u5C5E\u6027\u201D\u6309\u94AE",
   "settings.novelPropsButtonDesc": "\u5728\u5DE5\u5177\u680F\u4E0A\u6DFB\u52A0\u201C\u5C5E\u6027\u201D\u6309\u94AE\uFF0C\u7528\u4E8E\u7F16\u8F91\u7B14\u8BB0\u5C5E\u6027\u3002\u65E0\u8BBA\u662F\u5426\u5F00\u542F\uFF0C\u201C\u6253\u5F00\u5C5E\u6027\u9762\u677F\u201D\u547D\u4EE4\u90FD\u53EF\u4F7F\u7528\u3002"
 };
@@ -3503,11 +3512,6 @@ var ja = {
   "novel.listPlaceholder": "\u9805\u76EE, \u9805\u76EE, \u2026",
   "novel.propertyExists": "\u30D7\u30ED\u30D1\u30C6\u30A3\u300C{name}\u300D\u306F\u3059\u3067\u306B\u3042\u308A\u307E\u3059\u3002",
   "novel.updateFailed": "\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u66F4\u65B0\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F\u3002\u30CE\u30FC\u30C8\u306E\u30D5\u30ED\u30F3\u30C8\u30DE\u30BF\u30FC\u306B YAML \u306E\u30A8\u30E9\u30FC\u304C\u306A\u3044\u304B\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
-  "novel.charactersTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC",
-  "novel.locationsTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u5834\u6240",
-  "novel.groupsTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u7D44\u7E54",
-  "novel.loreTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u8A2D\u5B9A",
-  "novel.timelineTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u5E74\u8868\u306E\u51FA\u6765\u4E8B",
   "novel.noCharacters": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
   "novel.noLocations": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u5834\u6240\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
   "novel.noGroups": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u7D44\u7E54\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
@@ -3518,10 +3522,14 @@ var ja = {
   "novel.openInSidebar": "{name} \u3092\u30B5\u30A4\u30C9\u30D0\u30FC\u3067\u958B\u304F",
   "novel.entryNotFound": "\u300C{name}\u300D\u306F Universe Builder \u306E\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u3042\u308A\u307E\u305B\u3093\u3002",
   "novel.removeFromScene": "\u30B7\u30FC\u30F3\u304B\u3089\u5916\u3059",
+  "novel.sceneMetadata": "\u30B7\u30FC\u30F3\u306E\u30E1\u30BF\u30C7\u30FC\u30BF",
+  "novel.sceneMetadataTooltip": "\u30B7\u30FC\u30F3\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u30FB\u5834\u6240\u30FB\u7D44\u7E54\u30FB\u8A2D\u5B9A\u30FB\u5E74\u8868\u3092\u8868\u793A\u307E\u305F\u306F\u975E\u8868\u793A\u306B\u3057\u307E\u3059",
+  "novel.addToScene": "{section}\u306B\u8FFD\u52A0",
   "novel.alreadyInScene": "{name} \u306F\u3059\u3067\u306B\u3053\u306E\u30B7\u30FC\u30F3\u306B\u3042\u308A\u307E\u3059\u3002",
   "command.novelUnderline": "\u4E0B\u7DDA\u306E\u5207\u308A\u66FF\u3048",
   "command.novelStrikethrough": "\u53D6\u308A\u6D88\u3057\u7DDA\u306E\u5207\u308A\u66FF\u3048",
   "command.novelProperties": "\u30D7\u30ED\u30D1\u30C6\u30A3\u30D1\u30CD\u30EB\u3092\u958B\u304F",
+  "command.novelSceneMetadata": "\u30B7\u30FC\u30F3\u306E\u30E1\u30BF\u30C7\u30FC\u30BF\u3092\u8868\u793A / \u975E\u8868\u793A",
   "settings.novelHeading": "\u5C0F\u8AAC\u30B7\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC",
   "settings.novel": "\u5C0F\u8AAC\u30B7\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u3092\u4F7F\u3046",
   "settings.novelDesc": "\u5FC5\u9808\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u3059\u3079\u3066\u6301\u3064\u30E1\u30A4\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u306E\u30CE\u30FC\u30C8\u3067\u3001\u672C\u6587\u306E\u4E0A\u306B\u30C4\u30FC\u30EB\u30D0\u30FC\uFF08\u30B7\u30FC\u30F3\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC / \u5834\u6240 / \u7D44\u7E54 / \u8A2D\u5B9A / \u5E74\u8868\u3001\u592A\u5B57 / \u659C\u4F53 / \u4E0B\u7DDA / \u53D6\u308A\u6D88\u3057\u7DDA\u3001\u914D\u7F6E\u3001\u8A9E\u6570\uFF09\u3092\u8FFD\u52A0\u3057\u3001\u30CE\u30FC\u30C8\u4E0A\u90E8\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u6B04\u3092\u96A0\u3057\u307E\u3059\u3002",
@@ -3533,6 +3541,8 @@ var ja = {
   "settings.novelHidePropsDesc": "\u30CE\u30FC\u30C8\u4E0A\u90E8\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u6B04\u3092\u96A0\u3057\u307E\u3059\u3002\u7DE8\u96C6\u306F\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u300D\u30DC\u30BF\u30F3\u304B\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u30D1\u30CD\u30EB\u3092\u958B\u304F\u300D\u30B3\u30DE\u30F3\u30C9\u3067\u884C\u3044\u307E\u3059\u3002",
   "settings.novelWordCount": "\u8A9E\u6570\u3092\u8868\u793A",
   "settings.novelWordCountDesc": "\u30CE\u30FC\u30C8\u3068\u9078\u629E\u7BC4\u56F2\u306E\u8A9E\u6570\u3092\u30C4\u30FC\u30EB\u30D0\u30FC\u306E\u53F3\u5074\u306B\u8868\u793A\u3057\u307E\u3059\u3002",
+  "settings.novelLockTitle": "\u30B7\u30FC\u30F3\u306E\u30BF\u30A4\u30C8\u30EB\u3092\u30ED\u30C3\u30AF",
+  "settings.novelLockTitleDesc": "\u30B7\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u3067\u30B7\u30FC\u30F3\u306E\u30BF\u30A4\u30C8\u30EB\uFF08\u672C\u6587\u306E\u4E0A\u306B\u592A\u5B57\u3067\u8868\u793A\u3055\u308C\u308B\u30CE\u30FC\u30C8\u306E\u30D5\u30A1\u30A4\u30EB\u540D\uFF09\u3092\u7DE8\u96C6\u3067\u304D\u306A\u3044\u3088\u3046\u306B\u3057\u3001\u8AA4\u3063\u3066\u30B7\u30FC\u30F3\u540D\u3092\u5909\u3048\u306A\u3044\u3088\u3046\u306B\u3057\u307E\u3059\u3002",
   "settings.novelPropsButton": "\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u300D\u30DC\u30BF\u30F3\u3092\u8868\u793A",
   "settings.novelPropsButtonDesc": "\u30CE\u30FC\u30C8\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u7DE8\u96C6\u3059\u308B\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u300D\u30DC\u30BF\u30F3\u3092\u30C4\u30FC\u30EB\u30D0\u30FC\u306B\u8FFD\u52A0\u3057\u307E\u3059\u3002\u300C\u30D7\u30ED\u30D1\u30C6\u30A3\u30D1\u30CD\u30EB\u3092\u958B\u304F\u300D\u30B3\u30DE\u30F3\u30C9\u306F\u3069\u3061\u3089\u306E\u5834\u5408\u3082\u4F7F\u3048\u307E\u3059\u3002"
 };
@@ -4298,11 +4308,11 @@ function enterBlurs(inp) {
 var import_obsidian4 = require("obsidian");
 var ENTRY_DRAG_TYPE = "application/x-universe-builder-entry";
 var SCENE_LISTS = [
-  { kind: "characters", key: "universe-builder-scene-characterlist", icon: "user", label: "tab.characters", tooltip: "novel.charactersTooltip", empty: "novel.noCharacters" },
-  { kind: "locations", key: "universe-builder-scene-locationlist", icon: "map-pin", label: "tab.locations", tooltip: "novel.locationsTooltip", empty: "novel.noLocations" },
-  { kind: "groups", key: "universe-builder-scene-grouplist", icon: "users", label: "tab.groups", tooltip: "novel.groupsTooltip", empty: "novel.noGroups" },
-  { kind: "lore", key: "universe-builder-scene-lorelist", icon: "book-open", label: "tab.lore", tooltip: "novel.loreTooltip", empty: "novel.noLore" },
-  { kind: "timeline", key: "universe-builder-scene-timelinelist", icon: "calendar-clock", label: "tab.timeline", tooltip: "novel.timelineTooltip", empty: "novel.noTimeline" }
+  { kind: "characters", key: "universe-builder-scene-characterlist", icon: "user", label: "tab.characters", empty: "novel.noCharacters" },
+  { kind: "locations", key: "universe-builder-scene-locationlist", icon: "map-pin", label: "tab.locations", empty: "novel.noLocations" },
+  { kind: "groups", key: "universe-builder-scene-grouplist", icon: "users", label: "tab.groups", empty: "novel.noGroups" },
+  { kind: "lore", key: "universe-builder-scene-lorelist", icon: "book-open", label: "tab.lore", empty: "novel.noLore" },
+  { kind: "timeline", key: "universe-builder-scene-timelinelist", icon: "calendar-clock", label: "tab.timeline", empty: "novel.noTimeline" }
 ];
 function renderAvatar(el, plugin, file, icon) {
   el.empty();
@@ -4422,9 +4432,6 @@ var ScenePicker = class {
     const title = header.createSpan({ cls: "ue-props-title ue-scene-picker-title" });
     (0, import_obsidian4.setIcon)(title.createSpan({ cls: "ue-btn-icon" }), this.def.icon);
     title.createSpan({ text: t(this.def.label) });
-    const closeBtn = header.createEl("button", { cls: "clickable-icon ue-props-close", attr: { "aria-label": t("novel.close") } });
-    (0, import_obsidian4.setIcon)(closeBtn, "x");
-    closeBtn.addEventListener("click", () => this.close());
     const search = this.searchEl = el.createEl("input", { type: "text", cls: "ue-scene-search", placeholder: t("novel.filter") });
     search.spellcheck = false;
     search.addEventListener("input", () => {
@@ -4441,7 +4448,7 @@ var ScenePicker = class {
         anchor.focus();
       }
     });
-    this.listEl = el.createDiv({ cls: "ue-scene-options" });
+    this.listEl = el.createDiv({ cls: "ue-scene-options", attr: { role: "listbox", "aria-multiselectable": "true" } });
     this.renderList();
     this.position();
     this.host.ownerDocument.addEventListener("mousedown", this.onOutside, true);
@@ -4465,6 +4472,7 @@ var ScenePicker = class {
     const aRect = this.anchor.getBoundingClientRect();
     const left = Math.max(8, Math.min(aRect.left - hostRect.left, hostRect.width - this.el.offsetWidth - 8));
     this.el.style.left = `${left}px`;
+    this.el.style.top = `${aRect.bottom - hostRect.top + 4}px`;
   }
   visibleEntries() {
     const q = this.query.trim().toLowerCase();
@@ -4489,17 +4497,17 @@ var ScenePicker = class {
     this.activeIndex = Math.min(this.activeIndex, entries.length - 1);
     entries.forEach((entry, i) => {
       const selected = chosen.has(entry.file);
-      const row = listEl.createEl("button", {
+      const row = listEl.createDiv({
         cls: "ue-scene-option",
-        attr: { "aria-pressed": String(selected), "data-path": entry.file.path }
+        attr: { role: "option", "aria-selected": String(selected), "data-path": entry.file.path }
       });
       if (selected) row.addClass("is-selected");
       if (i === this.activeIndex) row.addClass("is-active");
-      const check = row.createSpan({ cls: "ue-scene-check" });
-      if (selected) (0, import_obsidian4.setIcon)(check, "check");
       renderAvatar(row.createSpan({ cls: "ue-scene-avatar" }), this.plugin, entry.file, this.def.icon);
       row.createSpan({ cls: "ue-scene-option-name", text: entry.name });
       if (entry.detail) row.createSpan({ cls: "ue-scene-option-detail", text: entry.detail });
+      const check = row.createSpan({ cls: "ue-scene-check" });
+      if (selected) (0, import_obsidian4.setIcon)(check, "check");
       row.addEventListener("mousedown", (e) => e.preventDefault());
       row.addEventListener("click", () => {
         this.activeIndex = i;
@@ -4561,6 +4569,8 @@ var NovelToolbar = class {
     this.forcedFor = null;
     this.formatBtns = /* @__PURE__ */ new Map();
     this.alignBtns = /* @__PURE__ */ new Map();
+    /** Each category's row of labels (the "+" button after them stays put across redraws). */
+    this.scenePills = /* @__PURE__ */ new Map();
     this.pickers = /* @__PURE__ */ new Map();
     /** What the scene row last showed, so unrelated metadata changes don't redraw it. */
     this.sceneSignature = "";
@@ -4568,6 +4578,22 @@ var NovelToolbar = class {
     /** The view element the drop listeners are on (see listenForDrops). */
     this.dropHost = null;
     this.dropHighlightTimer = null;
+    this.titleGuarded = false;
+    this.onTitleFocus = (e) => {
+      var _a, _b;
+      const target = e.target;
+      if (!((_a = target == null ? void 0 : target.closest) == null ? void 0 : _a.call(target, ".inline-title"))) return;
+      target.blur();
+      (_b = cmOf(this.view)) == null ? void 0 : _b.focus();
+    };
+    this.onTitleInput = (e) => {
+      var _a;
+      const target = e.target;
+      if (!((_a = target == null ? void 0 : target.closest) == null ? void 0 : _a.call(target, ".inline-title"))) return;
+      if (e instanceof KeyboardEvent && !isEditingKey(e)) return;
+      e.preventDefault();
+      e.stopPropagation();
+    };
     // ─── Dropping sidebar entries onto the scene ────────────────────────────────
     this.onDragOver = (e) => {
       var _a;
@@ -4614,32 +4640,42 @@ var NovelToolbar = class {
     this.propsBtn = left.createEl("button", { cls: "ue-toolbar-btn ue-props-btn", attr: { "aria-label": t("novel.propertiesTooltip") } });
     (0, import_obsidian5.setIcon)(this.propsBtn, "list");
     this.propsBtn.addEventListener("click", () => this.toggleProperties());
+    this.sceneToggle = left.createEl("button", {
+      cls: "ue-toolbar-btn ue-scene-toggle",
+      attr: { "aria-label": t("novel.sceneMetadataTooltip"), "aria-expanded": "false" }
+    });
+    (0, import_obsidian5.setIcon)(this.sceneToggle.createSpan({ cls: "ue-btn-icon ue-scene-chevron" }), "chevron-right");
+    this.sceneToggle.createSpan({ cls: "ue-btn-label", text: t("novel.sceneMetadata") });
+    this.sceneToggle.addEventListener("click", () => this.plugin.setSceneMetadataOpen(!this.plugin.settings.sceneMetadataOpen));
+    this.infoEl = left.createDiv({ cls: "ue-toolbar-info ue-toolbar-tags" });
+    this.countEl = right.createDiv({ cls: "ue-toolbar-info" });
     this.sceneLists = new SceneLists(plugin);
-    const sceneBtns = left.createDiv({ cls: "ue-toolbar-group ue-scene-group" });
+    this.sceneWrap = this.el.createDiv({ cls: "ue-scene-wrap" });
+    this.sceneEl = this.sceneWrap.createDiv({ cls: "ue-scene-clip" }).createDiv({ cls: "ue-toolbar-scene" });
     for (const def of SCENE_LISTS) {
-      const btn = sceneBtns.createEl("button", {
-        cls: "ue-toolbar-btn ue-scene-btn",
-        attr: { "aria-label": t(def.tooltip), "data-kind": def.kind }
+      const category = this.sceneEl.createDiv({ cls: "ue-scene-category", attr: { "data-kind": def.kind } });
+      category.createSpan({ cls: "ue-scene-category-name", text: t(def.label) });
+      const add = category.createEl("button", {
+        cls: "clickable-icon ue-scene-add",
+        attr: { "aria-label": t("novel.addToScene", { section: t(def.label) }), "data-kind": def.kind }
       });
-      (0, import_obsidian5.setIcon)(btn.createSpan({ cls: "ue-btn-icon" }), def.icon);
-      btn.createSpan({ cls: "ue-btn-label", text: t(def.label) });
+      (0, import_obsidian5.setIcon)(add, "plus");
+      const row = this.sceneEl.createDiv({ cls: "ue-scene-entries", attr: { "data-kind": def.kind } });
+      this.scenePills.set(def.kind, row.createDiv({ cls: "ue-scene-pills" }));
       const picker = new ScenePicker(
         plugin,
         this.sceneLists,
         def,
         this.el,
         () => this.view.file,
-        (open) => btn.toggleClass("is-active", open)
+        (open) => add.toggleClass("is-active", open)
       );
-      btn.addEventListener("click", () => {
+      add.addEventListener("click", () => {
         this.closePopovers(picker);
-        picker.toggle(btn);
+        picker.toggle(add);
       });
       this.pickers.set(def.kind, picker);
     }
-    this.infoEl = left.createDiv({ cls: "ue-toolbar-info ue-toolbar-tags" });
-    this.countEl = right.createDiv({ cls: "ue-toolbar-info" });
-    this.sceneEl = this.el.createDiv({ cls: "ue-toolbar-scene" });
     this.popover = new PropertiesPopover(
       plugin,
       this.el,
@@ -4661,6 +4697,30 @@ var NovelToolbar = class {
     this.el.remove();
     this.stopListeningForDrops();
     this.view.containerEl.removeClass("ue-editor", "ue-hide-props", "ue-drop-target");
+    this.lockInlineTitle(false);
+  }
+  // ─── Locked title ───────────────────────────────────────────────────────────
+  /**
+   * The bold title above a scene's text is Obsidian's inline title: the note's file name, and
+   * editing it renames the file. With "Lock scene title" on it can't be clicked into, focused
+   * (e.g. with the Up arrow from the first line, which is sent back to the text) or typed in.
+   */
+  lockInlineTitle(lock) {
+    const container = this.view.containerEl;
+    container.toggleClass("ue-lock-title", lock);
+    const title = container.querySelector(".inline-title");
+    if (title) title.setAttribute("contenteditable", lock ? "false" : "true");
+    if (lock && !this.titleGuarded) {
+      container.addEventListener("focusin", this.onTitleFocus, true);
+      container.addEventListener("beforeinput", this.onTitleInput, true);
+      container.addEventListener("keydown", this.onTitleInput, true);
+      this.titleGuarded = true;
+    } else if (!lock && this.titleGuarded) {
+      container.removeEventListener("focusin", this.onTitleFocus, true);
+      container.removeEventListener("beforeinput", this.onTitleInput, true);
+      container.removeEventListener("keydown", this.onTitleInput, true);
+      this.titleGuarded = false;
+    }
   }
   /** Any sidebar card (or an expanded card's header) dropped anywhere on this view joins the scene. */
   listenForDrops(host) {
@@ -4707,10 +4767,13 @@ var NovelToolbar = class {
       return;
     }
     await this.sceneLists.add(scene, def, entry);
+    if (!this.plugin.settings.sceneMetadataOpen) this.plugin.setSceneMetadataOpen(true);
   }
   applySettings() {
     this.view.containerEl.toggleClass("ue-hide-props", this.plugin.settings.hideInlineProperties);
     this.propsBtn.toggleClass("is-hidden", !this.plugin.settings.showPropertiesButton);
+    this.setSceneOpen(this.plugin.settings.sceneMetadataOpen, false);
+    this.lockInlineTitle(this.plugin.settings.lockTitle);
     this.refreshInfo();
     this.refreshScene(true);
   }
@@ -4745,7 +4808,25 @@ var NovelToolbar = class {
     this.refreshScene();
     for (const p of this.pickers.values()) p.refresh();
   }
-  /** Redraw the row of scene labels (characters, locations, groups, lore, timeline) if what it shows changed. */
+  /**
+   * Show or hide the Scene Metadata section, sliding it open / closed when `animate` (the height
+   * animation itself is CSS, on .ue-scene-wrap).
+   */
+  setSceneOpen(open, animate) {
+    const wrap = this.sceneWrap;
+    if (!animate) {
+      wrap.addClass("no-anim");
+      window.requestAnimationFrame(() => window.requestAnimationFrame(() => wrap.removeClass("no-anim")));
+    }
+    wrap.toggleClass("is-open", open);
+    wrap.setAttr("aria-hidden", String(!open));
+    if (open) wrap.removeAttribute("inert");
+    else wrap.setAttribute("inert", "");
+    this.sceneToggle.toggleClass("is-open", open);
+    this.sceneToggle.setAttr("aria-expanded", String(open));
+    if (!open) for (const p of this.pickers.values()) p.close();
+  }
+  /** Redraw the scene's labels (characters, locations, groups, lore, timeline) if what it shows changed. */
   refreshScene(force = false) {
     const file = this.view.file;
     const lists = file ? SCENE_LISTS.map((def) => ({ def, items: this.sceneLists.items(file, def) })) : [];
@@ -4757,12 +4838,11 @@ var NovelToolbar = class {
     );
     if (!force && signature === this.sceneSignature) return;
     this.sceneSignature = signature;
-    const row = this.sceneEl;
-    row.empty();
-    let any = false;
     for (const { def, items } of lists) {
+      const row = this.scenePills.get(def.kind);
+      if (!row) continue;
+      row.empty();
       for (const item of items) {
-        any = true;
         const pill = row.createDiv({
           cls: "ue-chip ue-scene-pill",
           attr: {
@@ -4796,7 +4876,6 @@ var NovelToolbar = class {
         });
       }
     }
-    row.toggleClass("is-empty", !any);
   }
   /** Called on every CodeMirror update for this view's editor. */
   onEditorUpdate(docChanged) {
@@ -4862,6 +4941,12 @@ var NovelToolbar = class {
     }
   }
 };
+function isEditingKey(e) {
+  if (e.key === "Backspace" || e.key === "Delete") return true;
+  const mod = e.ctrlKey || e.metaKey;
+  if (mod) return ["v", "x", "z", "y"].includes(e.key.toLowerCase());
+  return e.key.length === 1;
+}
 
 // src/novel-editor/index.ts
 var NOVEL_EDITOR_DEFAULTS = {
@@ -4870,7 +4955,9 @@ var NOVEL_EDITOR_DEFAULTS = {
   novelEditorLivePreview: true,
   novelEditorHideProperties: true,
   novelEditorWordCount: true,
-  novelEditorPropertiesButton: false
+  novelEditorLockTitle: true,
+  novelEditorPropertiesButton: false,
+  novelEditorSceneMetadataOpen: true
 };
 function normalizeNovelEditorSettings(data) {
   const bool = (v, d) => typeof v === "boolean" ? v : d;
@@ -4881,7 +4968,9 @@ function normalizeNovelEditorSettings(data) {
     novelEditorLivePreview: bool(data == null ? void 0 : data.novelEditorLivePreview, NOVEL_EDITOR_DEFAULTS.novelEditorLivePreview),
     novelEditorHideProperties: bool(data == null ? void 0 : data.novelEditorHideProperties, NOVEL_EDITOR_DEFAULTS.novelEditorHideProperties),
     novelEditorWordCount: bool(data == null ? void 0 : data.novelEditorWordCount, NOVEL_EDITOR_DEFAULTS.novelEditorWordCount),
-    novelEditorPropertiesButton: bool(data == null ? void 0 : data.novelEditorPropertiesButton, NOVEL_EDITOR_DEFAULTS.novelEditorPropertiesButton)
+    novelEditorLockTitle: bool(data == null ? void 0 : data.novelEditorLockTitle, NOVEL_EDITOR_DEFAULTS.novelEditorLockTitle),
+    novelEditorPropertiesButton: bool(data == null ? void 0 : data.novelEditorPropertiesButton, NOVEL_EDITOR_DEFAULTS.novelEditorPropertiesButton),
+    novelEditorSceneMetadataOpen: bool(data == null ? void 0 : data.novelEditorSceneMetadataOpen, NOVEL_EDITOR_DEFAULTS.novelEditorSceneMetadataOpen)
   };
 }
 function parseProperties(value) {
@@ -4918,8 +5007,16 @@ var NovelEditor = class extends import_obsidian6.Component {
       forceLivePreview: s.novelEditorLivePreview,
       hideInlineProperties: s.novelEditorHideProperties,
       showWordCount: s.novelEditorWordCount,
-      showPropertiesButton: s.novelEditorPropertiesButton
+      showPropertiesButton: s.novelEditorPropertiesButton,
+      lockTitle: s.novelEditorLockTitle,
+      sceneMetadataOpen: s.novelEditorSceneMetadataOpen
     };
+  }
+  /** Open or close the Scene Metadata section in every scene (animated), and remember it. */
+  setSceneMetadataOpen(open) {
+    this.host.settings.novelEditorSceneMetadataOpen = open;
+    void this.host.saveSettings();
+    for (const tb of this.toolbars.values()) tb.setSceneOpen(open, true);
   }
   entries(kind) {
     return this.host.universeEntries(kind);
@@ -4990,6 +5087,16 @@ var NovelEditor = class extends import_obsidian6.Component {
       });
     }
     this.host.addCommand({
+      id: "novel-toggle-scene-metadata",
+      name: t("command.novelSceneMetadata"),
+      checkCallback: (checking) => {
+        const view = this.app.workspace.getActiveViewOfType(import_obsidian6.MarkdownView);
+        if (!view || !this.toolbars.has(view)) return false;
+        if (!checking) this.setSceneMetadataOpen(!this.host.settings.novelEditorSceneMetadataOpen);
+        return true;
+      }
+    });
+    this.host.addCommand({
       id: "novel-open-properties",
       name: t("command.novelProperties"),
       checkCallback: (checking) => {
@@ -5002,7 +5109,7 @@ var NovelEditor = class extends import_obsidian6.Component {
     });
   }
   commandIds() {
-    return [...this.commands.map(([id]) => id), "novel-open-properties"];
+    return [...this.commands.map(([id]) => id), "novel-open-properties", "novel-toggle-scene-metadata"];
   }
   /** Rebuild every toolbar (after a language or settings change). */
   refresh() {
@@ -5559,6 +5666,7 @@ function mergeGroupOrder(overall, groupPaths, newGroupOrder) {
   return result;
 }
 var VIEW_TYPE = "universe-builder-sidebar";
+var REOPEN_SIDEBAR_KEY = "universe-builder-reopen-sidebar";
 var UniverseBuilderView = class extends import_obsidian7.ItemView {
   constructor(leaf, plugin) {
     super(leaf);
@@ -8944,6 +9052,12 @@ var UniverseBuilderSettingTab = class extends import_obsidian7.PluginSettingTab 
             control: { type: "toggle", key: "novelEditorHideProperties", defaultValue: DEFAULT_SETTINGS.novelEditorHideProperties }
           },
           {
+            name: t("settings.novelLockTitle"),
+            desc: t("settings.novelLockTitleDesc"),
+            visible: () => this.plugin.settings.novelEditor,
+            control: { type: "toggle", key: "novelEditorLockTitle", defaultValue: DEFAULT_SETTINGS.novelEditorLockTitle }
+          },
+          {
             name: t("settings.novelWordCount"),
             desc: t("settings.novelWordCountDesc"),
             visible: () => this.plugin.settings.novelEditor,
@@ -8982,6 +9096,7 @@ var UniverseBuilderSettingTab = class extends import_obsidian7.PluginSettingTab 
       case "novelEditorHideProperties":
       case "novelEditorWordCount":
       case "novelEditorPropertiesButton":
+      case "novelEditorLockTitle":
         settings[key] = value === true;
         await this.plugin.saveSettings();
         this.plugin.novelEditor.refresh();
@@ -9001,6 +9116,11 @@ var UniverseBuilderSettingTab = class extends import_obsidian7.PluginSettingTab 
 var UniverseBuilderPlugin = class extends import_obsidian7.Plugin {
   constructor() {
     super(...arguments);
+    /**
+     * Whether the sidebar was open the last time the layout changed. Kept up to date rather than
+     * checked in onunload, because by the time onunload runs Obsidian may already have closed it.
+     */
+    this.sidebarWasOpen = false;
     /** Command ids and their names' translation keys, in Command palette order. */
     this.commandNames = [
       ["open-sidebar", "command.openSidebar", () => void this.activateSidebar()],
@@ -9073,6 +9193,38 @@ var UniverseBuilderPlugin = class extends import_obsidian7.Plugin {
     );
     this.addSettingTab(new UniverseBuilderSettingTab(this.app, this));
     this.app.workspace.onLayoutReady(() => void this.checkFolderMigration());
+    this.registerEvent(this.app.workspace.on("layout-change", () => this.trackSidebarOpen()));
+    this.app.workspace.onLayoutReady(() => {
+      this.trackSidebarOpen();
+      void this.restoreSidebarAfterReload();
+    });
+  }
+  trackSidebarOpen() {
+    this.sidebarWasOpen = this.app.workspace.getLeavesOfType(VIEW_TYPE).length > 0;
+  }
+  /**
+   * Turning the plugin off makes Obsidian close the sidebar (its view type goes away with the
+   * plugin), and nothing reopens it when the plugin is turned back on. So remember, on this device
+   * for this vault, that it was open. Quitting Obsidian doesn't need this - the saved workspace
+   * restores the sidebar - and restoreSidebarAfterReload does nothing then since it's already open.
+   */
+  onunload() {
+    const open = this.sidebarWasOpen || this.app.workspace.getLeavesOfType(VIEW_TYPE).length > 0;
+    this.app.saveLocalStorage(REOPEN_SIDEBAR_KEY, open ? true : null);
+  }
+  /** Reopens the sidebar if it was open when the plugin was last turned off, without taking focus from the note. */
+  async restoreSidebarAfterReload() {
+    const reopen = this.app.loadLocalStorage(REOPEN_SIDEBAR_KEY) === true;
+    this.app.saveLocalStorage(REOPEN_SIDEBAR_KEY, null);
+    const { workspace } = this.app;
+    if (!reopen || workspace.getLeavesOfType(VIEW_TYPE).length > 0) return;
+    const previous = workspace.getMostRecentLeaf();
+    const leaf = workspace.getRightLeaf(false);
+    if (!leaf) return;
+    await leaf.setViewState({ type: VIEW_TYPE, active: false });
+    await workspace.revealLeaf(leaf);
+    if (previous && previous !== leaf) workspace.setActiveLeaf(previous, { focus: true });
+    this.trackSidebarOpen();
   }
   /** Adds the commands, named in the current language. Called again (replacing them) when the language changes. */
   registerCommands() {

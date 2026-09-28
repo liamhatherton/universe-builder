@@ -885,6 +885,8 @@ function mergeGroupOrder(overall: string[], groupPaths: string[], newGroupOrder:
 // ─── Sidebar View ─────────────────────────────────────────────────────────────
 
 const VIEW_TYPE = "universe-builder-sidebar";
+/** Local-storage key (per vault, per device): the sidebar was open when the plugin was turned off. */
+const REOPEN_SIDEBAR_KEY = "universe-builder-reopen-sidebar";
 
 class UniverseBuilderView extends ItemView {
 	plugin: UniverseBuilderPlugin;
@@ -4788,6 +4790,12 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 						control: { type: "toggle", key: "novelEditorHideProperties", defaultValue: DEFAULT_SETTINGS.novelEditorHideProperties },
 					},
 					{
+						name: t("settings.novelLockTitle"),
+						desc: t("settings.novelLockTitleDesc"),
+						visible: () => this.plugin.settings.novelEditor,
+						control: { type: "toggle", key: "novelEditorLockTitle", defaultValue: DEFAULT_SETTINGS.novelEditorLockTitle },
+					},
+					{
 						name: t("settings.novelWordCount"),
 						desc: t("settings.novelWordCountDesc"),
 						visible: () => this.plugin.settings.novelEditor,
@@ -4830,6 +4838,7 @@ class UniverseBuilderSettingTab extends PluginSettingTab {
 			case "novelEditorHideProperties":
 			case "novelEditorWordCount":
 			case "novelEditorPropertiesButton":
+			case "novelEditorLockTitle":
 				settings[key] = value === true;
 				await this.plugin.saveSettings();
 				this.plugin.novelEditor.refresh();
@@ -4902,6 +4911,50 @@ export default class UniverseBuilderPlugin extends Plugin implements NovelEditor
 		this.addSettingTab(new UniverseBuilderSettingTab(this.app, this));
 		// The vault's file tree isn't fully indexed until layout is ready.
 		this.app.workspace.onLayoutReady(() => void this.checkFolderMigration());
+
+		// Bring the sidebar back after the plugin is turned off and on again (see onunload).
+		this.registerEvent(this.app.workspace.on("layout-change", () => this.trackSidebarOpen()));
+		this.app.workspace.onLayoutReady(() => {
+			this.trackSidebarOpen();
+			void this.restoreSidebarAfterReload();
+		});
+	}
+
+	/**
+	 * Whether the sidebar was open the last time the layout changed. Kept up to date rather than
+	 * checked in onunload, because by the time onunload runs Obsidian may already have closed it.
+	 */
+	private sidebarWasOpen = false;
+
+	private trackSidebarOpen() {
+		this.sidebarWasOpen = this.app.workspace.getLeavesOfType(VIEW_TYPE).length > 0;
+	}
+
+	/**
+	 * Turning the plugin off makes Obsidian close the sidebar (its view type goes away with the
+	 * plugin), and nothing reopens it when the plugin is turned back on. So remember, on this device
+	 * for this vault, that it was open. Quitting Obsidian doesn't need this - the saved workspace
+	 * restores the sidebar - and restoreSidebarAfterReload does nothing then since it's already open.
+	 */
+	onunload() {
+		const open = this.sidebarWasOpen || this.app.workspace.getLeavesOfType(VIEW_TYPE).length > 0;
+		this.app.saveLocalStorage(REOPEN_SIDEBAR_KEY, open ? true : null);
+	}
+
+	/** Reopens the sidebar if it was open when the plugin was last turned off, without taking focus from the note. */
+	private async restoreSidebarAfterReload() {
+		const reopen = this.app.loadLocalStorage(REOPEN_SIDEBAR_KEY) === true;
+		this.app.saveLocalStorage(REOPEN_SIDEBAR_KEY, null);
+		const { workspace } = this.app;
+		if (!reopen || workspace.getLeavesOfType(VIEW_TYPE).length > 0) return;
+		const previous = workspace.getMostRecentLeaf();
+		const leaf = workspace.getRightLeaf(false);
+		if (!leaf) return;
+		await leaf.setViewState({ type: VIEW_TYPE, active: false });
+		// Show it as the right sidebar's current tab, then hand focus back to where it was.
+		await workspace.revealLeaf(leaf);
+		if (previous && previous !== leaf) workspace.setActiveLeaf(previous, { focus: true });
+		this.trackSidebarOpen();
 	}
 
 	/** Command ids and their names' translation keys, in Command palette order. */

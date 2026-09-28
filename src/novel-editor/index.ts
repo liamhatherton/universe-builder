@@ -3,8 +3,9 @@
  *
  * Notes in the main editor area (never the sidebars) that have every required property
  * (by default `novelr-type` and `novelr-status`) get a toolbar above the editor with:
- *   - Characters / Locations / Groups / Lore / Timeline menus (and, if turned on, the Properties button) on the left,
- *     with the scene's chosen entries as labels on a row underneath (see scene.ts),
+ *   - a Scene Metadata toggle (and, if turned on, the Properties button) on the left; the toggle
+ *     slides open a section underneath with a row per Characters / Locations / Groups / Lore /
+ *     Timeline: the scene's chosen entries as labels, and a "+" menu to add more (see scene.ts),
  *   - bold / italic / underline / strikethrough and align left / center / right (center),
  *   - the word count (right).
  * The inline properties block is hidden; the Properties button (off by default) or command opens a
@@ -37,8 +38,12 @@ export interface NovelEditorSettings {
 	novelEditorHideProperties: boolean;
 	/** Show the word count in the toolbar. */
 	novelEditorWordCount: boolean;
+	/** Keep the note's inline title (its file name, shown above the text) from being edited, i.e. renamed. */
+	novelEditorLockTitle: boolean;
 	/** Show the Properties button in the toolbar (the command works either way). */
 	novelEditorPropertiesButton: boolean;
+	/** Whether the Scene Metadata section under the toolbar is open (its toggle's last state). */
+	novelEditorSceneMetadataOpen: boolean;
 }
 
 export const NOVEL_EDITOR_DEFAULTS: NovelEditorSettings = {
@@ -47,7 +52,9 @@ export const NOVEL_EDITOR_DEFAULTS: NovelEditorSettings = {
 	novelEditorLivePreview: true,
 	novelEditorHideProperties: true,
 	novelEditorWordCount: true,
+	novelEditorLockTitle: true,
 	novelEditorPropertiesButton: false,
+	novelEditorSceneMetadataOpen: true,
 };
 
 /** Stored values checked and filled in, for loadSettings(). */
@@ -62,7 +69,9 @@ export function normalizeNovelEditorSettings(data: Partial<Record<keyof NovelEdi
 		novelEditorLivePreview: bool(data?.novelEditorLivePreview, NOVEL_EDITOR_DEFAULTS.novelEditorLivePreview),
 		novelEditorHideProperties: bool(data?.novelEditorHideProperties, NOVEL_EDITOR_DEFAULTS.novelEditorHideProperties),
 		novelEditorWordCount: bool(data?.novelEditorWordCount, NOVEL_EDITOR_DEFAULTS.novelEditorWordCount),
+		novelEditorLockTitle: bool(data?.novelEditorLockTitle, NOVEL_EDITOR_DEFAULTS.novelEditorLockTitle),
 		novelEditorPropertiesButton: bool(data?.novelEditorPropertiesButton, NOVEL_EDITOR_DEFAULTS.novelEditorPropertiesButton),
+		novelEditorSceneMetadataOpen: bool(data?.novelEditorSceneMetadataOpen, NOVEL_EDITOR_DEFAULTS.novelEditorSceneMetadataOpen),
 	};
 }
 
@@ -77,11 +86,14 @@ interface ResolvedSettings {
 	hideInlineProperties: boolean;
 	showWordCount: boolean;
 	showPropertiesButton: boolean;
+	lockTitle: boolean;
+	sceneMetadataOpen: boolean;
 }
 
 /** What the novel editor needs from the plugin's sidebar. */
 export interface NovelEditorHost {
 	settings: NovelEditorSettings;
+	saveSettings(): Promise<void>;
 	/** The entries in one sidebar section, sorted by name. */
 	universeEntries(kind: SceneKind): UniverseEntry[];
 	/** Show the sidebar with this entry's card expanded. */
@@ -131,7 +143,16 @@ export class NovelEditor extends Component {
 			hideInlineProperties: s.novelEditorHideProperties,
 			showWordCount: s.novelEditorWordCount,
 			showPropertiesButton: s.novelEditorPropertiesButton,
+			lockTitle: s.novelEditorLockTitle,
+			sceneMetadataOpen: s.novelEditorSceneMetadataOpen,
 		};
+	}
+
+	/** Open or close the Scene Metadata section in every scene (animated), and remember it. */
+	setSceneMetadataOpen(open: boolean): void {
+		this.host.settings.novelEditorSceneMetadataOpen = open;
+		void this.host.saveSettings();
+		for (const tb of this.toolbars.values()) tb.setSceneOpen(open, true);
 	}
 
 	entries(kind: SceneKind): UniverseEntry[] {
@@ -214,6 +235,16 @@ export class NovelEditor extends Component {
 			});
 		}
 		this.host.addCommand({
+			id: "novel-toggle-scene-metadata",
+			name: t("command.novelSceneMetadata"),
+			checkCallback: (checking) => {
+				const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+				if (!view || !this.toolbars.has(view)) return false;
+				if (!checking) this.setSceneMetadataOpen(!this.host.settings.novelEditorSceneMetadataOpen);
+				return true;
+			},
+		});
+		this.host.addCommand({
 			id: "novel-open-properties",
 			name: t("command.novelProperties"),
 			checkCallback: (checking) => {
@@ -227,7 +258,7 @@ export class NovelEditor extends Component {
 	}
 
 	commandIds(): string[] {
-		return [...this.commands.map(([id]) => id), "novel-open-properties"];
+		return [...this.commands.map(([id]) => id), "novel-open-properties", "novel-toggle-scene-metadata"];
 	}
 
 	/** Rebuild every toolbar (after a language or settings change). */

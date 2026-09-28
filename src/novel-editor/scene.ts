@@ -32,16 +32,15 @@ export interface SceneListDef {
 	key: string;
 	icon: string;
 	label: TranslationKey;
-	tooltip: TranslationKey;
 	empty: TranslationKey;
 }
 
 export const SCENE_LISTS: SceneListDef[] = [
-	{ kind: "characters", key: "universe-builder-scene-characterlist", icon: "user", label: "tab.characters", tooltip: "novel.charactersTooltip", empty: "novel.noCharacters" },
-	{ kind: "locations", key: "universe-builder-scene-locationlist", icon: "map-pin", label: "tab.locations", tooltip: "novel.locationsTooltip", empty: "novel.noLocations" },
-	{ kind: "groups", key: "universe-builder-scene-grouplist", icon: "users", label: "tab.groups", tooltip: "novel.groupsTooltip", empty: "novel.noGroups" },
-	{ kind: "lore", key: "universe-builder-scene-lorelist", icon: "book-open", label: "tab.lore", tooltip: "novel.loreTooltip", empty: "novel.noLore" },
-	{ kind: "timeline", key: "universe-builder-scene-timelinelist", icon: "calendar-clock", label: "tab.timeline", tooltip: "novel.timelineTooltip", empty: "novel.noTimeline" },
+	{ kind: "characters", key: "universe-builder-scene-characterlist", icon: "user", label: "tab.characters", empty: "novel.noCharacters" },
+	{ kind: "locations", key: "universe-builder-scene-locationlist", icon: "map-pin", label: "tab.locations", empty: "novel.noLocations" },
+	{ kind: "groups", key: "universe-builder-scene-grouplist", icon: "users", label: "tab.groups", empty: "novel.noGroups" },
+	{ kind: "lore", key: "universe-builder-scene-lorelist", icon: "book-open", label: "tab.lore", empty: "novel.noLore" },
+	{ kind: "timeline", key: "universe-builder-scene-timelinelist", icon: "calendar-clock", label: "tab.timeline", empty: "novel.noTimeline" },
 ];
 
 /**
@@ -192,9 +191,7 @@ export class ScenePicker {
 		const title = header.createSpan({ cls: "ue-props-title ue-scene-picker-title" });
 		setIcon(title.createSpan({ cls: "ue-btn-icon" }), this.def.icon);
 		title.createSpan({ text: t(this.def.label) });
-		const closeBtn = header.createEl("button", { cls: "clickable-icon ue-props-close", attr: { "aria-label": t("novel.close") } });
-		setIcon(closeBtn, "x");
-		closeBtn.addEventListener("click", () => this.close());
+		// No close button: Escape or a click anywhere outside the menu closes it.
 
 		const search = (this.searchEl = el.createEl("input", { type: "text", cls: "ue-scene-search", placeholder: t("novel.filter") }));
 		search.spellcheck = false;
@@ -213,7 +210,7 @@ export class ScenePicker {
 			}
 		});
 
-		this.listEl = el.createDiv({ cls: "ue-scene-options" });
+		this.listEl = el.createDiv({ cls: "ue-scene-options", attr: { role: "listbox", "aria-multiselectable": "true" } });
 		this.renderList();
 		this.position();
 		this.host.ownerDocument.addEventListener("mousedown", this.onOutside, true);
@@ -240,6 +237,8 @@ export class ScenePicker {
 		const aRect = this.anchor.getBoundingClientRect();
 		const left = Math.max(8, Math.min(aRect.left - hostRect.left, hostRect.width - this.el.offsetWidth - 8));
 		this.el.style.left = `${left}px`;
+		// Open just under its "+" button (which sits in the Scene Metadata rows, below the toolbar).
+		this.el.style.top = `${aRect.bottom - hostRect.top + 4}px`;
 	}
 
 	private visibleEntries(): UniverseEntry[] {
@@ -264,17 +263,19 @@ export class ScenePicker {
 		this.activeIndex = Math.min(this.activeIndex, entries.length - 1);
 		entries.forEach((entry, i) => {
 			const selected = chosen.has(entry.file);
-			const row = listEl.createEl("button", {
+			// A plain row (not a <button>, so no button styling): portrait and name on the left, then
+			// the timeline date if any, and a check mark on the right when it's in the scene.
+			const row = listEl.createDiv({
 				cls: "ue-scene-option",
-				attr: { "aria-pressed": String(selected), "data-path": entry.file.path },
+				attr: { role: "option", "aria-selected": String(selected), "data-path": entry.file.path },
 			});
 			if (selected) row.addClass("is-selected");
 			if (i === this.activeIndex) row.addClass("is-active");
-			const check = row.createSpan({ cls: "ue-scene-check" });
-			if (selected) setIcon(check, "check");
 			renderAvatar(row.createSpan({ cls: "ue-scene-avatar" }), this.plugin, entry.file, this.def.icon);
 			row.createSpan({ cls: "ue-scene-option-name", text: entry.name });
 			if (entry.detail) row.createSpan({ cls: "ue-scene-option-detail", text: entry.detail });
+			const check = row.createSpan({ cls: "ue-scene-check" });
+			if (selected) setIcon(check, "check");
 			// Keep focus in the filter box so typing and arrow keys keep working.
 			row.addEventListener("mousedown", (e) => e.preventDefault());
 			row.addEventListener("click", () => {

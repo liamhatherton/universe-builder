@@ -1274,35 +1274,85 @@
 
 /* ---------- Scene lists (Characters / Locations / Groups) ---------- */
 
-/* The toolbar is a size container so the scene buttons can drop their labels when it gets narrow. */
-.ue-toolbar { container-type: inline-size; container-name: ue-toolbar; }
-.ue-scene-group { flex: 0 0 auto; }
-@container ue-toolbar (max-width: 1120px) {
-	.ue-scene-btn .ue-btn-label { display: none; }
+/* Scene Metadata toggle: chevron points right when closed, turns to point down when open. */
+.ue-scene-toggle { flex: 0 0 auto; }
+.ue-scene-toggle .ue-scene-chevron { transition: transform 180ms ease; }
+.ue-scene-toggle.is-open .ue-scene-chevron { transform: rotate(90deg); }
+
+/* The section slides open / closed: its one grid row animates between 0fr and 1fr. */
+.ue-scene-wrap {
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-rows: 0fr;
+	opacity: 0;
+	transition: grid-template-rows 220ms ease, opacity 180ms ease;
+}
+.ue-scene-wrap.is-open { grid-template-rows: 1fr; opacity: 1; }
+.ue-scene-wrap.no-anim,
+.ue-scene-wrap.no-anim .ue-scene-clip { transition: none !important; }
+.ue-scene-clip { min-height: 0; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+	.ue-scene-wrap,
+	.ue-scene-toggle .ue-scene-chevron { transition: none; }
 }
 
-/* Second toolbar row: one label per character / location / group in the scene. */
+/* Under the toolbar: one row per category with entries in the scene. Column 1 is the category
+   name (right-aligned, only as wide as the longest name shown); column 2 holds its labels. */
 .ue-toolbar-scene {
-	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);
+	align-items: center;
+	column-gap: 10px;
+	row-gap: 4px;
+	padding: 4px 0 5px;
+}
+.ue-scene-category {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 4px;
+	align-self: start;
+	min-height: 28px;
+	text-align: right;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	white-space: nowrap;
+}
+.ue-scene-entries {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+	justify-content: flex-start;
 	gap: 4px;
-	padding: 2px 0 3px;
+	min-width: 0;
 }
-.ue-toolbar-scene.is-empty { display: none; }
+/* The labels wrap within the right column. */
+.ue-scene-pills { display: contents; }
+.ue-scene-add {
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	border-radius: 50%;
+	color: var(--text-faint);
+}
+.ue-scene-add svg { width: 14px; height: 14px; }
+.ue-scene-add:hover,
+.ue-scene-add.is-active { color: var(--text-normal); background: var(--background-modifier-hover); }
 
 .ue-scene-pill {
 	display: inline-flex;
 	align-items: center;
-	gap: 4px;
-	max-width: 220px;
-	padding: 0 4px 0 8px;
-	line-height: 20px;
+	gap: 5px;
+	max-width: 240px;
+	height: 28px;
+	padding: 0 6px 0 10px;
+	border-radius: 14px;
+	font-size: var(--font-ui-small);
+	line-height: 26px;
 	user-select: none;
 }
 .ue-scene-pill-icon { display: inline-flex; color: var(--text-faint); }
-.ue-scene-pill-icon svg { width: 12px; height: 12px; }
+.ue-scene-pill-icon svg { width: 14px; height: 14px; }
 .ue-scene-pill-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ue-scene-pill-remove {
 	display: inline-flex;
@@ -1310,7 +1360,7 @@
 	color: var(--text-faint);
 	opacity: 0;
 }
-.ue-scene-pill-remove svg { width: 12px; height: 12px; }
+.ue-scene-pill-remove svg { width: 14px; height: 14px; }
 .ue-scene-pill:hover .ue-scene-pill-remove,
 .ue-scene-pill:focus-within .ue-scene-pill-remove { opacity: 1; }
 .ue-scene-pill-remove:hover { color: var(--text-error); background: var(--background-modifier-hover); }
@@ -1335,24 +1385,24 @@
 .ue-scene-option {
 	display: flex;
 	align-items: center;
-	gap: 6px;
+	justify-content: flex-start;
+	gap: 8px;
 	width: 100%;
-	height: 28px;
-	padding: 0 6px;
-	border: none;
-	box-shadow: none;
-	background: transparent;
+	min-height: 32px;
+	padding: 3px 8px 3px 6px;
 	color: var(--text-normal);
 	font-size: var(--font-ui-small);
 	text-align: left;
 	border-radius: var(--radius-s);
 	cursor: var(--cursor);
 	flex: 0 0 auto;
+	user-select: none;
 }
 .ue-scene-option:hover,
 .ue-scene-option.is-active { background: var(--background-modifier-hover); }
 .ue-scene-option.is-selected { color: var(--text-accent); }
-.ue-scene-check { display: inline-flex; width: 16px; flex: 0 0 16px; }
+.ue-scene-check { display: inline-flex; width: 16px; flex: 0 0 16px; margin-left: auto; color: var(--text-accent); }
+.ue-scene-option-detail + .ue-scene-check { margin-left: 0; }
 .ue-scene-check svg { width: 14px; height: 14px; }
 .ue-scene-option-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -1364,10 +1414,10 @@
 	border-radius: 50%;
 	background: var(--background-modifier-border);
 }
-.ue-scene-pill-icon.has-portrait { width: 18px; height: 18px; margin-left: -6px; }
+.ue-scene-pill-icon.has-portrait { width: 24px; height: 24px; margin-left: -8px; }
 .ue-scene-pill-icon.has-portrait img,
 .ue-scene-avatar.has-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.ue-scene-avatar { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex: 0 0 20px; color: var(--text-faint); }
+.ue-scene-avatar { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; flex: 0 0 24px; color: var(--text-faint); }
 .ue-scene-avatar svg { width: 14px; height: 14px; }
 
 /* A timeline event's date, after its name in the Timeline menu. */
@@ -1379,3 +1429,11 @@
 	outline-offset: -3px;
 }
 .ue-editor.ue-drop-target .ue-toolbar { background: var(--background-modifier-hover); }
+
+/* "Lock scene title": the inline title (the note's file name, above the text) can't be clicked into
+   and renamed; see lockInlineTitle in src/novel-editor/toolbar.ts. */
+.ue-editor.ue-lock-title .inline-title {
+	pointer-events: none;
+	cursor: default;
+	caret-color: transparent;
+}

@@ -45,7 +45,12 @@ export class NovelToolbar {
 	private readonly propsBtn: HTMLButtonElement;
 	private readonly infoEl: HTMLElement;
 	private readonly countEl: HTMLElement;
+	private readonly sceneToggle: HTMLButtonElement;
+	/** Animated wrapper around the scene grid (see setSceneOpen). */
+	private readonly sceneWrap: HTMLElement;
 	private readonly sceneEl: HTMLElement;
+	/** Each category's row of labels (the "+" button after them stays put across redraws). */
+	private readonly scenePills = new Map<SceneKind, HTMLElement>();
 	private readonly popover: PropertiesPopover;
 	private readonly sceneLists: SceneLists;
 	private readonly pickers = new Map<SceneKind, ScenePicker>();
@@ -59,7 +64,7 @@ export class NovelToolbar {
 	constructor(private readonly plugin: NovelEditor, readonly view: MarkdownView) {
 		this.el = createDiv({ cls: "ue-toolbar" });
 
-		// Three sections: scene menus + property tags (left), formatting (center), word count (right).
+		// Three sections: Scene Metadata toggle + property tags (left), formatting (center), word count (right).
 		const left = this.el.createDiv({ cls: "ue-toolbar-section ue-toolbar-left" });
 		const center = this.el.createDiv({ cls: "ue-toolbar-section ue-toolbar-center" });
 		const right = this.el.createDiv({ cls: "ue-toolbar-section ue-toolbar-right" });
@@ -88,29 +93,45 @@ export class NovelToolbar {
 		setIcon(this.propsBtn, "list");
 		this.propsBtn.addEventListener("click", () => this.toggleProperties());
 
-		this.sceneLists = new SceneLists(plugin);
-		const sceneBtns = left.createDiv({ cls: "ue-toolbar-group ue-scene-group" });
-		for (const def of SCENE_LISTS) {
-			const btn = sceneBtns.createEl("button", {
-				cls: "ue-toolbar-btn ue-scene-btn",
-				attr: { "aria-label": t(def.tooltip), "data-kind": def.kind },
-			});
-			setIcon(btn.createSpan({ cls: "ue-btn-icon" }), def.icon);
-			btn.createSpan({ cls: "ue-btn-label", text: t(def.label) });
-			const picker = new ScenePicker(plugin, this.sceneLists, def, this.el, () => this.view.file, (open) =>
-				btn.toggleClass("is-active", open),
-			);
-			btn.addEventListener("click", () => {
-				this.closePopovers(picker);
-				picker.toggle(btn);
-			});
-			this.pickers.set(def.kind, picker);
-		}
+		// Shows / hides the Scene Metadata section below the toolbar; the chevron points down while open.
+		this.sceneToggle = left.createEl("button", {
+			cls: "ue-toolbar-btn ue-scene-toggle",
+			attr: { "aria-label": t("novel.sceneMetadataTooltip"), "aria-expanded": "false" },
+		});
+		setIcon(this.sceneToggle.createSpan({ cls: "ue-btn-icon ue-scene-chevron" }), "chevron-right");
+		this.sceneToggle.createSpan({ cls: "ue-btn-label", text: t("novel.sceneMetadata") });
+		this.sceneToggle.addEventListener("click", () => this.plugin.setSceneMetadataOpen(!this.plugin.settings.sceneMetadataOpen));
 
 		this.infoEl = left.createDiv({ cls: "ue-toolbar-info ue-toolbar-tags" });
 		this.countEl = right.createDiv({ cls: "ue-toolbar-info" });
-		// Second row, full width: a label for each character / location / group in the scene.
-		this.sceneEl = this.el.createDiv({ cls: "ue-toolbar-scene" });
+
+		// Second row, full width: one row per category (Characters, Locations, Groups, Lore, Timeline)
+		// with the category name, a label for each of its entries in the scene, and a "+" menu to add more.
+		this.sceneLists = new SceneLists(plugin);
+		this.sceneWrap = this.el.createDiv({ cls: "ue-scene-wrap" });
+		// The clip box collapses to zero height (padding included) while the grid inside keeps its size.
+		this.sceneEl = this.sceneWrap.createDiv({ cls: "ue-scene-clip" }).createDiv({ cls: "ue-toolbar-scene" });
+		for (const def of SCENE_LISTS) {
+			// Left column: the category name with its "+" right after it, so the labels in the right
+			// column all start at the same point.
+			const category = this.sceneEl.createDiv({ cls: "ue-scene-category", attr: { "data-kind": def.kind } });
+			category.createSpan({ cls: "ue-scene-category-name", text: t(def.label) });
+			const add = category.createEl("button", {
+				cls: "clickable-icon ue-scene-add",
+				attr: { "aria-label": t("novel.addToScene", { section: t(def.label) }), "data-kind": def.kind },
+			});
+			setIcon(add, "plus");
+			const row = this.sceneEl.createDiv({ cls: "ue-scene-entries", attr: { "data-kind": def.kind } });
+			this.scenePills.set(def.kind, row.createDiv({ cls: "ue-scene-pills" }));
+			const picker = new ScenePicker(plugin, this.sceneLists, def, this.el, () => this.view.file, (open) =>
+				add.toggleClass("is-active", open),
+			);
+			add.addEventListener("click", () => {
+				this.closePopovers(picker);
+				picker.toggle(add);
+			});
+			this.pickers.set(def.kind, picker);
+		}
 
 
 		this.popover = new PropertiesPopover(
@@ -136,7 +157,51 @@ export class NovelToolbar {
 		this.el.remove();
 		this.stopListeningForDrops();
 		this.view.containerEl.removeClass("ue-editor", "ue-hide-props", "ue-drop-target");
+		this.lockInlineTitle(false);
 	}
+
+	// ─── Locked title ───────────────────────────────────────────────────────────
+
+	/**
+	 * The bold title above a scene's text is Obsidian's inline title: the note's file name, and
+	 * editing it renames the file. With "Lock scene title" on it can't be clicked into, focused
+	 * (e.g. with the Up arrow from the first line, which is sent back to the text) or typed in.
+	 */
+	private lockInlineTitle(lock: boolean): void {
+		const container = this.view.containerEl;
+		container.toggleClass("ue-lock-title", lock);
+		const title = container.querySelector<HTMLElement>(".inline-title");
+		if (title) title.setAttribute("contenteditable", lock ? "false" : "true");
+		if (lock && !this.titleGuarded) {
+			container.addEventListener("focusin", this.onTitleFocus, true);
+			container.addEventListener("beforeinput", this.onTitleInput, true);
+			container.addEventListener("keydown", this.onTitleInput, true);
+			this.titleGuarded = true;
+		} else if (!lock && this.titleGuarded) {
+			container.removeEventListener("focusin", this.onTitleFocus, true);
+			container.removeEventListener("beforeinput", this.onTitleInput, true);
+			container.removeEventListener("keydown", this.onTitleInput, true);
+			this.titleGuarded = false;
+		}
+	}
+
+	private titleGuarded = false;
+
+	private readonly onTitleFocus = (e: FocusEvent) => {
+		const target = e.target as HTMLElement | null;
+		if (!target?.closest?.(".inline-title")) return;
+		target.blur();
+		cmOf(this.view)?.focus();
+	};
+
+	private readonly onTitleInput = (e: Event) => {
+		const target = e.target as HTMLElement | null;
+		if (!target?.closest?.(".inline-title")) return;
+		// Let Down / Enter / Tab still move on to the text; block anything that would edit.
+		if (e instanceof KeyboardEvent && !isEditingKey(e)) return;
+		e.preventDefault();
+		e.stopPropagation();
+	};
 
 	// ─── Dropping sidebar entries onto the scene ────────────────────────────────
 
@@ -210,11 +275,15 @@ export class NovelToolbar {
 			return;
 		}
 		await this.sceneLists.add(scene, def, entry);
+		// Show where it went.
+		if (!this.plugin.settings.sceneMetadataOpen) this.plugin.setSceneMetadataOpen(true);
 	}
 
 	applySettings(): void {
 		this.view.containerEl.toggleClass("ue-hide-props", this.plugin.settings.hideInlineProperties);
 		this.propsBtn.toggleClass("is-hidden", !this.plugin.settings.showPropertiesButton);
+		this.setSceneOpen(this.plugin.settings.sceneMetadataOpen, false);
+		this.lockInlineTitle(this.plugin.settings.lockTitle);
 		this.refreshInfo();
 		this.refreshScene(true);
 	}
@@ -255,7 +324,28 @@ export class NovelToolbar {
 		for (const p of this.pickers.values()) p.refresh();
 	}
 
-	/** Redraw the row of scene labels (characters, locations, groups, lore, timeline) if what it shows changed. */
+	/**
+	 * Show or hide the Scene Metadata section, sliding it open / closed when `animate` (the height
+	 * animation itself is CSS, on .ue-scene-wrap).
+	 */
+	setSceneOpen(open: boolean, animate: boolean): void {
+		const wrap = this.sceneWrap;
+		if (!animate) {
+			wrap.addClass("no-anim");
+			// Re-enable transitions once this state has been painted.
+			window.requestAnimationFrame(() => window.requestAnimationFrame(() => wrap.removeClass("no-anim")));
+		}
+		wrap.toggleClass("is-open", open);
+		wrap.setAttr("aria-hidden", String(!open));
+		// Hidden rows shouldn't be reachable with Tab.
+		if (open) wrap.removeAttribute("inert");
+		else wrap.setAttribute("inert", "");
+		this.sceneToggle.toggleClass("is-open", open);
+		this.sceneToggle.setAttr("aria-expanded", String(open));
+		if (!open) for (const p of this.pickers.values()) p.close();
+	}
+
+	/** Redraw the scene's labels (characters, locations, groups, lore, timeline) if what it shows changed. */
 	refreshScene(force = false): void {
 		const file = this.view.file;
 		const lists = file
@@ -267,12 +357,12 @@ export class NovelToolbar {
 		if (!force && signature === this.sceneSignature) return;
 		this.sceneSignature = signature;
 
-		const row = this.sceneEl;
-		row.empty();
-		let any = false;
+		// Only the labels are redrawn; the category names and "+" buttons (which anchor open menus) stay.
 		for (const { def, items } of lists) {
+			const row = this.scenePills.get(def.kind);
+			if (!row) continue;
+			row.empty();
 			for (const item of items) {
-				any = true;
 				const pill = row.createDiv({
 					cls: "ue-chip ue-scene-pill",
 					attr: {
@@ -307,7 +397,6 @@ export class NovelToolbar {
 				});
 			}
 		}
-		row.toggleClass("is-empty", !any);
 	}
 
 	/** Called on every CodeMirror update for this view's editor. */
@@ -382,4 +471,12 @@ export class NovelToolbar {
 			}
 		}
 	}
+}
+
+/** Would this key change text in a focused editable element (typing, deleting, pasting, cutting)? */
+function isEditingKey(e: KeyboardEvent): boolean {
+	if (e.key === "Backspace" || e.key === "Delete") return true;
+	const mod = e.ctrlKey || e.metaKey;
+	if (mod) return ["v", "x", "z", "y"].includes(e.key.toLowerCase());
+	return e.key.length === 1;
 }
