@@ -134,9 +134,7 @@ export const alignmentKeeper = EditorState.transactionFilter.of((tr) => {
 class HiddenMarker extends WidgetType {
 	eq(): boolean { return true; }
 	toDOM(): HTMLElement {
-		const span = document.createElement("span");
-		span.className = "ue-align-marker";
-		return span;
+		return createSpan({ cls: "ue-align-marker" });
 	}
 	ignoreEvent(): boolean { return false; }
 }

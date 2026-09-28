@@ -3674,7 +3674,7 @@ function segmentsFor(state, range) {
   }
   return segs;
 }
-var WORD = /[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu;
+var WORD = /[\p{L}\p{N}]+(?:['’-][\p{L}\p{N}]+)*/gu;
 var MARKERS_BEFORE = /(?:[*_~]|<\/?u>)+$/i;
 var MARKERS_AFTER = /^(?:[*_~]|<\/?u>)+/i;
 function wordInLine(text, offset) {
@@ -3733,7 +3733,8 @@ function toggleFormat(view, kind) {
     const segs = segmentsFor(state, range);
     if (segs.length === 0) return { range };
     const found = segs.map((s) => detectWrapping(state.doc, s.from, s.to, kind));
-    const unwrap = found.every((f) => f !== null);
+    const wrappings = found.filter((f) => f !== null);
+    const unwrap = wrappings.length === found.length;
     const specs = [];
     segs.forEach((s, i) => {
       const f = found[i];
@@ -3745,8 +3746,8 @@ function toggleFormat(view, kind) {
     });
     const changes = state.changes(specs);
     const first = segs[0], last = segs[segs.length - 1];
-    const anchorFrom = unwrap ? Math.min(first.from, found[0].openTo) : first.from;
-    const anchorTo = unwrap ? Math.max(last.to, found[found.length - 1].closeFrom) : last.to;
+    const anchorFrom = unwrap ? Math.min(first.from, wrappings[0].openTo) : first.from;
+    const anchorTo = unwrap ? Math.max(last.to, wrappings[wrappings.length - 1].closeFrom) : last.to;
     return {
       changes,
       range: import_state.EditorSelection.range(changes.mapPos(anchorFrom, 1), changes.mapPos(anchorTo, -1))
@@ -3766,7 +3767,7 @@ function isActive(state, kind) {
 }
 function countWords(text) {
   const body = text.replace(/^---\r?\n[\s\S]*?\r?\n---[ \t]*(?:\r?\n|$)/, "").replace(/%%[\s\S]*?%%/g, " ").replace(/<!--[\s\S]*?-->/g, " ").replace(/<[^>\n]+>/g, " ");
-  const m = body.match(/[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu);
+  const m = body.match(/[\p{L}\p{N}]+(?:['’-][\p{L}\p{N}]+)*/gu);
   return m ? m.length : 0;
 }
 
@@ -3871,9 +3872,7 @@ var HiddenMarker = class extends import_view.WidgetType {
     return true;
   }
   toDOM() {
-    const span = document.createElement("span");
-    span.className = "ue-align-marker";
-    return span;
+    return createSpan({ cls: "ue-align-marker" });
   }
   ignoreEvent() {
     return false;
@@ -4087,11 +4086,10 @@ var PropertiesPopover = class {
       del.disabled = true;
       del.addClass("is-hidden");
     } else {
-      del.addEventListener("click", async () => {
-        await this.write((fm) => {
+      del.addEventListener("click", () => {
+        void this.write((fm) => {
           delete fm[state.key];
-        });
-        row.remove();
+        }).then(() => row.remove());
       });
     }
   }

@@ -326,7 +326,7 @@ export class NovelEditor extends Component {
 		if (!this.settings.forceLivePreview || !path || tb.forcedFor === path) return;
 		tb.forcedFor = path;
 		const vs = leaf.getViewState();
-		const st = (vs.state ?? {}) as Record<string, unknown>;
+		const st = vs.state ?? {};
 		if (st.mode === "source" && st.source === false) return;
 		void leaf.setViewState({ ...vs, state: { ...st, mode: "source", source: false } });
 	}

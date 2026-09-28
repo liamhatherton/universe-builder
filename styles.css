@@ -1083,7 +1083,7 @@
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
 	align-items: center;
-	column-gap: 12px;
+	gap: 0 12px;
 	flex: 0 0 auto;
 	min-height: 36px;
 	padding: 3px var(--size-4-3, 12px);
@@ -1302,8 +1302,7 @@
 	display: grid;
 	grid-template-columns: max-content minmax(0, 1fr);
 	align-items: center;
-	column-gap: 10px;
-	row-gap: 4px;
+	gap: 4px 10px;
 	padding: 4px 0 5px;
 }
 .ue-scene-category {
@@ -1327,7 +1326,14 @@
 	min-width: 0;
 }
 /* The labels wrap within the right column. */
-.ue-scene-pills { display: contents; }
+.ue-scene-pills {
+	display: flex;
+	flex: 1 1 auto;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px;
+	min-width: 0;
+}
 .ue-scene-add {
 	width: 24px;
 	height: 24px;

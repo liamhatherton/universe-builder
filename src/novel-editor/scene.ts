@@ -105,7 +105,7 @@ export class SceneLists {
 	}
 
 	items(source: TFile, def: SceneListDef, entries = this.plugin.entries(def.kind)): SceneItem[] {
-		const fm = this.plugin.app.metadataCache.getFileCache(source)?.frontmatter as Frontmatter | undefined;
+		const fm = this.plugin.app.metadataCache.getFileCache(source)?.frontmatter;
 		return asList(fm?.[def.key]).map((raw) => this.resolve(raw, def, source, entries));
 	}
 

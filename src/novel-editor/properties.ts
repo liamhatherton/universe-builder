@@ -139,9 +139,8 @@ export class PropertiesPopover {
 			del.disabled = true;
 			del.addClass("is-hidden");
 		} else {
-			del.addEventListener("click", async () => {
-				await this.write((fm) => { delete fm[state.key]; });
-				row.remove();
+			del.addEventListener("click", () => {
+				void this.write((fm) => { delete fm[state.key]; }).then(() => row.remove());
 			});
 		}
 	}
@@ -317,8 +316,8 @@ export class PropertiesPopover {
 
 	private assignedType(key: string): string | null {
 		try {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const mtm = (this.plugin.app as any).metadataTypeManager;
+			// Obsidian's property type registry isn't in the public API (see UNDOCUMENTED-API.md).
+			const mtm = (this.plugin.app as unknown as { metadataTypeManager?: MetadataTypeManager }).metadataTypeManager;
 			if (!mtm) return null;
 			const lower = key.toLowerCase();
 			const t = mtm.getAssignedType?.(lower) ?? mtm.types?.[lower]?.type ?? mtm.getAssignedWidget?.(lower);
@@ -349,6 +348,13 @@ export class PropertiesPopover {
 		}
 		return out;
 	}
+}
+
+/** The parts of Obsidian's (undocumented) `app.metadataTypeManager` read by assignedType. */
+interface MetadataTypeManager {
+	getAssignedType?: (key: string) => unknown;
+	types?: Record<string, { type?: unknown } | undefined>;
+	getAssignedWidget?: (key: string) => unknown;
 }
 
 const KIND_ICON: Record<ValueKind, string> = {

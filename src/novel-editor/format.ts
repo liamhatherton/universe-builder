@@ -106,7 +106,7 @@ function segmentsFor(state: EditorState, range: SelectionRange): Segment[] {
 }
 
 // A word: letters/numbers, allowing inner apostrophes and hyphens (don't, well-known).
-const WORD = /[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu;
+const WORD = /[\p{L}\p{N}]+(?:['’-][\p{L}\p{N}]+)*/gu;
 // Formatting markers that may sit between the cursor and a word: **, _, ~~, <u>, </u>.
 const MARKERS_BEFORE = /(?:[*_~]|<\/?u>)+$/i;
 const MARKERS_AFTER = /^(?:[*_~]|<\/?u>)+/i;
@@ -180,7 +180,8 @@ export function toggleFormat(view: EditorView, kind: FormatKind): void {
 		const segs = segmentsFor(state, range);
 		if (segs.length === 0) return { range };
 		const found = segs.map((s) => detectWrapping(state.doc, s.from, s.to, kind));
-		const unwrap = found.every((f) => f !== null);
+		const wrappings = found.filter((f): f is Wrapping => f !== null);
+		const unwrap = wrappings.length === found.length;
 
 		const specs: ChangeSpec[] = [];
 		segs.forEach((s, i) => {
@@ -193,8 +194,8 @@ export function toggleFormat(view: EditorView, kind: FormatKind): void {
 		});
 		const changes = state.changes(specs);
 		const first = segs[0], last = segs[segs.length - 1];
-		const anchorFrom = unwrap ? Math.min(first.from, found[0]!.openTo) : first.from;
-		const anchorTo = unwrap ? Math.max(last.to, found[found.length - 1]!.closeFrom) : last.to;
+		const anchorFrom = unwrap ? Math.min(first.from, wrappings[0].openTo) : first.from;
+		const anchorTo = unwrap ? Math.max(last.to, wrappings[wrappings.length - 1].closeFrom) : last.to;
 		return {
 			changes,
 			range: EditorSelection.range(changes.mapPos(anchorFrom, 1), changes.mapPos(anchorTo, -1)),
@@ -223,6 +224,6 @@ export function countWords(text: string): number {
 		.replace(/%%[\s\S]*?%%/g, " ")
 		.replace(/<!--[\s\S]*?-->/g, " ")
 		.replace(/<[^>\n]+>/g, " ");
-	const m = body.match(/[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu);
+	const m = body.match(/[\p{L}\p{N}]+(?:['’-][\p{L}\p{N}]+)*/gu);
 	return m ? m.length : 0;
 }
