@@ -23,6 +23,7 @@ import { NovelToolbar, cmOf } from "./toolbar";
 import type { SceneKind, UniverseEntry } from "./scene";
 
 export type { SceneKind, UniverseEntry } from "./scene";
+export { ENTRY_DRAG_TYPE } from "./scene";
 
 /** The plugin settings the novel editor reads (stored flat in the plugin's data.json). */
 export interface NovelEditorSettings {
@@ -90,6 +91,8 @@ export interface NovelEditorHost {
 	 * known yet (the host looks it up and calls portraitsChanged() when it has).
 	 */
 	universePortrait(file: TFile): string | null | undefined;
+	/** Which sidebar section a note is an entry of, if any. */
+	universeEntryKind(file: TFile): SceneKind | null;
 }
 
 type HostPlugin = Plugin & NovelEditorHost;
@@ -137,6 +140,10 @@ export class NovelEditor extends Component {
 
 	revealEntry(file: TFile): Promise<void> {
 		return this.host.revealUniverseEntry(file);
+	}
+
+	entryKind(file: TFile): SceneKind | null {
+		return this.host.universeEntryKind(file);
 	}
 
 	portrait(file: TFile): string | null {

@@ -4,7 +4,7 @@ import type { TranslationKey } from "../i18n";
 import { FormatKind, countWords, isActive, toggleFormat } from "./format";
 import { Alignment, currentAlignment, setAlignment } from "./align";
 import { PropertiesPopover } from "./properties";
-import { SCENE_LISTS, SceneKind, SceneLists, ScenePicker, renderAvatar } from "./scene";
+import { ENTRY_DRAG_TYPE, SCENE_LISTS, SceneKind, SceneLists, ScenePicker, renderAvatar } from "./scene";
 import { t, tn } from "../i18n";
 import type { NovelEditor } from "./index";
 
@@ -52,6 +52,9 @@ export class NovelToolbar {
 	/** What the scene row last showed, so unrelated metadata changes don't redraw it. */
 	private sceneSignature = "";
 	private countTimer: number | null = null;
+	/** The view element the drop listeners are on (see listenForDrops). */
+	private dropHost: HTMLElement | null = null;
+	private dropHighlightTimer: number | null = null;
 
 	constructor(private readonly plugin: NovelEditor, readonly view: MarkdownView) {
 		this.el = createDiv({ cls: "ue-toolbar" });
@@ -122,6 +125,7 @@ export class NovelToolbar {
 		const container = this.view.containerEl;
 		if (this.el.parentElement !== container) container.insertBefore(this.el, this.view.contentEl);
 		container.addClass("ue-editor");
+		this.listenForDrops(container);
 		this.applySettings();
 		this.setFile(this.view.file);
 	}
@@ -130,7 +134,82 @@ export class NovelToolbar {
 		this.closePopovers();
 		if (this.countTimer !== null) window.clearTimeout(this.countTimer);
 		this.el.remove();
-		this.view.containerEl.removeClass("ue-editor", "ue-hide-props");
+		this.stopListeningForDrops();
+		this.view.containerEl.removeClass("ue-editor", "ue-hide-props", "ue-drop-target");
+	}
+
+	// ─── Dropping sidebar entries onto the scene ────────────────────────────────
+
+	private readonly onDragOver = (e: DragEvent) => {
+		if (!e.dataTransfer?.types.includes(ENTRY_DRAG_TYPE)) return;
+		// Capture phase on the whole view, so the editor never sees (or pastes) the drag.
+		e.preventDefault();
+		e.stopPropagation();
+		e.dataTransfer.dropEffect = "copy";
+		this.setDropHighlight(true);
+	};
+
+	private readonly onDragLeave = (e: DragEvent) => {
+		if (!e.dataTransfer?.types.includes(ENTRY_DRAG_TYPE)) return;
+		const to = e.relatedTarget as Node | null;
+		if (!to || !this.view.containerEl.contains(to)) this.setDropHighlight(false);
+	};
+
+	private readonly onDrop = (e: DragEvent) => {
+		if (!e.dataTransfer?.types.includes(ENTRY_DRAG_TYPE)) return;
+		e.preventDefault();
+		e.stopPropagation();
+		this.setDropHighlight(false);
+		void this.addDroppedEntry(e.dataTransfer.getData(ENTRY_DRAG_TYPE));
+	};
+
+	/** Any sidebar card (or an expanded card's header) dropped anywhere on this view joins the scene. */
+	private listenForDrops(host: HTMLElement): void {
+		if (this.dropHost === host) return;
+		this.stopListeningForDrops();
+		this.dropHost = host;
+		host.addEventListener("dragenter", this.onDragOver, true);
+		host.addEventListener("dragover", this.onDragOver, true);
+		host.addEventListener("dragleave", this.onDragLeave, true);
+		host.addEventListener("drop", this.onDrop, true);
+	}
+
+	private stopListeningForDrops(): void {
+		const host = this.dropHost;
+		if (!host) return;
+		host.removeEventListener("dragenter", this.onDragOver, true);
+		host.removeEventListener("dragover", this.onDragOver, true);
+		host.removeEventListener("dragleave", this.onDragLeave, true);
+		host.removeEventListener("drop", this.onDrop, true);
+		this.dropHost = null;
+		this.setDropHighlight(false);
+	}
+
+	/**
+	 * Outline the view while an entry is dragged over it. dragleave doesn't fire when a drag is
+	 * cancelled (Escape) or ends elsewhere, so the highlight also clears itself shortly after the
+	 * last dragover.
+	 */
+	private setDropHighlight(on: boolean): void {
+		if (this.dropHighlightTimer !== null) window.clearTimeout(this.dropHighlightTimer);
+		this.dropHighlightTimer = null;
+		this.view.containerEl.toggleClass("ue-drop-target", on);
+		if (on) this.dropHighlightTimer = window.setTimeout(() => this.setDropHighlight(false), 300);
+	}
+
+	private async addDroppedEntry(path: string): Promise<void> {
+		const scene = this.view.file;
+		const entry = path ? this.plugin.app.vault.getAbstractFileByPath(path) : null;
+		if (!scene || !(entry instanceof TFile)) return;
+		const kind = this.plugin.entryKind(entry);
+		const def = SCENE_LISTS.find((d) => d.kind === kind);
+		if (!def) return;
+		const name = this.plugin.entries(def.kind).find((e) => e.file === entry)?.name ?? entry.basename;
+		if (this.sceneLists.items(scene, def).some((i) => i.file === entry)) {
+			new Notice(t("novel.alreadyInScene", { name }));
+			return;
+		}
+		await this.sceneLists.add(scene, def, entry);
 	}
 
 	applySettings(): void {

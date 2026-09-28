@@ -343,6 +343,7 @@ export const ru: Translations = {
 	"novel.openInSidebar": "Открыть «{name}» на боковой панели",
 	"novel.entryNotFound": "«{name}» нет на боковой панели Universe Builder.",
 	"novel.removeFromScene": "Убрать из сцены",
+	"novel.alreadyInScene": "«{name}» уже есть в этой сцене.",
 	"command.novelUnderline": "Переключить подчёркивание",
 	"command.novelStrikethrough": "Переключить зачёркивание",
 	"command.novelProperties": "Открыть панель свойств",

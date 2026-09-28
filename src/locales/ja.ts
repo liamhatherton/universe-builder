@@ -340,6 +340,7 @@ export const ja: Translations = {
 	"novel.openInSidebar": "{name} をサイドバーで開く",
 	"novel.entryNotFound": "「{name}」は Universe Builder のサイドバーにありません。",
 	"novel.removeFromScene": "シーンから外す",
+	"novel.alreadyInScene": "{name} はすでにこのシーンにあります。",
 	"command.novelUnderline": "下線の切り替え",
 	"command.novelStrikethrough": "取り消し線の切り替え",
 	"command.novelProperties": "プロパティパネルを開く",

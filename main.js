@@ -359,6 +359,7 @@ var en = {
   "novel.openInSidebar": "Open {name} in the sidebar",
   "novel.entryNotFound": `"{name}" isn't in the Universe Builder sidebar.`,
   "novel.removeFromScene": "Remove from scene",
+  "novel.alreadyInScene": "{name} is already in this scene.",
   "command.novelUnderline": "Toggle underline",
   "command.novelStrikethrough": "Toggle strikethrough",
   "command.novelProperties": "Open properties panel",
@@ -709,6 +710,7 @@ var es = {
   "novel.openInSidebar": "Abrir {name} en la barra lateral",
   "novel.entryNotFound": "\xAB{name}\xBB no est\xE1 en la barra lateral de Universe Builder.",
   "novel.removeFromScene": "Quitar de la escena",
+  "novel.alreadyInScene": "{name} ya est\xE1 en esta escena.",
   "command.novelUnderline": "Alternar subrayado",
   "command.novelStrikethrough": "Alternar tachado",
   "command.novelProperties": "Abrir el panel de propiedades",
@@ -1059,6 +1061,7 @@ var pt = {
   "novel.openInSidebar": "Abrir {name} na barra lateral",
   "novel.entryNotFound": "\xAB{name}\xBB n\xE3o est\xE1 na barra lateral do Universe Builder.",
   "novel.removeFromScene": "Retirar da cena",
+  "novel.alreadyInScene": "{name} j\xE1 est\xE1 nesta cena.",
   "command.novelUnderline": "Alternar sublinhado",
   "command.novelStrikethrough": "Alternar rasurado",
   "command.novelProperties": "Abrir o painel de propriedades",
@@ -1409,6 +1412,7 @@ var ptBR = {
   "novel.openInSidebar": "Abrir {name} na barra lateral",
   "novel.entryNotFound": '"{name}" n\xE3o est\xE1 na barra lateral do Universe Builder.',
   "novel.removeFromScene": "Remover da cena",
+  "novel.alreadyInScene": "{name} j\xE1 est\xE1 nesta cena.",
   "command.novelUnderline": "Alternar sublinhado",
   "command.novelStrikethrough": "Alternar tachado",
   "command.novelProperties": "Abrir o painel de propriedades",
@@ -1759,6 +1763,7 @@ var fr = {
   "novel.openInSidebar": "Ouvrir {name} dans la barre lat\xE9rale",
   "novel.entryNotFound": "\xAB {name} \xBB n'est pas dans la barre lat\xE9rale d'Universe Builder.",
   "novel.removeFromScene": "Retirer de la sc\xE8ne",
+  "novel.alreadyInScene": "{name} est d\xE9j\xE0 dans cette sc\xE8ne.",
   "command.novelUnderline": "Activer/d\xE9sactiver le soulign\xE9",
   "command.novelStrikethrough": "Activer/d\xE9sactiver le barr\xE9",
   "command.novelProperties": "Ouvrir le panneau des propri\xE9t\xE9s",
@@ -2109,6 +2114,7 @@ var de = {
   "novel.openInSidebar": "{name} in der Seitenleiste \xF6ffnen",
   "novel.entryNotFound": "\u201E{name}\u201C ist nicht in der Universe-Builder-Seitenleiste.",
   "novel.removeFromScene": "Aus der Szene entfernen",
+  "novel.alreadyInScene": "{name} ist bereits in dieser Szene.",
   "command.novelUnderline": "Unterstreichen umschalten",
   "command.novelStrikethrough": "Durchstreichen umschalten",
   "command.novelProperties": "Eigenschaften-Panel \xF6ffnen",
@@ -2459,6 +2465,7 @@ var ru = {
   "novel.openInSidebar": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \xAB{name}\xBB \u043D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438",
   "novel.entryNotFound": "\xAB{name}\xBB \u043D\u0435\u0442 \u043D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 Universe Builder.",
   "novel.removeFromScene": "\u0423\u0431\u0440\u0430\u0442\u044C \u0438\u0437 \u0441\u0446\u0435\u043D\u044B",
+  "novel.alreadyInScene": "\xAB{name}\xBB \u0443\u0436\u0435 \u0435\u0441\u0442\u044C \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435.",
   "command.novelUnderline": "\u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043F\u043E\u0434\u0447\u0451\u0440\u043A\u0438\u0432\u0430\u043D\u0438\u0435",
   "command.novelStrikethrough": "\u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u0437\u0430\u0447\u0451\u0440\u043A\u0438\u0432\u0430\u043D\u0438\u0435",
   "command.novelProperties": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0430\u043D\u0435\u043B\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432",
@@ -2809,6 +2816,7 @@ var uk = {
   "novel.openInSidebar": "\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \xAB{name}\xBB \u043D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456",
   "novel.entryNotFound": "\xAB{name}\xBB \u043D\u0435\u043C\u0430\u0454 \u043D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 Universe Builder.",
   "novel.removeFromScene": "\u041F\u0440\u0438\u0431\u0440\u0430\u0442\u0438 \u0437\u0456 \u0441\u0446\u0435\u043D\u0438",
+  "novel.alreadyInScene": "\xAB{name}\xBB \u0443\u0436\u0435 \u0454 \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456.",
   "command.novelUnderline": "\u041F\u0435\u0440\u0435\u043C\u043A\u043D\u0443\u0442\u0438 \u043F\u0456\u0434\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u043D\u044F",
   "command.novelStrikethrough": "\u041F\u0435\u0440\u0435\u043C\u043A\u043D\u0443\u0442\u0438 \u0437\u0430\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u043D\u044F",
   "command.novelProperties": "\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \u043F\u0430\u043D\u0435\u043B\u044C \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439",
@@ -3159,6 +3167,7 @@ var zh = {
   "novel.openInSidebar": "\u5728\u4FA7\u8FB9\u680F\u4E2D\u6253\u5F00 {name}",
   "novel.entryNotFound": "\u201C{name}\u201D\u4E0D\u5728 Universe Builder \u4FA7\u8FB9\u680F\u4E2D\u3002",
   "novel.removeFromScene": "\u4ECE\u573A\u666F\u4E2D\u79FB\u9664",
+  "novel.alreadyInScene": "{name} \u5DF2\u5728\u6B64\u573A\u666F\u4E2D\u3002",
   "command.novelUnderline": "\u5207\u6362\u4E0B\u5212\u7EBF",
   "command.novelStrikethrough": "\u5207\u6362\u5220\u9664\u7EBF",
   "command.novelProperties": "\u6253\u5F00\u5C5E\u6027\u9762\u677F",
@@ -3509,6 +3518,7 @@ var ja = {
   "novel.openInSidebar": "{name} \u3092\u30B5\u30A4\u30C9\u30D0\u30FC\u3067\u958B\u304F",
   "novel.entryNotFound": "\u300C{name}\u300D\u306F Universe Builder \u306E\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u3042\u308A\u307E\u305B\u3093\u3002",
   "novel.removeFromScene": "\u30B7\u30FC\u30F3\u304B\u3089\u5916\u3059",
+  "novel.alreadyInScene": "{name} \u306F\u3059\u3067\u306B\u3053\u306E\u30B7\u30FC\u30F3\u306B\u3042\u308A\u307E\u3059\u3002",
   "command.novelUnderline": "\u4E0B\u7DDA\u306E\u5207\u308A\u66FF\u3048",
   "command.novelStrikethrough": "\u53D6\u308A\u6D88\u3057\u7DDA\u306E\u5207\u308A\u66FF\u3048",
   "command.novelProperties": "\u30D7\u30ED\u30D1\u30C6\u30A3\u30D1\u30CD\u30EB\u3092\u958B\u304F",
@@ -4286,6 +4296,7 @@ function enterBlurs(inp) {
 
 // src/novel-editor/scene.ts
 var import_obsidian4 = require("obsidian");
+var ENTRY_DRAG_TYPE = "application/x-universe-builder-entry";
 var SCENE_LISTS = [
   { kind: "characters", key: "universe-builder-scene-characterlist", icon: "user", label: "tab.characters", tooltip: "novel.charactersTooltip", empty: "novel.noCharacters" },
   { kind: "locations", key: "universe-builder-scene-locationlist", icon: "map-pin", label: "tab.locations", tooltip: "novel.locationsTooltip", empty: "novel.noLocations" },
@@ -4554,6 +4565,32 @@ var NovelToolbar = class {
     /** What the scene row last showed, so unrelated metadata changes don't redraw it. */
     this.sceneSignature = "";
     this.countTimer = null;
+    /** The view element the drop listeners are on (see listenForDrops). */
+    this.dropHost = null;
+    this.dropHighlightTimer = null;
+    // ─── Dropping sidebar entries onto the scene ────────────────────────────────
+    this.onDragOver = (e) => {
+      var _a;
+      if (!((_a = e.dataTransfer) == null ? void 0 : _a.types.includes(ENTRY_DRAG_TYPE))) return;
+      e.preventDefault();
+      e.stopPropagation();
+      e.dataTransfer.dropEffect = "copy";
+      this.setDropHighlight(true);
+    };
+    this.onDragLeave = (e) => {
+      var _a;
+      if (!((_a = e.dataTransfer) == null ? void 0 : _a.types.includes(ENTRY_DRAG_TYPE))) return;
+      const to = e.relatedTarget;
+      if (!to || !this.view.containerEl.contains(to)) this.setDropHighlight(false);
+    };
+    this.onDrop = (e) => {
+      var _a;
+      if (!((_a = e.dataTransfer) == null ? void 0 : _a.types.includes(ENTRY_DRAG_TYPE))) return;
+      e.preventDefault();
+      e.stopPropagation();
+      this.setDropHighlight(false);
+      void this.addDroppedEntry(e.dataTransfer.getData(ENTRY_DRAG_TYPE));
+    };
     this.el = createDiv({ cls: "ue-toolbar" });
     const left = this.el.createDiv({ cls: "ue-toolbar-section ue-toolbar-left" });
     const center = this.el.createDiv({ cls: "ue-toolbar-section ue-toolbar-center" });
@@ -4614,6 +4651,7 @@ var NovelToolbar = class {
     const container = this.view.containerEl;
     if (this.el.parentElement !== container) container.insertBefore(this.el, this.view.contentEl);
     container.addClass("ue-editor");
+    this.listenForDrops(container);
     this.applySettings();
     this.setFile(this.view.file);
   }
@@ -4621,7 +4659,54 @@ var NovelToolbar = class {
     this.closePopovers();
     if (this.countTimer !== null) window.clearTimeout(this.countTimer);
     this.el.remove();
-    this.view.containerEl.removeClass("ue-editor", "ue-hide-props");
+    this.stopListeningForDrops();
+    this.view.containerEl.removeClass("ue-editor", "ue-hide-props", "ue-drop-target");
+  }
+  /** Any sidebar card (or an expanded card's header) dropped anywhere on this view joins the scene. */
+  listenForDrops(host) {
+    if (this.dropHost === host) return;
+    this.stopListeningForDrops();
+    this.dropHost = host;
+    host.addEventListener("dragenter", this.onDragOver, true);
+    host.addEventListener("dragover", this.onDragOver, true);
+    host.addEventListener("dragleave", this.onDragLeave, true);
+    host.addEventListener("drop", this.onDrop, true);
+  }
+  stopListeningForDrops() {
+    const host = this.dropHost;
+    if (!host) return;
+    host.removeEventListener("dragenter", this.onDragOver, true);
+    host.removeEventListener("dragover", this.onDragOver, true);
+    host.removeEventListener("dragleave", this.onDragLeave, true);
+    host.removeEventListener("drop", this.onDrop, true);
+    this.dropHost = null;
+    this.setDropHighlight(false);
+  }
+  /**
+   * Outline the view while an entry is dragged over it. dragleave doesn't fire when a drag is
+   * cancelled (Escape) or ends elsewhere, so the highlight also clears itself shortly after the
+   * last dragover.
+   */
+  setDropHighlight(on) {
+    if (this.dropHighlightTimer !== null) window.clearTimeout(this.dropHighlightTimer);
+    this.dropHighlightTimer = null;
+    this.view.containerEl.toggleClass("ue-drop-target", on);
+    if (on) this.dropHighlightTimer = window.setTimeout(() => this.setDropHighlight(false), 300);
+  }
+  async addDroppedEntry(path) {
+    var _a, _b;
+    const scene = this.view.file;
+    const entry = path ? this.plugin.app.vault.getAbstractFileByPath(path) : null;
+    if (!scene || !(entry instanceof import_obsidian5.TFile)) return;
+    const kind = this.plugin.entryKind(entry);
+    const def = SCENE_LISTS.find((d) => d.kind === kind);
+    if (!def) return;
+    const name = (_b = (_a = this.plugin.entries(def.kind).find((e) => e.file === entry)) == null ? void 0 : _a.name) != null ? _b : entry.basename;
+    if (this.sceneLists.items(scene, def).some((i) => i.file === entry)) {
+      new import_obsidian5.Notice(t("novel.alreadyInScene", { name }));
+      return;
+    }
+    await this.sceneLists.add(scene, def, entry);
   }
   applySettings() {
     this.view.containerEl.toggleClass("ue-hide-props", this.plugin.settings.hideInlineProperties);
@@ -4841,6 +4926,9 @@ var NovelEditor = class extends import_obsidian6.Component {
   }
   revealEntry(file) {
     return this.host.revealUniverseEntry(file);
+  }
+  entryKind(file) {
+    return this.host.universeEntryKind(file);
   }
   portrait(file) {
     var _a;
@@ -5540,7 +5628,37 @@ var UniverseBuilderView = class extends import_obsidian7.ItemView {
     return "orbit";
   }
   async onOpen() {
+    this.registerDomEvent(this.containerEl, "dragstart", (e) => this.onEntryDragStart(e), { capture: true });
     await this.render();
+  }
+  /**
+   * Lets any entry be dragged out of the sidebar onto a novel scene (see src/novel-editor): a
+   * collapsed card (or the tree label standing in for it), or the header row of the expanded,
+   * floating card. The drag carries the note's path under ENTRY_DRAG_TYPE; within the sidebar,
+   * collapsed cards keep reordering as before.
+   */
+  onEntryDragStart(e) {
+    var _a, _b;
+    const target = e.target instanceof HTMLElement ? e.target : null;
+    if (!target || !e.dataTransfer) return;
+    const floating = (_a = this.floating) == null ? void 0 : _a.card;
+    const header = floating ? target.closest(".wb-card-row, .wb-card-title") : null;
+    if (floating && header && header.parentElement === floating) {
+      e.dataTransfer.setData(ENTRY_DRAG_TYPE, (_b = floating.getAttribute("data-path")) != null ? _b : "");
+      e.dataTransfer.effectAllowed = "copy";
+      e.stopPropagation();
+      return;
+    }
+    let card = target.closest(".wb-card, .wb-tree-header");
+    if (card == null ? void 0 : card.classList.contains("wb-tree-header")) {
+      const next = card.nextElementSibling;
+      card = next instanceof HTMLElement && next.classList.contains("wb-card") ? next : null;
+    }
+    if (!card || card.classList.contains("wb-card-expanded")) return;
+    const path = card.getAttribute("data-path");
+    if (!path) return;
+    e.dataTransfer.setData(ENTRY_DRAG_TYPE, path);
+    e.dataTransfer.effectAllowed = "copyMove";
   }
   async onClose() {
   }
@@ -6391,6 +6509,7 @@ var UniverseBuilderView = class extends import_obsidian7.ItemView {
     const { file, content, fm } = entry;
     const { title, meta, badge, badgeText, search, extraBadges } = getCard(fm);
     const card = parent.createDiv("wb-card");
+    card.setAttribute("draggable", "true");
     if (stackBadge) card.addClass("wb-card-stacked");
     card.setAttribute("data-path", file.path);
     this.searchIndex.set(card, normalizeForSearch(search != null ? search : `${title} ${documentSearchText(content, fm)}`));
@@ -6791,6 +6910,7 @@ var UniverseBuilderView = class extends import_obsidian7.ItemView {
    * skips the animation (used when switching straight from another expanded entry).
    */
   enterFloat(card, instant = false) {
+    var _a;
     void this.exitFloat(true);
     const root = this.containerEl;
     const pane = card.closest(".wb-tab-body");
@@ -6809,6 +6929,7 @@ var UniverseBuilderView = class extends import_obsidian7.ItemView {
     this.floating = { card, placeholder, pane, backdrop, observer, draggable: card.getAttribute("draggable") };
     this.updateFloatBounds();
     card.setAttribute("draggable", "false");
+    (_a = card.querySelector(":scope > .wb-card-row, :scope > .wb-card-title")) == null ? void 0 : _a.setAttribute("draggable", "true");
     this.setCardChevron(card, "x");
     root.addClass("wb-has-edit-focus");
     pane.addClass("wb-edit-focus-pane");
@@ -6825,8 +6946,8 @@ var UniverseBuilderView = class extends import_obsidian7.ItemView {
     backdrop.addClass("is-visible");
     this.setFocusGeometry(card, this.focusTarget());
     window.setTimeout(() => {
-      var _a;
-      if (((_a = this.floating) == null ? void 0 : _a.card) !== card) return;
+      var _a2;
+      if (((_a2 = this.floating) == null ? void 0 : _a2.card) !== card) return;
       card.removeClass("wb-card-focus-animating");
       this.setFocusGeometry(card, null);
     }, FLOAT_MS);
@@ -6843,11 +6964,13 @@ var UniverseBuilderView = class extends import_obsidian7.ItemView {
     focus.observer.disconnect();
     const { card, placeholder, pane, backdrop } = focus;
     const finish = () => {
+      var _a;
       card.removeClass("wb-card-focus", "wb-card-focus-animating");
       this.setFocusGeometry(card, null);
       this.setCardChevron(card, "chevron-right");
       if (focus.draggable === null) card.removeAttribute("draggable");
       else card.setAttribute("draggable", focus.draggable);
+      (_a = card.querySelector(":scope > .wb-card-row, :scope > .wb-card-title")) == null ? void 0 : _a.removeAttribute("draggable");
       placeholder.remove();
       backdrop.remove();
       pane.removeClass("wb-edit-focus-pane");
@@ -7435,7 +7558,7 @@ var UniverseBuilderView = class extends import_obsidian7.ItemView {
       if (!card || card.parentElement !== list || !e.dataTransfer) return;
       e.stopPropagation();
       dragged = card;
-      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.effectAllowed = "copyMove";
       e.dataTransfer.setData("application/x-wb-card", (_a = card.getAttribute("data-path")) != null ? _a : "");
       const parts = unitOf(card);
       window.setTimeout(() => parts.forEach((p) => p.classList.add("wb-dragging")), 0);
@@ -9261,6 +9384,12 @@ var UniverseBuilderPlugin = class extends import_obsidian7.Plugin {
         return (kind === "timeline" ? compareTimelineDates((_a = a.detail) != null ? _a : "", (_b = b.detail) != null ? _b : "") : 0) || a.name.localeCompare(b.name, void 0, { sensitivity: "base", numeric: true });
       }
     );
+  }
+  /** Which sidebar section (that a scene can list) a note belongs to, from its folder. */
+  universeEntryKind(file) {
+    var _a;
+    const kinds = ["characters", "locations", "groups", "lore", "timeline"];
+    return (_a = kinds.find((k) => file.path.startsWith(`${this.settings.worldFolder}/${SECTION_FOLDERS[k]}/`))) != null ? _a : null;
   }
   /**
    * An entry's portrait (the same image its sidebar card shows) for the novel editor. Answered from

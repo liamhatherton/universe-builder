@@ -340,6 +340,7 @@ export const de: Translations = {
 	"novel.openInSidebar": "{name} in der Seitenleiste öffnen",
 	"novel.entryNotFound": "„{name}“ ist nicht in der Universe-Builder-Seitenleiste.",
 	"novel.removeFromScene": "Aus der Szene entfernen",
+	"novel.alreadyInScene": "{name} ist bereits in dieser Szene.",
 	"command.novelUnderline": "Unterstreichen umschalten",
 	"command.novelStrikethrough": "Durchstreichen umschalten",
 	"command.novelProperties": "Eigenschaften-Panel öffnen",

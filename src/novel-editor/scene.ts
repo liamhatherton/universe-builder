@@ -11,6 +11,12 @@ import type { NovelEditor } from "./index";
  */
 export type SceneKind = "characters" | "locations" | "groups" | "lore" | "timeline";
 
+/**
+ * Data type a sidebar entry carries (its note path) while being dragged out of the Universe Builder
+ * sidebar; dropping it on a novel scene adds it to the matching scene list.
+ */
+export const ENTRY_DRAG_TYPE = "application/x-universe-builder-entry";
+
 /** A sidebar entry offered in a scene list's menu. */
 export interface UniverseEntry {
 	file: TFile;

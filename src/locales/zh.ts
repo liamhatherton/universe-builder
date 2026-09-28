@@ -340,6 +340,7 @@ export const zh: Translations = {
 	"novel.openInSidebar": "在侧边栏中打开 {name}",
 	"novel.entryNotFound": "“{name}”不在 Universe Builder 侧边栏中。",
 	"novel.removeFromScene": "从场景中移除",
+	"novel.alreadyInScene": "{name} 已在此场景中。",
 	"command.novelUnderline": "切换下划线",
 	"command.novelStrikethrough": "切换删除线",
 	"command.novelProperties": "打开属性面板",

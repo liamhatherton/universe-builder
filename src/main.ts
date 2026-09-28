@@ -23,6 +23,7 @@ import type { MarkdownFileInfo, SettingDefinitionItem } from "obsidian";
 import { t, tn, setLanguage, detectLocale, displayValue, optionLabel, LANGUAGE_NAMES, LOCALES } from "./i18n";
 import type { LanguageSetting, TranslationKey } from "./i18n";
 import { NovelEditor, NOVEL_EDITOR_DEFAULTS, normalizeNovelEditorSettings, parseProperties } from "./novel-editor";
+import { ENTRY_DRAG_TYPE } from "./novel-editor";
 import type { NovelEditorHost, NovelEditorSettings, SceneKind, UniverseEntry } from "./novel-editor";
 
 /**
@@ -967,7 +968,44 @@ class UniverseBuilderView extends ItemView {
 	getDisplayText() { return "Universe Builder"; }
 	getIcon() { return "orbit"; }
 
-	async onOpen() { await this.render(); }
+	async onOpen() {
+		// Capture phase: runs before a list's own drag-to-reorder handler, which stops propagation.
+		this.registerDomEvent(this.containerEl, "dragstart", (e) => this.onEntryDragStart(e), { capture: true });
+		await this.render();
+	}
+
+	/**
+	 * Lets any entry be dragged out of the sidebar onto a novel scene (see src/novel-editor): a
+	 * collapsed card (or the tree label standing in for it), or the header row of the expanded,
+	 * floating card. The drag carries the note's path under ENTRY_DRAG_TYPE; within the sidebar,
+	 * collapsed cards keep reordering as before.
+	 */
+	private onEntryDragStart(e: DragEvent) {
+		const target = e.target instanceof HTMLElement ? e.target : null;
+		if (!target || !e.dataTransfer) return;
+
+		const floating = this.floating?.card;
+		const header = floating ? target.closest<HTMLElement>(".wb-card-row, .wb-card-title") : null;
+		if (floating && header && header.parentElement === floating) {
+			e.dataTransfer.setData(ENTRY_DRAG_TYPE, floating.getAttribute("data-path") ?? "");
+			e.dataTransfer.effectAllowed = "copy";
+			// The floating card is still in its list: don't let that list treat this as a reorder.
+			e.stopPropagation();
+			return;
+		}
+
+		let card = target.closest<HTMLElement>(".wb-card, .wb-tree-header");
+		if (card?.classList.contains("wb-tree-header")) {
+			const next = card.nextElementSibling;
+			card = next instanceof HTMLElement && next.classList.contains("wb-card") ? next : null;
+		}
+		// Text dragged out of an expanded card's preview isn't an entry drag.
+		if (!card || card.classList.contains("wb-card-expanded")) return;
+		const path = card.getAttribute("data-path");
+		if (!path) return;
+		e.dataTransfer.setData(ENTRY_DRAG_TYPE, path);
+		e.dataTransfer.effectAllowed = "copyMove";
+	}
 	async onClose() {}
 
 	/**
@@ -1939,6 +1977,9 @@ class UniverseBuilderView extends ItemView {
 		const { title, meta, badge, badgeText, search, extraBadges } = getCard(fm);
 
 		const card = parent.createDiv("wb-card");
+		// Every card can be dragged onto a novel scene (see onEntryDragStart), even in lists that
+		// can't be reordered.
+		card.setAttribute("draggable", "true");
 		if (stackBadge) card.addClass("wb-card-stacked");
 		card.setAttribute("data-path", file.path);
 		// Characters supply their own (four properties); everything else searches name + note text.
@@ -2447,8 +2488,10 @@ class UniverseBuilderView extends ItemView {
 		this.floating = { card, placeholder, pane, backdrop, observer, draggable: card.getAttribute("draggable") };
 		this.updateFloatBounds();
 
-		// Cards are drag-sortable; don't let the floating one be picked up.
+		// Cards are drag-sortable; don't let the floating one be picked up. Its header row can be
+		// dragged instead, onto a novel scene (see onEntryDragStart).
 		card.setAttribute("draggable", "false");
+		card.querySelector<HTMLElement>(":scope > .wb-card-row, :scope > .wb-card-title")?.setAttribute("draggable", "true");
 		// The chevron becomes an X while floating: clicking the title row closes the card.
 		this.setCardChevron(card, "x");
 		root.addClass("wb-has-edit-focus");
@@ -2492,6 +2535,7 @@ class UniverseBuilderView extends ItemView {
 			this.setCardChevron(card, "chevron-right");
 			if (focus.draggable === null) card.removeAttribute("draggable");
 			else card.setAttribute("draggable", focus.draggable);
+			card.querySelector<HTMLElement>(":scope > .wb-card-row, :scope > .wb-card-title")?.removeAttribute("draggable");
 			placeholder.remove();
 			backdrop.remove();
 			pane.removeClass("wb-edit-focus-pane");
@@ -3135,7 +3179,8 @@ class UniverseBuilderView extends ItemView {
 			if (!card || card.parentElement !== list || !e.dataTransfer) return;
 			e.stopPropagation(); // keep an ancestor (hierarchical) list from also seeing this drag
 			dragged = card;
-			e.dataTransfer.effectAllowed = "move";
+			// "copy" too, so the same drag can also be dropped on a novel scene (see onEntryDragStart).
+			e.dataTransfer.effectAllowed = "copyMove";
 			// Custom type only, so dropping onto a note or editor doesn't paste anything.
 			e.dataTransfer.setData("application/x-wb-card", card.getAttribute("data-path") ?? "");
 			const parts = unitOf(card);
@@ -5220,6 +5265,12 @@ export default class UniverseBuilderPlugin extends Plugin implements NovelEditor
 				(kind === "timeline" ? compareTimelineDates(a.detail ?? "", b.detail ?? "") : 0) ||
 				a.name.localeCompare(b.name, undefined, { sensitivity: "base", numeric: true }),
 			);
+	}
+
+	/** Which sidebar section (that a scene can list) a note belongs to, from its folder. */
+	universeEntryKind(file: TFile): SceneKind | null {
+		const kinds: SceneKind[] = ["characters", "locations", "groups", "lore", "timeline"];
+		return kinds.find((k) => file.path.startsWith(`${this.settings.worldFolder}/${SECTION_FOLDERS[k]}/`)) ?? null;
 	}
 
 	/** Portrait URL per note path, with the note's mtime it was read at (see universePortrait). */

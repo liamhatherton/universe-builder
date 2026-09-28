@@ -340,6 +340,7 @@ export const pt: Translations = {
 	"novel.openInSidebar": "Abrir {name} na barra lateral",
 	"novel.entryNotFound": "«{name}» não está na barra lateral do Universe Builder.",
 	"novel.removeFromScene": "Retirar da cena",
+	"novel.alreadyInScene": "{name} já está nesta cena.",
 	"command.novelUnderline": "Alternar sublinhado",
 	"command.novelStrikethrough": "Alternar rasurado",
 	"command.novelProperties": "Abrir o painel de propriedades",

@@ -1372,3 +1372,10 @@
 
 /* A timeline event's date, after its name in the Timeline menu. */
 .ue-scene-option-detail { margin-left: auto; padding-left: 8px; flex: 0 0 auto; max-width: 45%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-faint); font-size: var(--font-ui-smaller); }
+
+/* A sidebar entry is being dragged over a scene: outline the whole view (dropping adds it). */
+.ue-editor.ue-drop-target {
+	outline: 2px dashed var(--interactive-accent);
+	outline-offset: -3px;
+}
+.ue-editor.ue-drop-target .ue-toolbar { background: var(--background-modifier-hover); }

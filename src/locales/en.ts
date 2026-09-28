@@ -341,6 +341,7 @@ export const en = {
 	"novel.openInSidebar": "Open {name} in the sidebar",
 	"novel.entryNotFound": "\"{name}\" isn't in the Universe Builder sidebar.",
 	"novel.removeFromScene": "Remove from scene",
+	"novel.alreadyInScene": "{name} is already in this scene.",
 	"command.novelUnderline": "Toggle underline",
 	"command.novelStrikethrough": "Toggle strikethrough",
 	"command.novelProperties": "Open properties panel",

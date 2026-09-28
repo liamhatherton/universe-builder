@@ -343,6 +343,7 @@ export const uk: Translations = {
 	"novel.openInSidebar": "Відкрити «{name}» на бічній панелі",
 	"novel.entryNotFound": "«{name}» немає на бічній панелі Universe Builder.",
 	"novel.removeFromScene": "Прибрати зі сцени",
+	"novel.alreadyInScene": "«{name}» уже є в цій сцені.",
 	"command.novelUnderline": "Перемкнути підкреслення",
 	"command.novelStrikethrough": "Перемкнути закреслення",
 	"command.novelProperties": "Відкрити панель властивостей",
