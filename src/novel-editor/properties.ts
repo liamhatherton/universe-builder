@@ -1,4 +1,4 @@
-import { Notice, TFile, setIcon } from "obsidian";
+import { Notice, TFile, TFolder, Vault, setIcon } from "obsidian";
 import { t } from "../i18n";
 import type { NovelEditor } from "./index";
 
@@ -328,13 +328,17 @@ export class PropertiesPopover {
 		}
 	}
 
-	/** Existing text values for each key across the vault, offered as autocomplete. */
+	/**
+	 * Existing text values for each key, offered as autocomplete. Taken from the notes near this one
+	 * (see suggestionFiles), never by listing every file in the vault.
+	 */
 	private collectSuggestions(keys: string[]): Map<string, Set<string>> {
 		const out = new Map<string, Set<string>>();
-		if (keys.length === 0) return out;
+		const file = this.getFile();
+		if (keys.length === 0 || !file) return out;
 		for (const k of keys) out.set(k, new Set());
-		const { metadataCache, vault } = this.plugin.app;
-		for (const f of vault.getMarkdownFiles()) {
+		const { metadataCache } = this.plugin.app;
+		for (const f of suggestionFiles(file)) {
 			const fm = metadataCache.getFileCache(f)?.frontmatter;
 			if (!fm) continue;
 			for (const k of keys) {
@@ -361,4 +365,24 @@ function enterBlurs(inp: HTMLInputElement): void {
 	inp.addEventListener("keydown", (e) => {
 		if (e.key === "Enter") inp.blur();
 	});
+}
+
+/**
+ * The notes whose property values are offered as suggestions for `file`: every note under the
+ * top-level folder it's in (e.g. the whole "Novel" folder for a scene in "Novel/Book 1/Chapter 1"),
+ * found by walking that folder only. A note at the vault root only looks at the other root notes.
+ */
+function suggestionFiles(file: TFile): TFile[] {
+	let top: TFolder | null = file.parent;
+	while (top?.parent && !top.parent.isRoot()) top = top.parent;
+	if (!top) return [];
+	const out: TFile[] = [];
+	if (top.isRoot()) {
+		for (const child of top.children) if (child instanceof TFile && child.extension === "md") out.push(child);
+		return out;
+	}
+	Vault.recurseChildren(top, (f) => {
+		if (f instanceof TFile && f.extension === "md") out.push(f);
+	});
+	return out;
 }

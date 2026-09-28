@@ -4270,14 +4270,18 @@ var PropertiesPopover = class {
       return null;
     }
   }
-  /** Existing text values for each key across the vault, offered as autocomplete. */
+  /**
+   * Existing text values for each key, offered as autocomplete. Taken from the notes near this one
+   * (see suggestionFiles), never by listing every file in the vault.
+   */
   collectSuggestions(keys) {
     var _a;
     const out = /* @__PURE__ */ new Map();
-    if (keys.length === 0) return out;
+    const file = this.getFile();
+    if (keys.length === 0 || !file) return out;
     for (const k of keys) out.set(k, /* @__PURE__ */ new Set());
-    const { metadataCache, vault } = this.plugin.app;
-    for (const f of vault.getMarkdownFiles()) {
+    const { metadataCache } = this.plugin.app;
+    for (const f of suggestionFiles(file)) {
       const fm = (_a = metadataCache.getFileCache(f)) == null ? void 0 : _a.frontmatter;
       if (!fm) continue;
       for (const k of keys) {
@@ -4302,6 +4306,20 @@ function enterBlurs(inp) {
   inp.addEventListener("keydown", (e) => {
     if (e.key === "Enter") inp.blur();
   });
+}
+function suggestionFiles(file) {
+  let top = file.parent;
+  while ((top == null ? void 0 : top.parent) && !top.parent.isRoot()) top = top.parent;
+  if (!top) return [];
+  const out = [];
+  if (top.isRoot()) {
+    for (const child of top.children) if (child instanceof import_obsidian3.TFile && child.extension === "md") out.push(child);
+    return out;
+  }
+  import_obsidian3.Vault.recurseChildren(top, (f) => {
+    if (f instanceof import_obsidian3.TFile && f.extension === "md") out.push(f);
+  });
+  return out;
 }
 
 // src/novel-editor/scene.ts
