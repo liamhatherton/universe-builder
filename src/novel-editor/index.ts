@@ -3,7 +3,7 @@
  *
  * Notes in the main editor area (never the sidebars) that have every required property
  * (by default `novelr-type` and `novelr-status`) get a toolbar above the editor with:
- *   - Characters / Locations / Groups menus (and, if turned on, the Properties button) on the left,
+ *   - Characters / Locations / Groups / Lore / Timeline menus (and, if turned on, the Properties button) on the left,
  *     with the scene's chosen entries as labels on a row underneath (see scene.ts),
  *   - bold / italic / underline / strikethrough and align left / center / right (center),
  *   - the word count (right).

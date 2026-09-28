@@ -1277,7 +1277,7 @@
 /* The toolbar is a size container so the scene buttons can drop their labels when it gets narrow. */
 .ue-toolbar { container-type: inline-size; container-name: ue-toolbar; }
 .ue-scene-group { flex: 0 0 auto; }
-@container ue-toolbar (max-width: 860px) {
+@container ue-toolbar (max-width: 1120px) {
 	.ue-scene-btn .ue-btn-label { display: none; }
 }
 
@@ -1318,6 +1318,8 @@
 .ue-scene-pill[data-kind="characters"] .ue-scene-pill-icon { color: var(--color-blue, var(--text-accent)); }
 .ue-scene-pill[data-kind="locations"] .ue-scene-pill-icon { color: var(--color-green, var(--text-accent)); }
 .ue-scene-pill[data-kind="groups"] .ue-scene-pill-icon { color: var(--color-orange, var(--text-accent)); }
+.ue-scene-pill[data-kind="lore"] .ue-scene-pill-icon { color: var(--color-purple, var(--text-accent)); }
+.ue-scene-pill[data-kind="timeline"] .ue-scene-pill-icon { color: var(--color-cyan, var(--text-accent)); }
 .ue-scene-pill.is-unresolved { border-style: dashed; color: var(--text-faint); }
 
 /* The pick menu reuses the Properties panel's frame. */
@@ -1367,3 +1369,6 @@
 .ue-scene-avatar.has-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ue-scene-avatar { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex: 0 0 20px; color: var(--text-faint); }
 .ue-scene-avatar svg { width: 14px; height: 14px; }
+
+/* A timeline event's date, after its name in the Timeline menu. */
+.ue-scene-option-detail { margin-left: auto; padding-left: 8px; flex: 0 0 auto; max-width: 45%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-faint); font-size: var(--font-ui-smaller); }

@@ -31,7 +31,7 @@ const ALIGN_BUTTONS: { align: Alignment; icon: string; label: TranslationKey }[]
 
 /**
  * Toolbar mounted at the top of a MarkdownView (between the view header and the
- * editor): formatting buttons, the scene's Characters / Locations / Groups (with a row of labels
+ * editor): formatting buttons, the scene's Characters / Locations / Groups / Lore / Timeline (with a row of labels
  * for the chosen entries underneath), an optional Properties button, and note info.
  */
 export class NovelToolbar {
@@ -176,7 +176,7 @@ export class NovelToolbar {
 		for (const p of this.pickers.values()) p.refresh();
 	}
 
-	/** Redraw the row of scene labels (characters, locations, groups) if what it shows changed. */
+	/** Redraw the row of scene labels (characters, locations, groups, lore, timeline) if what it shows changed. */
 	refreshScene(force = false): void {
 		const file = this.view.file;
 		const lists = file

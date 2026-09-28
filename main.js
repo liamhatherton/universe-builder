@@ -347,9 +347,13 @@ var en = {
   "novel.charactersTooltip": "Characters in this scene",
   "novel.locationsTooltip": "Locations in this scene",
   "novel.groupsTooltip": "Groups in this scene",
+  "novel.loreTooltip": "Lore in this scene",
+  "novel.timelineTooltip": "Timeline events in this scene",
   "novel.noCharacters": "No characters in the sidebar yet.",
   "novel.noLocations": "No locations in the sidebar yet.",
   "novel.noGroups": "No groups in the sidebar yet.",
+  "novel.noLore": "No lore in the sidebar yet.",
+  "novel.noTimeline": "No timeline events in the sidebar yet.",
   "novel.filter": "Filter\u2026",
   "novel.noMatches": "No matches.",
   "novel.openInSidebar": "Open {name} in the sidebar",
@@ -360,7 +364,7 @@ var en = {
   "command.novelProperties": "Open properties panel",
   "settings.novelHeading": "Novel scene editor",
   "settings.novel": "Use the novel scene editor",
-  "settings.novelDesc": "For notes in the main editor that have every required property: adds a toolbar above the text (the scene's characters / locations / groups, bold / italic / underline / strikethrough, alignment, word count) and hides the properties block at the top of the note.",
+  "settings.novelDesc": "For notes in the main editor that have every required property: adds a toolbar above the text (the scene's characters / locations / groups / lore / timeline, bold / italic / underline / strikethrough, alignment, word count) and hides the properties block at the top of the note.",
   "settings.novelProps": "Required properties",
   "settings.novelPropsDesc": "Comma-separated property names. A note needs all of them to open in the novel scene editor.",
   "settings.novelLivePreview": "Open in Live Preview",
@@ -693,9 +697,13 @@ var es = {
   "novel.charactersTooltip": "Personajes de esta escena",
   "novel.locationsTooltip": "Lugares de esta escena",
   "novel.groupsTooltip": "Grupos de esta escena",
+  "novel.loreTooltip": "Trasfondo de esta escena",
+  "novel.timelineTooltip": "Eventos de la cronolog\xEDa en esta escena",
   "novel.noCharacters": "A\xFAn no hay personajes en la barra lateral.",
   "novel.noLocations": "A\xFAn no hay lugares en la barra lateral.",
   "novel.noGroups": "A\xFAn no hay grupos en la barra lateral.",
+  "novel.noLore": "A\xFAn no hay trasfondo en la barra lateral.",
+  "novel.noTimeline": "A\xFAn no hay eventos de la cronolog\xEDa en la barra lateral.",
   "novel.filter": "Filtrar\u2026",
   "novel.noMatches": "Sin resultados.",
   "novel.openInSidebar": "Abrir {name} en la barra lateral",
@@ -706,7 +714,7 @@ var es = {
   "command.novelProperties": "Abrir el panel de propiedades",
   "settings.novelHeading": "Editor de escenas de novela",
   "settings.novel": "Usar el editor de escenas de novela",
-  "settings.novelDesc": "En las notas del editor principal que tienen todas las propiedades obligatorias: a\xF1ade una barra de herramientas sobre el texto (personajes / lugares / grupos de la escena, negrita / cursiva / subrayado / tachado, alineaci\xF3n, recuento de palabras) y oculta el bloque de propiedades al principio de la nota.",
+  "settings.novelDesc": "En las notas del editor principal que tienen todas las propiedades obligatorias: a\xF1ade una barra de herramientas sobre el texto (personajes / lugares / grupos / trasfondo / cronolog\xEDa de la escena, negrita / cursiva / subrayado / tachado, alineaci\xF3n, recuento de palabras) y oculta el bloque de propiedades al principio de la nota.",
   "settings.novelProps": "Propiedades obligatorias",
   "settings.novelPropsDesc": "Nombres de propiedades separados por comas. Una nota necesita todas para abrirse en el editor de escenas de novela.",
   "settings.novelLivePreview": "Abrir en vista previa en vivo",
@@ -1039,9 +1047,13 @@ var pt = {
   "novel.charactersTooltip": "Personagens desta cena",
   "novel.locationsTooltip": "Locais desta cena",
   "novel.groupsTooltip": "Grupos desta cena",
+  "novel.loreTooltip": "Lore desta cena",
+  "novel.timelineTooltip": "Eventos da cronologia desta cena",
   "novel.noCharacters": "Ainda n\xE3o h\xE1 personagens na barra lateral.",
   "novel.noLocations": "Ainda n\xE3o h\xE1 locais na barra lateral.",
   "novel.noGroups": "Ainda n\xE3o h\xE1 grupos na barra lateral.",
+  "novel.noLore": "Ainda n\xE3o h\xE1 lore na barra lateral.",
+  "novel.noTimeline": "Ainda n\xE3o h\xE1 eventos da cronologia na barra lateral.",
   "novel.filter": "Filtrar\u2026",
   "novel.noMatches": "Sem resultados.",
   "novel.openInSidebar": "Abrir {name} na barra lateral",
@@ -1052,7 +1064,7 @@ var pt = {
   "command.novelProperties": "Abrir o painel de propriedades",
   "settings.novelHeading": "Editor de cenas de romance",
   "settings.novel": "Usar o editor de cenas de romance",
-  "settings.novelDesc": "Nas notas do editor principal que t\xEAm todas as propriedades obrigat\xF3rias: adiciona uma barra de ferramentas acima do texto (personagens / locais / grupos da cena, negrito / it\xE1lico / sublinhado / rasurado, alinhamento, contagem de palavras) e oculta o bloco de propriedades no in\xEDcio da nota.",
+  "settings.novelDesc": "Nas notas do editor principal que t\xEAm todas as propriedades obrigat\xF3rias: adiciona uma barra de ferramentas acima do texto (personagens / locais / grupos / lore / cronologia da cena, negrito / it\xE1lico / sublinhado / rasurado, alinhamento, contagem de palavras) e oculta o bloco de propriedades no in\xEDcio da nota.",
   "settings.novelProps": "Propriedades obrigat\xF3rias",
   "settings.novelPropsDesc": "Nomes de propriedades separados por v\xEDrgulas. Uma nota precisa de todas para abrir no editor de cenas de romance.",
   "settings.novelLivePreview": "Abrir em pr\xE9-visualiza\xE7\xE3o em direto",
@@ -1385,9 +1397,13 @@ var ptBR = {
   "novel.charactersTooltip": "Personagens desta cena",
   "novel.locationsTooltip": "Locais desta cena",
   "novel.groupsTooltip": "Grupos desta cena",
+  "novel.loreTooltip": "Lore desta cena",
+  "novel.timelineTooltip": "Eventos da linha do tempo desta cena",
   "novel.noCharacters": "Ainda n\xE3o h\xE1 personagens na barra lateral.",
   "novel.noLocations": "Ainda n\xE3o h\xE1 locais na barra lateral.",
   "novel.noGroups": "Ainda n\xE3o h\xE1 grupos na barra lateral.",
+  "novel.noLore": "Ainda n\xE3o h\xE1 lore na barra lateral.",
+  "novel.noTimeline": "Ainda n\xE3o h\xE1 eventos da linha do tempo na barra lateral.",
   "novel.filter": "Filtrar\u2026",
   "novel.noMatches": "Nenhum resultado.",
   "novel.openInSidebar": "Abrir {name} na barra lateral",
@@ -1398,7 +1414,7 @@ var ptBR = {
   "command.novelProperties": "Abrir o painel de propriedades",
   "settings.novelHeading": "Editor de cenas de romance",
   "settings.novel": "Usar o editor de cenas de romance",
-  "settings.novelDesc": "Nas notas do editor principal que t\xEAm todas as propriedades obrigat\xF3rias: adiciona uma barra de ferramentas acima do texto (personagens / locais / grupos da cena, negrito / it\xE1lico / sublinhado / tachado, alinhamento, contagem de palavras) e oculta o bloco de propriedades no in\xEDcio da nota.",
+  "settings.novelDesc": "Nas notas do editor principal que t\xEAm todas as propriedades obrigat\xF3rias: adiciona uma barra de ferramentas acima do texto (personagens / locais / grupos / lore / linha do tempo da cena, negrito / it\xE1lico / sublinhado / tachado, alinhamento, contagem de palavras) e oculta o bloco de propriedades no in\xEDcio da nota.",
   "settings.novelProps": "Propriedades obrigat\xF3rias",
   "settings.novelPropsDesc": "Nomes de propriedades separados por v\xEDrgulas. Uma nota precisa de todas para abrir no editor de cenas de romance.",
   "settings.novelLivePreview": "Abrir na visualiza\xE7\xE3o ao vivo",
@@ -1731,9 +1747,13 @@ var fr = {
   "novel.charactersTooltip": "Personnages de cette sc\xE8ne",
   "novel.locationsTooltip": "Lieux de cette sc\xE8ne",
   "novel.groupsTooltip": "Groupes de cette sc\xE8ne",
+  "novel.loreTooltip": "Lore de cette sc\xE8ne",
+  "novel.timelineTooltip": "\xC9v\xE9nements de la chronologie dans cette sc\xE8ne",
   "novel.noCharacters": "Aucun personnage dans la barre lat\xE9rale pour l'instant.",
   "novel.noLocations": "Aucun lieu dans la barre lat\xE9rale pour l'instant.",
   "novel.noGroups": "Aucun groupe dans la barre lat\xE9rale pour l'instant.",
+  "novel.noLore": "Aucun lore dans la barre lat\xE9rale pour l'instant.",
+  "novel.noTimeline": "Aucun \xE9v\xE9nement de la chronologie dans la barre lat\xE9rale pour l'instant.",
   "novel.filter": "Filtrer\u2026",
   "novel.noMatches": "Aucun r\xE9sultat.",
   "novel.openInSidebar": "Ouvrir {name} dans la barre lat\xE9rale",
@@ -1744,7 +1764,7 @@ var fr = {
   "command.novelProperties": "Ouvrir le panneau des propri\xE9t\xE9s",
   "settings.novelHeading": "\xC9diteur de sc\xE8nes de roman",
   "settings.novel": "Utiliser l'\xE9diteur de sc\xE8nes de roman",
-  "settings.novelDesc": "Pour les notes de l'\xE9diteur principal qui ont toutes les propri\xE9t\xE9s obligatoires : ajoute une barre d'outils au-dessus du texte (personnages / lieux / groupes de la sc\xE8ne, gras / italique / soulign\xE9 / barr\xE9, alignement, nombre de mots) et masque le bloc des propri\xE9t\xE9s en haut de la note.",
+  "settings.novelDesc": "Pour les notes de l'\xE9diteur principal qui ont toutes les propri\xE9t\xE9s obligatoires : ajoute une barre d'outils au-dessus du texte (personnages / lieux / groupes / lore / chronologie de la sc\xE8ne, gras / italique / soulign\xE9 / barr\xE9, alignement, nombre de mots) et masque le bloc des propri\xE9t\xE9s en haut de la note.",
   "settings.novelProps": "Propri\xE9t\xE9s obligatoires",
   "settings.novelPropsDesc": "Noms de propri\xE9t\xE9s s\xE9par\xE9s par des virgules. Une note doit toutes les avoir pour s'ouvrir dans l'\xE9diteur de sc\xE8nes de roman.",
   "settings.novelLivePreview": "Ouvrir en aper\xE7u en direct",
@@ -2077,9 +2097,13 @@ var de = {
   "novel.charactersTooltip": "Figuren in dieser Szene",
   "novel.locationsTooltip": "Orte in dieser Szene",
   "novel.groupsTooltip": "Gruppen in dieser Szene",
+  "novel.loreTooltip": "Lore in dieser Szene",
+  "novel.timelineTooltip": "Zeitleisten-Ereignisse in dieser Szene",
   "novel.noCharacters": "Noch keine Figuren in der Seitenleiste.",
   "novel.noLocations": "Noch keine Orte in der Seitenleiste.",
   "novel.noGroups": "Noch keine Gruppen in der Seitenleiste.",
+  "novel.noLore": "Noch keine Lore in der Seitenleiste.",
+  "novel.noTimeline": "Noch keine Zeitleisten-Ereignisse in der Seitenleiste.",
   "novel.filter": "Filtern\u2026",
   "novel.noMatches": "Keine Treffer.",
   "novel.openInSidebar": "{name} in der Seitenleiste \xF6ffnen",
@@ -2090,7 +2114,7 @@ var de = {
   "command.novelProperties": "Eigenschaften-Panel \xF6ffnen",
   "settings.novelHeading": "Roman-Szeneneditor",
   "settings.novel": "Roman-Szeneneditor verwenden",
-  "settings.novelDesc": "F\xFCr Notizen im Haupteditor, die alle Pflichteigenschaften haben: f\xFCgt \xFCber dem Text eine Werkzeugleiste hinzu (Figuren / Orte / Gruppen der Szene, fett / kursiv / unterstrichen / durchgestrichen, Ausrichtung, Wortzahl) und blendet den Eigenschaftenblock oben in der Notiz aus.",
+  "settings.novelDesc": "F\xFCr Notizen im Haupteditor, die alle Pflichteigenschaften haben: f\xFCgt \xFCber dem Text eine Werkzeugleiste hinzu (Figuren / Orte / Gruppen / Lore / Zeitleiste der Szene, fett / kursiv / unterstrichen / durchgestrichen, Ausrichtung, Wortzahl) und blendet den Eigenschaftenblock oben in der Notiz aus.",
   "settings.novelProps": "Pflichteigenschaften",
   "settings.novelPropsDesc": "Durch Kommas getrennte Eigenschaftsnamen. Eine Notiz braucht alle, um im Roman-Szeneneditor ge\xF6ffnet zu werden.",
   "settings.novelLivePreview": "In der Live-Vorschau \xF6ffnen",
@@ -2423,9 +2447,13 @@ var ru = {
   "novel.charactersTooltip": "\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438 \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
   "novel.locationsTooltip": "\u041C\u0435\u0441\u0442\u0430 \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
   "novel.groupsTooltip": "\u0413\u0440\u0443\u043F\u043F\u044B \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
+  "novel.loreTooltip": "\u041B\u043E\u0440 \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
+  "novel.timelineTooltip": "\u0421\u043E\u0431\u044B\u0442\u0438\u044F \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0438\u0438 \u0432 \u044D\u0442\u043E\u0439 \u0441\u0446\u0435\u043D\u0435",
   "novel.noCharacters": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0435\u0439.",
   "novel.noLocations": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043C\u0435\u0441\u0442.",
   "novel.noGroups": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0433\u0440\u0443\u043F\u043F.",
+  "novel.noLore": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u043B\u043E\u0440\u0430.",
+  "novel.noTimeline": "\u041D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438 \u043F\u043E\u043A\u0430 \u043D\u0435\u0442 \u0441\u043E\u0431\u044B\u0442\u0438\u0439 \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0438\u0438.",
   "novel.filter": "\u0424\u0438\u043B\u044C\u0442\u0440\u2026",
   "novel.noMatches": "\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E.",
   "novel.openInSidebar": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \xAB{name}\xBB \u043D\u0430 \u0431\u043E\u043A\u043E\u0432\u043E\u0439 \u043F\u0430\u043D\u0435\u043B\u0438",
@@ -2436,7 +2464,7 @@ var ru = {
   "command.novelProperties": "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0430\u043D\u0435\u043B\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432",
   "settings.novelHeading": "\u0420\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0430",
   "settings.novel": "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0430",
-  "settings.novelDesc": "\u0414\u043B\u044F \u0437\u0430\u043C\u0435\u0442\u043E\u043A \u0432 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435, \u0443 \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0435\u0441\u0442\u044C \u0432\u0441\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430: \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442 \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C \u043F\u0430\u043D\u0435\u043B\u044C \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432 (\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438 / \u043C\u0435\u0441\u0442\u0430 / \u0433\u0440\u0443\u043F\u043F\u044B \u0441\u0446\u0435\u043D\u044B, \u0436\u0438\u0440\u043D\u044B\u0439 / \u043A\u0443\u0440\u0441\u0438\u0432 / \u043F\u043E\u0434\u0447\u0451\u0440\u043A\u043D\u0443\u0442\u044B\u0439 / \u0437\u0430\u0447\u0451\u0440\u043A\u043D\u0443\u0442\u044B\u0439, \u0432\u044B\u0440\u0430\u0432\u043D\u0438\u0432\u0430\u043D\u0438\u0435, \u0447\u0438\u0441\u043B\u043E \u0441\u043B\u043E\u0432) \u0438 \u0441\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0431\u043B\u043E\u043A \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0432 \u043D\u0430\u0447\u0430\u043B\u0435 \u0437\u0430\u043C\u0435\u0442\u043A\u0438.",
+  "settings.novelDesc": "\u0414\u043B\u044F \u0437\u0430\u043C\u0435\u0442\u043E\u043A \u0432 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435, \u0443 \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0435\u0441\u0442\u044C \u0432\u0441\u0435 \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430: \u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442 \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C \u043F\u0430\u043D\u0435\u043B\u044C \u0438\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u043E\u0432 (\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0438 / \u043C\u0435\u0441\u0442\u0430 / \u0433\u0440\u0443\u043F\u043F\u044B / \u043B\u043E\u0440 / \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0438\u044F \u0441\u0446\u0435\u043D\u044B, \u0436\u0438\u0440\u043D\u044B\u0439 / \u043A\u0443\u0440\u0441\u0438\u0432 / \u043F\u043E\u0434\u0447\u0451\u0440\u043A\u043D\u0443\u0442\u044B\u0439 / \u0437\u0430\u0447\u0451\u0440\u043A\u043D\u0443\u0442\u044B\u0439, \u0432\u044B\u0440\u0430\u0432\u043D\u0438\u0432\u0430\u043D\u0438\u0435, \u0447\u0438\u0441\u043B\u043E \u0441\u043B\u043E\u0432) \u0438 \u0441\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0431\u043B\u043E\u043A \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0432 \u043D\u0430\u0447\u0430\u043B\u0435 \u0437\u0430\u043C\u0435\u0442\u043A\u0438.",
   "settings.novelProps": "\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430",
   "settings.novelPropsDesc": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u044F \u0441\u0432\u043E\u0439\u0441\u0442\u0432 \u0447\u0435\u0440\u0435\u0437 \u0437\u0430\u043F\u044F\u0442\u0443\u044E. \u0427\u0442\u043E\u0431\u044B \u0437\u0430\u043C\u0435\u0442\u043A\u0430 \u043E\u0442\u043A\u0440\u044B\u043B\u0430\u0441\u044C \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0435 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0430, \u0443 \u043D\u0435\u0451 \u0434\u043E\u043B\u0436\u043D\u044B \u0431\u044B\u0442\u044C \u0432\u0441\u0435 \u043E\u043D\u0438.",
   "settings.novelLivePreview": "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0442\u044C \u0432 \u0440\u0435\u0436\u0438\u043C\u0435 \u0436\u0438\u0432\u043E\u0433\u043E \u043F\u0440\u043E\u0441\u043C\u043E\u0442\u0440\u0430",
@@ -2769,9 +2797,13 @@ var uk = {
   "novel.charactersTooltip": "\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456 \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
   "novel.locationsTooltip": "\u041C\u0456\u0441\u0446\u044F \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
   "novel.groupsTooltip": "\u0413\u0440\u0443\u043F\u0438 \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
+  "novel.loreTooltip": "\u041B\u043E\u0440 \u0443 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
+  "novel.timelineTooltip": "\u041F\u043E\u0434\u0456\u0457 \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0456\u0457 \u0432 \u0446\u0456\u0439 \u0441\u0446\u0435\u043D\u0456",
   "novel.noCharacters": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456\u0432.",
   "novel.noLocations": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u043C\u0456\u0441\u0446\u044C.",
   "novel.noGroups": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u0433\u0440\u0443\u043F.",
+  "novel.noLore": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u043B\u043E\u0440\u0443.",
+  "novel.noTimeline": "\u041D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456 \u0449\u0435 \u043D\u0435\u043C\u0430\u0454 \u043F\u043E\u0434\u0456\u0439 \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0456\u0457.",
   "novel.filter": "\u0424\u0456\u043B\u044C\u0442\u0440\u2026",
   "novel.noMatches": "\u041D\u0456\u0447\u043E\u0433\u043E \u043D\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u043D\u043E.",
   "novel.openInSidebar": "\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \xAB{name}\xBB \u043D\u0430 \u0431\u0456\u0447\u043D\u0456\u0439 \u043F\u0430\u043D\u0435\u043B\u0456",
@@ -2782,7 +2814,7 @@ var uk = {
   "command.novelProperties": "\u0412\u0456\u0434\u043A\u0440\u0438\u0442\u0438 \u043F\u0430\u043D\u0435\u043B\u044C \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439",
   "settings.novelHeading": "\u0420\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0443",
   "settings.novel": "\u0412\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0432\u0430\u0442\u0438 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0443",
-  "settings.novelDesc": "\u0414\u043B\u044F \u043D\u043E\u0442\u0430\u0442\u043E\u043A \u0432 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C\u0443 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0456, \u0449\u043E \u043C\u0430\u044E\u0442\u044C \u0443\u0441\u0456 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0456 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456: \u0434\u043E\u0434\u0430\u0454 \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C \u043F\u0430\u043D\u0435\u043B\u044C \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432 (\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456 / \u043C\u0456\u0441\u0446\u044F / \u0433\u0440\u0443\u043F\u0438 \u0441\u0446\u0435\u043D\u0438, \u0436\u0438\u0440\u043D\u0438\u0439 / \u043A\u0443\u0440\u0441\u0438\u0432 / \u043F\u0456\u0434\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u0438\u0439 / \u0437\u0430\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u0438\u0439, \u0432\u0438\u0440\u0456\u0432\u043D\u044E\u0432\u0430\u043D\u043D\u044F, \u043A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043B\u0456\u0432) \u0456 \u043F\u0440\u0438\u0445\u043E\u0432\u0443\u0454 \u0431\u043B\u043E\u043A \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443 \u043D\u043E\u0442\u0430\u0442\u043A\u0438.",
+  "settings.novelDesc": "\u0414\u043B\u044F \u043D\u043E\u0442\u0430\u0442\u043E\u043A \u0432 \u043E\u0441\u043D\u043E\u0432\u043D\u043E\u043C\u0443 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0456, \u0449\u043E \u043C\u0430\u044E\u0442\u044C \u0443\u0441\u0456 \u043E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0456 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456: \u0434\u043E\u0434\u0430\u0454 \u043D\u0430\u0434 \u0442\u0435\u043A\u0441\u0442\u043E\u043C \u043F\u0430\u043D\u0435\u043B\u044C \u0456\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442\u0456\u0432 (\u043F\u0435\u0440\u0441\u043E\u043D\u0430\u0436\u0456 / \u043C\u0456\u0441\u0446\u044F / \u0433\u0440\u0443\u043F\u0438 / \u043B\u043E\u0440 / \u0445\u0440\u043E\u043D\u043E\u043B\u043E\u0433\u0456\u044F \u0441\u0446\u0435\u043D\u0438, \u0436\u0438\u0440\u043D\u0438\u0439 / \u043A\u0443\u0440\u0441\u0438\u0432 / \u043F\u0456\u0434\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u0438\u0439 / \u0437\u0430\u043A\u0440\u0435\u0441\u043B\u0435\u043D\u0438\u0439, \u0432\u0438\u0440\u0456\u0432\u043D\u044E\u0432\u0430\u043D\u043D\u044F, \u043A\u0456\u043B\u044C\u043A\u0456\u0441\u0442\u044C \u0441\u043B\u0456\u0432) \u0456 \u043F\u0440\u0438\u0445\u043E\u0432\u0443\u0454 \u0431\u043B\u043E\u043A \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0430 \u043F\u043E\u0447\u0430\u0442\u043A\u0443 \u043D\u043E\u0442\u0430\u0442\u043A\u0438.",
   "settings.novelProps": "\u041E\u0431\u043E\u0432'\u044F\u0437\u043A\u043E\u0432\u0456 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0456",
   "settings.novelPropsDesc": "\u041D\u0430\u0437\u0432\u0438 \u0432\u043B\u0430\u0441\u0442\u0438\u0432\u043E\u0441\u0442\u0435\u0439 \u0447\u0435\u0440\u0435\u0437 \u043A\u043E\u043C\u0443. \u0429\u043E\u0431 \u043D\u043E\u0442\u0430\u0442\u043A\u0430 \u0432\u0456\u0434\u043A\u0440\u0438\u043B\u0430\u0441\u044F \u0432 \u0440\u0435\u0434\u0430\u043A\u0442\u043E\u0440\u0456 \u0441\u0446\u0435\u043D \u0440\u043E\u043C\u0430\u043D\u0443, \u0432\u043E\u043D\u0430 \u043F\u043E\u0432\u0438\u043D\u043D\u0430 \u043C\u0430\u0442\u0438 \u0457\u0445 \u0443\u0441\u0456.",
   "settings.novelLivePreview": "\u0412\u0456\u0434\u043A\u0440\u0438\u0432\u0430\u0442\u0438 \u0432 \u0440\u0435\u0436\u0438\u043C\u0456 \u0436\u0438\u0432\u043E\u0433\u043E \u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434\u0443",
@@ -3115,9 +3147,13 @@ var zh = {
   "novel.charactersTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u89D2\u8272",
   "novel.locationsTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u5730\u70B9",
   "novel.groupsTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u7EC4\u7EC7",
+  "novel.loreTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u8BBE\u5B9A",
+  "novel.timelineTooltip": "\u672C\u573A\u666F\u4E2D\u7684\u65F6\u95F4\u7EBF\u4E8B\u4EF6",
   "novel.noCharacters": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u89D2\u8272\u3002",
   "novel.noLocations": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u5730\u70B9\u3002",
   "novel.noGroups": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u7EC4\u7EC7\u3002",
+  "novel.noLore": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u8BBE\u5B9A\u3002",
+  "novel.noTimeline": "\u4FA7\u8FB9\u680F\u4E2D\u8FD8\u6CA1\u6709\u65F6\u95F4\u7EBF\u4E8B\u4EF6\u3002",
   "novel.filter": "\u7B5B\u9009\u2026",
   "novel.noMatches": "\u6CA1\u6709\u5339\u914D\u9879\u3002",
   "novel.openInSidebar": "\u5728\u4FA7\u8FB9\u680F\u4E2D\u6253\u5F00 {name}",
@@ -3128,7 +3164,7 @@ var zh = {
   "command.novelProperties": "\u6253\u5F00\u5C5E\u6027\u9762\u677F",
   "settings.novelHeading": "\u5C0F\u8BF4\u573A\u666F\u7F16\u8F91\u5668",
   "settings.novel": "\u4F7F\u7528\u5C0F\u8BF4\u573A\u666F\u7F16\u8F91\u5668",
-  "settings.novelDesc": "\u5BF9\u4E3B\u7F16\u8F91\u5668\u4E2D\u5177\u6709\u5168\u90E8\u5FC5\u9700\u5C5E\u6027\u7684\u7B14\u8BB0\uFF1A\u5728\u6B63\u6587\u4E0A\u65B9\u6DFB\u52A0\u5DE5\u5177\u680F\uFF08\u573A\u666F\u7684\u89D2\u8272 / \u5730\u70B9 / \u7EC4\u7EC7\u3001\u7C97\u4F53 / \u659C\u4F53 / \u4E0B\u5212\u7EBF / \u5220\u9664\u7EBF\u3001\u5BF9\u9F50\u3001\u5B57\u6570\uFF09\uFF0C\u5E76\u9690\u85CF\u7B14\u8BB0\u9876\u90E8\u7684\u5C5E\u6027\u533A\u5757\u3002",
+  "settings.novelDesc": "\u5BF9\u4E3B\u7F16\u8F91\u5668\u4E2D\u5177\u6709\u5168\u90E8\u5FC5\u9700\u5C5E\u6027\u7684\u7B14\u8BB0\uFF1A\u5728\u6B63\u6587\u4E0A\u65B9\u6DFB\u52A0\u5DE5\u5177\u680F\uFF08\u573A\u666F\u7684\u89D2\u8272 / \u5730\u70B9 / \u7EC4\u7EC7 / \u8BBE\u5B9A / \u65F6\u95F4\u7EBF\u3001\u7C97\u4F53 / \u659C\u4F53 / \u4E0B\u5212\u7EBF / \u5220\u9664\u7EBF\u3001\u5BF9\u9F50\u3001\u5B57\u6570\uFF09\uFF0C\u5E76\u9690\u85CF\u7B14\u8BB0\u9876\u90E8\u7684\u5C5E\u6027\u533A\u5757\u3002",
   "settings.novelProps": "\u5FC5\u9700\u5C5E\u6027",
   "settings.novelPropsDesc": "\u4EE5\u9017\u53F7\u5206\u9694\u7684\u5C5E\u6027\u540D\u3002\u7B14\u8BB0\u5FC5\u987B\u5177\u6709\u5168\u90E8\u8FD9\u4E9B\u5C5E\u6027\u624D\u4F1A\u5728\u5C0F\u8BF4\u573A\u666F\u7F16\u8F91\u5668\u4E2D\u6253\u5F00\u3002",
   "settings.novelLivePreview": "\u4EE5\u5B9E\u65F6\u9884\u89C8\u6253\u5F00",
@@ -3461,9 +3497,13 @@ var ja = {
   "novel.charactersTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC",
   "novel.locationsTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u5834\u6240",
   "novel.groupsTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u7D44\u7E54",
+  "novel.loreTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u8A2D\u5B9A",
+  "novel.timelineTooltip": "\u3053\u306E\u30B7\u30FC\u30F3\u306E\u5E74\u8868\u306E\u51FA\u6765\u4E8B",
   "novel.noCharacters": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
   "novel.noLocations": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u5834\u6240\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
   "novel.noGroups": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u7D44\u7E54\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
+  "novel.noLore": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u8A2D\u5B9A\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
+  "novel.noTimeline": "\u30B5\u30A4\u30C9\u30D0\u30FC\u306B\u306F\u307E\u3060\u5E74\u8868\u306E\u51FA\u6765\u4E8B\u304C\u3042\u308A\u307E\u305B\u3093\u3002",
   "novel.filter": "\u7D5E\u308A\u8FBC\u307F\u2026",
   "novel.noMatches": "\u4E00\u81F4\u3059\u308B\u9805\u76EE\u306F\u3042\u308A\u307E\u305B\u3093\u3002",
   "novel.openInSidebar": "{name} \u3092\u30B5\u30A4\u30C9\u30D0\u30FC\u3067\u958B\u304F",
@@ -3474,7 +3514,7 @@ var ja = {
   "command.novelProperties": "\u30D7\u30ED\u30D1\u30C6\u30A3\u30D1\u30CD\u30EB\u3092\u958B\u304F",
   "settings.novelHeading": "\u5C0F\u8AAC\u30B7\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC",
   "settings.novel": "\u5C0F\u8AAC\u30B7\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u3092\u4F7F\u3046",
-  "settings.novelDesc": "\u5FC5\u9808\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u3059\u3079\u3066\u6301\u3064\u30E1\u30A4\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u306E\u30CE\u30FC\u30C8\u3067\u3001\u672C\u6587\u306E\u4E0A\u306B\u30C4\u30FC\u30EB\u30D0\u30FC\uFF08\u30B7\u30FC\u30F3\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC / \u5834\u6240 / \u7D44\u7E54\u3001\u592A\u5B57 / \u659C\u4F53 / \u4E0B\u7DDA / \u53D6\u308A\u6D88\u3057\u7DDA\u3001\u914D\u7F6E\u3001\u8A9E\u6570\uFF09\u3092\u8FFD\u52A0\u3057\u3001\u30CE\u30FC\u30C8\u4E0A\u90E8\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u6B04\u3092\u96A0\u3057\u307E\u3059\u3002",
+  "settings.novelDesc": "\u5FC5\u9808\u30D7\u30ED\u30D1\u30C6\u30A3\u3092\u3059\u3079\u3066\u6301\u3064\u30E1\u30A4\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u306E\u30CE\u30FC\u30C8\u3067\u3001\u672C\u6587\u306E\u4E0A\u306B\u30C4\u30FC\u30EB\u30D0\u30FC\uFF08\u30B7\u30FC\u30F3\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC / \u5834\u6240 / \u7D44\u7E54 / \u8A2D\u5B9A / \u5E74\u8868\u3001\u592A\u5B57 / \u659C\u4F53 / \u4E0B\u7DDA / \u53D6\u308A\u6D88\u3057\u7DDA\u3001\u914D\u7F6E\u3001\u8A9E\u6570\uFF09\u3092\u8FFD\u52A0\u3057\u3001\u30CE\u30FC\u30C8\u4E0A\u90E8\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u6B04\u3092\u96A0\u3057\u307E\u3059\u3002",
   "settings.novelProps": "\u5FC5\u9808\u30D7\u30ED\u30D1\u30C6\u30A3",
   "settings.novelPropsDesc": "\u30AB\u30F3\u30DE\u533A\u5207\u308A\u306E\u30D7\u30ED\u30D1\u30C6\u30A3\u540D\u3067\u3059\u3002\u30CE\u30FC\u30C8\u304C\u5C0F\u8AAC\u30B7\u30FC\u30F3\u30A8\u30C7\u30A3\u30BF\u30FC\u3067\u958B\u304F\u306B\u306F\u3001\u3053\u308C\u3089\u3059\u3079\u3066\u304C\u5FC5\u8981\u3067\u3059\u3002",
   "settings.novelLivePreview": "\u30E9\u30A4\u30D6\u30D7\u30EC\u30D3\u30E5\u30FC\u3067\u958B\u304F",
@@ -4249,7 +4289,9 @@ var import_obsidian4 = require("obsidian");
 var SCENE_LISTS = [
   { kind: "characters", key: "universe-builder-scene-characterlist", icon: "user", label: "tab.characters", tooltip: "novel.charactersTooltip", empty: "novel.noCharacters" },
   { kind: "locations", key: "universe-builder-scene-locationlist", icon: "map-pin", label: "tab.locations", tooltip: "novel.locationsTooltip", empty: "novel.noLocations" },
-  { kind: "groups", key: "universe-builder-scene-grouplist", icon: "users", label: "tab.groups", tooltip: "novel.groupsTooltip", empty: "novel.noGroups" }
+  { kind: "groups", key: "universe-builder-scene-grouplist", icon: "users", label: "tab.groups", tooltip: "novel.groupsTooltip", empty: "novel.noGroups" },
+  { kind: "lore", key: "universe-builder-scene-lorelist", icon: "book-open", label: "tab.lore", tooltip: "novel.loreTooltip", empty: "novel.noLore" },
+  { kind: "timeline", key: "universe-builder-scene-timelinelist", icon: "calendar-clock", label: "tab.timeline", tooltip: "novel.timelineTooltip", empty: "novel.noTimeline" }
 ];
 function renderAvatar(el, plugin, file, icon) {
   el.empty();
@@ -4416,7 +4458,10 @@ var ScenePicker = class {
   visibleEntries() {
     const q = this.query.trim().toLowerCase();
     const all = this.plugin.entries(this.def.kind);
-    return q ? all.filter((e) => e.name.toLowerCase().includes(q) || e.file.basename.toLowerCase().includes(q)) : all;
+    return q ? all.filter((e) => {
+      var _a;
+      return e.name.toLowerCase().includes(q) || e.file.basename.toLowerCase().includes(q) || !!((_a = e.detail) == null ? void 0 : _a.toLowerCase().includes(q));
+    }) : all;
   }
   renderList() {
     const listEl = this.listEl;
@@ -4443,6 +4488,7 @@ var ScenePicker = class {
       if (selected) (0, import_obsidian4.setIcon)(check, "check");
       renderAvatar(row.createSpan({ cls: "ue-scene-avatar" }), this.plugin, entry.file, this.def.icon);
       row.createSpan({ cls: "ue-scene-option-name", text: entry.name });
+      if (entry.detail) row.createSpan({ cls: "ue-scene-option-detail", text: entry.detail });
       row.addEventListener("mousedown", (e) => e.preventDefault());
       row.addEventListener("click", () => {
         this.activeIndex = i;
@@ -4614,7 +4660,7 @@ var NovelToolbar = class {
     this.refreshScene();
     for (const p of this.pickers.values()) p.refresh();
   }
-  /** Redraw the row of scene labels (characters, locations, groups) if what it shows changed. */
+  /** Redraw the row of scene labels (characters, locations, groups, lore, timeline) if what it shows changed. */
   refreshScene(force = false) {
     const file = this.view.file;
     const lists = file ? SCENE_LISTS.map((def) => ({ def, items: this.sceneLists.items(file, def) })) : [];
@@ -5026,6 +5072,12 @@ var SUBSIDIARY_OF = "subsidiary-of";
 function isShip(fm) {
   var _a;
   return ((_a = fm.type) != null ? _a : "").trim().toLowerCase() === "ship";
+}
+function compareTimelineDates(a, b) {
+  if (!a || !b) return (a ? 0 : 1) - (b ? 0 : 1);
+  const num = /^[-+−]?\d+(\.\d+)?$/;
+  if (num.test(a) && num.test(b)) return Number(a.replace("\u2212", "-")) - Number(b.replace("\u2212", "-"));
+  return a.localeCompare(b, void 0, { sensitivity: "base", numeric: true });
 }
 var IMG_EXT = /\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
 var SIZE_SPEC = /^\d+(x\d+)?$/;
@@ -9193,14 +9245,22 @@ var UniverseBuilderPlugin = class extends import_obsidian7.Plugin {
     }
     await workspace.revealLeaf(leaf);
   }
-  /** A sidebar section's entries for the novel editor's Characters / Locations / Groups menus. */
+  /** A sidebar section's entries for the novel editor's Characters / Locations / Groups / Lore / Timeline menus. */
   universeEntries(kind) {
     const files = getMarkdownFilesIn(this.app, `${this.settings.worldFolder}/${SECTION_FOLDERS[kind]}`);
+    const text = (v) => typeof v === "string" || typeof v === "number" ? String(v).trim() : "";
     return files.map((file) => {
-      var _a, _b;
-      const name = (_b = (_a = this.app.metadataCache.getFileCache(file)) == null ? void 0 : _a.frontmatter) == null ? void 0 : _b.name;
-      return { file, name: typeof name === "string" && name.trim() ? name.trim() : file.basename };
-    }).sort((a, b) => a.name.localeCompare(b.name, void 0, { sensitivity: "base", numeric: true }));
+      var _a;
+      const fm = (_a = this.app.metadataCache.getFileCache(file)) == null ? void 0 : _a.frontmatter;
+      const entry = { file, name: text(fm == null ? void 0 : fm.name) || text(fm == null ? void 0 : fm.title) || file.basename };
+      if (kind === "timeline") entry.detail = text(fm == null ? void 0 : fm.date);
+      return entry;
+    }).sort(
+      (a, b) => {
+        var _a, _b;
+        return (kind === "timeline" ? compareTimelineDates((_a = a.detail) != null ? _a : "", (_b = b.detail) != null ? _b : "") : 0) || a.name.localeCompare(b.name, void 0, { sensitivity: "base", numeric: true });
+      }
+    );
   }
   /**
    * An entry's portrait (the same image its sidebar card shows) for the novel editor. Answered from

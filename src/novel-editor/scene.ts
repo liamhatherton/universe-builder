@@ -4,18 +4,20 @@ import type { TranslationKey } from "../i18n";
 import type { NovelEditor } from "./index";
 
 /**
- * Scene lists: which characters, locations and groups from the Universe Builder sidebar appear in
+ * Scene lists: which characters, locations, groups, lore and timeline events from the Universe Builder sidebar appear in
  * a scene. Each is a list property in the scene's frontmatter holding wiki-links
  * (`- "[[Mara Voss]]"`), so Obsidian keeps them up to date when an entry is renamed and they
  * show up in backlinks and the graph. Plain names typed by hand are matched to entries too.
  */
-export type SceneKind = "characters" | "locations" | "groups";
+export type SceneKind = "characters" | "locations" | "groups" | "lore" | "timeline";
 
 /** A sidebar entry offered in a scene list's menu. */
 export interface UniverseEntry {
 	file: TFile;
-	/** The entry's display name (its `name` property, else the file name). */
+	/** The entry's display name (its `name` or `title` property, else the file name). */
 	name: string;
+	/** Shown after the name in the menu (a timeline event's date). */
+	detail?: string;
 }
 
 export interface SceneListDef {
@@ -32,6 +34,8 @@ export const SCENE_LISTS: SceneListDef[] = [
 	{ kind: "characters", key: "universe-builder-scene-characterlist", icon: "user", label: "tab.characters", tooltip: "novel.charactersTooltip", empty: "novel.noCharacters" },
 	{ kind: "locations", key: "universe-builder-scene-locationlist", icon: "map-pin", label: "tab.locations", tooltip: "novel.locationsTooltip", empty: "novel.noLocations" },
 	{ kind: "groups", key: "universe-builder-scene-grouplist", icon: "users", label: "tab.groups", tooltip: "novel.groupsTooltip", empty: "novel.noGroups" },
+	{ kind: "lore", key: "universe-builder-scene-lorelist", icon: "book-open", label: "tab.lore", tooltip: "novel.loreTooltip", empty: "novel.noLore" },
+	{ kind: "timeline", key: "universe-builder-scene-timelinelist", icon: "calendar-clock", label: "tab.timeline", tooltip: "novel.timelineTooltip", empty: "novel.noTimeline" },
 ];
 
 /**
@@ -235,7 +239,7 @@ export class ScenePicker {
 	private visibleEntries(): UniverseEntry[] {
 		const q = this.query.trim().toLowerCase();
 		const all = this.plugin.entries(this.def.kind);
-		return q ? all.filter((e) => e.name.toLowerCase().includes(q) || e.file.basename.toLowerCase().includes(q)) : all;
+		return q ? all.filter((e) => e.name.toLowerCase().includes(q) || e.file.basename.toLowerCase().includes(q) || !!e.detail?.toLowerCase().includes(q)) : all;
 	}
 
 	private renderList(): void {
@@ -264,6 +268,7 @@ export class ScenePicker {
 			if (selected) setIcon(check, "check");
 			renderAvatar(row.createSpan({ cls: "ue-scene-avatar" }), this.plugin, entry.file, this.def.icon);
 			row.createSpan({ cls: "ue-scene-option-name", text: entry.name });
+			if (entry.detail) row.createSpan({ cls: "ue-scene-option-detail", text: entry.detail });
 			// Keep focus in the filter box so typing and arrow keys keep working.
 			row.addEventListener("mousedown", (e) => e.preventDefault());
 			row.addEventListener("click", () => {

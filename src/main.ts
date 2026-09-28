@@ -248,6 +248,19 @@ function isShip(fm: Record<string, string>): boolean {
 	return (fm.type ?? "").trim().toLowerCase() === "ship";
 }
 
+/**
+ * Orders two timeline `date` values, earliest first. Dates are free text ("Year 342 AE",
+ * "2187-03-14", "-50"), so: plain numbers (negatives included) compare as numbers, anything else
+ * in natural order, where runs of digits compare by value ("Year 99" before "Year 342"). Events
+ * with no date go last.
+ */
+function compareTimelineDates(a: string, b: string): number {
+	if (!a || !b) return (a ? 0 : 1) - (b ? 0 : 1);
+	const num = /^[-+−]?\d+(\.\d+)?$/;
+	if (num.test(a) && num.test(b)) return Number(a.replace("−", "-")) - Number(b.replace("−", "-"));
+	return a.localeCompare(b, undefined, { sensitivity: "base", numeric: true });
+}
+
 /** File extensions treated as images (portraits, dropped files). */
 const IMG_EXT = /\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
 
@@ -5191,15 +5204,22 @@ export default class UniverseBuilderPlugin extends Plugin implements NovelEditor
 		await workspace.revealLeaf(leaf);
 	}
 
-	/** A sidebar section's entries for the novel editor's Characters / Locations / Groups menus. */
+	/** A sidebar section's entries for the novel editor's Characters / Locations / Groups / Lore / Timeline menus. */
 	universeEntries(kind: SceneKind): UniverseEntry[] {
 		const files = getMarkdownFilesIn(this.app, `${this.settings.worldFolder}/${SECTION_FOLDERS[kind]}`);
+		const text = (v: unknown) => (typeof v === "string" || typeof v === "number" ? String(v).trim() : "");
 		return files
 			.map((file) => {
-				const name: unknown = this.app.metadataCache.getFileCache(file)?.frontmatter?.name;
-				return { file, name: typeof name === "string" && name.trim() ? name.trim() : file.basename };
+				const fm = this.app.metadataCache.getFileCache(file)?.frontmatter;
+				// Characters, locations and groups have a `name`; lore and timeline entries a `title`.
+				const entry: UniverseEntry = { file, name: text(fm?.name) || text(fm?.title) || file.basename };
+				if (kind === "timeline") entry.detail = text(fm?.date);
+				return entry;
 			})
-			.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base", numeric: true }));
+			.sort((a, b) =>
+				(kind === "timeline" ? compareTimelineDates(a.detail ?? "", b.detail ?? "") : 0) ||
+				a.name.localeCompare(b.name, undefined, { sensitivity: "base", numeric: true }),
+			);
 	}
 
 	/** Portrait URL per note path, with the note's mtime it was read at (see universePortrait). */
