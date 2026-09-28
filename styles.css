@@ -1070,9 +1070,11 @@
 /* ═══ Novel scene editor (src/novel-editor) ═══════════════════════════════════ */
 
 
-/* Hide Obsidian's inline properties block in Universe notes (live preview + reading). */
-.ue-editor.ue-hide-props .metadata-container {
-	display: none !important;
+/* Hide Obsidian's inline properties block in Universe notes (live preview + reading). Specific
+   enough to beat Obsidian's own .metadata-container rules on its own. */
+.workspace-leaf-content.ue-editor.ue-hide-props .markdown-source-view .metadata-container,
+.workspace-leaf-content.ue-editor.ue-hide-props .markdown-reading-view .metadata-container {
+	display: none;
 }
 
 /* Toolbar sits between the view header and the editor.
@@ -1236,7 +1238,8 @@
 	border-color: var(--interactive-accent);
 	background: var(--background-primary);
 }
-.ue-props-add input { border-color: var(--background-modifier-border) !important; }
+/* Always outlined (beats the transparent / hover / focus borders above by specificity). */
+.ue-props-popover .ue-props-add input[type="text"] { border-color: var(--background-modifier-border); }
 
 .ue-props-key { color: var(--text-muted); }
 .ue-props-row.is-required .ue-props-key { color: var(--text-accent); cursor: default; }
@@ -1247,7 +1250,8 @@
 	font-family: var(--font-monospace);
 	resize: vertical;
 }
-.ue-props-popover .is-invalid { border-color: var(--text-error) !important; }
+/* Beats the hover / focus borders above by specificity. */
+.ue-props-popover .ue-props-input.is-invalid { border-color: var(--text-error); }
 
 .ue-props-delete { color: var(--text-faint); }
 .ue-props-delete:hover { color: var(--text-error); }
@@ -1288,8 +1292,7 @@
 	transition: grid-template-rows 220ms ease, opacity 180ms ease;
 }
 .ue-scene-wrap.is-open { grid-template-rows: 1fr; opacity: 1; }
-.ue-scene-wrap.no-anim,
-.ue-scene-wrap.no-anim .ue-scene-clip { transition: none !important; }
+.ue-scene-wrap.no-anim { transition: none; }
 .ue-scene-clip { min-height: 0; overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
 	.ue-scene-wrap,
